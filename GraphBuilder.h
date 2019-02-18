@@ -1,5 +1,3 @@
-#pragma once
-
 /*
 	Graph implementation code using adjencyList
 */
