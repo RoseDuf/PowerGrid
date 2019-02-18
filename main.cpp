@@ -1,6 +1,12 @@
-#include <iostream>
+#include<iostream>
+#include<cstdlib>
+#include"GraphBuilder.h"
+using namespace std;
 
-int main(int argc, char **argv) {
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
+
+int main() {
+	GraphBuilder graph = GraphBuilder(4);
+	graph.buildMap();
+	//print the adjacency list representation of graph
+	graph.printGraph();
 }
