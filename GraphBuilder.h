@@ -4,7 +4,9 @@
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
 
-class GraphBuilder {
+#include "Serializable.hpp"
+
+class GraphBuilder : public Serializable {
 //nested classes needed to make the adjency list
 public: 
 	struct AdjListNode {
@@ -30,6 +32,9 @@ public:
 	void addEdge(Graph * graph, int src, int dest);
 	void printGraph();
 	void buildMap();
+    
+    std::string getSerializedData(void);
+    void setSerializedData(std::string serializedData);
 
 //variables needed for the graph building
 private:

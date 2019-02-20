@@ -88,4 +88,10 @@ void GraphBuilder::buildMap() {
 	*/
 }
 
-
+std::string GraphBuilder::getSerializedData(void) {
+    // TODO
+    return "";
+}
+void GraphBuilder::setSerializedData(std::string serializedData) {
+    // TODO
+}
