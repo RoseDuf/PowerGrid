@@ -1,0 +1,7 @@
+
+#ifndef XMLDOCUMENTTREE_HPP_
+#define XMLDOCUMENTTREE_HPP_
+
+
+
+#endif
