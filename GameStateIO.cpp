@@ -3,6 +3,10 @@
 
 namespace GameStateIO {
     
-    void readXmlFile(std::string filename);
-    void writeXmlFile(std::string filename);
+    void readXmlFile(std::string filename) {
+        // TODO
+    }
+    void writeXmlFile(std::string filename) {
+        // TODO
+    }
 }
