@@ -9,8 +9,6 @@ class XmlDocumentTree {
         XmlDocumentNode rootNode;
     public:
         XmlDocumentNode getRootNode();
-        void readXmlFile(std::string filename);
-        void writeXmlFile(std::string filename);
 };
 
 #endif
