@@ -6,7 +6,12 @@ using namespace std;
 #define CITY_HPP_
 
 class City {
-
+	City();
+	City(string cityName, string cityColor);
+	string getCityName();
+	void setCityName(string cityName);
+	string getCityColor();
+	void setCityColor(string cityColor);
 
 private:
 	std::string cityName;
