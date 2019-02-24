@@ -2,12 +2,10 @@
 #include<cstdlib>
 using namespace std;
 
-#pragma once
+#ifndef CITY_HPP_
+#define CITY_HPP_
 
-#ifndef GRAPHBUILDER_HPP_
-#define GRAPHBUILDER_HPP_
-
-class GraphBuilder {
+class City {
 
 
 private:

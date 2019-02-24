@@ -1,5 +1,3 @@
-#pragma once
-
 /*
 	Graph implementation code using adjencyList
 */
@@ -27,7 +25,6 @@ public:
 
 //classes to build the graph
 public:
-	GraphBuilder();
 	GraphBuilder(int totalVertices);
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
