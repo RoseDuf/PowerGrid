@@ -7,7 +7,7 @@ namespace GameStateIO {
         
         bool containsSubstring(std::string str, std::string subStr) {
             
-            if( str.find(subStr) != std::string::npos) { // that is, if found
+            if( str.find(subStr) != std::string::npos) { // that is, if the substring is found in the main string
                 return true;
             }
             else {
