@@ -279,15 +279,15 @@ bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 	cout << "City " << v1 << " is adjacent to city " << v2 << ": ";
 	while (check == false) {
 		if (root->data == v2) {
-			check = true;
 			return true;
-			
+			check = true;
 		}
 		else {
-			return false;
 			root = root->next;
 		}
-		
+		if (root == NULL) {
+			return false;
+		}
 	}
 	delete root;
 	root = NULL;
