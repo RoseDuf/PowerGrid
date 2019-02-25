@@ -6,6 +6,8 @@ using namespace std;
 #define CITY_HPP_
 
 class City {
+
+public:
 	City();
 	City(string cityName, string cityColor);
 	string getCityName();
