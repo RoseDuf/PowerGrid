@@ -1,6 +1,9 @@
 /*
 	Graph implementation code using adjencyList
 */
+
+#include "City.h";
+
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
 
@@ -23,8 +26,25 @@ public:
 		AdjList * arr;
 	};
 
+	// Structure to represent a min heap node 
+	struct MinHeapNode
+	{
+		int v;
+		int dist;
+	};
+
+	// Structure to represent a min heap 
+	struct MinHeap
+	{
+		int size;      // Number of heap nodes present currently 
+		int capacity;  // Capacity of min heap 
+		int *pos;     // This is needed for decreaseKey() 
+		MinHeapNode ** array;
+	};
+
 //classes to build the graph
 public:
+	//building class functions
 	GraphBuilder(int totalVertices);
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
@@ -33,6 +53,18 @@ public:
 	void addEdge(Graph * graph, int src, int dest, int cost);
 	void printGraph();
 	void buildMap();
+
+	//searching algorithm funtions
+	MinHeapNode * newMinHeapNode(int v, int dist);
+	MinHeap * createMinHeap(int capacity);
+	void swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode ** b);
+	void minHeapify(struct MinHeap * minHeap, int idx);
+	int isEmpty(struct MinHeap * minHeap);
+	MinHeapNode* extractMin(struct MinHeap* minHeap);
+	void decreaseKey(struct MinHeap * minHeap, int v, int dist);
+	bool isInMinHeap(struct MinHeap * minHeap, int v);
+	void printArr(int dist[], int n);
+	void SearchCity(Graph * graph, int vector);
 
 //variables needed for the graph building
 private:
