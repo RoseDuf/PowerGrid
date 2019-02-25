@@ -64,7 +64,10 @@ public:
 	void decreaseKey(struct MinHeap * minHeap, int v, int dist);
 	bool isInMinHeap(struct MinHeap * minHeap, int v);
 	void printArr(int dist[], int n);
-	void SearchCity(Graph * graph, int vector);
+	void dijkstra(Graph * graph, int vector);
+
+	void SearchCity(int v);
+	std::string IsCityAdjacentToOtherCity(int v1, int v2);
 
 //variables needed for the graph building
 private:

@@ -87,9 +87,16 @@ void GraphBuilder::printGraph() {
 	}
 }
 
+
+
+
+/* ----------------------------------------------------------------------------------------------------------
+	Dijkstra Search algorithm source code taken and modified from: 
+	https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
+   ----------------------------------------------------------------------------------------------------------
+*/
 //function to create a new Min Heap Node 
-GraphBuilder::MinHeapNode * GraphBuilder::newMinHeapNode(int v, int dist)
-{
+GraphBuilder::MinHeapNode * GraphBuilder::newMinHeapNode(int v, int dist) {
 	MinHeapNode * minHeapNode = new MinHeapNode;
 	minHeapNode->v = v;
 	minHeapNode->dist = dist;
@@ -100,8 +107,7 @@ GraphBuilder::MinHeapNode * GraphBuilder::newMinHeapNode(int v, int dist)
 }
 
 //function to create a Min Heap 
-GraphBuilder::MinHeap * GraphBuilder::createMinHeap(int capacity)
-{
+GraphBuilder::MinHeap * GraphBuilder::createMinHeap(int capacity) {
 	MinHeap * minHeap = new MinHeap;
 	minHeap->pos = new int[capacity];
 	minHeap->size = 0;
@@ -114,8 +120,7 @@ GraphBuilder::MinHeap * GraphBuilder::createMinHeap(int capacity)
 }
 
 //function to swap two nodes of min heap. Needed for min heapify 
-void GraphBuilder::swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode ** b)
-{
+void GraphBuilder::swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode ** b) {
 	struct MinHeapNode * t = * a;
 	* a = * b;
 	* b = t;
@@ -124,8 +129,7 @@ void GraphBuilder::swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode *
 //function to heapify at given idx
 // This function also updates position of nodes when they are swapped. 
 // Position is needed for decreaseKey() 
-void GraphBuilder::minHeapify(struct MinHeap * minHeap, int idx)
-{
+void GraphBuilder::minHeapify(struct MinHeap * minHeap, int idx) {
 	int smallest, left, right;
 	smallest = idx;
 	left = 2 * idx + 1;
@@ -139,8 +143,7 @@ void GraphBuilder::minHeapify(struct MinHeap * minHeap, int idx)
 		minHeap->array[right]->dist < minHeap->array[smallest]->dist)
 		smallest = right;
 
-	if (smallest != idx)
-	{
+	if (smallest != idx) {
 		// The nodes to be swapped in min heap 
 		MinHeapNode * smallestNode = minHeap->array[smallest];
 		MinHeapNode * idxNode = minHeap->array[idx];
@@ -157,14 +160,12 @@ void GraphBuilder::minHeapify(struct MinHeap * minHeap, int idx)
 }
 
 //function to check if the given minHeap is empty or not 
-int GraphBuilder::isEmpty(struct MinHeap * minHeap)
-{
+int GraphBuilder::isEmpty(struct MinHeap * minHeap) {
 	return minHeap->size == 0;
 }
 
 //function to extract minimum node from heap 
-GraphBuilder::MinHeapNode * GraphBuilder::extractMin(struct MinHeap * minHeap)
-{
+GraphBuilder::MinHeapNode * GraphBuilder::extractMin(struct MinHeap * minHeap) {
 	if (isEmpty(minHeap))
 		return NULL;
 
@@ -197,8 +198,7 @@ void GraphBuilder::decreaseKey(MinHeap * minHeap, int v, int dist) {
 
 	// Travel up while the complete tree is not hepified. 
 	// This is a O(Logn) loop 
-	while (i && minHeap->array[i]->dist < minHeap->array[(i - 1) / 2]->dist)
-	{
+	while (i && minHeap->array[i]->dist < minHeap->array[(i - 1) / 2]->dist) {
 		// Swap this node with its parent 
 		minHeap->pos[minHeap->array[i]->v] = (i - 1) / 2;
 		minHeap->pos[minHeap->array[(i - 1) / 2]->v] = i;
@@ -210,24 +210,22 @@ void GraphBuilder::decreaseKey(MinHeap * minHeap, int v, int dist) {
 }
 
 //function to check if a given vertex 'v' is in min heap or not 
-bool GraphBuilder::isInMinHeap(MinHeap *minHeap, int v)
-{
+bool GraphBuilder::isInMinHeap(MinHeap *minHeap, int v) {
 	if (minHeap->pos[v] < minHeap->size)
 		return true;
 	return false;
 }
 
 //function used to print the solution 
-void GraphBuilder::printArr(int dist[], int n)
-{
-	printf("Vertex   Distance from Source\n");
+void GraphBuilder::printArr(int dist[], int n) {
+	printf("Vertex   Total Cost from Source\n");
 	for (int i = 0; i < n; ++i)
 		printf("%d \t\t %d\n", i, dist[i]);
 }
 
 //function that calulates distances of shortest paths from src to all vertices. It is a O(ELogV) function 
 //dijkstra search algorithm
-void GraphBuilder::SearchCity(Graph * graph, int src) {
+void GraphBuilder::dijkstra(Graph * graph, int src) {
 	int V = graph->v; // Get the number of vertices in graph 
 	int * dist = new int[V];     // dist values used to pick minimum weight edge in cut 
 	
@@ -235,8 +233,7 @@ void GraphBuilder::SearchCity(Graph * graph, int src) {
 	MinHeap * minHeap = createMinHeap(V);
 
 	// Initialize min heap with all vertices. dist value of all vertices  
-	for (int v = 0; v < V; ++v)
-	{
+	for (int v = 0; v < V; ++v) {
 		dist[v] = INT_MAX;
 		minHeap->array[v] = newMinHeapNode(v, dist[v]);
 		minHeap->pos[v] = v;
@@ -244,7 +241,7 @@ void GraphBuilder::SearchCity(Graph * graph, int src) {
 
 	// Make dist value of src vertex as 0 so that it is extracted first 
 	minHeap->array[src] = newMinHeapNode(src, dist[src]);
-	//minHeap->pos[src] = src;
+	//minHeap->pos[src] = src; //this is useless
 	dist[src] = 0;
 	decreaseKey(minHeap, src, dist[src]);
 
@@ -253,8 +250,7 @@ void GraphBuilder::SearchCity(Graph * graph, int src) {
 
 	// In the followin loop, min heap contains all nodes 
 	// whose shortest distance is not yet finalized. 
-	while (!isEmpty(minHeap))
-	{
+	while (!isEmpty(minHeap)) {
 		// Extract the vertex with minimum distance value 
 		struct MinHeapNode * minHeapNode = extractMin(minHeap);
 		int u = minHeapNode->v; // Store the extracted vertex number 
@@ -262,15 +258,12 @@ void GraphBuilder::SearchCity(Graph * graph, int src) {
 								// Traverse through all adjacent vertices of u (the extracted 
 								// vertex) and update their distance values 
 		struct AdjListNode * pCrawl = graph->arr[u].head;
-		while (pCrawl != NULL)
-		{
+		while (pCrawl != NULL) {
 			int v = pCrawl->data;
 
 			// If shortest distance to v is not finalized yet, and distance to v 
 			// through u is less than its previously calculated distance 
-			if (isInMinHeap(minHeap, v) && dist[u] != INT_MAX &&
-				pCrawl->cost + dist[u] < dist[v])
-			{
+			if (isInMinHeap(minHeap, v) && dist[u] != INT_MAX && pCrawl->cost + dist[u] < dist[v]) {
 				dist[v] = dist[u] + pCrawl->cost;
 
 				// update distance value in min heap also 
@@ -284,6 +277,28 @@ void GraphBuilder::SearchCity(Graph * graph, int src) {
 
 	delete[] dist;
 	dist = NULL;
+}
+
+
+std::string GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
+	AdjListNode * root = graph->arr[v1].head;
+
+	while (root->data != v2) {
+		if (root->data == v2) {
+			return "true";
+		}
+		else {
+			root = root->next;
+			return "false";
+		}
+	}
+
+	delete root;
+	root = NULL;
+}
+
+void GraphBuilder::SearchCity(int v) {
+	dijkstra(graph, v);
 }
 
 void GraphBuilder::buildMap() {
@@ -373,8 +388,6 @@ void GraphBuilder::buildMap() {
 	addEdge(graph, 38, 40, 16);
 	addEdge(graph, 38, 39, 16);
 	addEdge(graph, 39, 40, 14);
-
-	SearchCity(graph, 0);
 
 	
 	/* // careful not to add any dupilcate edges that we already defined
