@@ -2,6 +2,7 @@
 #include<iostream>
 #include<cstdlib>
 #include "GraphBuilder.h"
+#include <limits.h>
 using namespace std;
 
 
@@ -27,10 +28,6 @@ GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int data, int cost) {
 	nptr->cost = cost;
 	nptr->next = NULL;
 	return nptr;
-
-	//we don't need this pointer after it is done making its data
-	delete nptr;
-	nptr = NULL;
 }
 
 //function to create a graph of v vertices
@@ -101,9 +98,6 @@ GraphBuilder::MinHeapNode * GraphBuilder::newMinHeapNode(int v, int dist) {
 	minHeapNode->v = v;
 	minHeapNode->dist = dist;
 	return minHeapNode;
-
-	delete minHeapNode;
-	minHeapNode = NULL;
 }
 
 //function to create a Min Heap 
@@ -114,9 +108,6 @@ GraphBuilder::MinHeap * GraphBuilder::createMinHeap(int capacity) {
 	minHeap->capacity = capacity;
 	minHeap->array = new MinHeapNode * [capacity];
 	return minHeap;
-
-	delete minHeap;
-	minHeap = NULL;
 }
 
 //function to swap two nodes of min heap. Needed for min heapify 
@@ -279,20 +270,25 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 	dist = NULL;
 }
 
+// ----------------------------------------------------------------------------------------------------------
 
-std::string GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
+bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 	AdjListNode * root = graph->arr[v1].head;
+	bool check = false;
 
-	while (root->data != v2) {
+	cout << "City " << v1 << " is adjacent to city " << v2 << ": ";
+	while (check == false) {
 		if (root->data == v2) {
-			return "true";
+			check = true;
+			return true;
+			
 		}
 		else {
+			return false;
 			root = root->next;
-			return "false";
 		}
+		
 	}
-
 	delete root;
 	root = NULL;
 }

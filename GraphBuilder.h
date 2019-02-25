@@ -2,7 +2,7 @@
 	Graph implementation code using adjencyList
 */
 
-#include "City.h";
+#include "City.h"
 
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
@@ -67,7 +67,7 @@ public:
 	void dijkstra(Graph * graph, int vector);
 
 	void SearchCity(int v);
-	std::string IsCityAdjacentToOtherCity(int v1, int v2);
+	bool IsCityAdjacentToOtherCity(int v1, int v2);
 
 //variables needed for the graph building
 private:
