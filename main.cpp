@@ -10,4 +10,8 @@ int main() {
 	graph.buildMap();
 	//print the adjacency list representation of graph
 	graph.printGraph();
+
+	graph.SearchCity(0);
+
+	graph.IsCityAdjacentToOtherCity(0, 1);
 }
