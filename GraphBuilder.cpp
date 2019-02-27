@@ -293,6 +293,36 @@ bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 	root = NULL;
 }
 
+int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
+	AdjListNode * root = graph->arr[v1].head;
+	bool check = false;
+
+	//make an error handler here
+	//***********************
+	/*
+	if (IsCityAdjacentToOtherCity(v1, v2) != true) {
+		cout << "These cities aren't next to each other!";
+		return 0;
+	}
+	*/
+	cout << "Cost from city " << v1 << " to adjacent city " << v2 << ": ";
+	
+	while (check == false) {
+		if (root->data == v2) {
+			return root->cost;
+			check = true;
+		}
+		else {
+			root = root->next;
+		}
+		if (root == NULL) {
+			return 0;
+		}
+	}
+	delete root;
+	root = NULL;
+}
+
 void GraphBuilder::SearchCity(int v) {
 	dijkstra(graph, v);
 }

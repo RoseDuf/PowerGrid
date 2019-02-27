@@ -14,5 +14,6 @@ int main() {
 	graph.SearchCity(0);
 
 	std::cout << std::boolalpha;
-	std::cout << graph.IsCityAdjacentToOtherCity(0, 2) <<endl;
+	std::cout << graph.IsCityAdjacentToOtherCity(1, 3) <<endl;
+	std::cout << graph.CostFromOneCityToAnother(1, 3) << endl;
 }

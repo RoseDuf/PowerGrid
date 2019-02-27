@@ -52,7 +52,6 @@ public:
 	Graph * createGraph(int v);
 	void addEdge(Graph * graph, int src, int dest, int cost);
 	void printGraph();
-	void buildMap();
 
 	//searching algorithm funtions
 	MinHeapNode * newMinHeapNode(int v, int dist);
@@ -66,8 +65,10 @@ public:
 	void printArr(int dist[], int n);
 	void dijkstra(Graph * graph, int vector);
 
-	void SearchCity(int v);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
+	void SearchCity(int v);
+	int CostFromOneCityToAnother(int v1, int v2);
+	void buildMap();
 
 //variables needed for the graph building
 private:
