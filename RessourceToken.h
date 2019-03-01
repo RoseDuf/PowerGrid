@@ -8,13 +8,8 @@ public:
 	RessourceToken(int _number, string _identifier);
 	~RessourceToken();
 
-
-// Still issue with inheritance here ******
-
     void toString();
 
 private:
-
-	
 	
 };

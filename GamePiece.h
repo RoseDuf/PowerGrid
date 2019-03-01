@@ -24,7 +24,7 @@ protected:
 	string identifier;
     vector<string> tokenNames;
 	bool checkIdentifier(string _identifier);
-	 bool checkNumber(int _number);
+    bool checkNumber(int _number);
 
 };
 

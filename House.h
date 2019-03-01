@@ -10,14 +10,10 @@ public:
 	House(string _identifier);
 	~House();
 
-	// Still issue with inheritance here ******
-
     void toString();
 
 
 private:
-
-	
 	
 };
 
