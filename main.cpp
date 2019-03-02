@@ -5,8 +5,17 @@
 using namespace std;
 #include "PowerPlant.h"
 #include "player.hpp"
-static vector<Player> deck;
+#include "GameCard.h"
 
+
+static vector<GameCard> deck;
+
+
+static void shuffle(vector<GameCard> _deck)
+{
+//To DOO *****
+
+}
 static void makingDeck()
 {
     PowerPlant p1 = PowerPlant(3, 1, 2, "oil", "");
@@ -52,15 +61,24 @@ static void makingDeck()
     PowerPlant p41 = PowerPlant(46, 7, 3, "oil", "coal");
     PowerPlant p42 = PowerPlant(50, 6, 0, "", "");
     
+    GameCard s3 = GameCard("s3");
     for (int i = 0; i < 42 ; i++)
     {
         deck.push_back("p"+ to_string(i));
     }
     
-    for (int i = 0; i < 50 ; i++)
+    
+    deck.push_back(s3);
+    
+    for (int i = 0; i < deck.size() ; i++)
     {
-        deck[i].display() ;
+        
+        //PROBLEM WITH INHERITANCE: PRINTING PARENT TOSTRING() METHOD
+        deck[i].toString() ;
     }
+    
+    
+    
 }
 
 

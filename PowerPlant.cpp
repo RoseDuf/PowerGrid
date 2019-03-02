@@ -94,6 +94,7 @@ void PowerPlant::setNumRessourceTokenStocked2(int _ressourceTokenStocked2)
    r2.setNumber(_ressourceTokenStocked2);
 }
 
+
 void PowerPlant::toString()
 {
     
@@ -114,7 +115,4 @@ void PowerPlant::toString()
         "Number of tokens needed : " << numRessourcesTokensNeeded << "\n" << "In stock : " << endl;
     }
 		//to do : In stock
-    
-    
-	 
 }

@@ -30,7 +30,7 @@ Player::Player(string name){
 
 
 
-void Player::display(){
+void Player::toString(){
 
     cout << "Player name: " << name
     << "\nNumber of cities owned: " << numCities

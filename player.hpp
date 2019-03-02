@@ -68,7 +68,7 @@ public:
     }
     
     //string method for Player object
-    void display();
+     void toString();
     
 };
 

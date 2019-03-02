@@ -14,7 +14,7 @@ public:
 	string getIdentifier();
 	void setIdentifier(string _identifier);
 
-	 void toString();
+	 virtual void toString();
 
 protected:
 	string identifier;
