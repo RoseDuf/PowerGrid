@@ -17,6 +17,18 @@ Elektro::~Elektro()
 	// TO DO
 }
 
+void Elektro::CollectElektro(int _quantity, int _billValue)
+{
+    quantity+=_quantity;
+    billValue = _billValue;
+}
+
+void Elektro::setElektro(int _quantity, int _billValue)
+{
+    quantity = _quantity;
+    billValue = _billValue;
+}
+
 int Elektro::getQuantity()
 {
 	return quantity;
@@ -27,15 +39,6 @@ int Elektro::getBillValue()
 	return billValue;
 }
 
-void Elektro::setQuantity(int _quantity)
-{
-	quantity = _quantity;
-}
-
-void Elektro::setBillValue(int _billValue)
-{
-	billValue = _billValue;
-}
 
 int Elektro::getBalance()
 {

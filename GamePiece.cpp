@@ -38,7 +38,7 @@ void GamePiece::setNumber(int _number)
 	}
 	else
 	{
-		cout << "Invalid number." << endl;;
+		//cout << "Invalid number." << endl;;
 	}
 }
 
@@ -50,7 +50,7 @@ void GamePiece::setIdentifier(string _identifier)
 	}
 	else
 	{
-		cout << "Invalid identifier." << endl;
+		//cout << "Invalid identifier." << endl;
 	}
 }
 
