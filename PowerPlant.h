@@ -1,6 +1,7 @@
 #pragma once
 #include "GameCard.h"
 #include <vector>
+#include "RessourceToken.h"
 
 class PowerPlant :
 	public GameCard
@@ -38,8 +39,11 @@ private:
     bool twoTypes = false;
     
 	int cardNumber;
+    
+    RessourceToken r1;
+    RessourceToken r2;
     string typeRessourceTokenNeeded[2];
-    int ressourceTokenStocked[2];
+    //int ressourceTokenStocked[2];
 	int numRessourcesTokensNeeded;
 
 	int numCitiesPowered;

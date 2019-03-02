@@ -12,8 +12,8 @@ PowerPlant::PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _numRessour
 	numRessourcesTokensNeeded = _numRessourcesTokensNeeded;
 
     //filling array with types of ressource tokens needed
-    typeRessourceTokenNeeded[0] = _typeRessourceTokenNeeded1;
-    typeRessourceTokenNeeded[1]= _typeRessourceTokenNeeded2;
+    r1.setIdentifier(_typeRessourceTokenNeeded1);
+    r2.setIdentifier(_typeRessourceTokenNeeded2);
 }
 
 PowerPlant::~PowerPlant()
