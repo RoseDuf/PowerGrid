@@ -1,12 +1,14 @@
 
 #include<iostream>
-
-
-using namespace std;
+#include<cstdlib>
+#include"GraphBuilder.h"
+#include "GameStateIO.hpp"
+#include "HelperFunctions.hpp"
 #include "PowerPlant.h"
 #include "player.hpp"
 #include "GameCard.h"
 
+using namespace std;
 
 static vector<GameCard> deck;
 
@@ -109,6 +111,8 @@ int main() {
     
     
     //creating powerplant cards for the card deck
+ 
+    // GameStateIO::readXmlFile("/home/deniz/kdevelop_projects/PowerGrid/powergrid_cities.map");
     
     return 0;
 }
