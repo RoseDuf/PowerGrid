@@ -1,23 +1,40 @@
 
-
 #include "XmlDocumentNode.hpp"
 
-std::string XmlDocumentNode::getNodeValue() {
-    return getNodeValue();
+XmlDocumentNode::XmlDocumentNode(std::string rootElementName, std::string rootElementValue) {
+        
+    elementName = rootElementName;
+    elementValue = rootElementValue;
 }
 
-std::list<XmlDocumentNode> XmlDocumentNode::getChildNodes() {
+std::string XmlDocumentNode::getNodeName() {
+    return elementName;
+}
+
+std::string XmlDocumentNode::getNodeValue() {
+    return elementValue;
+}
+
+void XmlDocumentNode::setNodeName(std::string nodeName) {
+    this->elementName = nodeName;
+}
+
+void XmlDocumentNode::setNodeValue(std::string nodeValue) {
+    this->elementValue = nodeValue;
+}
+
+std::list<XmlDocumentNode*> XmlDocumentNode::getChildNodes() {
     return childNodes;
 }
 
-void XmlDocumentNode::addChildNode(XmlDocumentNode childNodeToAdd) {
+void XmlDocumentNode::addChildNode(XmlDocumentNode* childNodeToAdd) {
     childNodes.push_back(childNodeToAdd);
 }
 
-void XmlDocumentNode::addChildNodes(std::list<XmlDocumentNode> childNodesToAdd) {
+void XmlDocumentNode::addChildNodes(std::list<XmlDocumentNode*> childNodesToAdd) {
     
     for(int i = 0; i < childNodesToAdd.size(); i++) {
-        childNodesToAdd.push_back( childNodes.front() );
-        childNodes.pop_front();
+        childNodes.push_back( childNodesToAdd.front() );
+        childNodesToAdd.pop_front();
     }
 }
