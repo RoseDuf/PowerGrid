@@ -1,4 +1,7 @@
 
+#ifndef HELPERFUNCTIONS_HPP_
+#define HELPERFUNCTIONS_HPP_
+
 namespace HelperFunctions {
     
     bool containsSubstring(std::string str, std::string subStr);
@@ -9,3 +12,5 @@ namespace HelperFunctions {
     
     std::string reverseStr(std::string str);
 }
+
+#endif
