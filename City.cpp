@@ -8,9 +8,18 @@ City::City() {
 	cityColor = "BLANK";
 }
 
-City::City(string cn, string cc) {
+City::City(int cityno, string cn, string cc) {
+	cityNumber = cityno;
 	cityName = cn;
 	cityColor = cc;
+}
+
+int City::getCityNumber() {
+	return cityNumber;
+}
+
+void City::setCityNumber(string cityno) {
+	cityNumber = ;cityno
 }
 
 string City::getCityName() {
