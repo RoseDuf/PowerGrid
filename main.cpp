@@ -112,7 +112,7 @@ int main() {
     
     //creating powerplant cards for the card deck
  
-    // GameStateIO::readXmlFile("/home/deniz/kdevelop_projects/PowerGrid/powergrid_cities.map");
+    //GameState gameState = GameStateIO::readXmlFile("/home/deniz/kdevelop_projects/PowerGrid/powergrid_cities.map");
     
     return 0;
 }
