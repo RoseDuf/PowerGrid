@@ -137,19 +137,6 @@ namespace GameStateIO {
             return node;
         }*/
         
-        int getAmountOfChildren(std::string parentAndItsChildren, std::string parentElementName) {
-         
-            int i = 0;
-            int amountOfChildren = 0;
-            while( parentAndItsChildren.find("<", i) != string::npos )  { // while found
-                i++;
-            }
-            
-            amountOfChildren = i/2 - 1;
-            
-            return amountOfChildren;
-        }
-        
         bool isValue(std::string str) {
             bool tempBool = str.find("<") == string::npos; // if there is no position for <, then it's a value (not other set of nested tags)
             return tempBool;
