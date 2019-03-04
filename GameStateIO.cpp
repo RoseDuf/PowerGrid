@@ -18,138 +18,6 @@ namespace GameStateIO {
         
     namespace {
         
-//         bool containsSiblingTagPair(std::string siblingTagPairs, std::string parentElementName) {
-//             
-//             bool tempBool = containsSubstring(siblingTagPairs, "<"+parentElementName+">");
-//             return tempBool;
-//         }
-//         
-//         std::string getLeadingSiblingTagPairString(std::string siblingsTotalStr, std::string elementName) {
-//             
-//             // Start and end indices OF SIBLING TO EXTRACT from siblingsTotalStr
-//             int startIndex = siblingsTotalStr.find("<"+elementName+">");
-//             int endIndex = siblingsTotalStr.find("</"+elementName+">")+string("</").size()+elementName.size();/* no +string(">").size(); because we want to include > */
-//             
-//             std::string tempStr = chopStr( siblingsTotalStr, startIndex, endIndex );
-//             return tempStr;
-//         }
-//         
-//         std::string getLeadingSiblingName(std::string siblingsTotalStr) {
-//             int startIndex = siblingsTotalStr.find("<") + string("<").size();
-//             int endIndex = siblingsTotalStr.find(">") - string(">").size();
-//             
-//             std::string tempStr = chopStr( siblingsTotalStr, startIndex, endIndex );
-//             return tempStr;
-//         }
-//         
-//         std::string resultingStringWithLeadSiblingRemoved(std::string siblingsTotalStr, std::string elementNameOfLeadSibling) {
-//             
-//             int a = siblingsTotalStr.find("<"+elementNameOfLeadSibling+">") + string("<").size() + siblingsTotalStr.size() + string(">").size();            
-//             int b = siblingsTotalStr.find("</"+elementNameOfLeadSibling+">") - string("<").size();
-//             std::string tempStr = chopStr(siblingsTotalStr, a, b);
-//             
-//            return tempStr;
-//         }
-//         
-//         
-//         std::string extractChildrenTagPairsString(std::string parentTagPairsContainingChildrenTagPairs, std::string elementNameOfParent) {
-//             int a = parentTagPairsContainingChildrenTagPairs.find("<"+elementNameOfParent+">")
-//             + string("<").size() + elementNameOfParent.size() + string(">").size();
-//             
-//             int b = parentTagPairsContainingChildrenTagPairs.find("</"+elementNameOfParent+">") - string("<").size();
-//             
-//             std::string tempStr = chopStr(parentTagPairsContainingChildrenTagPairs, a, b);
-//             
-//            return tempStr;
-//         }
-// 
-//         bool isLoneTagPair(std::string totalStr, std::string elementName) { // for the current depth in the tree
-//             std::string tempStr = chopStr( totalStr, 0+string("<").size(), totalStr.size()-1); // tempStr = totalStr with char at index 0 removed
-//             bool tempBool = tempStr.find("<"+elementName+">") == string::npos; // if <elementName> cannot be found, then return true, as in it is a lone tag pair
-//             return tempBool;
-//         }
-//         
-//         bool hasNestedTagPair(std::string parentTagPairStr, std::string parentElementName) {
-//             
-//             int a = parentTagPairStr.find("<"+parentElementName+">")+string("<").size()+parentElementName.size()+string(">").size();
-//             int b = parentTagPairStr.find("</"+parentElementName+">")-string("<").size();
-//             
-//             std::string stringWithinParentTagPair = chopStr(parentTagPairStr, a, b);
-//             
-//             bool tempBool = stringWithinParentTagPair.find("<") != string::npos; // if there is another opening angle bracket, then there's another one or more nested tag pairs
-//             return tempBool;
-//         }
-//         
-//         std::string extractValueFromLoneTagPair(std::string currentTotalStr) {
-// 
-//             std::string elementName = getLeadingSiblingName(currentTotalStr);
-//             
-//             int includedStartIndex = currentTotalStr.find("<") + string("<").size() + elementName.size() + string(">").size();
-//             int includedEndIndex = currentTotalStr.find("</"+elementName+">") - string("<").size();
-//             
-//             std::string extractedValue = chopStr( currentTotalStr, includedStartIndex, includedEndIndex );
-//             
-//             return extractedValue;
-//         }
-//         
-//         XmlDocumentNode* recursive(std::string totalStr) {
-//             std::string parentElementName = chopStr( totalStr, 0+string("<").size(), totalStr.find(">")-string(">").size() );
-//             XmlDocumentNode* currentNode = new XmlDocumentNode("","");
-//             
-//             if( isLoneTagPair(totalStr, parentElementName) && !hasNestedTagPair(totalStr, parentElementName) ) {
-//                 
-//                 currentNode = new XmlDocumentNode( parentElementName, extractValueFromLoneTagPair(totalStr) );
-//             }
-//             else {
-//                 std::string childrenStr = extractChildrenTagPairsString(totalStr, parentElementName);;
-//                 while( containsSiblingTagPair(childrenStr, parentElementName) ) {
-//                     childrenStr = extractChildrenTagPairsString(totalStr, parentElementName);
-//                     currentNode = new XmlDocumentNode(parentElementName, "");
-//                     currentNode->addChildNode( recursive(getLeadingSiblingTagPairString(childrenStr, getLeadingSiblingName(childrenStr))) );
-//                     childrenStr = resultingStringWithLeadSiblingRemoved(childrenStr, getLeadingSiblingName(childrenStr));
-//                 }
-//             }
-//             
-//             return currentNode;
-//         }
-    
-        /*std::string getNextNameAndRemoveIt(std::string& totalStr) {
-            
-            int a = totalStr.find("<")+1; // first char after <
-            int b = totalStr.find(">")-1; // first char before >
-            
-            std::string nextName = chopStr(totalStr, a, b);
-            
-            int c = nextName.size()+2; // one char after closing angle bracket of <elementName>
-            int d = totalStr.find("</"+nextName+">")-1; // one char before opening angle bracket of </elementName>
-            
-            totalStr = chopStr(totalStr,c,d);
-            
-            return nextName;
-        }*/
-        
-        //b4:
-        /*XmlDocumentNode* recursive(std::string totalStr) {
-            std::string name = getNextNameAndRemoveIt(totalStr);
-            std::string value = "wtv";
-            XmlDocumentNode* node = new XmlDocumentNode(name, value);
-            
-            return node;
-        }*/
-        
-        int getAmountOfChildren(std::string parentAndItsChildren, std::string parentElementName) {
-         
-            int i = 0;
-            int amountOfChildren = 0;
-            while( parentAndItsChildren.find("<", i) != string::npos )  { // while found
-                i++;
-            }
-            
-            amountOfChildren = i/2 - 1;
-            
-            return amountOfChildren;
-        }
-        
         bool isValue(std::string str) {
             bool tempBool = str.find("<") == string::npos; // if there is no position for <, then it's a value (not other set of nested tags)
             return tempBool;
@@ -214,7 +82,7 @@ namespace GameStateIO {
         }
     }
     
-    void readXmlFile(std::string filename) {
+    GameState readXmlFile(std::string filename) {
         
         std::ifstream myfile(filename);
         std::string fileAsOneLinerString = "";
@@ -262,6 +130,8 @@ namespace GameStateIO {
         //std::cout << "thing1: " << gameStateNode.getChildNodes().pop_front().getNodeName();
         //std::cout << "thing2: " << gameStateNode.getChildNodes().pop_front().getNodeValue();
         */
+        
+        return GameState();
     }
     void writeXmlFile(std::string filename) {
         // TODO

@@ -4,13 +4,12 @@
 #define GAMESTATEIO_HPP_
 
 #include <string>
-//#include "XmlDocumentNode.hpp"
+#include "GameState.hpp"
 
 namespace GameStateIO {
     
-    void readXmlFile(std::string filename);
-    void writeXmlFile(std::string filename);
-    //std::list<XmlDocumentNode*> recursive(std::string str, int endOp, int begClo);
+    GameState readXmlFile(std::string filename);
+    void writeXmlFile(GameState gameState);
 }
 
 #endif
