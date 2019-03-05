@@ -4,18 +4,20 @@
 
 #include<iostream>
 #include<cstdlib>
+#include <string>
 
 class City {
 
 public:
-	City(int cityNumber, std::string cityName, string cityColor);
+    City();
+	City(int cityNumber, std::string cityName, std::string cityColor);
 	City(std::string cityName, std::string cityColor);
 	std::string getCityName();
 	void setCityName(std::string cityName);
 	std::string getCityColor();
     void setCityColor(std::string cityColor);	
 	int getCityNumber();
-	void setCityNumber(std::string cityNumber);
+	void setCityNumber(int cityNumber);
 
 private:
 	int cityNumber;
