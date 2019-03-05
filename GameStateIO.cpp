@@ -15,8 +15,16 @@ using namespace HelperFunctions;
 using namespace std;
 
 namespace GameStateIO {
-        
     namespace {
+        
+        void c() {
+            std::cout << "c" << std::endl;
+        }
+        
+        void b() {
+            std::cout << "b" << std::endl;
+            c();
+        }
 
         bool isValue(std::string str) {
             bool tempBool = str.find("<") == string::npos; // if there is no position for <, then it's a value (not other set of nested tags)
@@ -80,6 +88,11 @@ namespace GameStateIO {
             
             return parentNode;
         }
+        
+        XmlDocumentTree* xmlParser(std::string parentElementName, std::string totalStr) {
+            
+            return new XmlDocumentTree( recursiveXmlParser(parentElementName,totalStr) );
+        }
     }
     
     GameState readXmlFile(std::string filename) {
@@ -106,14 +119,15 @@ namespace GameStateIO {
         
         
         // some testing of recursiveXmlParser function
-//         XmlDocumentNode* rootNode = recursiveXmlParser("GameState", fileAsOneLinerString);
-//         std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
-//         std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
-//         std::cout << "name: " << children.front()->getNodeName() << std::endl;
-//         std::cout << "value: " << children.front()->getNodeValue() << std::endl;
-//         std::list<XmlDocumentNode*> grandchildren = children.front()->getChildNodes();
-//         std::cout << "name: " << grandchildren.front()->getNodeName() << std::endl;
-//         std::cout << "value: " << grandchildren.front()->getNodeValue() << std::endl;
+        XmlDocumentTree* tree = xmlParser("GameState", fileAsOneLinerString);
+        XmlDocumentNode* rootNode = tree->getRootNode();
+        std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
+        std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
+        std::cout << "name: " << children.front()->getNodeName() << std::endl;
+        std::cout << "value: " << children.front()->getNodeValue() << std::endl;
+        std::list<XmlDocumentNode*> grandchildren = children.front()->getChildNodes();
+        std::cout << "name: " << grandchildren.front()->getNodeName() << std::endl;
+        std::cout << "value: " << grandchildren.front()->getNodeValue() << std::endl;
         
         
         
