@@ -60,7 +60,7 @@ namespace GameStateIO {
             return nameAndTagPairs;
         }
         
-        XmlDocumentNode* recursiveXmlParser(std::string parentElementName, std::string totalStr) { // TODO
+        XmlDocumentNode* recursiveXmlParser(std::string parentElementName, std::string totalStr) {
             
             XmlDocumentNode* parentNode = new XmlDocumentNode("placeholder1","placeholder2");
             
