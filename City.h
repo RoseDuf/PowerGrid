@@ -1,21 +1,22 @@
-#include<iostream>
-#include<cstdlib>
-using namespace std;
-
 #ifndef CITY_HPP_
 #define CITY_HPP_
+
+#include<iostream>
+#include<cstdlib>
+#include <string>
 
 class City {
 
 public:
 	City();
-	City(int cityNumber, string cityName, string cityColor);
+	City(int cityNumber, std::string cityName, std::string cityColor);
+	City(std::string cityName, std::string cityColor);
+	std::string getCityName();
+	void setCityName(std::string cityName);
+	std::string getCityColor();
+	void setCityColor(std::string cityColor);
 	int getCityNumber();
-	void setCityNumber(string cityNumber);
-	string getCityName();
-	void setCityName(string cityName);
-	string getCityColor();
-	void setCityColor(string cityColor);
+	void setCityNumber(int cityNumber);
 
 private:
 	int cityNumber;

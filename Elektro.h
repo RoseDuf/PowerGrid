@@ -6,11 +6,16 @@ public:
 	Elektro(int _quantity, int _billValue);
 	~Elektro();
 
-	int getQuantity();
+    void CollectElektro(int quantity, int billValue);
+    void setElektro(int quantity, int billValue);
+    int getQuantity();
+    int getBillValue();
+    /*
+     int getQuantity();
 	int getBillValue();
 	void setQuantity(int _quantity);
 	void setBillValue(int _billValue);
-
+*/
 	int getBalance();
 	void toString();
 
