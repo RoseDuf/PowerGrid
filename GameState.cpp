@@ -1,21 +1,21 @@
 #include "GameState.hpp"
 
-void GameState::setEdgePairs(std::vector< std::pair<City, City> > edgePairs) {
-    this->edgePairs = edgePairs;
+void GameState::setEdgeTriplets(std::vector<EdgeTriplet> edgeTriplets) {
+    this->edgeTriplets = edgeTriplets;
 }
 
-void GameState::addEdgePairs(std::vector< std::pair<City, City> > additionalEdgePairs) {
-    for(int i = 0; i < additionalEdgePairs.size(); i++) {
-        this->edgePairs.push_back( additionalEdgePairs.at(i) );
+void GameState::addEdgeTriplets(std::vector< EdgeTriplet > additionalEdgeTriplets) {
+    for(int i = 0; i < additionalEdgeTriplets.size(); i++) {
+        this->edgeTriplets.push_back( additionalEdgeTriplets.at(i) );
     }
 }
 
-void GameState::addEdgePair(std::pair<City, City> additionalEdgePair) {
-    this->edgePairs.push_back( additionalEdgePair );
+void GameState::addEdgeTriplet(EdgeTriplet additionalEdgeTriplet) {
+    this->edgeTriplets.push_back( additionalEdgeTriplet );
 }
 
-std::vector< std::pair<City, City> > GameState::getEdgePairs() {
-    return edgePairs;
+std::vector< EdgeTriplet > GameState::getEdgeTriplets() {
+    return edgeTriplets;
 }
 
 void GameState::setTurnOfPlayer(int turnOfPlayer) {

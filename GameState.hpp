@@ -4,17 +4,20 @@
 #include <vector>
 #include "City.h"
 #include "player.hpp"
+#include <tuple>
+
+typedef std::tuple<City,City,int> EdgeTriplet;
 
 class GameState {
     private:
         int turnOfPlayer;
-        std::vector< std::pair<City, City> > edgePairs;
+        std::vector< EdgeTriplet > edgeTriplets;
         std::vector<Player> players;
     public:
-        std::vector< std::pair<City, City> > getEdgePairs();
-        void setEdgePairs(std::vector< std::pair<City, City> > edgePairs);
-        void addEdgePairs(std::vector< std::pair<City, City> > additionalEdgePairs);
-        void addEdgePair(std::pair<City, City> additionalEdgePair);
+        std::vector< EdgeTriplet > getEdgeTriplets();
+        void setEdgeTriplets(std::vector< EdgeTriplet > edgeTriplets);
+        void addEdgeTriplets(std::vector< EdgeTriplet > additionalEdgeTriplets);
+        void addEdgeTriplet(EdgeTriplet additionalEdgeTriplet);
         void setTurnOfPlayer(int turnOfPlayer);
         int getTurnOfPlayer();
         std::vector<Player> getPlayers();
