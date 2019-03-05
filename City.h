@@ -8,7 +8,8 @@
 class City {
 
 public:
-	City();
+
+    City();
 	City(int cityNumber, std::string cityName, std::string cityColor);
 	City(std::string cityName, std::string cityColor);
 	std::string getCityName();

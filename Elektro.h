@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ELEKTRO_H_
+#define ELEKTRO_H_
+
 class Elektro
 {
 public:
@@ -25,3 +27,4 @@ private:
 
 };
 
+#endif
