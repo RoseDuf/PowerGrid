@@ -4,6 +4,7 @@
 using namespace std;
 
 City::City() {
+	cityNumber = 0;
 	cityName = "No Name";
 	cityColor = "BLANK";
 }
@@ -18,8 +19,8 @@ int City::getCityNumber() {
 	return cityNumber;
 }
 
-void City::setCityNumber(string cityno) {
-	cityNumber = ;cityno
+void City::setCityNumber(int cityno) {
+	cityNumber = cityno;
 }
 
 string City::getCityName() {

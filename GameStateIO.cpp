@@ -105,14 +105,15 @@ namespace GameStateIO {
 //         }
         
         
-        XmlDocumentNode* rootNode = recursiveXmlParser("GameState", fileAsOneLinerString);
-        std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
-        std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
-        std::cout << "name: " << children.front()->getNodeName() << std::endl;
-        std::cout << "value: " << children.front()->getNodeValue() << std::endl;
-        std::list<XmlDocumentNode*> grandchildren = children.front()->getChildNodes();
-        std::cout << "name: " << grandchildren.front()->getNodeName() << std::endl;
-        std::cout << "value: " << grandchildren.front()->getNodeValue() << std::endl;
+        // more testing
+//         XmlDocumentNode* rootNode = recursiveXmlParser("GameState", fileAsOneLinerString);
+//         std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
+//         std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
+//         std::cout << "name: " << children.front()->getNodeName() << std::endl;
+//         std::cout << "value: " << children.front()->getNodeValue() << std::endl;
+//         std::list<XmlDocumentNode*> grandchildren = children.front()->getChildNodes();
+//         std::cout << "name: " << grandchildren.front()->getNodeName() << std::endl;
+//         std::cout << "value: " << grandchildren.front()->getNodeValue() << std::endl;
         
         
         
