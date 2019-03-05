@@ -16,16 +16,6 @@ using namespace std;
 
 namespace GameStateIO {
     namespace {
-        
-        void c() {
-            std::cout << "c" << std::endl;
-        }
-        
-        void b() {
-            std::cout << "b" << std::endl;
-            c();
-        }
-
         bool isValue(std::string str) {
             bool tempBool = str.find("<") == string::npos; // if there is no position for <, then it's a value (not other set of nested tags)
             return tempBool;
