@@ -105,7 +105,7 @@ namespace GameStateIO {
 //         }
         
         
-        // more testing
+        // some testing of recursiveXmlParser function
 //         XmlDocumentNode* rootNode = recursiveXmlParser("GameState", fileAsOneLinerString);
 //         std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
 //         std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
