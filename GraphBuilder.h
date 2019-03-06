@@ -3,6 +3,9 @@
 */
 
 #include "City.h"
+#include "player.hpp"
+#include "GameState.hpp"
+#include "GameStateIO.hpp"
 
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
@@ -11,13 +14,16 @@ class GraphBuilder {
 //nested classes needed to make the adjency list
 public: 
 	struct AdjListNode {
-		int data;
-		//City city;
+		City city;
+		
+		Player player;
 		int cost;
 		AdjListNode * next;
 	};
 
 	struct AdjList {
+		City city;
+		Player player;
 		AdjListNode * head;
 	};
 
@@ -45,12 +51,12 @@ public:
 //classes to build the graph
 public:
 	//building class functions
-	GraphBuilder(int totalVertices);
+	GraphBuilder(int totalVertices, std::string file);
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
-	AdjListNode * newAdjListNode(int data, int cost);
+	AdjListNode * newAdjListNode(int cityno, string cityname, string citycolor, int cost);
 	Graph * createGraph(int v);
-	void addEdge(Graph * graph, int src, int dest, int cost);
+	void addEdge(Graph * graph, EdgeTriplet edges);
 	void printGraph();
 
 	//searching algorithm funtions
@@ -59,14 +65,18 @@ public:
 	void swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode ** b);
 	void minHeapify(struct MinHeap * minHeap, int idx);
 	int isEmpty(struct MinHeap * minHeap);
-	MinHeapNode* extractMin(struct MinHeap* minHeap);
+	MinHeapNode * extractMin(struct MinHeap* minHeap);
 	void decreaseKey(struct MinHeap * minHeap, int v, int dist);
 	bool isInMinHeap(struct MinHeap * minHeap, int v);
 	void printArr(int dist[], int n);
+	int findVertex(int dist[], int n);
 	void dijkstra(Graph * graph, int vector);
 
+	//additional functions
+	void AddPlayerToCity(Player player, City city);
+	vector<City> FindCitiesOwnedByPlayer(Player player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
-	void SearchCity(int v);
+	void SearchCity(string cityName);
 	int CostFromOneCityToAnother(int v1, int v2);
 	void buildMap();
 
@@ -74,6 +84,10 @@ public:
 private:
 	int totalVertices;
 	Graph * graph;
+	std::string file;
+	GameState gameState;
+	std::vector<EdgeTriplet> edges;
+	//std::vector<CityTriplet> cities;
 
 };
 

@@ -1,14 +1,20 @@
 
 #include<iostream>
 #include<cstdlib>
+#include <utility>      // std::pair, std::get
 #include "GraphBuilder.h"
+#include "GameState.hpp"
+#include "City.h"
+#include "player.hpp"
 #include <limits.h>
 using namespace std;
 
 
-GraphBuilder::GraphBuilder(int tv) {
+GraphBuilder::GraphBuilder(int tv, std::string file) {
 	totalVertices = tv;
 	graph = createGraph(totalVertices);
+	gameState = GameStateIO::readXmlFile(file);
+	edges = gameState.getEdgeTriplets();
 }
 
 int GraphBuilder::getTotalVertices() {
@@ -20,18 +26,18 @@ void GraphBuilder::setTotalVertices(int tv) {
 }
 
 //create a new node
-GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int data, int cost) {
+GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int cityno, string cityname, string citycolor, int cost) {
 
 	AdjListNode * nptr = new AdjListNode;
 
-	nptr->data = data;
+	nptr->city = City(cityno, cityname, citycolor);
 	nptr->cost = cost;
 	nptr->next = NULL;
 	return nptr;
 }
 
 //function to create a graph of v vertices
-GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices) {
+GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices/*, vector<CityTriplet> cities*/) {
 
 	Graph * graph = new Graph;
 
@@ -42,25 +48,35 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices) {
 
 	//initialize with NULL (e.g root=NULL)
 	for (int i = 0; i<totalVertices; i++) {
+		//graph->arr[i].city.setCityNumber = cities[i].std::get<0>(cities).getCityNumber();
+		//graph->arr[i].city.setCityName = cities[i].std::get<0>(cities).getCityName();
+		//graph->arr[i].city.setCityColor = cities[i].std::get<0>(cities).getCityColor();
+		//graph->arr[i].player = Player();
 		graph->arr[i].head = NULL;
 	}
 	return graph;
 }
 
-void GraphBuilder::addEdge(Graph * graph, int src, int dest, int cost) {
+void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
 
 	//Add an edge from src to dest. A new node added to the adjacency list of src
 	//node added at beginning
-	AdjListNode * nptr = newAdjListNode(dest, cost);
+	AdjListNode * nptr = newAdjListNode(std::get<1>(edges).getCityNumber(),
+										std::get<1>(edges).getCityName(),
+										std::get<1>(edges).getCityColor(),
+										std::get<2>(edges));
 
-	nptr->next = graph->arr[src].head;
-	graph->arr[src].head = nptr;
+	nptr->next = graph->arr[std::get<0>(edges).getCityNumber()].head;
+	graph->arr[std::get<0>(edges).getCityNumber()].head = nptr;
 
 	//connect from dest to src (since undirected)
-	nptr = newAdjListNode(src, cost);
-	nptr->next = graph->arr[dest].head;
+	nptr = newAdjListNode(std::get<0>(edges).getCityNumber(),
+						  std::get<0>(edges).getCityName(),
+						  std::get<0>(edges).getCityColor(),
+						  std::get<2>(edges));
+	nptr->next = graph->arr[std::get<1>(edges).getCityNumber()].head;
 
-	graph->arr[dest].head = nptr;
+	graph->arr[std::get<1>(edges).getCityNumber()].head = nptr;
 }
 
 void GraphBuilder::printGraph() {
@@ -72,7 +88,7 @@ void GraphBuilder::printGraph() {
 
 		//loop over each node in list
 		while (root != NULL) {
-			cout << i << " to " << root->data << " costs: " << root->cost << " -> ";
+			cout << i << " to " << root->city.getCityNumber << " costs: " << root->cost << " -> ";
 			root = root->next;
 		}
 
@@ -83,9 +99,6 @@ void GraphBuilder::printGraph() {
 		root = NULL;
 	}
 }
-
-
-
 
 /* ----------------------------------------------------------------------------------------------------------
 	Dijkstra Search algorithm source code taken and modified from: 
@@ -214,6 +227,13 @@ void GraphBuilder::printArr(int dist[], int n) {
 		printf("%d \t\t %d\n", i, dist[i]);
 }
 
+int GraphBuilder::findVertex(int dist[], int n) {
+	for (int i = 0; i < n; ++i) {
+		if (dist[i] == 0)
+			return i;
+	}
+}
+
 //function that calulates distances of shortest paths from src to all vertices. It is a O(ELogV) function 
 //dijkstra search algorithm
 void GraphBuilder::dijkstra(Graph * graph, int src) {
@@ -246,11 +266,11 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 		struct MinHeapNode * minHeapNode = extractMin(minHeap);
 		int u = minHeapNode->v; // Store the extracted vertex number 
 
-								// Traverse through all adjacent vertices of u (the extracted 
-								// vertex) and update their distance values 
+		// Traverse through all adjacent vertices of u (the extracted 
+		// vertex) and update their distance values 
 		struct AdjListNode * pCrawl = graph->arr[u].head;
 		while (pCrawl != NULL) {
-			int v = pCrawl->data;
+			int v = pCrawl->city.getCityNumber;
 
 			// If shortest distance to v is not finalized yet, and distance to v 
 			// through u is less than its previously calculated distance 
@@ -264,7 +284,10 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 		}
 	}
 	// print the calculated shortest distances 
-	printArr(dist, V);
+	//printArr(dist, V);
+
+	//find the vertex
+	//findVertex(dist, V);
 
 	delete[] dist;
 	dist = NULL;
@@ -272,13 +295,35 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 
 // ----------------------------------------------------------------------------------------------------------
 
+void GraphBuilder::AddPlayerToCity(Player player, City city) {
+	int arrayNumber = city.getCityNumber;
+
+	for (int i = 0; i < totalVertices; i++) {
+		if (i == arrayNumber) {
+			graph->arr[i].player = player;
+		}
+	}
+}
+
+vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player pl) {
+
+	vector<City> citiesOwned;
+
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].player.getName == pl.getName) {
+			citiesOwned.push_back(graph->arr[i].city);
+		}	
+	}
+	return citiesOwned;
+}
+
 bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 	AdjListNode * root = graph->arr[v1].head;
 	bool check = false;
 
 	cout << "City " << v1 << " is adjacent to city " << v2 << ": ";
 	while (check == false) {
-		if (root->data == v2) {
+		if (root->city.getCityNumber == v2) {
 			return true;
 			check = true;
 		}
@@ -297,18 +342,15 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 	AdjListNode * root = graph->arr[v1].head;
 	bool check = false;
 
-	//make an error handler here
-	//***********************
-	/*
 	if (IsCityAdjacentToOtherCity(v1, v2) != true) {
 		cout << "These cities aren't next to each other!";
 		return 0;
 	}
-	*/
+	
 	cout << "Cost from city " << v1 << " to adjacent city " << v2 << ": ";
 	
 	while (check == false) {
-		if (root->data == v2) {
+		if (root->city.getCityNumber == v2) {
 			return root->cost;
 			check = true;
 		}
@@ -323,14 +365,28 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 	root = NULL;
 }
 
-void GraphBuilder::SearchCity(int v) {
-	dijkstra(graph, v);
+void GraphBuilder::SearchCity(string cityName) {
+
+	cout << "Searching for a city in the map..." << endl;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName == cityName) {
+			cout << "Node Found..." << endl;
+			cout << "City Number: " << graph->arr[i].city.getCityNumber << endl;
+			cout << "City Name: " << graph->arr[i].city.getCityName << endl;
+			cout << "City Color: " << graph->arr[i].city.getCityColor << endl;
+			cout << "Owned By: " << graph->arr[i].player.getName << endl;
+		}
+	}
 }
 
 void GraphBuilder::buildMap() {
 
-	//connect edges
-	addEdge(graph, 0, 1, 4);
+	for (int i = 0; i < edges.size(); i++){
+		//connect edges
+		addEdge(graph, edges[i]);
+	}
+	
+	/*
 	addEdge(graph, 1, 2, 8);
 	addEdge(graph, 1, 6, 4);
 	addEdge(graph, 2, 3, 11);
@@ -416,14 +472,8 @@ void GraphBuilder::buildMap() {
 	addEdge(graph, 39, 40, 14);
 
 	
-	/* // careful not to add any dupilcate edges that we already defined
-	addEdge(graph,3,2);
-	addEdge(graph,0,4);
-	addEdge(graph,1,2);
-	addEdge(graph,1,3);
-	addEdge(graph,1,4);
-	addEdge(graph,2,3);
-	addEdge*/
+	// careful not to add any dupilcate edges that we already defined
+	*/
 }
 
 
