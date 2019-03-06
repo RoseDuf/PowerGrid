@@ -17,6 +17,8 @@ PowerPlant::PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _numRessour
     
     r1.setNumber(0);
     r2.setNumber(0);
+    
+    identifier = "Power Plant " + to_string(_cardNumber);
 }
 
 PowerPlant::~PowerPlant()
