@@ -99,13 +99,19 @@ void PowerPlant::setNumRessourceTokenStocked2(int _ressourceTokenStocked2)
 
 void PowerPlant::toString()
 {
-    //if this power plant card only needs one type of ressource token
-    if(r2.getIndentifier()=="")
+    
+    //if green power plant
+    if (r1.getIndentifier()=="") {
+    cout << "\n" << "\n" << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
+        << "Ressource needed : " <<  "GREEN" << "\n" <<
+        "Number of tokens needed : " << "NONE" << endl;
+    }//if this power plant card only needs one type of ressource token
+    else if(r2.getIndentifier()=="")
     {
     
 	cout << "\n" << "\n" << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
 		<< "Ressource needed : " <<  r1.getIndentifier() << "\n" <<
-		"Number of tokens needed : " << numRessourcesTokensNeeded << "\n" << "In stock : " << r1.getNumber() << endl;
+		"Number of tokens needed : " << numRessourcesTokensNeeded << "\n" << "In stock : " << r1.getIndentifier() << "(" << r1.getNumber() << ")" << endl;
     }
     
     //if this power plant card  needs one type of ressource token or another
