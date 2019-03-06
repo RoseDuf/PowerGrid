@@ -73,12 +73,14 @@ public:
 	void dijkstra(Graph * graph, int vector);
 
 	//additional functions
-	void AddPlayerToCity(Player player, City city);
+	//City findCityByName(string name);
+	void AddPlayerToCity(Player player, string name);
 	vector<City> FindCitiesOwnedByPlayer(Player player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
 	int CostFromOneCityToAnother(int v1, int v2);
 	void buildMap();
+
 
 //variables needed for the graph building
 private:
