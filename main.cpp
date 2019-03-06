@@ -8,12 +8,14 @@
 #include "player.hpp"
 #include "GameCard.h"
 
+#include <vector>
+static vector<GameCard*> deck;
+
 using namespace std;
 
-static vector<GameCard> deck;
 
 
-static void shuffle(vector<GameCard> _deck)
+static void shuffle(vector<GameCard*> *_deck)
 {
 //To DOO *****
 
@@ -62,27 +64,58 @@ static void makingDeck()
     PowerPlant p40 = PowerPlant(44, 5, 0, "", "");
     PowerPlant p41 = PowerPlant(46, 7, 3, "oil", "coal");
     PowerPlant p42 = PowerPlant(50, 6, 0, "", "");
+   
     
     GameCard s3 = GameCard("s3");
-    for (int i = 0; i < 42 ; i++)
-    {
-        deck.push_back("p"+ to_string(i));
-    }
-    
-    
-    deck.push_back(s3);
-    
+ 
+     deck.push_back(&p1);
+    deck.push_back(&p2);
+    deck.push_back(&p3);
+    deck.push_back(&p4);
+    deck.push_back(&p5);
+    deck.push_back(&p6);
+    deck.push_back(&p7);
+    deck.push_back(&p8);
+    deck.push_back(&p9);
+    deck.push_back(&p10);
+     deck.push_back(&p11);
+     deck.push_back(&p12);
+     deck.push_back(&p13);
+     deck.push_back(&p14);
+     deck.push_back(&p15);
+     deck.push_back(&p16);
+     deck.push_back(&p17);
+     deck.push_back(&p18);
+     deck.push_back(&p19);
+     deck.push_back(&p20);
+     deck.push_back(&p21);
+     deck.push_back(&p22);
+     deck.push_back(&p23);
+     deck.push_back(&p24);
+     deck.push_back(&p25);
+     deck.push_back(&p26);
+     deck.push_back(&p27);
+     deck.push_back(&p28);
+     deck.push_back(&p29);
+     deck.push_back(&p30);
+     deck.push_back(&p31);
+     deck.push_back(&p32);
+     deck.push_back(&p33);
+     deck.push_back(&p34);
+     deck.push_back(&p35);
+     deck.push_back(&p36);
+     deck.push_back(&p37);
+     deck.push_back(&p38);
+     deck.push_back(&p39);
+     deck.push_back(&p40);
+     deck.push_back(&p41);
+     deck.push_back(&p42);
+
     for (int i = 0; i < deck.size() ; i++)
     {
-        
-        //PROBLEM WITH INHERITANCE: PRINTING PARENT TOSTRING() METHOD
-        deck[i].toString() ;
+        deck[i]->toString() ;
     }
-    
-    
-    
 }
-
 
 
 int main() {
@@ -102,16 +135,6 @@ int main() {
      
      */
     
-    //source:https://www.tutorialspoint.com/cplusplus/cpp_return_arrays_from_functions.htm
-    PowerPlant p = PowerPlant(23, 2, 1, "coal", "garbage");
-    cout << "Ressource tokens of p :" << endl;
-
-    
-    p.toString();
-    
-    
-    //creating powerplant cards for the card deck
- 
     //GameState gameState = GameStateIO::readXmlFile("/home/deniz/kdevelop_projects/PowerGrid/powergrid_cities.map");
     
     return 0;
