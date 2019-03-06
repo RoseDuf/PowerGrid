@@ -452,7 +452,7 @@ void GraphBuilder::SearchCity(string cityName) {
 }
 
 //Adds Elektros to the City Node
-void GraphBuilder::add_ElectrosToCity(Elektro el, string name) {
+void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
 			graph->arr[i].elektros.push_back(el); //add PowerPlant to the physical map
