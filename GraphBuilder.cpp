@@ -534,6 +534,7 @@ void GraphBuilder::buildMap() {
 
 	addConnectedCitiestoVector();
 
+	/*
 	bool check1, check2;
 	check1 = test_Duplicate_Edges();
 	check2 = test_MissingEdges();
@@ -543,6 +544,7 @@ void GraphBuilder::buildMap() {
 		delete graph;
 		graph = NULL;
 	}
+	*/
 	// careful not to add any dupilcate edges that we already defined
 }
 
