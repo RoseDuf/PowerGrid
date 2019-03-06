@@ -35,6 +35,15 @@ vector<PowerPlant> Player::getPowerPlant(){
 	return powerPlants;
 }
 
+//returns wallet not just one Elektro object
+vector<Elektro> Player::getElektro(){
+	return elektros;
+}
+
+vector<RessourceTokens> Player::getResources(){
+	return resources;
+}
+
 void Player::addCity(City city) {
 	citiesOwned.push_back(city);
 }
