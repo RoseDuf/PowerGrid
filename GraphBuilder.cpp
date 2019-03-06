@@ -295,12 +295,24 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 
 // ----------------------------------------------------------------------------------------------------------
 
-void GraphBuilder::AddPlayerToCity(Player player, City city) {
-	int arrayNumber = city.getCityNumber;
+/*City GraphBuilder::findCityByName(string name) {
+	City city;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName == name) {
+			return graph->arr[i].city;
+		}
+	}
+	cout << "No city of this name found in the map..." << endl;
+}*/
+
+void GraphBuilder::AddPlayerToCity(Player pl, string name) {
+	City city; 
 
 	for (int i = 0; i < totalVertices; i++) {
-		if (i == arrayNumber) {
-			graph->arr[i].player = player;
+		if (graph->arr[i].city.getCityName == name) {
+			city = graph->arr[i].city;
+			graph->arr[i].player = pl;
+			pl.addCity(graph->arr[i].city);	
 		}
 	}
 }
