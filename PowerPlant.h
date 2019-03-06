@@ -39,7 +39,7 @@ public:
 	void setNumRessourceTokenStocked1(int _numRessourceTokenStocked1);
     void setNumRessourceTokenStocked2(int _numRessourceTokenStocked2);
 
-	 void toString();
+	 virtual void toString() override;
 
 private:
     
