@@ -21,15 +21,18 @@ public:
 		AdjListNode * next;
 	};
 
-	struct AdjList {
+	struct CityList {
 		City city;
 		Player player;
+		vector<PowerPlant> powerplants;
+		vector<RessourceToken> resources;
+		vector<Elektro> elektros;
 		AdjListNode * head;
 	};
 
 	struct Graph {
 		int v;
-		AdjList * arr;
+		CityList * arr;
 	};
 
 	// Structure to represent a min heap node 
@@ -80,6 +83,9 @@ public:
 	vector<City> FindCitiesOwnedByPlayer(Player player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
+	void add_ElectrosToCity(Elektro el, string name);
+	void add_ResourcesToCity(RessourceToken rt, string name);
+	void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(int v1, int v2);
 	bool test_SizeOfMap_and_FileMap();
 	bool test_Duplicate_Edges();

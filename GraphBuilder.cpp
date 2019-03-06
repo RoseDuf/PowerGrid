@@ -51,7 +51,7 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> 
 	graph->v = totalVertices;
 
 	//create an array of adjacency list. size of array - V
-	graph->arr = new AdjList[totalVertices];
+	graph->arr = new CityList[totalVertices];
 
 	//test if totalVertices Matched size of city vector from file
 	bool test = test_SizeOfMap_and_FileMap();
@@ -423,15 +423,58 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 
 //prints out information within a node of the map
 void GraphBuilder::SearchCity(string cityName) {
-
 	cout << "Searching for a city in the map..." << endl;
 	for (int i = 0; i < totalVertices; i++) {
+		
 		if (graph->arr[i].city.getCityName() == cityName) {
 			cout << "Node Found..." << endl;
 			cout << "City Number: " << graph->arr[i].city.getCityNumber() << endl;
 			cout << "City Name: " << graph->arr[i].city.getCityName() << endl;
 			cout << "City Color: " << graph->arr[i].city.getCityColor() << endl;
-			cout << "Owned By: " << graph->arr[i].player.getName()/* << ", " << graph->arr[i].player.getColor()*/ << endl;
+			cout << "Owned By: " << graph->arr[i].player.getName() << ", " << graph->arr[i].player.getColor() << endl;
+			cout << "---------------Contains---------------" << endl;
+			for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
+				graph->arr[i].powerplants[j].toString();
+			}
+			for (int j = 0; j < graph->arr[i].resources.size(); j++) {
+				graph->arr[i].resources[j].toString();
+			}
+
+			cout << endl;
+
+			for (int j = 0; j < graph->arr[i].elektros.size(); j++) {
+				graph->arr[i].elektros[j].toString();
+			}
+			
+			//cout << graph->arr[i].player.
+		}
+	}
+}
+
+//Adds Elektros to the City Node
+void GraphBuilder::add_ElectrosToCity(Elektro el, string name) {
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == name) {
+			graph->arr[i].elektros.push_back(el); //add PowerPlant to the physical map
+		}
+	}
+}
+
+//Adds Resources to the City Node
+void GraphBuilder::add_ResourcesToCity(RessourceToken rt, string name) {
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == name) {
+			graph->arr[i].resources.push_back(rt); //add PowerPlant to the physical map
+		}
+	}
+}
+
+//Adds PowerPlants to the City Node
+void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
+
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == name) {
+			graph->arr[i].powerplants.push_back(pp); //add PowerPlant to the physical map
 		}
 	}
 }
@@ -491,11 +534,12 @@ void GraphBuilder::buildMap() {
 
 	addConnectedCitiestoVector();
 
-	bool check;
-	check = test_Duplicate_Edges();
+	bool check1, check2;
+	check1 = test_Duplicate_Edges();
+	check2 = test_MissingEdges();
 	
-	if (check == false) {
-		cout << "Invalid Map! Make sure you don't add the same edge twice!" << endl;
+	if (check1 == false || check2 == false) {
+		cout << "Invalid Map!" << endl;
 		delete graph;
 		graph = NULL;
 	}
