@@ -31,6 +31,10 @@ string Player::getColor() {
 	return color;
 }
 
+vector<PowerPlant> Player::getPowerPlant(){
+	return powerPlants;
+}
+
 void Player::addCity(City city) {
 	citiesOwned.push_back(city);
 }

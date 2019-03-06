@@ -1,9 +1,4 @@
-//
-//  player.hpp
 //  player Header File
-//
-//  Copyright © 2019 Elsa Donovan. All rights reserved.
-//
 
 #pragma once
 #include <iostream>
@@ -34,7 +29,7 @@ public:
 
 	string getName();
 	string getColor();
-	PowerPlant getPowerPlant();
+	vector<PowerPlant> getPowerPlant();
 	void addCity(City city);
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(int quantity, int billValue);
