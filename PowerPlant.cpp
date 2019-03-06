@@ -110,7 +110,7 @@ void PowerPlant::toString()
     //if this power plant card  needs one type of ressource token or another
     else
     {
-        cout << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
+        cout << "\n" << "\n" << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
         << "Ressources needed : " <<  r1.getIndentifier() << " or " << r2.getIndentifier() << "\n" <<
         "Number of tokens needed : " << numRessourcesTokensNeeded << "\n" << "In stock : " << endl;
     }
