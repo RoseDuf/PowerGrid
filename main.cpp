@@ -7,6 +7,8 @@
 #include "PowerPlant.h"
 #include "player.hpp"
 #include "GameCard.h"
+#include "House.h"
+#include "SummaryCard.h"
 
 #include <vector>
 static vector<GameCard*> deck;
