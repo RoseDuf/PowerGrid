@@ -51,12 +51,14 @@ public:
 //classes to build the graph
 public:
 	//building class functions
+	GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
 	AdjListNode * newAdjListNode(int cityno, string cityname, string citycolor, int cost);
-	Graph * createGraph(int v);
+	Graph * createGraph(int v, vector<City> cities);
 	void addEdge(Graph * graph, EdgeTriplet edges);
+	void addConnectedCitiestoVector();
 	void printGraph();
 
 	//searching algorithm funtions
@@ -79,6 +81,9 @@ public:
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
 	int CostFromOneCityToAnother(int v1, int v2);
+	bool test_SizeOfMap_and_FileMap();
+	bool test_Duplicate_Edges();
+	bool test_MissingEdges();
 	void buildMap();
 
 
@@ -87,9 +92,10 @@ private:
 	int totalVertices;
 	Graph * graph;
 	std::string file;
-	GameState gameState;
+	GameState gameState = GameStateIO::readXmlFile(file);
 	std::vector<EdgeTriplet> edges;
-	//std::vector<CityTriplet> cities;
+	std::vector<City> cities;
+	vector<vector<int>> connected;
 
 };
 
