@@ -1,5 +1,9 @@
 #include "GameState.hpp"
 
+std::vector<City> GameState::getCities() {
+	/*TODO*/
+}
+
 void GameState::setEdgeTriplets(std::vector<EdgeTriplet> edgeTriplets) {
     this->edgeTriplets = edgeTriplets;
 }

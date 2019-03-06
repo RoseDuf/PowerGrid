@@ -14,6 +14,7 @@ class GameState {
         std::vector< EdgeTriplet > edgeTriplets;
         std::vector<Player> players;
     public:
+		std::vector<City> getCities(); /*TODO*/
         std::vector< EdgeTriplet > getEdgeTriplets();
         void setEdgeTriplets(std::vector< EdgeTriplet > edgeTriplets);
         void addEdgeTriplets(std::vector< EdgeTriplet > additionalEdgeTriplets);
