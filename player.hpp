@@ -34,6 +34,7 @@ public:
 
 	string getName();
 	string getColor();
+	PowerPlant getPowerPlant();
 	void addCity(City city);
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(int quantity, int billValue);
