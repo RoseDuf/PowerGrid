@@ -2,18 +2,25 @@
 #include<iostream>
 #include<cstdlib>
 #include <utility>      // std::pair, std::get
+#include <vector>
 #include "GraphBuilder.h"
 #include "GameState.hpp"
 #include "City.h"
 #include "player.hpp"
 #include <limits.h>
+#include <algorithm>
 using namespace std;
 
+GraphBuilder::GraphBuilder(int tv) {
+	totalVertices = tv;
+	graph = createGraph(totalVertices, gameState.getCities());
+	edges = gameState.getEdgeTriplets();
+}
 
 GraphBuilder::GraphBuilder(int tv, std::string file) {
 	totalVertices = tv;
-	graph = createGraph(totalVertices);
 	gameState = GameStateIO::readXmlFile(file);
+	graph = createGraph(totalVertices, gameState.getCities());
 	edges = gameState.getEdgeTriplets();
 }
 
@@ -37,7 +44,7 @@ GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int cityno, string city
 }
 
 //function to create a graph of v vertices
-GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices/*, vector<CityTriplet> cities*/) {
+GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> cities) {
 
 	Graph * graph = new Graph;
 
@@ -46,15 +53,24 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices/*, vector<City
 	//create an array of adjacency list. size of array - V
 	graph->arr = new AdjList[totalVertices];
 
-	//initialize with NULL (e.g root=NULL)
-	for (int i = 0; i<totalVertices; i++) {
-		//graph->arr[i].city.setCityNumber = cities[i].std::get<0>(cities).getCityNumber();
-		//graph->arr[i].city.setCityName = cities[i].std::get<0>(cities).getCityName();
-		//graph->arr[i].city.setCityColor = cities[i].std::get<0>(cities).getCityColor();
-		//graph->arr[i].player = Player();
-		graph->arr[i].head = NULL;
+	//test if totalVertices Matched size of city vector from file
+	bool test = test_SizeOfMap_and_FileMap();
+	if (test == true) {
+
+		//initialize with NULL (e.g root=NULL)
+		for (int i = 0; i < totalVertices; i++) {
+			graph->arr[i].city = City();
+			graph->arr[i].city.setCityNumber(cities[i].getCityNumber());
+			graph->arr[i].city.setCityName(cities[i].getCityName());
+			graph->arr[i].city.setCityColor(cities[i].getCityColor());
+			graph->arr[i].player = Player();
+			graph->arr[i].head = NULL;
+		}
+		return graph;
 	}
-	return graph;
+	else {
+		return 0;
+	}
 }
 
 void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
@@ -79,8 +95,25 @@ void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
 	graph->arr[std::get<1>(edges).getCityNumber()].head = nptr;
 }
 
-void GraphBuilder::printGraph() {
+void GraphBuilder::addConnectedCitiestoVector() {
+	for (int i = 0; i<graph->v; i++) {
+		AdjListNode * root = graph->arr[i].head;
 
+		connected.push_back(std::vector<int>());
+		//loop over each node in list
+		while (root != NULL) {
+			connected[i].push_back(root->city.getCityNumber());
+			root = root->next;
+		}
+
+		//delete every root pointer created
+		delete root;
+		root = NULL;
+	}
+}
+
+void GraphBuilder::printGraph() {
+	
 	//loop over each adjacent list
 	for (int i = 0; i<graph->v; i++) {
 		AdjListNode * root = graph->arr[i].head;
@@ -88,7 +121,7 @@ void GraphBuilder::printGraph() {
 
 		//loop over each node in list
 		while (root != NULL) {
-			cout << i << " to " << root->city.getCityNumber << " costs: " << root->cost << " -> ";
+			cout << i << " to " << root->city.getCityNumber() << " costs: " << root->cost << " -> ";
 			root = root->next;
 		}
 
@@ -270,7 +303,7 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 		// vertex) and update their distance values 
 		struct AdjListNode * pCrawl = graph->arr[u].head;
 		while (pCrawl != NULL) {
-			int v = pCrawl->city.getCityNumber;
+			int v = pCrawl->city.getCityNumber();
 
 			// If shortest distance to v is not finalized yet, and distance to v 
 			// through u is less than its previously calculated distance 
@@ -295,6 +328,7 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 
 // ----------------------------------------------------------------------------------------------------------
 
+//might not need this function... Leaving it commented out just in case. Who knows ¯\_("/)_/¯
 /*City GraphBuilder::findCityByName(string name) {
 	City city;
 	for (int i = 0; i < totalVertices; i++) {
@@ -305,55 +339,65 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 	cout << "No city of this name found in the map..." << endl;
 }*/
 
+//function to add players to "cities"(aka Nodes) in the physical map
+//and updates Player info at the same time
 void GraphBuilder::AddPlayerToCity(Player pl, string name) {
-	City city; 
+	City cities; 
 
 	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].city.getCityName == name) {
-			city = graph->arr[i].city;
-			graph->arr[i].player = pl;
-			pl.addCity(graph->arr[i].city);	
+		if (graph->arr[i].city.getCityName() == name) {
+			cities = graph->arr[i].city; //find the desired city by its name
+			graph->arr[i].player = pl; //add Player to the physical map
+			pl.addCity(cities);	//add/update new City object to Player "cities" attribute 
 		}
 	}
 }
 
+//Function that returns a vector of "cities"(Nodes) that have a player
 vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player pl) {
 
 	vector<City> citiesOwned;
 
 	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].player.getName == pl.getName) {
+		if (graph->arr[i].player.getName() == pl.getName()) {
 			citiesOwned.push_back(graph->arr[i].city);
-		}	
+		}
+		else
+			cout << "Player:" << pl.getName() << ", Color: "/* << pl.getColor*/ 
+				 << ", is not in City: " << graph->arr[i].city.getCityName() << endl;
 	}
 	return citiesOwned;
 }
 
+//error handler to check if a vertex is connected to another
 bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 	AdjListNode * root = graph->arr[v1].head;
 	bool check = false;
 
 	cout << "City " << v1 << " is adjacent to city " << v2 << ": ";
 	while (check == false) {
-		if (root->city.getCityNumber == v2) {
+		if (root->city.getCityNumber() == v2) {
 			return true;
 			check = true;
 		}
-		else {
+		else 
 			root = root->next;
-		}
-		if (root == NULL) {
+		if (root == NULL) 
 			return false;
-		}
 	}
+	//not sure if this does anything. Might need to later implement this method
+	//with smart pointer instead of simple "root" pointer
 	delete root;
 	root = NULL;
 }
 
+//function to look at the cost from one city to another (must be adjacent)
+//will further be used for the gameplay. (i.e. computing the cost of connections between cities to buy)
 int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 	AdjListNode * root = graph->arr[v1].head;
 	bool check = false;
 
+	//check if the cities are connected first
 	if (IsCityAdjacentToOtherCity(v1, v2) != true) {
 		cout << "These cities aren't next to each other!";
 		return 0;
@@ -362,130 +406,100 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 	cout << "Cost from city " << v1 << " to adjacent city " << v2 << ": ";
 	
 	while (check == false) {
-		if (root->city.getCityNumber == v2) {
+		if (root->city.getCityNumber() == v2) {
 			return root->cost;
 			check = true;
 		}
-		else {
+		else 
 			root = root->next;
-		}
-		if (root == NULL) {
-			return 0;
-		}
+		if (root == NULL) 
+			break;
 	}
+
+	//not sure if this does anything. might have to put smart pointers
 	delete root;
 	root = NULL;
 }
 
+//prints out information within a node of the map
 void GraphBuilder::SearchCity(string cityName) {
 
 	cout << "Searching for a city in the map..." << endl;
 	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].city.getCityName == cityName) {
+		if (graph->arr[i].city.getCityName() == cityName) {
 			cout << "Node Found..." << endl;
-			cout << "City Number: " << graph->arr[i].city.getCityNumber << endl;
-			cout << "City Name: " << graph->arr[i].city.getCityName << endl;
-			cout << "City Color: " << graph->arr[i].city.getCityColor << endl;
-			cout << "Owned By: " << graph->arr[i].player.getName << endl;
+			cout << "City Number: " << graph->arr[i].city.getCityNumber() << endl;
+			cout << "City Name: " << graph->arr[i].city.getCityName() << endl;
+			cout << "City Color: " << graph->arr[i].city.getCityColor() << endl;
+			cout << "Owned By: " << graph->arr[i].player.getName()/* << ", " << graph->arr[i].player.getColor()*/ << endl;
 		}
 	}
 }
 
+//test case to test if the number of cities from the file matches the number of nodes in the map
+bool GraphBuilder::test_SizeOfMap_and_FileMap() {
+
+	vector<City> citiesfile = gameState.getCities();
+	if (citiesfile.size() == totalVertices) {
+		cout << "Number of cities in physical map and map from file match!" << endl;
+		return true;
+	}
+	else {
+		cout << "Oops..." << endl;
+		cout << "Number of cities in physical map and map from file DON'T match!" << endl;
+		cout << "Probably missing nodes or there are extra ones." << endl;
+		return false;
+	}
+}
+
+bool GraphBuilder::test_Duplicate_Edges() {
+	for (int i = 0; i < connected.size(); i++) {
+		std::sort(connected[i].begin(), connected[i].end());
+		for (int j = 1; j < connected.size(); j++) {
+			if (connected[i][j-1] == connected[i][j]) {
+				cout << "Duplicate Edge exists!!! " << endl;
+				return false;
+			}
+			else {
+				cout << "no duplicate edges" << endl;
+				return true;
+			}
+		}
+	}
+}
+
+bool GraphBuilder::test_MissingEdges() {
+	for (int i = 0; i < connected.size(); i++) {
+		if (connected[i].size() == 0) {
+			cout << "Disconnected Edge Exists!" << endl;
+			return false;
+		}
+		else {
+			cout << "no disconnected cities for city: " << i << endl;
+			return true;
+		}
+	}
+}
+
+//adds all the connections by using the vector of "EdgeTriplet" edges
 void GraphBuilder::buildMap() {
 
 	for (int i = 0; i < edges.size(); i++){
 		//connect edges
 		addEdge(graph, edges[i]);
 	}
-	
-	/*
-	addEdge(graph, 1, 2, 8);
-	addEdge(graph, 1, 6, 4);
-	addEdge(graph, 2, 3, 11);
-	addEdge(graph, 2, 4, 11);
-	addEdge(graph, 2, 12, 17);
-	addEdge(graph, 2, 7, 8);
-	addEdge(graph, 2, 6, 6);
-	addEdge(graph, 3, 4, 8);
-	addEdge(graph, 4, 5, 11);
-	addEdge(graph, 4, 13, 11);
-	addEdge(graph, 4, 12, 10);
-	addEdge(graph, 5, 13, 14);
-	addEdge(graph, 6, 7, 6);
-	addEdge(graph, 7, 12, 19);
-	addEdge(graph, 7, 11, 16);
-	addEdge(graph, 7, 10, 18);
-	addEdge(graph, 7, 9, 19);
-	addEdge(graph, 7, 8, 6);
-	addEdge(graph, 8, 9, 19);
-	addEdge(graph, 9, 10, 15);
-	addEdge(graph, 10, 11, 10);
-	addEdge(graph, 10, 41, 6);
-	addEdge(graph, 10, 30, 17);
-	addEdge(graph, 11, 30, 11);
-	addEdge(graph, 11, 12, 15);
-	addEdge(graph, 12, 13, 16);
-	addEdge(graph, 12, 19, 15);
-	addEdge(graph, 12, 29, 19);
-	addEdge(graph, 13, 14, 7);
-	addEdge(graph, 13, 19, 20);
-	addEdge(graph, 14, 16, 6);
-	addEdge(graph, 14, 15, 2);
-	addEdge(graph, 15, 16, 4);
-	addEdge(graph, 15, 21, 10);
-	addEdge(graph, 15, 24, 20);
-	addEdge(graph, 15, 19, 18);
-	addEdge(graph, 16, 17, 0);
-	addEdge(graph, 16, 18, 2);
-	//addEdge(graph, 17, 19, 15);
-	addEdge(graph, 18, 20, 9);
-	addEdge(graph, 18, 21, 4);
-	addEdge(graph, 19, 24, 13);
-	addEdge(graph, 19, 27, 8);
-	addEdge(graph, 19, 29, 15);
-	addEdge(graph, 20, 21, 7);
-	addEdge(graph, 20, 22, 19);
-	addEdge(graph, 21, 22, 20);
-	addEdge(graph, 21, 23, 21);
-	addEdge(graph, 22, 23, 18);
-	addEdge(graph, 22, 25, 11);
-	addEdge(graph, 23, 25, 10);
-	addEdge(graph, 23, 26, 11);
-	addEdge(graph, 23, 14, 0);
-	addEdge(graph, 24, 27, 8);
-	addEdge(graph, 24, 28, 13);
-	addEdge(graph, 25, 26, 11);
-	addEdge(graph, 25, 38, 17);
-	addEdge(graph, 26, 38, 6);
-	addEdge(graph, 26, 28, 10);
-	addEdge(graph, 27, 28, 11);
-	addEdge(graph, 27, 29, 15);
-	addEdge(graph, 28, 33, 8);
-	addEdge(graph, 28, 37, 19);
-	addEdge(graph, 28, 38, 12);
-	addEdge(graph, 29, 30, 6);
-	addEdge(graph, 29, 32, 19);
-	addEdge(graph, 29, 33, 21);
-	addEdge(graph, 30, 31, 0);
-	addEdge(graph, 31, 41, 21);
-	addEdge(graph, 31, 32, 13);
-	addEdge(graph, 32, 41, 16);
-	addEdge(graph, 33, 34, 12);
-	addEdge(graph, 33, 37, 18);
-	addEdge(graph, 34, 37, 13);
-	addEdge(graph, 34, 36, 10);
-	addEdge(graph, 34, 35, 12);
-	addEdge(graph, 35, 36, 14);
-	addEdge(graph, 36, 37, 6);
-	addEdge(graph, 37, 38, 15);
-	addEdge(graph, 37, 40, 17);
-	addEdge(graph, 38, 40, 16);
-	addEdge(graph, 38, 39, 16);
-	addEdge(graph, 39, 40, 14);
 
+	addConnectedCitiestoVector();
+
+	bool check;
+	check = test_Duplicate_Edges();
 	
+	if (check == false) {
+		cout << "Invalid Map! Make sure you don't add the same edge twice!" << endl;
+		delete graph;
+		graph = NULL;
+	}
 	// careful not to add any dupilcate edges that we already defined
-	*/
 }
 
 
