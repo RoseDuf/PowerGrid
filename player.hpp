@@ -15,24 +15,26 @@ class Player {
 private:
     string name;
 	string color;
-    vector<PowerPlant> powerPlants;
-    //Elektro elektros;
-	int elektros;
+	vector<PowerPlant> powerPlants;
+	vector<Elektro> elektros;
 	vector<City> citiesOwned;
-	//vector<RessourceToken> resources;
+	vector<RessourceToken> resources;
 
 
 public:
-    Player();
-    Player(string name, string color);
+    
+	Player();
+	Player(string name, string color);
 	~Player();
 
 	string getName();
 	string getColor();
 	vector<PowerPlant> getPowerPlant();
+	vector<Elektro> getElektros();
+	vector<RessourceToken> getResources();
 	void addCity(City city);
 	void addPowerPlant(PowerPlant p);
-	//void addElektro(int quantity, int billValue);
+	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
 	void toString();
 };
