@@ -1,6 +1,5 @@
 #pragma once
 #include "GamePiece.h"
-#include <vector>
 
 class House :
 	public GamePiece
@@ -10,7 +9,7 @@ public:
 	House(string _identifier);
 	~House();
 
-    void toString();
+    virtual void toString() override;
 
 
 private:

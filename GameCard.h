@@ -11,6 +11,7 @@ public:
 	GameCard(string _identifier);
 	~GameCard();
 
+    //what type of game card
 	string getIdentifier();
 	void setIdentifier(string _identifier);
 

@@ -7,7 +7,7 @@ public:
 	SummaryCard();
 	~SummaryCard();
 
-	virtual void toString();
+	virtual void toString() override;
 
 private:
 
