@@ -129,7 +129,8 @@ static void makingDeck()
 int main() {
 
 	makingDeck();
-    
+    SummaryCard sum = SummaryCard();
+    sum.toString();
     
 	/*
 	GraphBuilder graph = GraphBuilder(42);
