@@ -51,7 +51,7 @@ void Player::addPowerPlant(PowerPlant p) {
 }
 
 void Player::collectElektro(Elektro e) {
-	elektros.push_back(e));
+	elektros.push_back(e);
 }
 
 //void Player::removeElektro(int quantity, int billValue) {
@@ -64,7 +64,7 @@ void Player::toString(){
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
 		int sum = 0;
 		for (int j = 0; j < elektros.size; j++){
-			sum += elektros[i].getBalance();
+			sum += elektros[j].getBalance();
 		}
 		cout << "\nAmount of Elektro: " << sum
 		<< "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
