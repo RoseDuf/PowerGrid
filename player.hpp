@@ -34,7 +34,7 @@ public:
 	vector<RessourceToken> getResources();
 	void addCity(City city);
 	void addPowerPlant(PowerPlant p);
-	//void addElektro(Elektro e);
+	void collectElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
 	void toString();
 };
