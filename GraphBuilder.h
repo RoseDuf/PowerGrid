@@ -26,7 +26,7 @@ public:
 		Player player;
 		vector<PowerPlant> powerplants;
 		vector<RessourceToken> resources;
-		vector<Elektro> elektros;
+		Elektro elektros;
 		AdjListNode * head;
 	};
 

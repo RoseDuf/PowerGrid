@@ -442,11 +442,9 @@ void GraphBuilder::SearchCity(string cityName) {
 
 			cout << endl;
 
-			for (int j = 0; j < graph->arr[i].elektros.size(); j++) {
-				graph->arr[i].elektros[j].toString();
-			}
+			graph->arr[i].elektros.toString();
 			
-			//cout << graph->arr[i].player.
+			cout << endl;
 		}
 	}
 }
@@ -455,7 +453,7 @@ void GraphBuilder::SearchCity(string cityName) {
 void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
-			graph->arr[i].elektros.push_back(el); //add PowerPlant to the physical map
+			graph->arr[i].elektros = el; //add PowerPlant to the physical map
 		}
 	}
 }
