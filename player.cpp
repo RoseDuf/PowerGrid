@@ -40,7 +40,7 @@ vector<Elektro> Player::getElektros(){
 	return elektros;
 }
 
-vector<RessourceTokens> Player::getResources(){
+vector<RessourceToken> Player::getResources(){
 	return resources;
 }
 
