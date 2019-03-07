@@ -17,10 +17,13 @@ int main() {
 	RessourceToken resource = RessourceToken(3, "oil");
 	PowerPlant powerplant = PowerPlant(3, 2, 2, "oil", "");
 	Player p1 = Player("Nicole", "Red");
+	p1.collectElektro(elektro);
 
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42);
 	graph.buildMap();
+
+	graph.printGraph();
 
 	//Test Cases
 	graph.test_SizeOfMap_and_FileMap();
