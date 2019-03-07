@@ -63,7 +63,7 @@ void Player::toString(){
 	cout << "Player name: " << name << "\nPlayer color: " << color 
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
 		int sum = 0;
-		for (int j = 0; j < elektros.size; j++){
+		for (int j = 0; j < elektros.size(); j++){
 			sum += elektros[j].getBalance();
 		}
 		cout << "\nAmount of Elektro: " << sum
