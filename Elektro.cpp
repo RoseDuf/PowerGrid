@@ -63,6 +63,14 @@ void Elektro::addElektros(int _bill1, int _bill10, int _bill50)
     bills[2].second += _bill50;
 }
 
+//spends money in wallet
+void Elektro::spendElektros(int _bill1, int _bill10, int _bill50)
+{
+    bills[0].second -= _bill1;
+    bills[1].second -= _bill10;
+    bills[2].second -= _bill50;
+}
+
 int Elektro::getTotalBalance()
 {
     int sum = 0;
