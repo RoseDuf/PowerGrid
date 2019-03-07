@@ -17,9 +17,15 @@ Elektro::~Elektro()
 	// TO DO
 }
 
-void Elektro::CollectElektro(int _quantity, int _billValue)
+void Elektro::collectElektro(int _quantity, int _billValue)
 {
     quantity+=_quantity;
+    billValue = _billValue;
+}
+
+void Elektro::spendElektros(int _quantity, int _billValue)
+{
+    quantity-=_quantity;
     billValue = _billValue;
 }
 

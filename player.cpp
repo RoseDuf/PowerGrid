@@ -2,37 +2,73 @@
 //  player.cpp
 //  player
 //
-//  Copyright © 2019 Elsa Donovan. All rights reserved.
-//
+
 #include <iostream>
-#include <sstream>
 #include <vector>
 #include "player.hpp"
-
-
 using namespace std;
 
-//default constructor
 Player::Player() {
-    numCities = 0;
-   
+	name = "No Name";
+	color = "BLANK";
 }
 
-Player::~Player()
-{
-}
-
-// parametrized constructor
-Player::Player(string name){
+Player::Player(string name, string color){
     this-> name = name;
-     numCities = 0;
+	this-> color = color;
 }
 
+Player::~Player(){
+}
 
+string Player::getName() {
+	return name;
+}
+
+string Player::getColor() {
+	return color;
+}
+
+vector<PowerPlant> Player::getPowerPlant(){
+	return powerPlants;
+}
+
+//returns wallet not just one Elektro object
+vector<Elektro> Player::getElektros(){
+	return elektros;
+}
+
+vector<RessourceToken> Player::getResources(){
+	return resources;
+}
+
+void Player::addCity(City city) {
+	citiesOwned.push_back(city);
+}
+
+void Player::addPowerPlant(PowerPlant p) {
+	powerPlants.push_back(p);
+}
+
+void Player::collectElektro(Elektro e) {
+	elektros.push_back(e);
+}
+
+//void Player::removeElektro(int quantity, int billValue) {
+	//elektros.push_back(Elektro(quantity, billValue));
+	//elektros.erase
+//}
 
 void Player::toString(){
-
-    cout << "Player name: " << name
-    << "\nNumber of cities owned: " << numCities
-    << "\nNumber of powerplants owned: " << PowerPlantsOwned.size() << "\nAmount of Elektro: " << wallet.size();
+	cout << "Player name: " << name << "\nPlayer color: " << color 
+		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
+		int sum = 0;
+		for (int j = 0; j < elektros.size(); j++){
+			sum += elektros[j].getBalance();
+		}
+		cout << "\nAmount of Elektro: " << sum
+		<< "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
+		for (int i = 0; i < citiesOwned.size(); i++) {
+			cout << citiesOwned[i].getCityName() << endl;
+		}
 }

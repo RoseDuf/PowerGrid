@@ -1,9 +1,4 @@
-//
-//  player.hpp
 //  player Header File
-//
-//  Copyright © 2019 Elsa Donovan. All rights reserved.
-//
 
 #pragma once
 #include <iostream>
@@ -11,64 +6,35 @@
 #include "PowerPlant.h"
 #include "Elektro.h"
 #include "City.h"
+#include "RessourceToken.h"
 
 using namespace std;
 
 class Player {
     
 private:
-    
     string name;
-    int numCities;
-    vector<PowerPlant> PowerPlantsOwned;
-    vector<Elektro> wallet;
-    vector<City> cities;
-   
+	string color;
+	vector<PowerPlant> powerPlants;
+	vector<Elektro> elektros;
+	vector<City> citiesOwned;
+	vector<RessourceToken> resources;
+
 
 public:
- 
-    Player();
-    Player(string name);
-    ~Player();
+    
+	Player();
+	Player(string name, string color);
+	~Player();
 
-    string getName(){
-        return name;
-    }
-    
-    //Adds city to Player's vector of cities
-   void addCity(string cityName, string cityColor) {
-       
-       //going to fix this***
-       //added all the attributes for city object**
-       //cities.push_back(cityName, cityColor);
-    }
-    
-    //mutator method for number of cities player owns
-    void setNumCities(int numCities){
-         this->numCities = numCities;
-    }
-    
-    vector<City> getCitiesOwned()
-    {
-        return cities;
-    }
-    
-    //add a PowerPlant to PowerPlantsOwned
-    void addPowerPlant(PowerPlant p){
-        PowerPlantsOwned.push_back(p);
-    }
-    
-    //initialize Elektro amount in Player's wallet
-    void setElektro(int quantity, int billValue){
-    }
-    
-    //Add Elektro amount to Player's Wallet
-    void CollectElektro(int quantity, int billValue){
-        wallet.push_back(Elektro(quantity, billValue));
-    }
-    
-    //string method for Player object
-     void toString();
-    
+	string getName();
+	string getColor();
+	vector<PowerPlant> getPowerPlant();
+	vector<Elektro> getElektros();
+	vector<RessourceToken> getResources();
+	void addCity(City city);
+	void addPowerPlant(PowerPlant p);
+	void collectElektro(Elektro e);
+	//void removeElektro(int quantity, int billValue);
+	void toString();
 };
-
