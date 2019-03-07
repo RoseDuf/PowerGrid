@@ -1,6 +1,7 @@
 
 #include<iostream>
 #include<cstdlib>
+#include <algorithm>
 #include"GraphBuilder.h"
 #include "GameStateIO.hpp"
 #include "HelperFunctions.hpp"
