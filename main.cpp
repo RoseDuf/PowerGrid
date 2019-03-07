@@ -11,17 +11,12 @@
 #include "SummaryCard.h"
 
 #include <vector>
-static vector<GameCard*> deck;
+
 
 using namespace std;
 
+ static vector<GameCard*> deck;
 
-
-static void shuffle(vector<GameCard*> *_deck)
-{
-	//To DOO *****
-
-}
 static void makingDeck()
 {
 	PowerPlant p1 = PowerPlant(3, 1, 2, "oil", "");
@@ -68,11 +63,11 @@ static void makingDeck()
 	PowerPlant p42 = PowerPlant(50, 6, 0, "", "");
 
 
-	GameCard s3 = GameCard("s3");
+	GameCard s3 = GameCard("Step3");
 
 	deck.push_back(&p1);
 	deck.push_back(&p2);
-	deck.push_back(&p3);
+    deck.push_back(&p3);
 	deck.push_back(&p4);
 	deck.push_back(&p5);
 	deck.push_back(&p6);
@@ -112,17 +107,30 @@ static void makingDeck()
 	deck.push_back(&p40);
 	deck.push_back(&p41);
 	deck.push_back(&p42);
-
-	for (int i = 0; i < deck.size(); i++)
-	{
-		deck[i]->toString();
-	}
+    
+    
+    
+    for (int i = 0; i < deck.size(); i++)
+    {
+        deck[i]->toString();
+    }
+    
+    random_shuffle(deck.begin(),deck.end());
+    
+    cout << "\n======================SHUFFLED ======================";
+    
+    for (int i = 0; i < deck.size(); i++)
+    {
+        deck[i]->toString();
+    }
 }
 
 
 int main() {
 
 	makingDeck();
+    
+    
 	/*
 	GraphBuilder graph = GraphBuilder(42);
 	graph.buildMap();
