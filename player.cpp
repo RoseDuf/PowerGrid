@@ -36,7 +36,7 @@ vector<PowerPlant> Player::getPowerPlant(){
 }
 
 //returns wallet not just one Elektro object
-vector<Elektro> Player::getElektro(){
+vector<Elektro> Player::getElektros(){
 	return elektros;
 }
 
