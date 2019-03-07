@@ -1,40 +1,39 @@
 #ifndef ELEKTRO_H_
 #define ELEKTRO_H_
+#include <vector>
+
+using namespace std;
 
 class Elektro
 {
 public:
 	Elektro();
-	Elektro(int _quantity, int _billValue);
+	Elektro(int _bill1, int _bill10, int _bill50);
+    
+
 	~Elektro();
 
-    //increments number of bills
-    void collectElektro(int quantity, int billValue);
+    //sets the numbers of 1$,10$ and 50$ (= _billType) to _billNum value
+    void setBillAmount(int _billType, int _billNum);
     
-    //decreases number of bills
-    void spendElektros(int quantity, int billValue);
-    
-    //set number of bills and their value
-    void setElektro(int quantity, int billValue);
-    
-    //setnumber of bills
-    int getQuantity();
-    
-    //set the value of the bill (1$,10$,....)
-    int getBillValue();
+    //gets the numbers of bills of type _bill (1$, 10$ or 50$)
+    int getBillAmmount(int _bill);
 
+    //adds money to wallet
+    void addElektros(int _bill1, int _bill10, int _bill50);
+    
     //returns total value of money for this elektro object
-	int getBalance();
-	void toString();
+    int getTotalBalance();
+    
+    
+    void toString();
 
 private:
     
-    //number of billes
-	int quantity;
+    std::vector< std::pair<int,int> > bills =  { {1,0},
+                                                {10,0},
+                                                {50,0} };
     
-    //is it a 1$, 10$ or 50$ bill?
-	int billValue;
-
 };
 
 #endif
