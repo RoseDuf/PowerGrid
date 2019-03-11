@@ -1,8 +1,29 @@
 #include "GameState.hpp"
 
-std::vector<City> GameState::getCities() {
-	/*TODO*/
+GameState::GameState() { // temp
+    
 }
+
+std::vector<City> GameState::getCities() {
+	return cities;
+}
+
+void GameState::addCity(City cityToAdd) {
+    cities.push_back(cityToAdd);
+}
+
+void GameState::addCities(std::vector<City> citiesToAdd) {
+    for(int i = 0; i < citiesToAdd.size(); i++) {
+        cities.push_back( citiesToAdd.at(i) );
+    }
+}
+
+void GameState::setCities(std::vector<City> cities) {
+    this->cities = cities;
+}
+
+GameState::GameState(int turnOfPlayer, std::vector<City> cities, std::vector<EdgeTriplet> edgeTriplets, std::vector<Player> players)
+    : turnOfPlayer(turnOfPlayer), cities(cities), edgeTriplets(edgeTriplets), players(players) {}
 
 void GameState::setEdgeTriplets(std::vector<EdgeTriplet> edgeTriplets) {
     this->edgeTriplets = edgeTriplets;

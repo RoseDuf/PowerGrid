@@ -13,8 +13,14 @@ class GameState {
         int turnOfPlayer;
         std::vector< EdgeTriplet > edgeTriplets;
         std::vector<Player> players;
+        std::vector<City> cities;
     public:
-		std::vector<City> getCities(); /*TODO*/
+		std::vector<City> getCities();
+        void addCity(City cityToAdd);
+        void addCities(std::vector<City> citiesToAdd);
+        void setCities(std::vector<City> cities);
+        GameState(); // temp
+        GameState(int turnOfPlayer, std::vector<City> cities, std::vector<EdgeTriplet> edgeTriplets, std::vector<Player> players);
         std::vector< EdgeTriplet > getEdgeTriplets();
         void setEdgeTriplets(std::vector< EdgeTriplet > edgeTriplets);
         void addEdgeTriplets(std::vector< EdgeTriplet > additionalEdgeTriplets);

@@ -461,7 +461,7 @@ void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 }
 
 //Adds Resources to the City Node
-void GraphBuilder::add_ResourcesToCity(RessourceToken rt, string name) {
+void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
 			graph->arr[i].resources.push_back(rt); //add PowerPlant to the physical map

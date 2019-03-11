@@ -47,51 +47,51 @@ void PowerPlant::setCitiesPowered(int _citiesPowered)
 }
 
 //GETS array of strings of ressource token TYPES NEEDED
-string PowerPlant::getTypeRessourceTokenNeeded1()
+string PowerPlant::getTypeResourceTokenNeeded1()
 {
 	return r1.getIndentifier();
 }
 //GETS array of strings of ressource token TYPES NEEDED
-string PowerPlant::getTypeRessourceTokenNeeded2()
+string PowerPlant::getTypeResourceTokenNeeded2()
 {
     return r2.getIndentifier();
 }
 
 //SETS the ressource token TYPES NEEDED
-void PowerPlant::setTypeRessourceTokenNeeded1(string _typeRessourceTokenNeeded1)
+void PowerPlant::setTypeResourceTokenNeeded1(string _typeRessourceTokenNeeded1)
 {
     r1.setIdentifier(_typeRessourceTokenNeeded1);
    
 }
 
 //SETS the ressource token TYPES NEEDED
-void PowerPlant::setTypeRessourceTokenNeeded2(string _typeRessourceTokenNeeded2)
+void PowerPlant::setTypeResourceTokenNeeded2(string _typeRessourceTokenNeeded2)
 {
       r2.setIdentifier(_typeRessourceTokenNeeded2);
 }
 
 
 
-int PowerPlant::getRessourceTokenStocked1()
+int PowerPlant::getResourceTokenStocked1()
 {
    
 	return r1.getNumber();
 }
 
 
-int PowerPlant::getRessourceTokenStocked2()
+int PowerPlant::getResourceTokenStocked2()
 {
     
     return r2.getNumber();
 }
 
 //SETS the NUMBER of ressource token STOCKED in power plant card
-void PowerPlant::setNumRessourceTokenStocked1(int _ressourceTokenStocked1)
+void PowerPlant::setNumResourceTokenStocked1(int _ressourceTokenStocked1)
 {
     r1.setNumber(_ressourceTokenStocked1);
 }
 
-void PowerPlant::setNumRessourceTokenStocked2(int _ressourceTokenStocked2)
+void PowerPlant::setNumResourceTokenStocked2(int _ressourceTokenStocked2)
 {
    r2.setNumber(_ressourceTokenStocked2);
 }

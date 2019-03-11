@@ -25,7 +25,7 @@ public:
 		City city;
 		Player player;
 		vector<PowerPlant> powerplants;
-		vector<RessourceToken> resources;
+		vector<ResourceToken> resources;
 		vector<Elektro> elektros;
 		AdjListNode * head;
 	};
@@ -84,7 +84,7 @@ public:
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
 	void add_ElektrosToCity(Elektro el, string name);
-	void add_ResourcesToCity(RessourceToken rt, string name);
+	void add_ResourcesToCity(ResourceToken rt, string name);
 	void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(int v1, int v2);
 	bool test_SizeOfMap_and_FileMap();
@@ -98,7 +98,7 @@ private:
 	int totalVertices;
 	Graph * graph;
 	std::string file;
-	GameState gameState = GameStateIO::readXmlFile(file);
+	GameState gameState;// = GameStateIO::readXmlFile(file);
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;
