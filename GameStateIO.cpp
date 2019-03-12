@@ -189,7 +189,7 @@ namespace GameStateIO {
                 else if( equalsIgnoreCase( (*it)->getNodeName(), "numOfCitiesPowered" ) ) {
                     numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "numResourcesTokensNeeded" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "numResourcesTokensNeeded" ) ) {
                     numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
                 }
                 else if( equalsIgnoreCase( (*it)->getNodeName(), "resourceTokenNeeded1" ) ) {
