@@ -39,13 +39,13 @@ namespace GameStateIO {
             int bill50Quantity = -1;
         
 	        for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
-	            if( toLowerCase((*it)->getNodeName()) == "bill1quantity" ) {
+	            if( equalsIgnoreCase( (*it)->getNodeName(), "bill1Quantity" ) ) {
         	        bill1Quantity = generateInt( ((*it)->getChildNodes()).front() );
 	            }
-	            else if( toLowerCase((*it)->getNodeName()) == "bill10quantity" ) {
+	            else if( equalsIgnoreCase( (*it)->getNodeName(), "bill10Quantity" ) ) {
         	        bill10Quantity = generateInt( ((*it)->getChildNodes()).front() );
 	            }
-	            else if( toLowerCase((*it)->getNodeName()) == "bill50quantity" ) {
+	            else if( equalsIgnoreCase( (*it)->getNodeName(), "bill50Quantity" ) ) {
         	        bill50Quantity = generateInt( ((*it)->getChildNodes()).front() );
 	            }
 	        }
@@ -183,19 +183,19 @@ namespace GameStateIO {
             std::string resourceTokenNeeded2 = "";
             
             for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
-                if( toLowerCase((*it)->getNodeName()) == "cardnumber" ) {
+                if( equalsIgnoreCase( (*it)->getNodeName(), "cardnumber" ) ) {
                     cardNumber = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "numofcitiespowered" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "numOfCitiesPowered" ) ) {
                     numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "numresourcestokensneeded" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "numResourcesTokensNeeded" ) {
                     numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "resourcetokenneeded1" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "resourceTokenNeeded1" ) ) {
                     resourceTokenNeeded1 = generateString( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "resourcetokenneeded2" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "resourcetokenneeded2" ) ) {
                     resourceTokenNeeded2 = generateString( ((*it)->getChildNodes()).front() );
                 }
             }
@@ -255,16 +255,16 @@ namespace GameStateIO {
             int turnOfPlayer = 0;
 
             for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
-                if( toLowerCase((*it)->getNodeName()) == "turnofplayer" ) {
+                if( equalsIgnoreCase( (*it)->getNodeName(), "turnOfPlayer" ) ) {
                     turnOfPlayer = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "city" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "City" ) ) {
                     citiesOwned.push_back( generateCity(*it) );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "edgetriplet" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "edgeTriplet" ) ) {
                     edgeTriplets.push_back( generateEdgeTriplet(*it) );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "player" ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "Player" ) ) {
                     players.push_back( generatePlayer(*it) );
                 }
             }
