@@ -299,4 +299,8 @@ namespace HelperFunctions {
         
         return resultStr;
     }
+    
+    bool equalsIgnoreCase(std::string str1, std::string str2) {
+        return toLowerCase(str1) == toLowerCase(str2);
+    }
 }

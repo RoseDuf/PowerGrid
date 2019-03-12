@@ -15,6 +15,8 @@ namespace HelperFunctions {
     std::string toLowerCase(std::string str);
     
     std::string toUpperCase(std::string str);
+    
+    bool equalsIgnoreCase(std::string str1, std::string str2);
 }
 
 #endif
