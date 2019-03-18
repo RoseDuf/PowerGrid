@@ -60,4 +60,247 @@ namespace HelperFunctions {
         std::string tempStr = str.substr(beg, end-beg+1);
         return tempStr;
     }
+    
+    std::string toLowerCase(std::string str) {
+        
+        std::string resultStr = "";
+        
+        for(int i = 0; i < str.size(); i++) {
+            switch( str.at(i) ) {
+                case 'A' : {
+                    resultStr += "a";
+                    break;
+                }
+                case 'B' : {
+                    resultStr += "b";
+                    break;
+                }
+                case 'C' : {
+                    resultStr += "c";
+                    break;
+                }
+                case 'D' : {
+                    resultStr += "d";
+                    break;
+                }
+                case 'E' : {
+                    resultStr += "e";
+                    break;
+                }
+                case 'F' : {
+                    resultStr += "f";
+                    break;
+                }
+                case 'G' : {
+                    resultStr += "g";
+                    break;
+                }
+                case 'H' : {
+                    resultStr += "h";
+                    break;
+                }
+                case 'I' : {
+                    resultStr += "i";
+                    break;
+                }
+                case 'J' : {
+                    resultStr += "j";
+                    break;
+                }
+                case 'K' : {
+                    resultStr += "k";
+                    break;
+                }
+                case 'L' : {
+                    resultStr += "l";
+                    break;
+                }
+                case 'M' : {
+                    resultStr += "m";
+                    break;
+                }
+                case 'N' : {
+                    resultStr += "n";
+                    break;
+                }
+                case 'O' : {
+                    resultStr += "o";
+                    break;
+                }
+                case 'P' : {
+                    resultStr += "p";
+                    break;
+                }
+                case 'Q' : {
+                    resultStr += "q";
+                    break;
+                }
+                case 'R' : {
+                    resultStr += "r";
+                    break;
+                }
+                case 'S' : {
+                    resultStr += "s";
+                    break;
+                }
+                case 'T' : {
+                    resultStr += "t";
+                    break;
+                }
+                case 'U' : {
+                    resultStr += "u";
+                    break;
+                }
+                case 'V' : {
+                    resultStr += "v";
+                    break;
+                }
+                case 'W' : {
+                    resultStr += "w";
+                    break;
+                }
+                case 'X' : {
+                    resultStr += "x";
+                    break;
+                }
+                case 'Y' : {
+                    resultStr += "y";
+                    break;
+                }
+                case 'Z' : {
+                    resultStr += "z";
+                    break;
+                }
+                default : {
+                    resultStr += str.at(i);
+                    break;
+                }
+            }
+        }
+        
+        return resultStr;
+    }
+    
+    std::string toUpperCase(std::string str) {
+        
+        std::string resultStr = "";
+        
+        for(int i = 0; i < str.size(); i++) {
+            switch( str.at(i) ) {
+                case 'a' : {
+                    resultStr += "A";
+                    break;
+                }
+                case 'b' : {
+                    resultStr += "B";
+                    break;
+                }
+                case 'c' : {
+                    resultStr += "C";
+                    break;
+                }
+                case 'd' : {
+                    resultStr += "D";
+                    break;
+                }
+                case 'e' : {
+                    resultStr += "E";
+                    break;
+                }
+                case 'f' : {
+                    resultStr += "F";
+                    break;
+                }
+                case 'g' : {
+                    resultStr += "G";
+                    break;
+                }
+                case 'h' : {
+                    resultStr += "H";
+                    break;
+                }
+                case 'i' : {
+                    resultStr += "I";
+                    break;
+                }
+                case 'j' : {
+                    resultStr += "J";
+                    break;
+                }
+                case 'k' : {
+                    resultStr += "K";
+                    break;
+                }
+                case 'l' : {
+                    resultStr += "L";
+                    break;
+                }
+                case 'm' : {
+                    resultStr += "M";
+                    break;
+                }
+                case 'n' : {
+                    resultStr += "N";
+                    break;
+                }
+                case 'o' : {
+                    resultStr += "O";
+                    break;
+                }
+                case 'p' : {
+                    resultStr += "P";
+                    break;
+                }
+                case 'q' : {
+                    resultStr += "Q";
+                    break;
+                }
+                case 'r' : {
+                    resultStr += "R";
+                    break;
+                }
+                case 's' : {
+                    resultStr += "S";
+                    break;
+                }
+                case 't' : {
+                    resultStr += "T";
+                    break;
+                }
+                case 'u' : {
+                    resultStr += "U";
+                    break;
+                }
+                case 'v' : {
+                    resultStr += "V";
+                    break;
+                }
+                case 'w' : {
+                    resultStr += "W";
+                    break;
+                }
+                case 'x' : {
+                    resultStr += "Y";
+                    break;
+                }
+                case 'y' : {
+                    resultStr += "Y";
+                    break;
+                }
+                case 'z' : {
+                    resultStr += "Z";
+                    break;
+                }
+                default : {
+                    resultStr += str.at(i);
+                }
+            }
+        }
+        
+        return resultStr;
+    }
+    
+    bool equalsIgnoreCase(std::string str1, std::string str2) {
+        return toLowerCase(str1) == toLowerCase(str2);
+    }
 }

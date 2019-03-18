@@ -4,9 +4,9 @@
 #include <iostream>
 #include <cstdlib>
 #include "PowerPlant.h"
-#include "Elektro.h"
+#include "Elektro.hpp"
 #include "City.h"
-#include "RessourceToken.h"
+#include "ResourceToken.hpp"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ private:
    	 //vector<Elektro> elektros;
    	 Elektro wallet;
 	vector<City> citiesOwned;
-	vector<RessourceToken> resources;
+	vector<ResourceToken> resources;
 
 
 public:
@@ -41,10 +41,76 @@ public:
 	string getColor();
 	vector<PowerPlant> getPowerPlant();
 	//vector<Elektro> getElektros();
-	vector<RessourceToken> getResources();
+	vector<ResourceToken> getResources();
 	void addCity(City city);
+	vector<City> getCitiesOwned();
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
 	void toString();
 };
+
+/*//  player Header File
+
+#pragma once
+#include <iostream>
+#include <cstdlib>
+#include "PowerPlant.h"
+#include "ElektroBill.hpp"
+#include "City.h"
+#include "RessourceToken.h"
+
+using namespace std;
+
+class Player {
+    
+private:
+    	string name;
+	string color;
+	vector<PowerPlant> powerPlants;
+<<<<<<< HEAD
+    
+   	 //vector<Elektro> elektros;
+   	 Elektro wallet;
+=======
+	vector<ElektroBill> elektros;
+>>>>>>> UpstreamGraphFixingBranch
+	vector<City> citiesOwned;
+	vector<RessourceToken> resources;
+
+
+public:
+    
+	Player();
+	Player(string name, string color);
+	~Player();
+    
+    
+    
+   	 void collectElektro(int _bill1, int _bill10, int _bill50);
+   	 void spendElektros(int _bill1, int _bill10, int _bill50);
+	//just prints the waller content
+   	 void getWallet();
+	//returns how much the players has
+    	int getTotalWallet();
+	string getName();
+	string getColor();
+<<<<<<< HEAD
+	vector<PowerPlant> getPowerPlant();
+	//vector<Elektro> getElektros();
+	vector<RessourceToken> getResources();
+	void addCity(City city);
+	void addPowerPlant(PowerPlant p);
+	//void addElektro(Elektro e);
+=======
+	vector<PowerPlant> getPowerPlants();
+	vector<ElektroBill> getElektros();
+	vector<RessourceToken> getResources();
+	void addCity(City city);
+	void addPowerPlant(PowerPlant p);
+	void collectElektro(ElektroBill e);
+>>>>>>> UpstreamGraphFixingBranch
+	//void removeElektro(int quantity, int billValue);
+	void toString();
+};
+*/

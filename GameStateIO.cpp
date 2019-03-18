@@ -11,11 +11,49 @@
 
 #include <vector>
 
+#include "Elektro.hpp"
+
+#include "PowerPlant.h"
+
 using namespace HelperFunctions;
 using namespace std;
 
 namespace GameStateIO {
+    
     namespace {
+        
+        int generateInt(XmlDocumentNode* node) {
+            return std::stoi( trim(node->getNodeValue()) );
+        }
+        
+        std::string generateString(XmlDocumentNode* node) {
+            return node->getNodeValue(); // no trimming, just in case whitespace is desired (which shouldn't cause any problem anyways)
+        }
+        
+        Elektro generateElektro(XmlDocumentNode* node) {
+        	
+	        std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+        
+        	int bill1Quantity = -1;
+	        int bill10Quantity = -1;
+            int bill50Quantity = -1;
+        
+	        for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+	            if( equalsIgnoreCase( (*it)->getNodeName(), "bill1Quantity" ) ) {
+        	        bill1Quantity = generateInt( ((*it)->getChildNodes()).front() );
+	            }
+	            else if( equalsIgnoreCase( (*it)->getNodeName(), "bill10Quantity" ) ) {
+        	        bill10Quantity = generateInt( ((*it)->getChildNodes()).front() );
+	            }
+	            else if( equalsIgnoreCase( (*it)->getNodeName(), "bill50Quantity" ) ) {
+        	        bill50Quantity = generateInt( ((*it)->getChildNodes()).front() );
+	            }
+	        }
+        
+	        Elektro generatedElektro = Elektro( bill1Quantity, bill10Quantity, bill50Quantity );
+            return generatedElektro;
+	    }
+        
         bool isValue(std::string str) {
             bool tempBool = str.find("<") == string::npos; // if there is no position for <, then it's a value (not other set of nested tags)
             return tempBool;
@@ -83,6 +121,162 @@ namespace GameStateIO {
             
             return new XmlDocumentTree( recursiveXmlParser(parentElementName,totalStr) );
         }
+        
+        City generateCity(XmlDocumentNode* node) {
+            
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            
+            int verticeNumber;
+            std::string cityName;
+            std::string cityColor;
+            
+            for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+                if( (*it)->getNodeName() == "verticeNumber" ) {
+                    verticeNumber = generateInt( ((*it)->getChildNodes()).front() );
+                }
+                else if( (*it)->getNodeName() == "cityName" ) {
+                    cityName = generateString( ((*it)->getChildNodes()).front() );
+                }
+                else if( (*it)->getNodeName() == "cityColor" || (*it)->getNodeName() == "cityColour" ) {
+                    cityColor = generateString( ((*it)->getChildNodes()).front() );
+                }
+            }
+            
+            City generatedCity = City( verticeNumber, cityName, cityColor );
+            return generatedCity;
+        }
+        
+        EdgeTriplet generateEdgeTriplet(XmlDocumentNode* node) {
+            
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            
+            City city1;
+            City city2;
+            int edgeCost;
+            bool firstCityEncountered = false;
+            
+            for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+                if( (*it)->getNodeName() == "City" && firstCityEncountered == false ) {
+                    city1 = generateCity(*it);
+                    firstCityEncountered = true;
+                }
+                else if( (*it)->getNodeName() == "City" && firstCityEncountered == true ) {
+                    city2 = generateCity(*it);
+                }
+                else if( (*it)->getNodeName() == "edgeCost" ) {
+                    edgeCost = generateInt( ((*it)->getChildNodes()).front() );
+                }
+            }
+            
+            EdgeTriplet generatedEdgeTriplet = EdgeTriplet( city1, city2, edgeCost );
+            return generatedEdgeTriplet;
+        }
+        
+        PowerPlant generatePowerPlant( XmlDocumentNode* node ) {
+            
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            
+            int cardNumber = 0;
+            int numOfCitiesPowered = 0;
+            int numResourcesTokensNeeded = 0;
+            std::string resourceTokenNeeded1 = "";
+            std::string resourceTokenNeeded2 = "";
+            
+            for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+                if( equalsIgnoreCase( (*it)->getNodeName(), "cardnumber" ) ) {
+                    cardNumber = generateInt( ((*it)->getChildNodes()).front() );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "numOfCitiesPowered" ) ) {
+                    numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "numResourcesTokensNeeded" ) ) {
+                    numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "resourceTokenNeeded1" ) ) {
+                    resourceTokenNeeded1 = generateString( ((*it)->getChildNodes()).front() );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "resourcetokenneeded2" ) ) {
+                    resourceTokenNeeded2 = generateString( ((*it)->getChildNodes()).front() );
+                }
+            }
+        
+            PowerPlant generatedPowerPlant = PowerPlant(cardNumber, numOfCitiesPowered, numResourcesTokensNeeded, resourceTokenNeeded1, resourceTokenNeeded2);
+            
+            return generatedPowerPlant;
+        }
+        
+        Player generatePlayer(XmlDocumentNode* node) {/*
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            std::string playerName = "";
+            std::string playerColor = "";
+            Elektro elektro;
+            std::vector<City> citiesOwned;
+            std::vector<PowerPlant> powerPlants;
+            
+            for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+                if( toLowerCase((*it)->getNodeName()) == "playername" ) {
+                    playerName = generateString( ((*it)->getChildNodes()).front() );
+                }
+                else if( toLowerCase((*it)->getNodeName()) == "playercolor" || toLowerCase((*it)->getNodeName()) == "playercolour" ) {
+                    playerColor = generateString( ((*it)->getChildNodes()).front() );
+                }
+                else if( toLowerCase((*it)->getNodeName()) == "elektro" ) {
+                    elektro = generateElektro(*it);
+                }
+                else if( toLowerCase((*it)->getNodeName()) == "powerplant" ) {
+                    powerPlants.push_back( generatePowerPlant(*it) );
+                }
+                else if( toLowerCase((*it)->getNodeName()) == "resourcetokensXYZ"XYZ ) {
+                    resourceXYZ
+                }
+                else if( toLowerCase((*it)->getNodeName()) == "city" ) {
+                    citiesOwned.push_back( generateCity(*it) );
+                }
+            }
+            
+            Player generatedPlayer = Player( playerName, playerColor );
+            
+            generatedPlayer.collectElektro( elektro.getBillAmmount(1), elektro.getBillAmmount(10), elektro.getBillAmmount(50) );
+            
+            
+            for(int i = 0; i < powerPlants.size(); i++) {
+                generatedPlayer.addPowerPlant( powerPlants.at(i) );
+            }
+            
+            return generatedPlayer;*/
+            return Player();// TODO
+        }
+        
+        GameState generateGameState(XmlDocumentNode* node) {
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            std::vector<City> citiesOwned;
+            std::vector<EdgeTriplet> edgeTriplets;
+            std::vector<Player> players;
+            int turnOfPlayer = 0;
+
+            for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+                if( equalsIgnoreCase( (*it)->getNodeName(), "turnOfPlayer" ) ) {
+                    turnOfPlayer = generateInt( ((*it)->getChildNodes()).front() );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "City" ) ) {
+                    citiesOwned.push_back( generateCity(*it) );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "edgeTriplet" ) ) {
+                    edgeTriplets.push_back( generateEdgeTriplet(*it) );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "Player" ) ) {
+                    players.push_back( generatePlayer(*it) );
+                }
+            }
+
+            return GameState( turnOfPlayer, citiesOwned, edgeTriplets,  players ); // I need to make a constructor that’s something like this
+        }
+        
+        GameState generateGameState(XmlDocumentTree* tree) {
+            
+            GameState generatedGameState = generateGameState( tree->getRootNode() );
+            return generatedGameState;
+        }
     }
     
     GameState readXmlFile(std::string filename) {
@@ -109,37 +303,26 @@ namespace GameStateIO {
         
         
         // some testing of recursiveXmlParser function
-        XmlDocumentTree* tree = xmlParser("GameState", fileAsOneLinerString);
-        XmlDocumentNode* rootNode = tree->getRootNode();
-        std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
-        std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
-        std::cout << "name: " << children.front()->getNodeName() << std::endl;
-        std::cout << "value: " << children.front()->getNodeValue() << std::endl;
-        std::list<XmlDocumentNode*> grandchildren = children.front()->getChildNodes();
-        std::cout << "name: " << grandchildren.front()->getNodeName() << std::endl;
-        std::cout << "value: " << grandchildren.front()->getNodeValue() << std::endl;
+//         XmlDocumentTree* tree = xmlParser("GameState", fileAsOneLinerString);
+//         XmlDocumentNode* rootNode = tree->getRootNode();
+//         std::cout << "Root node: " << rootNode->getNodeName() << std::endl;
+//         std::list<XmlDocumentNode*> children = rootNode->getChildNodes();
+//         std::cout << "name: " << children.front()->getNodeName() << std::endl;
+//         std::cout << "value: " << children.front()->getNodeValue() << std::endl;
+//         std::list<XmlDocumentNode*> grandchildren = children.front()->getChildNodes();
+//         std::cout << "name: " << grandchildren.front()->getNodeName() << std::endl;
+//         std::cout << "value: " << grandchildren.front()->getNodeValue() << std::endl;
         
         
         
-        
-        
-        
-        
-        
-        /* // SECOND PART!!!:
-        XmlDocumentNode* amountOfPlayersNode = new XmlDocumentNode();
-        amountOfPlayersNode->setNodeName("TODO_name");
-        amountOfPlayersNode->setNodeValue("TODO_value");
-        gameStateNode->addChildNode(amountOfPlayersNode);
-        
-        //std::cout << "thing1: " << gameStateNode.getChildNodes().pop_front().getNodeName();
-        //std::cout << "thing2: " << gameStateNode.getChildNodes().pop_front().getNodeValue();
-        */
-        
-        return GameState();
+        GameState generatedGameState = generateGameState( xmlParser("GameState", fileAsOneLinerString) );
+//         std::vector<City> cities = generatedGameState.getCities();
+//         std::vector<EdgeTriplet> edgeTriplets = generatedGameState.getEdgeTriplets();
+        //PowerPlant powerPlant = generatedGameState.getPlayers().at(0).getPowerPlants().at(0);
+        return generatedGameState;
     }
+    
     void writeXmlFile(std::string filename) {
         // TODO
     }
 }
-

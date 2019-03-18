@@ -1,5 +1,5 @@
 /*
-	Graph implementation code using adjencyList
+Graph implementation code using adjencyList
 */
 
 #include "City.h"
@@ -11,12 +11,10 @@
 #define GRAPHBUILDER_HPP_
 
 class GraphBuilder {
-//nested classes needed to make the adjency list
-public: 
+	//nested classes needed to make the adjency list
+public:
 	struct AdjListNode {
 		City city;
-		
-		Player player;
 		int cost;
 		AdjListNode * next;
 	};
@@ -25,8 +23,8 @@ public:
 		City city;
 		Player player;
 		vector<PowerPlant> powerplants;
-		vector<RessourceToken> resources;
-		Elektro elektros;
+		vector<ResourceToken> resources;
+		vector<Elektro> elektros;
 		AdjListNode * head;
 	};
 
@@ -51,13 +49,14 @@ public:
 		MinHeapNode ** array;
 	};
 
-//classes to build the graph
+	//classes to build the graph
 public:
 	//building class functions
 	GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
+	vector<vector<int>> getConnected();
 	AdjListNode * newAdjListNode(int cityno, string cityname, string citycolor, int cost);
 	Graph * createGraph(int v, vector<City> cities);
 	void addEdge(Graph * graph, EdgeTriplet edges);
@@ -84,7 +83,7 @@ public:
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
 	void add_ElektrosToCity(Elektro el, string name);
-	void add_ResourcesToCity(RessourceToken rt, string name);
+	void add_ResourcesToCity(ResourceToken rt, string name);
 	void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(int v1, int v2);
 	bool test_SizeOfMap_and_FileMap();
@@ -93,12 +92,12 @@ public:
 	void buildMap();
 
 
-//variables needed for the graph building
+	//variables needed for the graph building
 private:
 	int totalVertices;
 	Graph * graph;
 	std::string file;
-	GameState gameState = GameStateIO::readXmlFile(file);
+	GameState gameState;// = GameStateIO::readXmlFile(file);
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;
