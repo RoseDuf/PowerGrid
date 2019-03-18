@@ -15,8 +15,6 @@ class GraphBuilder {
 public: 
 	struct AdjListNode {
 		City city;
-		
-		Player player;
 		int cost;
 		AdjListNode * next;
 	};
@@ -58,6 +56,7 @@ public:
 	GraphBuilder(int totalVertices, std::string file);
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
+	vector<vector<int>> getConnected();
 	AdjListNode * newAdjListNode(int cityno, string cityname, string citycolor, int cost);
 	Graph * createGraph(int v, vector<City> cities);
 	void addEdge(Graph * graph, EdgeTriplet edges);

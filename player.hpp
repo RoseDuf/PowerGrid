@@ -43,6 +43,7 @@ public:
 	//vector<Elektro> getElektros();
 	vector<ResourceToken> getResources();
 	void addCity(City city);
+	vector<City> getCitiesOwned();
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);

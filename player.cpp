@@ -39,12 +39,19 @@ vector<ResourceToken> Player::getResources(){
     return resources;
 }
 
+//CITIES ARENT GETTING ADDED TO PLAYER?!
 void Player::addCity(City city) {
+	cout << "hiiiiiiiiii" << endl;
     citiesOwned.push_back(city);
+	cout << citiesOwned.size() << endl;
 }
 
 void Player::addPowerPlant(PowerPlant p) {
     powerPlants.push_back(p);
+}
+
+vector<City> Player::getCitiesOwned() {
+	return citiesOwned;
 }
 
 void  Player::collectElektro(int _bill1, int _bill10, int _bill50)
@@ -74,6 +81,8 @@ int  Player::getTotalWallet()
 //}
 
 void Player::toString(){
+
+	
     cout << "Player name: " << name << "\nPlayer color: " << color
     << "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
     
