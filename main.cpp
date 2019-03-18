@@ -14,10 +14,15 @@ using namespace std;
 using namespace HelperFunctions;
 
 int main() {
+    
+    /*
     GameState gameState = GameStateIO::readXmlFile("/home/deniz/kdevelop_projects/PowerGrid/powergrid_cities.map");
     std::vector<City> cities = gameState.getCities();
     std::vector<EdgeTriplet> edgeTriplets = gameState.getEdgeTriplets();
     std::cout << "hilo" << std::endl;
+     */
+    
+    
 }
 
 
