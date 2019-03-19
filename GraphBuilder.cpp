@@ -337,7 +337,7 @@ bool GraphBuilder::test_MissingEdges() {
 		}
 	}
 
-	if (check = true) {
+	if (check == true) {
 		cout << "No disconnected cities." << endl;
 		return true;
 	}
