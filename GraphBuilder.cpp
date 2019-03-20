@@ -179,17 +179,22 @@ bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 	AdjListNode * root = graph->arr[v1].head;
 	bool check = false;
 
-	cout << "City " << v1 << " is adjacent to city " << v2 << ": ";
+	cout << "City " << v1 << " is adjacent to city " << v2 << endl;
 	while (check == false) {
 		if (root->city.getCityNumber() == v2) {
-			return true;
 			check = true;
 		}
 		else 
 			root = root->next;
-		if (root == NULL) 
-			return false;
+		if (root == NULL)
+			check = false;
 	}
+
+	if (check == true) {
+		return true;
+	}
+	else
+		return false;
 	//not sure if this does anything. Might need to later implement this method
 	//with smart pointer instead of simple "root" pointer
 	delete root;
@@ -212,14 +217,17 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 	
 	while (check == false) {
 		if (root->city.getCityNumber() == v2) {
-			return root->cost;
 			check = true;
 		}
 		else 
 			root = root->next;
-		if (root == NULL) 
-			break;
+		if (root == NULL)
+			check = false;
 	}
+
+	if (check == true)
+		cout << root->cost << endl;
+		return root->cost;
 
 	//not sure if this does anything. might have to put smart pointers
 	delete root;
@@ -315,7 +323,7 @@ bool GraphBuilder::test_Duplicate_Edges() {
 		}
 	}
 
-	if (check = true) {
+	if (check == true) {
 		cout << "No duplicate edges" << endl;
 		return true;
 	}
@@ -337,7 +345,7 @@ bool GraphBuilder::test_MissingEdges() {
 		}
 	}
 
-	if (check = true) {
+	if (check == true) {
 		cout << "No disconnected cities." << endl;
 		return true;
 	}
@@ -379,6 +387,7 @@ Dijkstra Search algorithm source code taken and modified from:
 https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
 ----------------------------------------------------------------------------------------------------------
 */
+/*
 //function to create a new Min Heap Node 
 GraphBuilder::MinHeapNode * GraphBuilder::newMinHeapNode(int v, int dist) {
 	MinHeapNode * minHeapNode = new MinHeapNode;
@@ -566,7 +575,7 @@ void GraphBuilder::dijkstra(Graph * graph, int src) {
 	delete[] dist;
 	dist = NULL;
 }
-
+*/
 // ----------------------------------------------------------------------------------------------------------
 
 

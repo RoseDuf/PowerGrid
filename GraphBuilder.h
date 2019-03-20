@@ -64,6 +64,7 @@ public:
 	void printGraph();
 
 	//searching algorithm funtions
+	/*
 	MinHeapNode * newMinHeapNode(int v, int dist);
 	MinHeap * createMinHeap(int capacity);
 	void swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode ** b);
@@ -75,6 +76,7 @@ public:
 	void printArr(int dist[], int n);
 	int findVertex(int dist[], int n);
 	void dijkstra(Graph * graph, int vector);
+	*/
 
 	//additional functions
 	//City findCityByName(string name);

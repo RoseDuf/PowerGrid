@@ -76,6 +76,7 @@ int main() {
 
 	//bool check1, check2, check3;
 	//Test Cases
+	graph.CostFromOneCityToAnother(0, 1);
 	//std::cout << std::boolalpha;
 	graph.test_SizeOfMap_and_FileMap();
 	//cout << check3 << endl;
