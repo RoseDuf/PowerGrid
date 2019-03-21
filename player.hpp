@@ -21,6 +21,7 @@ private:
    	 Elektro wallet;
 	vector<City> citiesOwned;
 	vector<ResourceToken> resources;
+	int turn;
 
 
 public:
@@ -44,6 +45,8 @@ public:
 	vector<ResourceToken> getResources();
 	void addCity(City city);
 	vector<City> getCitiesOwned();
+	int getTurn();
+	void setTurn(int turn);
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);

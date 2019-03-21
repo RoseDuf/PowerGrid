@@ -50,33 +50,35 @@ using namespace std;
 
 int main() {
 //
-	Elektro elektro = Elektro(10, 5, 50);
-	ResourceToken resource = ResourceToken(3, "oil");
-	PowerPlant powerplant = PowerPlant(3, 2, 2, "oil", "");
-	Player p1 = Player("Nicole", "Red");
+	//Elektro elektro = Elektro(10, 5, 50);
+	//ResourceToken resource = ResourceToken(3, "oil");
+	//PowerPlant powerplant = PowerPlant(3, 2, 2, "oil", "");
+
+	
 	//p1.collectElektro(elektro);
 
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "powergrid_cities.map");
 	graph.buildMap();
 
+	/*
 	graph.printGraph();
 
 	cout << endl;
 
 	//prints the contents of the 2D vector "connected" from GraphBuilder.h
-	/*vector<vector<int>> vec = graph.getConnected();
+	//vector<vector<int>> vec = graph.getConnected();
   
-	for (int i = 0; i < vec.size(); i++) {
-		cout << "for slot " << i << " there is: " << endl;
-		for (int j = 0; j < vec[i].size(); j++) {
-			cout << vec[i][j] << endl;
-		}
-	}*/
+	//for (int i = 0; i < vec.size(); i++) {
+	//	cout << "for slot " << i << " there is: " << endl;
+	//	for (int j = 0; j < vec[i].size(); j++) {
+	//		cout << vec[i][j] << endl;
+	//	}
+	//}
 
 	//bool check1, check2, check3;
 	//Test Cases
-	graph.CostFromOneCityToAnother(0, 1);
+	//graph.CostFromOneCityToAnother(0, 1);
 	//std::cout << std::boolalpha;
 	graph.test_SizeOfMap_and_FileMap();
 	//cout << check3 << endl;
@@ -110,5 +112,31 @@ int main() {
 	p1.toString();
 
 	cin.get();
+	*/
+
+	//vector of Players
+	vector<Player> players;
+	players.push_back(Player("Nicole", "Red"));
+	players.push_back(Player("Voldermort", "Green"));
+	players.push_back(Player("Pikachu", "Blue"));
+	players.push_back(Player("Smith", "Purple"));
+	//Game loop !!!!
+
+	int numPlayers = players.size();
+
+	bool gameIsNotFinished = false;
+	int round = 1;
+
+	while (gameIsNotFinished == false){
+		
+		while (round >= 1) {
+			
+			if (round == 1) {
+
+				
+
+			}
+		}
+	}
 }
 

@@ -74,6 +74,13 @@ int  Player::getTotalWallet()
 	return wallet.getTotalBalance();
 }
 
+int Player::getTurn() {
+	return turn;
+}
+void Player::setTurn(int t) {
+	turn = t;
+}
+
 
 //void Player::removeElektro(int quantity, int billValue) {
 //elektros.push_back(Elektro(quantity, billValue));
