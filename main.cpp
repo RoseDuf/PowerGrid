@@ -49,7 +49,7 @@ int main() {
 using namespace std;
 
 int main() {
-
+//
 	Elektro elektro = Elektro(10, 5, 50);
 	ResourceToken resource = ResourceToken(3, "oil");
 	PowerPlant powerplant = PowerPlant(3, 2, 2, "oil", "");
