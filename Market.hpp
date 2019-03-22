@@ -18,7 +18,8 @@ public:
     void restockMarket(int step);
     void rtPurchase(string type, int number);
     bool checkMarket(string type, int number);
-        bool checkSupply(string type, int number);
+    bool checkSupply(string type, int number);
+    int getPrice(string type);
 private:
     
     //total resource token pieces in the game
