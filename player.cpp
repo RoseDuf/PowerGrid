@@ -40,17 +40,15 @@ vector<ResourceToken> Player::getResources() {
 }
 
 //CITIES ARENT GETTING ADDED TO PLAYER?!
-void Player::addCity(City city) {
-	cout << "hiiiiiiiiii" << endl;
+void Player::addCity(City * city) {
 	citiesOwned.push_back(city);
-	cout << citiesOwned.size() << endl;
 }
 
 void Player::addPowerPlant(PowerPlant p) {
 	powerPlants.push_back(p);
 }
 
-vector<City> Player::getCitiesOwned() {
+vector<City*> Player::getCitiesOwned() {
 	return citiesOwned;
 }
 
@@ -97,7 +95,7 @@ void Player::toString() {
 	wallet.toString();
 	cout << "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
 	for (int i = 0; i < citiesOwned.size(); i++) {
-		cout << citiesOwned[i].getCityName() << endl;
+		cout << citiesOwned.at(i)->getCityName() << endl;
 	}
 }
 

@@ -13,13 +13,13 @@ using namespace std;
 class Player {
     
 private:
-    	string name;
+    string name;
 	string color;
 	vector<PowerPlant> powerPlants;
     
-   	 //vector<Elektro> elektros;
-   	 Elektro wallet;
-	vector<City> citiesOwned;
+   	//vector<Elektro> elektros;
+   	Elektro wallet;
+	vector<City*> citiesOwned;
 	vector<ResourceToken> resources;
 	int turn;
 
@@ -32,19 +32,19 @@ public:
     
     
     
-   	 void collectElektro(int _bill1, int _bill10, int _bill50);
-   	 void spendElektros(int _bill1, int _bill10, int _bill50);
+  	void collectElektro(int _bill1, int _bill10, int _bill50);
+    void spendElektros(int _bill1, int _bill10, int _bill50);
 	//just prints the waller content
-   	 void getWallet();
+   	void getWallet();
 	//returns how much the players has
-    	int getTotalWallet();
+    int getTotalWallet();
 	string getName();
 	string getColor();
 	vector<PowerPlant> getPowerPlant();
 	//vector<Elektro> getElektros();
 	vector<ResourceToken> getResources();
-	void addCity(City city);
-	vector<City> getCitiesOwned();
+	void addCity(City * city);
+	vector<City*> getCitiesOwned();
 	int getTurn();
 	void setTurn(int turn);
 	void addPowerPlant(PowerPlant p);

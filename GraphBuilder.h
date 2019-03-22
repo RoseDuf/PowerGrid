@@ -17,6 +17,10 @@ public:
 		City city;
 		int cost;
 		AdjListNode * next;
+		~AdjListNode(){
+			delete next;
+			next = NULL;
+		}
 	};
 
 	struct CityList {
@@ -26,13 +30,22 @@ public:
 		vector<ResourceToken> resources;
 		vector<Elektro> elektros;
 		AdjListNode * head;
+		~CityList() {
+			delete head;
+			head = NULL;
+		}
 	};
 
 	struct Graph {
 		int v;
 		CityList * arr;
+		~Graph() {
+			delete [] arr;
+			arr = NULL;
+		}
 	};
 
+	/*
 	// Structure to represent a min heap node 
 	struct MinHeapNode
 	{
@@ -48,12 +61,14 @@ public:
 		int *pos;     // This is needed for decreaseKey() 
 		MinHeapNode ** array;
 	};
+	*/
 
 	//classes to build the graph
 public:
 	//building class functions
 	GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
+	~GraphBuilder();
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
 	vector<vector<int>> getConnected();
@@ -80,8 +95,8 @@ public:
 
 	//additional functions
 	//City findCityByName(string name);
-	void AddPlayerToCity(Player player, string name);
-	vector<City> FindCitiesOwnedByPlayer(Player player);
+	void AddPlayerToCity(Player * pl, string name);
+	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
 	void add_ElektrosToCity(Elektro el, string name);

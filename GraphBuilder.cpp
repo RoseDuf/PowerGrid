@@ -24,6 +24,11 @@ GraphBuilder::GraphBuilder(int tv, std::string file) {
 	edges = gameState.getEdgeTriplets();
 }
 
+GraphBuilder::~GraphBuilder(){
+	delete graph;
+	graph = NULL;
+}
+
 int GraphBuilder::getTotalVertices() {
 	return totalVertices;
 }
@@ -144,32 +149,36 @@ void GraphBuilder::printGraph() {
 
 //function to add players to "cities"(aka Nodes) in the physical map
 //and updates Player info at the same time
-void GraphBuilder::AddPlayerToCity(Player pl, string name) {
-	City cities;
+void GraphBuilder::AddPlayerToCity(Player * pl, string name) {
+	City * cities = new City();
 
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
-			cities = graph->arr[i].city; //find the desired city by its name
-			graph->arr[i].player = pl; //add Player to the physical map
-			pl.addCity(cities);	//add/update new City object to Player "cities" attribute 
+			cities = &(graph->arr[i].city); //find the desired city by its name
+			graph->arr[i].player = *pl; //add Player to the physical map
+			pl->addCity(cities);	//add/update new City object to Player "cities" attribute 
 
 			//CITIES ARENT GETTING ADDED TO PLAYER?!
 		}
 	}
+
+	//delete cities;
+	//cities = NULL;
 }
 
 //Function that returns a vector of "cities"(Nodes) that have a player
-vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player pl) {
+vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player * pl) {
 
 	vector<City> citiesOwned;
 
 	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].player.getName() == pl.getName()) {
+		if (graph->arr[i].player.getName() == pl->getName()) {
 			citiesOwned.push_back(graph->arr[i].city);
 		}
-		else
-			cout << "Player:" << pl.getName() << ", Color: "/* << pl.getColor*/ 
+		/*else
+			cout << "Player:" << pl->getName() << ", Color: " << pl->getColor()
 				 << ", is not in City: " << graph->arr[i].city.getCityName() << endl;
+		*/
 	}
 	return citiesOwned;
 }
