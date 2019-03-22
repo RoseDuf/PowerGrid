@@ -16,7 +16,11 @@ using namespace HelperFunctions;
 
 static void shuffle(vector<GameCard*> &_deck)
 {
+    cout << "===============" << endl;
+     cout << "===============" << endl;
     cout << "SHUFFLED" << endl;
+    cout << "===============" << endl;
+    cout << "===============" << endl;
     random_shuffle(_deck.begin(),_deck.end());
 }
 static void makingDeck(vector<GameCard*> &_deck)
@@ -30,48 +34,51 @@ static void makingDeck(vector<GameCard*> &_deck)
     
     //before it is was just an object,
     
-    PowerPlant *p1 = new PowerPlant(3, 1, 2, "oil", "");
-    PowerPlant *p2 = new PowerPlant(4, 1, 2, "coal", "");
-    PowerPlant *p3 = new PowerPlant(5, 1, 2, "coal", "oil");
-    PowerPlant *p4 = new PowerPlant(6, 1, 1, "garbage", "" );
-    PowerPlant *p5 = new PowerPlant(7, 2, 3, "oil", "");
-    PowerPlant *p6 = new PowerPlant(8, 2, 3, "coal", "");
-    PowerPlant *p7 = new PowerPlant(9, 1, 1, "oil", "");
-    PowerPlant *p8 = new PowerPlant(10, 2, 2, "coal", "");
-    PowerPlant *p9 = new PowerPlant(11, 2, 1, "uranium", "");
-    PowerPlant *p10 = new PowerPlant(12, 2, 2, "oil", "coal");
-    PowerPlant *p11 = new PowerPlant(13, 1, 0, "", "");
-    PowerPlant *p12 = new PowerPlant(14, 2, 2, "garbage", "");
-    PowerPlant *p13 = new PowerPlant(15, 3, 2, "coal", "");
-    PowerPlant *p14 = new PowerPlant(16, 3, 2, "oil", "");
-    PowerPlant *p15 = new PowerPlant(17, 2, 1, "uranium", "");
-    PowerPlant *p16 = new PowerPlant(18, 2, 0, "", "");
-    PowerPlant *p17 = new PowerPlant(19, 3, 2, "garbage", "");
-    PowerPlant *p18 = new PowerPlant(20, 5, 3, "coal", "");
-    PowerPlant *p19 = new PowerPlant(21, 4, 2, "coal", "oil");
-    PowerPlant *p20 = new PowerPlant(22, 2, 0, "", "");
-    PowerPlant *p21 = new PowerPlant(23, 3, 1, "uranium", "");
-    PowerPlant *p22 = new PowerPlant(24, 4, 2, "garbage", "");
-    PowerPlant *p23 = new PowerPlant(25, 5, 2, "coal", "");
-    PowerPlant *p24 = new PowerPlant(26, 5, 2, "oil", "");
-    PowerPlant *p25 = new PowerPlant(27, 3, 0, "", "");
-    PowerPlant *p26 = new PowerPlant(28, 4, 1, "uranium", "");
-    PowerPlant *p27 = new PowerPlant(29, 4, 2, "oil", "coal");
-    PowerPlant *p28 = new PowerPlant(30, 6, 3, "garbage", "");
-    PowerPlant *p29 = new PowerPlant(31, 6, 3, "coal", "");
-    PowerPlant *p30 = new PowerPlant(32, 6, 3, "oil", "");
-    PowerPlant *p31 = new PowerPlant(33, 4, 0, "", "");
-    PowerPlant *p32 = new PowerPlant(34, 5, 1, "uranium", "");
-    PowerPlant *p33 = new PowerPlant(35, 5, 1, "oil", "");
-    PowerPlant *p34 = new PowerPlant(36, 7, 3, "coal", "");
-    PowerPlant *p35 = new PowerPlant(37, 4, 0, "", "");
-    PowerPlant *p36 = new PowerPlant(38, 7, 3, "garbage", "");
-    PowerPlant *p37 = new PowerPlant(39, 6, 1, "uranium", "");
-    PowerPlant *p38 = new PowerPlant(40, 6, 2, "oil", "");
-    PowerPlant *p39 = new PowerPlant(42, 6, 2, "coal", "");
-    PowerPlant *p40 = new PowerPlant(44, 5, 0, "", "");
-    PowerPlant *p41 = new PowerPlant(46, 7, 3, "oil", "coal");
-    PowerPlant *p42 = new PowerPlant(50, 6, 0, "", "");
+    
+    //  PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_needed, int _oil_needed, int _garbage_needed, int _uranium_needed);
+
+    PowerPlant *p1 = new PowerPlant(3, 1, 0, 2, 0, 0);
+    PowerPlant *p2 = new PowerPlant(4, 1, 2, 0, 0, 0);
+    PowerPlant *p3 = new PowerPlant(5, 1, 2, 2, 0, 0);
+    PowerPlant *p4 = new PowerPlant(6, 1, 0, 0, 1, 0);
+    PowerPlant *p5 = new PowerPlant(7, 2, 0, 3, 0, 0);
+    PowerPlant *p6 = new PowerPlant(8, 2, 3, 0, 0, 0);
+    PowerPlant *p7 = new PowerPlant(9, 1, 0, 1, 0, 0);
+    PowerPlant *p8 = new PowerPlant(10, 2, 2, 0, 0, 0);
+    PowerPlant *p9 = new PowerPlant(11, 2, 0, 0, 0, 1);
+    PowerPlant *p10 = new PowerPlant(12, 2, 2, 2, 0, 0);
+    PowerPlant *p11 = new PowerPlant(13, 1, 0, 0, 0, 0);
+    PowerPlant *p12 = new PowerPlant(14, 2, 0, 0, 2, 0);
+    PowerPlant *p13 = new PowerPlant(15, 3, 2, 0, 0, 0);
+    PowerPlant *p14 = new PowerPlant(16, 3, 0, 2, 0, 0);
+    PowerPlant *p15 = new PowerPlant(17, 2, 0, 0, 0, 1);
+    PowerPlant *p16 = new PowerPlant(18, 2, 0, 0, 0, 0);
+    PowerPlant *p17 = new PowerPlant(19, 3, 0, 0, 2, 0);
+    PowerPlant *p18 = new PowerPlant(20, 5, 3, 0, 0, 0);
+    PowerPlant *p19 = new PowerPlant(21, 4, 2, 2, 0, 0);
+    PowerPlant *p20 = new PowerPlant(22, 2, 0, 0, 0, 0);
+    PowerPlant *p21 = new PowerPlant(23, 3, 0, 0, 0, 1);
+    PowerPlant *p22 = new PowerPlant(24, 4, 0, 0, 2, 0);
+    PowerPlant *p23 = new PowerPlant(25, 5, 2, 0, 0, 0);
+    PowerPlant *p24 = new PowerPlant(26, 5, 0, 2, 0, 0);
+    PowerPlant *p25 = new PowerPlant(27, 3, 0, 0, 0, 0);
+    PowerPlant *p26 = new PowerPlant(28, 4, 0, 0, 0, 1);
+    PowerPlant *p27 = new PowerPlant(29, 4, 2, 2, 0, 0);
+    PowerPlant *p28 = new PowerPlant(30, 6, 0, 0, 3, 0);
+    PowerPlant *p29 = new PowerPlant(31, 6, 3, 0, 0, 0);
+    PowerPlant *p30 = new PowerPlant(32, 6, 0, 3, 0, 0);
+    PowerPlant *p31 = new PowerPlant(33, 4, 0, 0, 0, 0);
+    PowerPlant *p32 = new PowerPlant(34, 5, 0, 0, 0, 1);
+    PowerPlant *p33 = new PowerPlant(35, 5, 0, 1, 0, 0);
+    PowerPlant *p34 = new PowerPlant(36, 7, 3, 0, 0, 0);
+    PowerPlant *p35 = new PowerPlant(37, 4, 0, 0, 0, 0);
+    PowerPlant *p36 = new PowerPlant(38, 7, 0, 0, 3, 0);
+    PowerPlant *p37 = new PowerPlant(39, 6, 0, 0, 0, 1);
+    PowerPlant *p38 = new PowerPlant(40, 6, 0, 2, 0, 0);
+    PowerPlant *p39 = new PowerPlant(42, 6, 2, 0, 0, 0);
+    PowerPlant *p40 = new PowerPlant(44, 5, 0, 0, 0, 0);
+    PowerPlant *p41 = new PowerPlant(46, 7, 3, 3, 0, 0);
+    PowerPlant *p42 = new PowerPlant(50, 6, 0, 0, 0, 0);
     
     
     GameCard s3 = GameCard("s3");

@@ -20,7 +20,7 @@ private:
    	 //vector<Elektro> elektros;
    	 Elektro wallet;
 	vector<City> citiesOwned;
-	vector<ResourceToken> resources;
+	//vector<ResourceToken> resources;
 
 
 public:
@@ -40,8 +40,10 @@ public:
 	string getName();
 	string getColor();
 	vector<PowerPlant> getPowerPlant();
+    
+    
 	//vector<Elektro> getElektros();
-	vector<ResourceToken> getResources();
+	//vector<ResourceToken> getResources();
 	void addCity(City city);
 	vector<City> getCitiesOwned();
 	void addPowerPlant(PowerPlant p);

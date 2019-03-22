@@ -33,11 +33,12 @@ string Player::getColor() {
 vector<PowerPlant> Player::getPowerPlant() {
 	return powerPlants;
 }
-
+/*
 
 vector<ResourceToken> Player::getResources() {
 	return resources;
 }
+ */
 
 //CITIES ARENT GETTING ADDED TO PLAYER?!
 void Player::addCity(City city) {
@@ -47,6 +48,8 @@ void Player::addCity(City city) {
 }
 
 void Player::addPowerPlant(PowerPlant p) {
+  
+    
 	powerPlants.push_back(p);
 }
 
@@ -84,7 +87,10 @@ void Player::toString() {
 
 
 	cout << "Player name: " << name << "\nPlayer color: " << color
-		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
+    << "\nNumber of Power Plants owned: " << powerPlants.size() << "\nCity names: " << endl;
+    for (int i = 0; i < powerPlants.size(); i++) {
+        cout << powerPlants[i].toString() << endl;
+    }
 
 	cout << "\nAmount of Elektro: " << endl;
 	wallet.toString();
