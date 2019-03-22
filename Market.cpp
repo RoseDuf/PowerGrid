@@ -1,10 +1,3 @@
-//
-//  Market.cpp
-//  PowerGrid_local_update
-//
-//  Created by Isabelle Charette on 2019-03-22.
-//  Copyright © 2019 Isabelle Charette. All rights reserved.
-//
 
 #include "Market.hpp"
 
@@ -18,6 +11,7 @@ Market::Market()
 }
 void Market::restockMarket(int step)
 {
+    //need to check if enough in supply before restock
     if(step==1)
     {
         coal_market+=3;

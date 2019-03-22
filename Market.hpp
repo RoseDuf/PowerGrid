@@ -1,10 +1,3 @@
-//
-//  Market.hpp
-//  PowerGrid_local_update
-//
-//  Created by Isabelle Charette on 2019-03-22.
-//  Copyright © 2019 Isabelle Charette. All rights reserved.
-//
 
 #ifndef Market_hpp
 #define Market_hpp
