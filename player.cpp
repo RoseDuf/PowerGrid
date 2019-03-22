@@ -89,7 +89,8 @@ void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
     << "\nNumber of Power Plants owned: " << powerPlants.size() << "\nCity names: " << endl;
     for (int i = 0; i < powerPlants.size(); i++) {
-        cout << powerPlants[i].toString() << endl;
+        //pointer problem to fix with roses solution
+        //cout << powerPlants[i].toString() << endl;
     }
 
 	cout << "\nAmount of Elektro: " << endl;

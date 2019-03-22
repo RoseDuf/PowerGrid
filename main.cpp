@@ -6,7 +6,7 @@
 #include <iostream>
 #include "player.hpp"
 #include "City.h"
-#include "GraphBuilder.h"
+//#include "GraphBuilder.h"
 
 #include "HelperFunctions.hpp"
 
@@ -155,11 +155,17 @@ int main() {
     static vector<GameCard*> deck;
     
     makingDeck(deck);
-    printDeck(deck);
+    //printDeck(deck);
     shuffle(deck);
-    printDeck(deck);
+   // printDeck(deck);
     cout << deck.size() << endl;
-
-
-    
+    deleteDeck(deck);
+    PowerPlant *test = new PowerPlant(66, 6, 1, 0, 0, 0);
+    test->toString();
+    test->stockRT("coal", 2);
+     test->toString();
+    test->powerCity("coal");
+     test->toString();
+    delete test;
+    test= NULL;
 }

@@ -4,25 +4,6 @@ PowerPlant::PowerPlant()
 {
 }
 
-/*
- //constructor takes 2 possibles ressource tokens needed, if only is one needed, fill the second attribute with : ""
-PowerPlant::PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _numRessourcesTokensNeeded, string _typeRessourceTokenNeeded1, string _typeRessourceTokenNeeded2)
-{
-	cardNumber = _cardNumber;
-	numCitiesPowered = _numOfCitiesPowered;
-	numRessourcesTokensNeeded = _numRessourcesTokensNeeded;
-
-    
-    r1.setIdentifier(_typeRessourceTokenNeeded1);
-    r2.setIdentifier(_typeRessourceTokenNeeded2);
-    
-    r1.setNumber(0);
-    r2.setNumber(0);
-    
-    identifier = "Power Plant " + to_string(_cardNumber);
-}
- */
-
 PowerPlant::PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_needed, int _oil_needed, int _garbage_needed, int _uranium_needed)
 {
     cardNumber = _cardNumber;
@@ -35,6 +16,8 @@ PowerPlant::PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_neede
     uranium_needed = _uranium_needed;
     
     if(coal_needed==0 && oil_needed==0 && garbage_needed==0 && uranium_needed==0) green = true;
+    
+      identifier = "Power Plant " + to_string(_cardNumber);
 }
 
 PowerPlant::~PowerPlant()
@@ -280,58 +263,7 @@ void PowerPlant::powerCity(string type)
     }
 }
 
-/*
-//GETS array of strings of ressource token TYPES NEEDED
-string PowerPlant::getTypeResourceTokenNeeded1()
-{
-	return r1.getIndentifier();
-}
-//GETS array of strings of ressource token TYPES NEEDED
-string PowerPlant::getTypeResourceTokenNeeded2()
-{
-    return r2.getIndentifier();
-}
 
-//SETS the ressource token TYPES NEEDED
-void PowerPlant::setTypeResourceTokenNeeded1(string _typeRessourceTokenNeeded1)
-{
-    r1.setIdentifier(_typeRessourceTokenNeeded1);
-   
-}
-
-//SETS the ressource token TYPES NEEDED
-void PowerPlant::setTypeResourceTokenNeeded2(string _typeRessourceTokenNeeded2)
-{
-      r2.setIdentifier(_typeRessourceTokenNeeded2);
-}
-
-
-
-int PowerPlant::getResourceTokenStocked1()
-{
-   
-	return r1.getNumber();
-}
-
-
-int PowerPlant::getResourceTokenStocked2()
-{
-    
-    return r2.getNumber();
-}
-
-//SETS the NUMBER of ressource token STOCKED in power plant card
-void PowerPlant::setNumResourceTokenStocked1(int _ressourceTokenStocked1)
-{
-    r1.setNumber(_ressourceTokenStocked1);
-}
-
-void PowerPlant::setNumResourceTokenStocked2(int _ressourceTokenStocked2)
-{
-   r2.setNumber(_ressourceTokenStocked2);
-}
-
-*/
 void PowerPlant::toString()
 {
     if(green)
@@ -359,29 +291,5 @@ void PowerPlant::toString()
         cout << "Garbage: " << garbage_stocked << endl;
         cout << "Uranium: " << uranium_stocked << endl;
     }
-    /*
-    
-    //if green power plant
-    if (r1.getIndentifier()=="") {
-    cout << "\n" << "\n" << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
-        << "Ressource needed : " <<  "GREEN" << "\n" <<
-        "Number of tokens needed : " << "NONE" << endl;
-    }//if this power plant card only needs one type of ressource token
-    else if(r2.getIndentifier()=="")
-    {
-    
-	cout << "\n" << "\n" << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
-		<< "Ressource needed : " <<  r1.getIndentifier() << "\n" <<
-		"Number of tokens needed : " << numRessourcesTokensNeeded << "\n" << "In stock : " << r1.getIndentifier() << "(" << r1.getNumber() << ")" << endl;
-    }
-    
-    //if this power plant card  needs one type of ressource token or another
-    else
-    {
-        cout << "\n" << "\n" << "Power Plant Card Info: " << "\n" << "Card Number : " << cardNumber << "\n" << "Number of cities powered : " << numCitiesPowered << "\n"
-        << "Ressources needed : " <<  r1.getIndentifier() << " or " << r2.getIndentifier() << "\n" <<
-        "Number of tokens needed : " << numRessourcesTokensNeeded << "\n" << "In stock : " << r1.getIndentifier() << "(" << r1.getNumber() << ")" << " " << r2.getIndentifier() << "(" << r2.getNumber() << ")" <<  endl;
-    }
-     
-     */
+
 }
