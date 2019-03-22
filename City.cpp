@@ -15,6 +15,8 @@ City::City(int cityno, string cn, string cc) {
 	cityColor = cc;
 }
 
+City::~City() {}
+
 int City::getCityNumber() {
 	return cityNumber;
 }

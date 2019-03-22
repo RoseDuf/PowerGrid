@@ -20,6 +20,10 @@ Player::Player(string name, string color) {
 }
 
 Player::~Player() {
+	for (int i=0; i < citiesOwned.size(); i++){
+		delete citiesOwned[i];
+		citiesOwned[i] = NULL;
+	}
 }
 
 string Player::getName() {
@@ -39,7 +43,6 @@ vector<ResourceToken> Player::getResources() {
 	return resources;
 }
 
-//CITIES ARENT GETTING ADDED TO PLAYER?!
 void Player::addCity(City * city) {
 	citiesOwned.push_back(city);
 }

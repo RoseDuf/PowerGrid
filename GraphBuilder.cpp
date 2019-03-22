@@ -150,20 +150,15 @@ void GraphBuilder::printGraph() {
 //function to add players to "cities"(aka Nodes) in the physical map
 //and updates Player info at the same time
 void GraphBuilder::AddPlayerToCity(Player * pl, string name) {
-	City * cities = new City();
+	City * c = new City();
 
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
-			cities = &(graph->arr[i].city); //find the desired city by its name
+			c = &(graph->arr[i].city); //find the desired city by its name
 			graph->arr[i].player = *pl; //add Player to the physical map
-			pl->addCity(cities);	//add/update new City object to Player "cities" attribute 
-
-			//CITIES ARENT GETTING ADDED TO PLAYER?!
+			pl->addCity(c);	//add/update new City object to Player "cities" attribute 
 		}
 	}
-
-	//delete cities;
-	//cities = NULL;
 }
 
 //Function that returns a vector of "cities"(Nodes) that have a player

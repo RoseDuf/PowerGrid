@@ -11,7 +11,7 @@ public:
 
     City();
 	City(int cityNumber, std::string cityName, std::string cityColor);
-	City(std::string cityName, std::string cityColor);
+	~City();
 	std::string getCityName();
 	void setCityName(std::string cityName);
 	std::string getCityColor();
