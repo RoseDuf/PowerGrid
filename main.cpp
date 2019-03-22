@@ -40,6 +40,8 @@ int main() {
 //
 
 #include <iostream>
+#include <algorithm>
+#include <random>
 #include "player.hpp"
 #include "City.h"
 #include "GraphBuilder.h"
@@ -128,7 +130,7 @@ int main() {
 
 	//============================== Assignment 2, task 2, ================================================
 	
-	/*
+	
 	//vector of Players
 	vector<Player> players;
 	players.push_back(Player("Nicole", "Red"));
@@ -139,6 +141,7 @@ int main() {
 	//Game loop !!!!
 
 	int numPlayers = players.size();
+	vector<int> playerOrder;
 
 	bool gameIsNotFinished = false;
 	int round = 1;
@@ -146,26 +149,39 @@ int main() {
 	while (gameIsNotFinished == false){
 		
 		while (round >= 1) {
-			vector<int> turns;
 			
 			if (round == 1) {
 
 				for (int i = 0; i < numPlayers; i++) {
-					turns[i].push_back(i);
+					playerOrder.push_back(i);
 				}
+
+				//give random turn to each player
+				std::random_device rd;
+				std::mt19937 g(rd());
+				std::shuffle(playerOrder.begin(), playerOrder.end(), g);
 
 				for (int i = 0; i < numPlayers; i++) {
-					players[i].setTurn(rand() % numPlayers);
+					players[i].setplayerOrder(playerOrder[i]);
+					cout << players[i].getplayerOrder() << endl;
 				}
-				for (int j = numPlayers; j > 0; j--) {
 
+				round += 1;
+			}
 
-					if (players[i].getTurn() == players[j].getTurn()) {
+			else {
+				for (int i = 0; i < numPlayers; i++) {
+					for (int j = 0; j < numPlayers; j++) {
 
 					}
 				}
+
+
 			}
+
+			round = 0;
 		}
-	}*/
+		gameIsNotFinished = true;
+	}
 }
 

@@ -72,11 +72,11 @@ int  Player::getTotalWallet()
 	return wallet.getTotalBalance();
 }
 
-int Player::getTurn() {
-	return turn;
+int Player::getplayerOrder() {
+	return playerOrder;
 }
-void Player::setTurn(int t) {
-	turn = t;
+void Player::setplayerOrder(int t) {
+	playerOrder = t;
 }
 
 
