@@ -23,9 +23,7 @@ void GameState::setCities(std::vector<City> cities) {
 }
 
 GameState::GameState(int turnOfPlayer, std::vector<City> cities, std::vector<EdgeTriplet> edgeTriplets, std::vector<Player> playas)
-	: turnOfPlayer(turnOfPlayer), cities(cities), edgeTriplets(edgeTriplets), players(playas) {
-        std::cout << "hilo" << std::endl;
-    }
+	: turnOfPlayer(turnOfPlayer), cities(cities), edgeTriplets(edgeTriplets), players(playas) {}
 
 void GameState::setEdgeTriplets(std::vector<EdgeTriplet> edgeTriplets) {
 	this->edgeTriplets = edgeTriplets;
