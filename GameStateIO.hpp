@@ -7,9 +7,9 @@
 #include "GameState.hpp"
 
 namespace GameStateIO {
-    
-    GameState readXmlFile(std::string filename);
-    void writeXmlFile(GameState gameState);
+
+	GameState readXmlFile(std::string filename);
+	void writeXmlFile(GameState gameState);
 }
 
 #endif
