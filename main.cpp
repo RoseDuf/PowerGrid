@@ -50,6 +50,40 @@ int main() {
 
 using namespace std;
 
+static void DeterminePlayerOrder(vector<Player*> players, int round) {
+
+	vector<int> playerOrder;
+
+	if (round == 1) {
+		for (int i = 0; i < players.size(); i++) {
+			playerOrder.push_back(i + 1);
+		}
+
+		//give random turn to each player
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(playerOrder.begin(), playerOrder.end(), g);
+
+		for (int i = 0; i < players.size(); i++) {
+			players.at(i)->setplayerOrder(playerOrder[i]);
+			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+		}
+
+		//sort players by the number of cities they have (for the rest of the game)
+		std::sort(players.begin(), players.end(), Player::compById);
+
+		round += 1;
+	}
+
+	for (int i = 0; i < players.size(); i++) {
+		players.at(i)->setplayerOrder(players.size() - i);
+	}
+
+	for (int i = 0; i < players.size(); i++) {
+		cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+	}
+}
+
 int main() {
 
 //============================== Assignment 1 ================================================
@@ -60,8 +94,8 @@ int main() {
 
 	Player * p1 = new Player("Nicole", "Red");
 	//p1.collectElektro(elektro);
-
 	*/
+	
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "powergrid_cities.map");
 	graph.buildMap();
@@ -132,11 +166,19 @@ int main() {
 	
 	
 	//vector of Players
-	vector<Player> players;
-	players.push_back(Player("Nicole", "Red"));
-	players.push_back(Player("Voldermort", "Green"));
-	players.push_back(Player("Pikachu", "Blue"));
-	players.push_back(Player("Smith", "Purple"));
+	vector<Player*> players;
+	players.push_back(new Player("Nicole", "Red"));
+	players.push_back(new Player("Voldermort", "Green"));
+	players.push_back(new Player("Pikachu", "Blue"));
+	players.push_back(new Player("Smith", "Purple"));
+
+	graph.AddPlayerToCity(players[0], "Berlin");
+	graph.AddPlayerToCity(players[0], "Frankfurt-O");
+	graph.AddPlayerToCity(players[1], "Kiel");
+	graph.AddPlayerToCity(players[2], "Frankfurt-M");
+	graph.AddPlayerToCity(players[2], "Hamburg");
+	graph.AddPlayerToCity(players[2], "Cuxhaven");
+
 
 	//Game loop !!!!
 
@@ -150,38 +192,17 @@ int main() {
 		
 		while (round >= 1) {
 			
-			if (round == 1) {
-
-				for (int i = 0; i < numPlayers; i++) {
-					playerOrder.push_back(i);
-				}
-
-				//give random turn to each player
-				std::random_device rd;
-				std::mt19937 g(rd());
-				std::shuffle(playerOrder.begin(), playerOrder.end(), g);
-
-				for (int i = 0; i < numPlayers; i++) {
-					players[i].setplayerOrder(playerOrder[i]);
-					cout << players[i].getplayerOrder() << endl;
-				}
-
-				round += 1;
-			}
-
-			else {
-				for (int i = 0; i < numPlayers; i++) {
-					for (int j = 0; j < numPlayers; j++) {
-
-					}
-				}
-
-
-			}
+			//task 2 - step 1
+			DeterminePlayerOrder(players, round);
+			
+			//task2 - step 2
+			//to be completed
 
 			round = 0;
 		}
 		gameIsNotFinished = true;
 	}
+
+	return 0;
 }
 
