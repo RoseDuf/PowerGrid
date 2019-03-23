@@ -281,7 +281,7 @@ namespace GameStateIO {
         }
     }
     
-    GameState readXmlFile(std::string filename) {
+    GameState loadGame(std::string filename) {
         
         std::ifstream myfile(filename);
         std::string fileAsOneLinerString = "";
@@ -324,7 +324,7 @@ namespace GameStateIO {
         return generatedGameState;
     }
     
-    void writeXmlFile(std::string filename) {
+    void saveGame(std::string filename) {
         // TODO
     }
 }

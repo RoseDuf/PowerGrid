@@ -8,8 +8,8 @@
 
 namespace GameStateIO {
     
-    GameState readXmlFile(std::string filename);
-    void writeXmlFile(GameState gameState);
+    GameState loadGame(std::string filename);
+    void saveGame(GameState gameState);
 }
 
 #endif
