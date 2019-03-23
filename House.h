@@ -1,18 +1,28 @@
 #pragma once
-#include "GamePiece.h"
+#include <string>
+#include <iostream>
 
-class House :
-	public GamePiece
+using namespace std;
+class House
 {
 public:
-	House();
-	House(string _identifier);
-	~House();
 
-    virtual void toString() override;
-
-
+    House();
+    House(int _number, string _identifier);
+    ~House();
+    
+    int getNumber();
+    string getIndentifier();
+    void setNumber(int _number);
+    
+    //type of game piece
+    void setIdentifier(string _identifier);
+    
+    virtual void toString();
+    
 private:
+    int number;
+    string identifier;
 	
 };
 
