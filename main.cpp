@@ -4,8 +4,10 @@
 //change..
 
 #include <iostream>
+#include <algorithm>
 #include "player.hpp"
 #include "City.h"
+
 //#include "GraphBuilder.h"
 
 #include "HelperFunctions.hpp"

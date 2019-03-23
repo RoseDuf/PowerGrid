@@ -276,7 +276,8 @@ void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 		}
 	}
 }
-
+ 
+/*
 //Adds Resources to the City Node
 void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
 	for (int i = 0; i < totalVertices; i++) {
@@ -285,6 +286,7 @@ void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
 		}
 	}
 }
+*/
 
 //Adds PowerPlants to the City Node
 void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
