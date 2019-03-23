@@ -11,39 +11,42 @@
 using namespace std;
 
 class Player {
-    
+
 private:
-    	string name;
+	string name;
 	string color;
 	vector<PowerPlant> powerPlants;
-    
-   	 //vector<Elektro> elektros;
-   	 Elektro wallet;
-	vector<City> citiesOwned;
+
+	//vector<Elektro> elektros;
+	Elektro wallet;
+	vector<City*> citiesOwned;
 	vector<ResourceToken> resources;
+	int playerOrder;
 
 
 public:
-    
+
 	Player();
 	Player(string name, string color);
 	~Player();
-    
-    
-    
-   	 void collectElektro(int _bill1, int _bill10, int _bill50);
-   	 void spendElektros(int _bill1, int _bill10, int _bill50);
+
+
+
+	void collectElektro(int _bill1, int _bill10, int _bill50);
+	void spendElektros(int _bill1, int _bill10, int _bill50);
 	//just prints the waller content
-   	 void getWallet();
+	void getWallet();
 	//returns how much the players has
-    	int getTotalWallet();
+	int getTotalWallet();
 	string getName();
 	string getColor();
 	vector<PowerPlant> getPowerPlant();
 	//vector<Elektro> getElektros();
 	vector<ResourceToken> getResources();
-	void addCity(City city);
-	vector<City> getCitiesOwned();
+	void addCity(City * city);
+	vector<City*> getCitiesOwned();
+	int getplayerOrder();
+	void setplayerOrder(int playerOrder);
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
@@ -63,15 +66,15 @@ public:
 using namespace std;
 
 class Player {
-    
+
 private:
-    	string name;
+		string name;
 	string color;
 	vector<PowerPlant> powerPlants;
 <<<<<<< HEAD
-    
-   	 //vector<Elektro> elektros;
-   	 Elektro wallet;
+
+	 //vector<Elektro> elektros;
+	 Elektro wallet;
 =======
 	vector<ElektroBill> elektros;
 >>>>>>> UpstreamGraphFixingBranch
@@ -80,19 +83,19 @@ private:
 
 
 public:
-    
+
 	Player();
 	Player(string name, string color);
 	~Player();
-    
-    
-    
-   	 void collectElektro(int _bill1, int _bill10, int _bill50);
-   	 void spendElektros(int _bill1, int _bill10, int _bill50);
+
+
+
+	 void collectElektro(int _bill1, int _bill10, int _bill50);
+	 void spendElektros(int _bill1, int _bill10, int _bill50);
 	//just prints the waller content
-   	 void getWallet();
+	 void getWallet();
 	//returns how much the players has
-    	int getTotalWallet();
+		int getTotalWallet();
 	string getName();
 	string getColor();
 <<<<<<< HEAD
