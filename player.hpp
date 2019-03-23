@@ -13,7 +13,7 @@ class Player {
     
 private:
     string name;
-	string color;
+	string playerColor;
 	vector<PowerPlant> powerPlants;
     Elektro wallet;
 	vector<City> citiesOwned;
@@ -22,7 +22,7 @@ private:
 public:
     
 	Player();
-	Player(string name, string color);
+	Player(string name, string playerColor);
 	~Player();
     
    	 void collectElektro(int _bill1, int _bill10, int _bill50);

@@ -9,6 +9,7 @@
 //#include "GraphBuilder.h"
 
 #include "HelperFunctions.hpp"
+#include <algorithm>
 
 using namespace std;
 using namespace HelperFunctions;
@@ -169,3 +170,12 @@ int main() {
     delete test;
     test= NULL;
 }
+
+/*#include "GameStateIO.hpp"
+
+int main(void) {
+ 
+    
+    GameState gameState = GameStateIO::readXmlFile("powergrid_cities.save");
+    return 0;
+}*/
