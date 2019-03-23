@@ -6,7 +6,7 @@
 #include "PowerPlant.h"
 #include "Elektro.hpp"
 #include "City.h"
-#include "ResourceToken.hpp"
+
 
 using namespace std;
 
