@@ -10,12 +10,12 @@ using namespace std;
 
 Player::Player() {
 	name = "No Name";
-	color = "BLANK";
+	playerColor = "BLANK";
 }
 
-Player::Player(string name, string color) {
+Player::Player(string name, string playerColor) {
 	this->name = name;
-	this->color = color;
+	this->playerColor = playerColor;
 	wallet = Elektro(10, 4, 0);
 }
 
@@ -27,17 +27,18 @@ string Player::getName() {
 }
 
 string Player::getColor() {
-	return color;
+	return playerColor;
 }
 
 vector<PowerPlant> Player::getPowerPlant() {
 	return powerPlants;
 }
-
+/*
 
 vector<ResourceToken> Player::getResources() {
 	return resources;
 }
+ */
 
 //CITIES ARENT GETTING ADDED TO PLAYER?!
 void Player::addCity(City city) {
@@ -47,6 +48,8 @@ void Player::addCity(City city) {
 }
 
 void Player::addPowerPlant(PowerPlant p) {
+  
+    
 	powerPlants.push_back(p);
 }
 
@@ -83,8 +86,12 @@ int  Player::getTotalWallet()
 void Player::toString() {
 
 
-	cout << "Player name: " << name << "\nPlayer color: " << color
-		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
+	cout << "Player name: " << name << "\nPlayer color: " << playerColor
+    << "\nNumber of Power Plants owned: " << powerPlants.size() << "\nCity names: " << endl;
+    for (int i = 0; i < powerPlants.size(); i++) {
+        //pointer problem to fix with roses solution
+        //cout << powerPlants[i].toString() << endl;
+    }
 
 	cout << "\nAmount of Elektro: " << endl;
 	wallet.toString();

@@ -176,11 +176,12 @@ namespace GameStateIO {
             
             std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
             
-            int cardNumber = 0;
-            int numOfCitiesPowered = 0;
-            int numResourcesTokensNeeded = 0;
-            std::string resourceTokenNeeded1 = "";
-            std::string resourceTokenNeeded2 = "";
+            int cardNumber = -1;
+            int numOfCitiesPowered = -1;
+            int coalNeeded = -1;
+            int oilNeeded = -1;
+            int garbageNeeded = -1;
+            int uraniumNeeded = -1;
             
             for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
                 if( equalsIgnoreCase( (*it)->getNodeName(), "cardnumber" ) ) {
@@ -189,23 +190,27 @@ namespace GameStateIO {
                 else if( equalsIgnoreCase( (*it)->getNodeName(), "numOfCitiesPowered" ) ) {
                     numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "numResourcesTokensNeeded" ) ) {
-                    numOfCitiesPowered = generateInt( ((*it)->getChildNodes()).front() );
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "coalNeeded" ) ) {
+                    coalNeeded = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "resourceTokenNeeded1" ) ) {
-                    resourceTokenNeeded1 = generateString( ((*it)->getChildNodes()).front() );
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "oilNeeded" ) ) {
+                    oilNeeded = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "resourcetokenneeded2" ) ) {
-                    resourceTokenNeeded2 = generateString( ((*it)->getChildNodes()).front() );
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "garbageNeeded" ) ) {
+                    garbageNeeded = generateInt( ((*it)->getChildNodes()).front() );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "uraniumNeeded" ) ) {
+                    uraniumNeeded = generateInt( ((*it)->getChildNodes()).front() );
                 }
             }
         
-            PowerPlant generatedPowerPlant = PowerPlant(cardNumber, numOfCitiesPowered, numResourcesTokensNeeded, resourceTokenNeeded1, resourceTokenNeeded2);
+            PowerPlant generatedPowerPlant = PowerPlant(cardNumber, numOfCitiesPowered, coalNeeded, oilNeeded, garbageNeeded, uraniumNeeded);
+            //OLD::PowerPlant generatedPowerPlant = PowerPlant(cardNumber, numOfCitiesPowered, numResourcesTokensNeeded, resourceTokenNeeded1, resourceTokenNeeded2);
             
             return generatedPowerPlant;
         }
         
-        Player generatePlayer(XmlDocumentNode* node) {/*
+        Player generatePlayer(XmlDocumentNode* node) {
             std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
             std::string playerName = "";
             std::string playerColor = "";
@@ -214,22 +219,19 @@ namespace GameStateIO {
             std::vector<PowerPlant> powerPlants;
             
             for(auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
-                if( toLowerCase((*it)->getNodeName()) == "playername" ) {
+                if( equalsIgnoreCase((*it)->getNodeName(), "playerName") ) {
                     playerName = generateString( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "playercolor" || toLowerCase((*it)->getNodeName()) == "playercolour" ) {
+                else if( equalsIgnoreCase((*it)->getNodeName(), "PlayerColor") || equalsIgnoreCase((*it)->getNodeName(), "PlayerColour") ) {
                     playerColor = generateString( ((*it)->getChildNodes()).front() );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "elektro" ) {
+                else if( equalsIgnoreCase((*it)->getNodeName(), "Elektro") ) {
                     elektro = generateElektro(*it);
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "powerplant" ) {
+                else if( equalsIgnoreCase((*it)->getNodeName(), "PowerPlant") ) {
                     powerPlants.push_back( generatePowerPlant(*it) );
                 }
-                else if( toLowerCase((*it)->getNodeName()) == "resourcetokensXYZ"XYZ ) {
-                    resourceXYZ
-                }
-                else if( toLowerCase((*it)->getNodeName()) == "city" ) {
+                else if( equalsIgnoreCase((*it)->getNodeName(), "City") ) {
                     citiesOwned.push_back( generateCity(*it) );
                 }
             }
@@ -243,8 +245,7 @@ namespace GameStateIO {
                 generatedPlayer.addPowerPlant( powerPlants.at(i) );
             }
             
-            return generatedPlayer;*/
-            return Player();// TODO
+            return generatedPlayer;
         }
         
         GameState generateGameState(XmlDocumentNode* node) {
@@ -269,7 +270,8 @@ namespace GameStateIO {
                 }
             }
 
-            return GameState( turnOfPlayer, citiesOwned, edgeTriplets,  players ); // I need to make a constructor that’s something like this
+            GameState generatedGameState = GameState( turnOfPlayer, citiesOwned, edgeTriplets,  players ); // I need to make a constructor that’s something like this
+            return generatedGameState;
         }
         
         GameState generateGameState(XmlDocumentTree* tree) {

@@ -235,7 +235,7 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 }
 
 //prints out information within a node of the map
-void GraphBuilder::SearchCity(string cityName) {
+/*void GraphBuilder::SearchCity(string cityName) {
 	cout << "Searching for a city in the map..." << endl;
 	for (int i = 0; i < totalVertices; i++) {
 		
@@ -262,7 +262,7 @@ void GraphBuilder::SearchCity(string cityName) {
 			//cout << graph->arr[i].player.
 		}
 	}
-}
+}*/
 
 //Adds Elektros to the City Node
 void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
@@ -274,13 +274,13 @@ void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 }
 
 //Adds Resources to the City Node
-void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
+/*void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
 			graph->arr[i].resources.push_back(rt); //add PowerPlant to the physical map
 		}
 	}
-}
+}*/
 
 //Adds PowerPlants to the City Node
 void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
