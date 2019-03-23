@@ -19,7 +19,7 @@ private:
     
    	//vector<Elektro> elektros;
    	Elektro wallet;
-	vector<City*> citiesOwned;
+	vector<City> citiesOwned;
 	vector<ResourceToken> resources;
 	int playerOrder;
 
@@ -28,8 +28,11 @@ public:
     
 	Player();
 	Player(string name, string color);
+	Player(string name, string color, vector<PowerPlant> 
+		powerPlant, Elektro wallet, vector<City> citiesOwned, 
+		vector<ResourceToken> resources, int playerOrder);
 	~Player();
-    
+	Player(const Player &p2);
     
     
   	void collectElektro(int _bill1, int _bill10, int _bill50);
@@ -43,10 +46,16 @@ public:
 	vector<PowerPlant> getPowerPlant();
 	//vector<Elektro> getElektros();
 	vector<ResourceToken> getResources();
-	void addCity(City * city);
-	vector<City*> getCitiesOwned();
+	void addCity(City city);
+	vector<City> getCitiesOwned();
+
 	int getplayerOrder();
 	void setplayerOrder(int playerOrder);
+
+	static bool compById(const Player* a, const Player* b){
+		return a->citiesOwned.size() < b->citiesOwned.size();
+	}
+
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
