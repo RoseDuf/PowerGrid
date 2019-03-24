@@ -23,10 +23,10 @@ public:
 private:
     
     //total resource token pieces in the game
-    static const int TOTAL_COAL =21;
-    static const int TOTAL_OIL =21;
-    static const int TOTAL_GARBAGE =21;
-    static const int TOTAL_URANIUM =21;
+    static const int TOTAL_COAL =24;
+    static const int TOTAL_OIL =24;
+    static const int TOTAL_GARBAGE =24;
+    static const int TOTAL_URANIUM =12;
 
     //current tokens on the board in the market section
     int coal_market = 0;

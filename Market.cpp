@@ -9,9 +9,14 @@ Market::Market()
     garbage_market = 6;
     uranium_market = 2;
 }
+
+Market::~Market()
+{
+
+}
 void Market::restockMarket(int step)
 {
-    //need to check if enough in supply before restock
+    //need to check if enough in supply before restock***
     if(step==1)
     {
         coal_market+=3;

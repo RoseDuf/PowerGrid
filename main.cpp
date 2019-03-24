@@ -10,11 +10,14 @@
 
 #include "HelperFunctions.hpp"
 #include <algorithm>
+#include "Market.hpp"
 
 using namespace std;
 using namespace HelperFunctions;
 
-
+/*
+ I placed this within the making deck method for testing
+ Will implement in a class after testing
 static void shuffle(vector<GameCard*> &_deck)
 {
     cout << "===============" << endl;
@@ -22,9 +25,11 @@ static void shuffle(vector<GameCard*> &_deck)
     cout << "SHUFFLED" << endl;
     cout << "===============" << endl;
     cout << "===============" << endl;
+   
     random_shuffle(_deck.begin(),_deck.end());
 }
-static void makingDeck(vector<GameCard*> &_deck)
+ */
+static void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket)
 {
     //_deck = &deck;
     ///
@@ -82,21 +87,23 @@ static void makingDeck(vector<GameCard*> &_deck)
     PowerPlant *p42 = new PowerPlant(50, 6, 0, 0, 0, 0);
     
     
-    GameCard s3 = GameCard("s3");
+    GameCard *s3 = new GameCard("s3");
     
-    _deck.push_back(p1);
-    _deck.push_back(p2);
-    _deck.push_back(p3);
-    _deck.push_back(p4);
-    _deck.push_back(p5);
-    _deck.push_back(p6);
-    _deck.push_back(p7);
-    _deck.push_back(p8);
+   
+    //SETTING UP THE POWERPLANT MARKET
+    _powerPlantMarket.push_back(p1);
+    _powerPlantMarket.push_back(p2);
+    _powerPlantMarket.push_back(p3);
+    _powerPlantMarket.push_back(p4);
+    _powerPlantMarket.push_back(p5);
+    _powerPlantMarket.push_back(p6);
+    _powerPlantMarket.push_back(p7);
+  
     
-    
-     _deck.push_back(p9);
-     _deck.push_back(p10);
-     _deck.push_back(p11);
+    //making the rest of the deck, ready to shuffle
+    _deck.push_back(p9);
+    _deck.push_back(p10);
+     //_deck.push_back(p11);
      _deck.push_back(p12);
      _deck.push_back(p13);
      _deck.push_back(p14);
@@ -129,10 +136,15 @@ static void makingDeck(vector<GameCard*> &_deck)
      _deck.push_back(p41);
      _deck.push_back(p42);
     
-    
+    //following game rules:
+    //top of deck: powerplant 13
+    //bottom: step3 card
+     random_shuffle(_deck.begin(),_deck.end());
+    _deck.push_back(s3);
+    _deck.insert(_deck.begin(), p11);
 }
 
-static void printDeck(vector<GameCard*> &_deck)
+static void print(vector<GameCard*> &_deck)
 {
     for (int i = 0; i < _deck.size() ; i++)
     {
@@ -151,24 +163,50 @@ static void deleteDeck(vector<GameCard*> &_deck)
     
 }
 
+static void sortMarket(vector<GameCard*> &_powerPlantMarket)
+{
+    sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
+    
+}
+static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket, Market &market)
+{
+    //RN i made several methods in the main, to test things out, but I think I will be making classes to
+    //better implement this
+    
+    //removing most expensive Power plant from the market and placing it under the draw deck
+    GameCard *test = _powerPlantMarket.at(_powerPlantMarket.size()-1);
+    _powerPlantMarket.pop_back();
+    _deck.push_back(test);
+    
+    //drawing new card from deck and adding it the power plant market
+    GameCard *temp = _deck.at(0);
+    _deck.erase(_deck.begin());
+    _powerPlantMarket.push_back(temp);
+    
+    
+    //players collect cash according to cities powered
+    
+    //restock resource market
+}
+
 int main() {
     
     static vector<GameCard*> deck;
+    static vector<GameCard*> powerPlantMarket;
     
-    makingDeck(deck);
-    //printDeck(deck);
-    shuffle(deck);
-   // printDeck(deck);
-    cout << deck.size() << endl;
-    deleteDeck(deck);
-    PowerPlant *test = new PowerPlant(66, 6, 1, 0, 0, 0);
-    test->toString();
-    test->stockRT("coal", 2);
-     test->toString();
-    test->powerCity("coal");
-     test->toString();
-    delete test;
-    test= NULL;
+    
+ Market market = Market();
+    
+    makingDeck(deck, powerPlantMarket);
+   //print(powerPlantMarket);
+    //bureaucracy(deck, powerPlantMarket, market);
+    //print(powerPlantMarket);
+    sortMarket(powerPlantMarket);
+    //print(powerPlantMarket);
+   // print(powerPlantMarket);
+    //shuffle(deck);
+    print(deck);
+    //cout << deck.size() << endl;
 }
 
 /*#include "GameStateIO.hpp"
