@@ -307,9 +307,9 @@ namespace PowerGridIO {
         }
     }
     
-    MapData getMapData(std::string filename) {
+    MapData getMapData(std::string mapFilename) {
             
-            std::ifstream myfile(filename);
+            std::ifstream myfile(mapFilename);
             std::string fileAsOneLinerString = "";
             std::string currentLine = "";
             while( getline(myfile, currentLine) ) {
@@ -320,9 +320,9 @@ namespace PowerGridIO {
             return generatedMapData;
         }
     
-    GameState loadGame(std::string filename) {
+    GameState loadGame(std::string saveFilename) {
         
-        std::ifstream myfile(filename);
+        std::ifstream myfile(saveFilename);
         std::string fileAsOneLinerString = "";
         std::string currentLine = "";
         while( getline(myfile, currentLine) ) {

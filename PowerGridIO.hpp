@@ -10,8 +10,8 @@ typedef std::tuple< std::vector<City>, std::vector<EdgeTriplet> > MapData;
 
 namespace PowerGridIO {
     
-    MapData getMapData(std::string filename);
-    GameState loadGame(std::string filename);
+    MapData getMapData(std::string mapFilename);
+    GameState loadGame(std::string saveFilename);
     
     void saveGame(GameState gameState);
 }
