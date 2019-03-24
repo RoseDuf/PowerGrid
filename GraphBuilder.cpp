@@ -253,9 +253,9 @@ void GraphBuilder::SearchCity(string cityName) {
 			for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
 				graph->arr[i].powerplants[j].toString();
 			}
-			for (int j = 0; j < graph->arr[i].resources.size(); j++) {
-				graph->arr[i].resources[j].toString();
-			}
+		//	for (int j = 0; j < graph->arr[i].resources.size(); j++) {
+				//graph->arr[i].resources[j].toString();
+			//}
 
 			cout << endl;
 
