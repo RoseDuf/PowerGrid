@@ -6,6 +6,8 @@
 #include <string>
 #include "GameState.hpp"
 
+typedef std::tuple< std::vector<City>, std::vector<EdgeTriplet> > MapData;
+
 namespace PowerGridIO {
     
     MapData getMapData(std::string filename);

@@ -7,7 +7,6 @@
 #include <tuple>
 
 typedef std::tuple<City, City, int> EdgeTriplet;
-typedef std::tuple< std::vector<City>, std::vector<EdgeTriplet> > MapData;
 
 class GameState {
 private:
