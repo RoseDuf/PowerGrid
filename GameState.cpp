@@ -68,11 +68,32 @@ void GameState::addPlayer(Player playerToAdd) {
 }
 
 MapData GameState::getMapData() {
-    MapData mapData = MapData( getCities(), getEdgeTriplets() );
+    MapData mapData = MapData( getCities(), getEdgeTriplets(), getAdjacentRegionsTriplets() );
     return mapData;
 }
 
 void GameState::setMapData(MapData mapData) {
     setCities( std::get<0>(mapData) );
     setEdgeTriplets( std::get<1>(mapData) );
+    setAdjacentRegionsTriplets( std::get<2>(mapData) );
+}
+
+std::vector<AdjacentRegionsTriplet> GameState::getAdjacentRegionsTriplets() {
+    
+    return adjacentRegionsTriplets;
+}
+
+void GameState::setAdjacentRegionsTriplets(std::vector<AdjacentRegionsTriplet> adjacentRegionsTriplets) {
+    this->adjacentRegionsTriplets = adjacentRegionsTriplets;
+}
+    
+void GameState::addAdjacentRegionsTriplets(std::vector<AdjacentRegionsTriplet> additionalAdjacentRegionsTriplets) {
+ 
+    for(int i = 0; i < additionalAdjacentRegionsTriplets.size(); i++) {
+        this->adjacentRegionsTriplets.push_back( additionalAdjacentRegionsTriplets.at(i) );
+    }
+}
+
+void GameState::addAdjacentRegionsTriplet(AdjacentRegionsTriplet additionalAdjacentRegionsTriplet) {
+    this->adjacentRegionsTriplets.push_back( additionalAdjacentRegionsTriplet );
 }

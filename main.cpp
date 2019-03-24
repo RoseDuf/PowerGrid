@@ -176,6 +176,7 @@ int main() {
 int main(void) {
  
     
-    GameState gameState = PowerGridIO::loadGame("file.save");
+    //GameState gameState = PowerGridIO::loadGame("file.save");
+    MapData mapData = PowerGridIO::getMapData("file.map");
     return 0;
 }*/

@@ -22,6 +22,19 @@ namespace PowerGridIO {
     
     namespace {
         
+        bool generateBool(XmlDocumentNode* node) {
+            
+            if( equalsIgnoreCase( trim(node->getNodeValue()), "true" ) ) {
+                return true;
+            }
+            else if( equalsIgnoreCase( trim(node->getNodeValue()), "false" ) ) {
+                return false;
+            }
+            else {
+                return false; // LATER, MAKE THIS THROW A NOT_A_BOOL_EXCEPTION OR SOMETHING LIKE THAT!
+            }
+        }
+        
         int generateInt(XmlDocumentNode* node) {
             return std::stoi( trim(node->getNodeValue()) );
         }
@@ -172,6 +185,32 @@ namespace PowerGridIO {
             return generatedEdgeTriplet;
         }
         
+        AdjacentRegionsTriplet generateAdjacentRegionsTriplet(XmlDocumentNode* node) {
+            
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            
+            std::string regionColor1 = "";
+            std::string regionColor2 = "";
+            bool areAdjacent = false;
+            bool firstRegionColorEncountered = false;
+            
+            for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+                if( (*it)->getNodeName() == "RegionColor" && firstRegionColorEncountered == false ) {
+                    regionColor1 = generateString( ((*it)->getChildNodes()).front() );
+                    firstRegionColorEncountered = true;
+                }
+                else if( (*it)->getNodeName() == "RegionColor" && firstRegionColorEncountered == true ) {
+                    regionColor2 = generateString( ((*it)->getChildNodes()).front() );
+                }
+                else if( (*it)->getNodeName() == "areAdjacent" ) {
+                    areAdjacent = generateBool( ((*it)->getChildNodes()).front() );
+                }
+            }
+            
+            AdjacentRegionsTriplet generatedAdjacentRegionsTriplet = AdjacentRegionsTriplet( regionColor1, regionColor2, areAdjacent );
+            return generatedAdjacentRegionsTriplet;
+        }
+        
         PowerPlant generatePowerPlant( XmlDocumentNode* node ) {
             
             std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
@@ -252,6 +291,7 @@ namespace PowerGridIO {
             
             std::vector<City> citiesOnMap;
             std::vector<EdgeTriplet> edgeTriplets;
+            std::vector<AdjacentRegionsTriplet> adjacentRegionsTriplets;
             
             std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
             for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
@@ -259,12 +299,15 @@ namespace PowerGridIO {
                 if( equalsIgnoreCase( (*it)->getNodeName(), "City" ) ) {
                     citiesOnMap.push_back( generateCity(*it) );
                 }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "edgeTriplet" ) ) {
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "EdgeTriplet" ) ) {
                     edgeTriplets.push_back( generateEdgeTriplet(*it) );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "AdjacentRegionsTriplet" ) ) {
+                    adjacentRegionsTriplets.push_back( generateAdjacentRegionsTriplet(*it) );
                 }
             }
             
-            MapData generatedMapData = MapData( citiesOnMap, edgeTriplets );
+            MapData generatedMapData = MapData( citiesOnMap, edgeTriplets, adjacentRegionsTriplets );
             return generatedMapData;
         }
         
