@@ -66,3 +66,13 @@ void GameState::addPlayers(std::vector<Player> playersToAdd) {
 void GameState::addPlayer(Player playerToAdd) {
 	players.push_back(playerToAdd);
 }
+
+MapData GameState::getMapData() {
+    MapData mapData = MapData( getCities(), getEdgeTriplets() );
+    return mapData;
+}
+
+void GameState::setMapData(MapData mapData) {
+    setCities( std::get<0>(mapData) );
+    setEdgeTriplets( std::get<1>(mapData) );
+}
