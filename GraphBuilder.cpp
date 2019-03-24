@@ -19,7 +19,7 @@ GraphBuilder::GraphBuilder(int tv) {
 
 GraphBuilder::GraphBuilder(int tv, std::string file) {
 	totalVertices = tv;
-	gameState = GameStateIO::readXmlFile(file);
+	gameState = PowerGridIO::loadGame(file);
 	graph = createGraph(totalVertices, gameState.getCities());
 	edges = gameState.getEdgeTriplets();
 }

@@ -1,5 +1,5 @@
 
-#include "GameStateIO.hpp"
+#include "PowerGridIO.hpp"
 
 #include <iostream>
 
@@ -18,7 +18,7 @@
 using namespace HelperFunctions;
 using namespace std;
 
-namespace GameStateIO {
+namespace PowerGridIO {
     
     namespace {
         
@@ -248,10 +248,35 @@ namespace GameStateIO {
             return generatedPlayer;
         }
         
+        MapData generateMapData(XmlDocumentNode* node) {
+            
+            std::vector<City> citiesOnMap;
+            std::vector<EdgeTriplet> edgeTriplets;
+            
+            std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
+            for (auto it = theChildren.cbegin(); it != theChildren.cend(); it++) {
+            
+                if( equalsIgnoreCase( (*it)->getNodeName(), "City" ) ) {
+                    citiesOnMap.push_back( generateCity(*it) );
+                }
+                else if( equalsIgnoreCase( (*it)->getNodeName(), "edgeTriplet" ) ) {
+                    edgeTriplets.push_back( generateEdgeTriplet(*it) );
+                }
+            }
+            
+            MapData generatedMapData = MapData( citiesOnMap, edgeTriplets );
+            return generatedMapData;
+        }
+        
+        MapData generateMapData(XmlDocumentTree* tree) {
+         
+            MapData generatedMapData = generateMapData( tree->getRootNode() );
+            return generatedMapData;
+        }
+        
         GameState generateGameState(XmlDocumentNode* node) {
             std::list<XmlDocumentNode*> theChildren = node->getChildNodes();
-            std::vector<City> citiesOwned;
-            std::vector<EdgeTriplet> edgeTriplets;
+            MapData mapData;
             std::vector<Player> players;
             int turnOfPlayer = 0;
 
@@ -259,18 +284,19 @@ namespace GameStateIO {
                 if( equalsIgnoreCase( (*it)->getNodeName(), "turnOfPlayer" ) ) {
                     turnOfPlayer = generateInt( ((*it)->getChildNodes()).front() );
                 }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "City" ) ) {
-                    citiesOwned.push_back( generateCity(*it) );
-                }
-                else if( equalsIgnoreCase( (*it)->getNodeName(), "edgeTriplet" ) ) {
-                    edgeTriplets.push_back( generateEdgeTriplet(*it) );
+                else if( equalsIgnoreCase((*it)->getNodeName(), "mapFilename") ) {
+                    std::string mapFilename = generateString( ((*it)->getChildNodes()).front() );
+                    mapData = getMapData(mapFilename);
                 }
                 else if( equalsIgnoreCase( (*it)->getNodeName(), "Player" ) ) {
                     players.push_back( generatePlayer(*it) );
                 }
             }
 
-            GameState generatedGameState = GameState( turnOfPlayer, citiesOwned, edgeTriplets,  players ); // I need to make a constructor that’s something like this
+            std::vector<City> citiesOnMap = std::get<0>(mapData);
+            std::vector<EdgeTriplet> edgeTriplets = std::get<1>(mapData);
+            
+            GameState generatedGameState = GameState( turnOfPlayer, citiesOnMap, edgeTriplets,  players ); // I need to make a constructor that’s something like this
             return generatedGameState;
         }
         
@@ -280,6 +306,19 @@ namespace GameStateIO {
             return generatedGameState;
         }
     }
+    
+    MapData getMapData(std::string filename) {
+            
+            std::ifstream myfile(filename);
+            std::string fileAsOneLinerString = "";
+            std::string currentLine = "";
+            while( getline(myfile, currentLine) ) {
+                fileAsOneLinerString += trim(currentLine);
+            }
+            
+            MapData generatedMapData = generateMapData( xmlParser("MapData", fileAsOneLinerString) );
+            return generatedMapData;
+        }
     
     GameState loadGame(std::string filename) {
         

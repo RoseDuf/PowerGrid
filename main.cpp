@@ -171,11 +171,11 @@ int main() {
     test= NULL;
 }
 
-/*#include "GameStateIO.hpp"
+/*#include "PowerGridIO.hpp"
 
 int main(void) {
  
     
-    GameState gameState = GameStateIO::readXmlFile("powergrid_cities.save");
+    GameState gameState = PowerGridIO::loadGame("file.save");
     return 0;
 }*/
