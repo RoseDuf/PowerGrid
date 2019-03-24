@@ -6,7 +6,7 @@
 #include "PowerPlant.h"
 #include "Elektro.hpp"
 #include "City.h"
-#include "ResourceToken.hpp"
+//#include "ResourceToken.hpp"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ private:
    	//vector<Elektro> elektros;
    	Elektro wallet;
 	vector<City> citiesOwned;
-	vector<ResourceToken> resources;
+	//vector<ResourceToken> resources;
 	int playerOrder;
 
 
@@ -30,99 +30,50 @@ public:
 	Player(string name, string color);
 	Player(string name, string color, vector<PowerPlant> 
 		powerPlant, Elektro wallet, vector<City> citiesOwned, 
-		vector<ResourceToken> resources, int playerOrder);
-	~Player();
-	Player(const Player &p2);
+		/*vector<ResourceToken> resources,*/ int playerOrder);
+	~Player(); 
+	Player(const Player &p2); //copy constructor
     
     
   	void collectElektro(int _bill1, int _bill10, int _bill50);
     void spendElektros(int _bill1, int _bill10, int _bill50);
 	//just prints the waller content
-   	void getWallet();
+   	void walletToString();
 	//returns how much the players has
     int getTotalWallet();
+	void setTotalWallet(Elektro w);
+
 	string getName();
+	void setName(string name);
+
 	string getColor();
+	void setColor(string color);
+
 	vector<PowerPlant> getPowerPlant();
+	void setPowerPlant(vector<PowerPlant> pp);
+
 	//vector<Elektro> getElektros();
-	vector<ResourceToken> getResources();
+	//vector<ResourceToken> getResources();
+
 	void addCity(City city);
 	vector<City> getCitiesOwned();
+	void setCitiesOwned(vector<City> c);
 
 	int getplayerOrder();
 	void setplayerOrder(int playerOrder);
 
+	//to sort player's by the number of cities owned (to determine order)
 	static bool compById(const Player* a, const Player* b){
-		return a->citiesOwned.size() < b->citiesOwned.size();
+		return b->citiesOwned.size() < a->citiesOwned.size();
 	}
 
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
 	void toString();
+
+	//task2 - step2 -> auctioning powerplants
+	void Pass(PowerPlant p);
+	void Auction(PowerPlant p);
+
 };
-
-/*//  player Header File
-
-#pragma once
-#include <iostream>
-#include <cstdlib>
-#include "PowerPlant.h"
-#include "ElektroBill.hpp"
-#include "City.h"
-#include "RessourceToken.h"
-
-using namespace std;
-
-class Player {
-    
-private:
-    	string name;
-	string color;
-	vector<PowerPlant> powerPlants;
-<<<<<<< HEAD
-    
-   	 //vector<Elektro> elektros;
-   	 Elektro wallet;
-=======
-	vector<ElektroBill> elektros;
->>>>>>> UpstreamGraphFixingBranch
-	vector<City> citiesOwned;
-	vector<RessourceToken> resources;
-
-
-public:
-    
-	Player();
-	Player(string name, string color);
-	~Player();
-    
-    
-    
-   	 void collectElektro(int _bill1, int _bill10, int _bill50);
-   	 void spendElektros(int _bill1, int _bill10, int _bill50);
-	//just prints the waller content
-   	 void getWallet();
-	//returns how much the players has
-    	int getTotalWallet();
-	string getName();
-	string getColor();
-<<<<<<< HEAD
-	vector<PowerPlant> getPowerPlant();
-	//vector<Elektro> getElektros();
-	vector<RessourceToken> getResources();
-	void addCity(City city);
-	void addPowerPlant(PowerPlant p);
-	//void addElektro(Elektro e);
-=======
-	vector<PowerPlant> getPowerPlants();
-	vector<ElektroBill> getElektros();
-	vector<RessourceToken> getResources();
-	void addCity(City city);
-	void addPowerPlant(PowerPlant p);
-	void collectElektro(ElektroBill e);
->>>>>>> UpstreamGraphFixingBranch
-	//void removeElektro(int quantity, int billValue);
-	void toString();
-};
-*/

@@ -3,17 +3,14 @@
 
 #include "GameCard.h"
 #include <vector>
-#include "ResourceToken.hpp"
 
 class PowerPlant :
 	public GameCard
 {
 public:
 	PowerPlant();
-    
-    //constructor takes 2 possibles ressource tokens needed, if only is one needed, fill the second attribute with : ""
-	PowerPlant(int _cardNumber, int _numOfCitiesPowered, int numRessourcesTokensNeeded, string _ressourceTokenNeeded1, string _ressourceTokenNeeded2);
-    
+
+	PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_needed, int _oil_needed, int _garbage_needed, int _uranium_needed);
 	~PowerPlant();
 
 	int getCardNumber();
@@ -22,36 +19,43 @@ public:
 	int getCitiesPowered();
 	void setCitiesPowered(int _number);
 
-    //GETS ressource token string NEEDED
-	string getTypeResourceTokenNeeded1();
-    string getTypeResourceTokenNeeded2();
-    
-    //SETS the ressource token TYPES NEEDED
-	void setTypeResourceTokenNeeded1(string _typeRessourceTokenNeeded1);
-    void setTypeResourceTokenNeeded2(string _typeRessourceTokenNeeded2);
+	//stocks a resource onto the power plant card
+	void stockRT(string type, int num);
 
+	//gets the number of a resource type stocked on power plant card
+	int getRTStocked(string type, int num);
 
-    //GETS ressource token currently STOCKED on power plan card
-	int getResourceTokenStocked1();
-    int getResourceTokenStocked2();
-    
-    //SETS the NUMBER of ressource token STOCKED in power plant card
-	void setNumResourceTokenStocked1(int _numRessourceTokenStocked1);
-    void setNumResourceTokenStocked2(int _numRessourceTokenStocked2);
+	//gets the number of a resource type needed
+	int getRTNeeded(string type, int num);
 
-	 virtual void toString() override;
+	//consumes the required amount of a certain type of resource to power the city
+	void powerCity(string type);
+
+	//check if this type of resource is needed
+	bool checkIfNeeded(string type);
+
+	//cehck if there is space to stock more tokens
+	bool checkSpace(string type, int num);
+
+	//check if enough tokens are stocked to power the city
+	bool checkIfEnoughStock(string type);
+	virtual void toString() override;
 
 private:
-    
-    bool twoTypes = false;
-    
-	int cardNumber;
-    
-    ResourceToken r1 = ResourceToken(0, "");
-    ResourceToken r2 = ResourceToken(0, "");
-	int numRessourcesTokensNeeded;
 
+	int cardNumber;
 	int numCitiesPowered;
+
+	int oil_needed = 0;
+	int coal_needed = 0;
+	int garbage_needed = 0;
+	int uranium_needed = 0;
+
+	int oil_stocked = 0;
+	int coal_stocked = 0;
+	int garbage_stocked = 0;
+	int uranium_stocked = 0;
+	bool green = false;
 };
 
 #endif
