@@ -99,7 +99,8 @@ private:
 	int totalVertices;
 	Graph * graph;
 	std::string file;
-	GameState gameState;// = GameStateIO::readXmlFile(file);
+	//GameState gameState;// = GameStateIO::readXmlFile(file);
+    MapData mapData;
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;

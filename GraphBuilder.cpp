@@ -4,24 +4,32 @@
 #include <utility>      // std::pair, std::get
 #include <vector>
 #include "GraphBuilder.h"
-#include "GameState.hpp"
+//#include "GameState.hpp"
+#include "PowerGridIO.hpp"
 #include "City.h"
 #include "player.hpp"
 #include <limits.h>
 #include <algorithm>
 using namespace std;
 
-GraphBuilder::GraphBuilder(int tv) {
-	totalVertices = tv;
+GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
+    totalVertices = tv;
+	graph = createGraph(totalVertices, std::get<0>(mapData));
+	edges = std::get<1>(mapData);
+	/*totalVertices = tv;
 	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();
+	edges = gameState.getEdgeTriplets();*/
 }
 
-GraphBuilder::GraphBuilder(int tv, std::string file) {
-	totalVertices = tv;
+GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
+    totalVertices = tv;
+	mapData = PowerGridIO::getMapData(mapFilename);
+	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
+	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
+	/*totalVertices = tv;
 	gameState = PowerGridIO::loadGame(file);
 	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();
+	edges = gameState.getEdgeTriplets();*/
 }
 
 int GraphBuilder::getTotalVertices() {
@@ -295,7 +303,7 @@ void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
 //test case to test if the number of cities from the file matches the number of nodes in the map
 bool GraphBuilder::test_SizeOfMap_and_FileMap() {
 
-	vector<City> citiesfile = gameState.getCities();
+	vector<City> citiesfile = std::get<0>(mapData); // gameState.getCities();
 	if (citiesfile.size() == totalVertices) {
 		cout << "Number of cities in physical map and map from file match!" << endl;
 		return true;
