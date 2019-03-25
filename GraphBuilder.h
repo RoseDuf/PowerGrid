@@ -25,7 +25,7 @@ public:
 
 	struct CityList {
 		City city;
-		Player player;
+		vector<Player> player;
 		vector<PowerPlant> powerplants;
 		//vector<ResourceToken> resources;
 		vector<Elektro> elektros;
@@ -95,12 +95,13 @@ public:
 	void removeRegions(string color);
 	void add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
+	int HowManyPlayersAreInCity(string cityName);
 	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
-	void add_ElektrosToCity(Elektro el, string name);
+	//void add_ElektrosToCity(Elektro el, string name);
 	//void add_ResourcesToCity(ResourceToken rt, string name);
-	void add_PowerPlantToCity(PowerPlant pp, string city);
+	//void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(int v1, int v2);
 	bool test_SizeOfMap_and_FileMap();
 	bool test_Duplicate_Edges();

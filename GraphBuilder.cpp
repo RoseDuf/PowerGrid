@@ -71,7 +71,6 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> 
 		graph->arr[i].city.setCityNumber(cities[i].getCityNumber());
 		graph->arr[i].city.setCityName(cities[i].getCityName());
 		graph->arr[i].city.setCityColor(cities[i].getCityColor());
-		graph->arr[i].player = Player();
 		graph->arr[i].head = NULL;
 	}
 	return graph;
@@ -198,8 +197,13 @@ void GraphBuilder::add_CityToPlayer_and_PlayerToMap(Player * pl, string name) {
 		if ((graph->arr[i].city.getCityName() == name) && (graph->arr[i].city.isAvailable())) {
 			
 			c = graph->arr[i].city; //find the desired city by its name
-			graph->arr[i].player = *pl; //add Player to the physical map
-			pl->addCity(c);	//add/update new City object to Player "cities" attribute 
+			if (graph->arr[i].player.size() < 4) {
+				graph->arr[i].player.push_back(*pl); //add Player to the physical map
+				pl->addCity(c);	//add/update new City object to Player "cities" attribute 
+			}
+			else {
+				cout << "--------Can't add player to " << graph->arr[i].city.getCityName() << " because it is too full! (already has 3 players)--------" << endl;
+			}
 		}
 		else if ((graph->arr[i].city.getCityName() == name) && (!graph->arr[i].city.isAvailable()))
 			cout << "--------" << graph->arr[i].city.getCityName() << " is not available for purchase--------" << endl;
@@ -217,8 +221,19 @@ void GraphBuilder::AddPlayerToMap(Player * pl) {
 	for (int i = 0; i < citiesOwned.size(); i++) {
 		for (int j = 0; j < graph->arr.size(); j++) {
 			if (graph->arr[j].city.getCityNumber() == citiesOwned[i].getCityNumber() /*&& (graph->arr[j].city.isAvailable())*/) { //we would have to assume that the cities a player owns are all available
-				graph->arr[j].player = *pl; //add player to Nodes/Cities on the map
+				graph->arr[j].player.push_back(*pl); //add player to Nodes/Cities on the map
 			}
+		}
+	}
+}
+
+//check how many players own a city (returns int)
+int  GraphBuilder::HowManyPlayersAreInCity(string cityName) {
+	cout << "Searching for a city in the map..." << endl;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == cityName) {
+			cout << "There are " << graph->arr[i].player.size() << " players already in this city." << endl;
+			return graph->arr[i].player.size();
 		}
 	}
 }
@@ -229,8 +244,10 @@ vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player * pl) {
 	vector<City> citiesOwned;
 
 	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].player.getName() == pl->getName()) {
-			citiesOwned.push_back(graph->arr[i].city);
+		for (int j = 0; j < graph->arr[i].player.size(); j++) {
+			if (graph->arr[i].player[j].getName() == pl->getName()) {
+				citiesOwned.push_back(graph->arr[i].city);
+			}
 		}
 		/*else
 			cout << "Player:" << pl->getName() << ", Color: " << pl->getColor()
@@ -256,15 +273,14 @@ bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
 			check = false;
 	}
 
+	delete root;
+	root = NULL;
+
 	if (check == true) {
 		return true;
 	}
 	else
 		return false;
-	//not sure if this does anything. Might need to later implement this method
-	//with smart pointer instead of simple "root" pointer
-	delete root;
-	root = NULL;
 }
 
 //function to look at the cost from one city to another (must be adjacent)
@@ -291,13 +307,12 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 			check = false;
 	}
 
+	delete root;
+	root = NULL;
+
 	if (check == true)
 		cout << root->cost << endl;
 		return root->cost;
-
-	//not sure if this does anything. might have to put smart pointers
-	delete root;
-	root = NULL;
 }
 
 //prints out information within a node of the map
@@ -312,20 +327,24 @@ void GraphBuilder::SearchCity(string cityName) {
 			cout << "City Color: " << graph->arr[i].city.getCityColor() << endl;
 			std::cout << std::boolalpha;
 			cout << "City Availability: " << graph->arr[i].city.isAvailable() << endl;
-			cout << "Owned By: " << graph->arr[i].player.getName() << ", " << graph->arr[i].player.getColor() << endl;
-			cout << "---------------Contains---------------" << endl;
 			for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
-				graph->arr[i].powerplants[j].toString();
+				cout << "Owned By: " << graph->arr[i].player[j].getName() << ", " << graph->arr[i].player[j].getColor() << endl;
 			}
+
+			//this is kinda useless, was only there for assignment 1
+			//cout << "---------------Contains---------------" << endl;
+			//for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
+			//	graph->arr[i].powerplants[j].toString();
+			//}
 			//for (int j = 0; j < graph->arr[i].resources.size(); j++) {
 			//	graph->arr[i].resources[j].toString();
 			//}
 
-			cout << endl;
+			//cout << endl;
 
-			for (int j = 0; j < graph->arr[i].elektros.size(); j++) {
-				graph->arr[i].elektros[j].toString();
-			}
+			//for (int j = 0; j < graph->arr[i].elektros.size(); j++) {
+			//	graph->arr[i].elektros[j].toString();
+			//}
 			
 			//cout << graph->arr[i].player.
 		}
@@ -333,13 +352,14 @@ void GraphBuilder::SearchCity(string cityName) {
 }
 
 //Adds Elektros to the City Node
+/*
 void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == name) {
 			graph->arr[i].elektros.push_back(el); //add PowerPlant to the physical map
 		}
 	}
-}
+}*/
 
 //Adds Resources to the City Node
 //void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
@@ -351,6 +371,7 @@ void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 //}
 
 //Adds PowerPlants to the City Node
+/*
 void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
 
 	for (int i = 0; i < totalVertices; i++) {
@@ -358,7 +379,7 @@ void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
 			graph->arr[i].powerplants.push_back(pp); //add PowerPlant to the physical map
 		}
 	}
-}
+}*/
 
 //test case to test if the number of cities from the file matches the number of nodes in the map
 bool GraphBuilder::test_SizeOfMap_and_FileMap() {
