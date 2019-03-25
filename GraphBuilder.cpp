@@ -321,6 +321,7 @@ int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
 
 //prints out information within a node of the map
 void GraphBuilder::SearchCity(string cityName) {
+	cout << endl;
 	cout << "Searching for a city in the map..." << endl;
 	for (int i = 0; i < totalVertices; i++) {
 		
@@ -331,8 +332,13 @@ void GraphBuilder::SearchCity(string cityName) {
 			cout << "City Color: " << graph->arr[i].city.getCityColor() << endl;
 			std::cout << std::boolalpha;
 			cout << "City Availability: " << graph->arr[i].city.isAvailable() << endl;
-			for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
-				cout << "Owned By: " << graph->arr[i].player[j].getName() << ", " << graph->arr[i].player[j].getColor() << endl;
+			if (graph->arr[i].player.size() == 0) {
+				cout << "Owned By: No One" << endl;
+			}
+			else {
+				for (int j = 0; j < graph->arr[i].player.size(); j++) {
+					cout << "Owned By: " << graph->arr[i].player[j].getName() << ", " << graph->arr[i].player[j].getColor() << endl;
+				}
 			}
 
 			//this is kinda useless, was only there for assignment 1
