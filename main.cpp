@@ -46,22 +46,15 @@ int main() {
 #include "City.h"
 #include "GraphBuilder.h"
 #include "Elektro.hpp"
+#include "Market.hpp"
 //#include "ResourceToken.hpp"
 #include "HelperFunctions.hpp"
 
 using namespace std;
 using namespace HelperFunctions;
 
-static void shuffle(vector<GameCard*> &_deck) {
-	cout << "===============" << endl;
-	cout << "===============" << endl;
-	cout << "SHUFFLED" << endl;
-	cout << "===============" << endl;
-	cout << "===============" << endl;
-	random_shuffle(_deck.begin(), _deck.end());
-}
-static void makingDeck(vector<GameCard*> &_deck) {
-	
+static void makingDeck(vector<GameCard*> &_deck, vector<PowerPlant*> &_powerPlantMarket)
+{
 	PowerPlant *p1 = new PowerPlant(3, 1, 0, 2, 0, 0);
 	PowerPlant *p2 = new PowerPlant(4, 1, 2, 0, 0, 0);
 	PowerPlant *p3 = new PowerPlant(5, 1, 2, 2, 0, 0);
@@ -105,19 +98,24 @@ static void makingDeck(vector<GameCard*> &_deck) {
 	PowerPlant *p41 = new PowerPlant(46, 7, 3, 3, 0, 0);
 	PowerPlant *p42 = new PowerPlant(50, 6, 0, 0, 0, 0);
 
-	GameCard s3 = GameCard("s3");
 
-	_deck.push_back(p1);
-	_deck.push_back(p2);
-	_deck.push_back(p3);
-	_deck.push_back(p4);
-	_deck.push_back(p5);
-	_deck.push_back(p6);
-	_deck.push_back(p7);
-	_deck.push_back(p8);
+	GameCard *s3 = new GameCard("s3");
+
+
+	//SETTING UP THE POWERPLANT MARKET
+	_powerPlantMarket.push_back(p1);
+	_powerPlantMarket.push_back(p2);
+	_powerPlantMarket.push_back(p3);
+	_powerPlantMarket.push_back(p4);
+	_powerPlantMarket.push_back(p5);
+	_powerPlantMarket.push_back(p6);
+	_powerPlantMarket.push_back(p7);
+
+
+	//making the rest of the deck, ready to shuffle
 	_deck.push_back(p9);
 	_deck.push_back(p10);
-	_deck.push_back(p11);
+	//_deck.push_back(p11);
 	_deck.push_back(p12);
 	_deck.push_back(p13);
 	_deck.push_back(p14);
@@ -149,10 +147,24 @@ static void makingDeck(vector<GameCard*> &_deck) {
 	_deck.push_back(p40);
 	_deck.push_back(p41);
 	_deck.push_back(p42);
+
+	//following game rules:
+	//top of deck: powerplant 13
+	//bottom: step3 card
+	random_shuffle(_deck.begin(), _deck.end());
+	_deck.push_back(s3);
+	_deck.insert(_deck.begin(), p11);
 }
 
-static void printDeck(vector<GameCard*> &_deck) {
-	for (int i = 0; i < _deck.size(); i++) {
+static void print(vector<GameCard*> &_deck){
+	for (int i = 0; i < _deck.size(); i++)
+	{
+		_deck[i]->toString();
+	}
+}
+static void print(vector<PowerPlant*> &_deck) {
+	for (int i = 0; i < _deck.size(); i++)
+	{
 		_deck[i]->toString();
 	}
 }
@@ -177,7 +189,7 @@ static void DeterminePlayerOrder(vector<Player*> players, int round) {
 
 	if (round == 1) {
 		for (int i = 0; i < players.size(); i++) {
-			playerOrder.push_back(i + 1);
+			playerOrder.push_back(i);
 		}
 
 		//give random turn to each player
@@ -200,10 +212,10 @@ static void DeterminePlayerOrder(vector<Player*> players, int round) {
 		cout << endl;
 
 		//sort players by the number of cities they have (for the rest of the game)
-		std::sort(players.begin(), players.end(), Player::compById);
+		std::sort(players.begin(), players.end(), Player::compByCities);
 
 		for (int i = 0; i < players.size(); i++) {
-			players.at(i)->setplayerOrder(i + 1);
+			players.at(i)->setplayerOrder(i);
 		}
 
 		for (int i = 0; i < players.size(); i++) {
@@ -213,10 +225,68 @@ static void DeterminePlayerOrder(vector<Player*> players, int round) {
 	}
 }
 
+static void sortMarket(vector<PowerPlant*> &_powerPlantMarket)
+{
+	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
+
+}
+
+static void Auction(PowerPlant * powerplant, vector<Player*> players, Player * pl) {
+	cout << "$$$$$$ Give your best price! $$$$$$" << endl;
+	vector<Player*> player = players;
+	bool bought = false;
+	int price = powerplant->getCardNumber();
+	int newprice = price;
+	char input;
+
+	for (int i = 0; i < pl->getplayerOrder(); i++) {
+		player.erase(player.begin() + i);
+	}
+
+	while (player.size() != 1) {
+		for (int i = 0; i < player.size(); i++) {
+			cout << player[i]->getName() << ", would you like to Pass or Bid on this powerplant?";
+			powerplant->toString();
+			cout << endl;
+			cout << "Pass or Bid? (P/B): ";
+			cin >> input;
+			cout << endl;
+			while (input != 'P' && input != 'B') {
+				cout << "This input is not valid. Please type in P (for Pass) or B (for Bid): ";
+				cin >> input;
+				cout << endl;
+			}
+			if (input == 'P') {
+				player.erase(player.begin() + i);
+				i -= 1;
+			}
+			if (input == 'B') {
+				cout << "How much would you like to bid? (minimum " << price << " Elektros): ";
+				cin >> newprice;
+				while (newprice < price) {
+					cout << "What are you doing? The minimum bid is " << price << " Elektros! Try again: ";
+					cin >> newprice;
+				}
+				price = newprice;
+
+
+				cout << players[i]->getName() << " has chosen to Bid " << price << " Elektros for this powerplant" << endl;
+				cout << endl;
+			}
+		}
+	}
+
+	cout << player[0]->getName() << " won the Bid with " << price << " Elektros!" << endl;
+
+	//TODO: Manage the possibility that every one passes
+
+}
+
+
 int main() {
 
 //============================== Assignment 1 ================================================
-	
+	/*
 	Elektro elektro = Elektro(10, 5, 50);
 	//ResourceToken resource = ResourceToken(3, "oil");
 	PowerPlant powerplant = PowerPlant(3, 2, 2, 0, 0, 0);
@@ -225,18 +295,18 @@ int main() {
 
 	Player * p1 = new Player("Nicole", "Red");
 	//p1.collectElektro(elektro);
-	
+	*/
 	
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "powergrid_cities.map");
 	graph.buildMap();
 
-	
+	/*
 	graph.printGraph();
 
 	cout << endl;
 
-	graph.removeRegions("GREEN");
+	graph.removeRegions("ORANGE");
 
 	graph.printGraph();
 
@@ -293,7 +363,6 @@ int main() {
 	cout << endl;
 
 	//print contents
-	graph.SearchCity("Flensburg");
 	graph.SearchCity("Berlin");
 	graph.SearchCity("Kiel");
 	graph.SearchCity("Hamburg");
@@ -305,38 +374,40 @@ int main() {
 
 	cin.get();
 	
-
-	/*
+	*/
+	
 	//============================== Assignment 2, task 2, ================================================
 	static vector<GameCard*> deck;
+	static vector<PowerPlant*> powerPlantMarket;
 
-	makingDeck(deck);
-	//printDeck(deck);
-	shuffle(deck);
 
-	//SETTING UP THE POWERPLANT MARKET
-	_powerPlantMarket.push_back(p1);
-	_powerPlantMarket.push_back(p2);
-	_powerPlantMarket.push_back(p3);
-	_powerPlantMarket.push_back(p4);
-	_powerPlantMarket.push_back(p5);
-	_powerPlantMarket.push_back(p6);
-	_powerPlantMarket.push_back(p7);
+	Market market = Market();
 
-	
-	//vector of Players
+	makingDeck(deck, powerPlantMarket);
+	//print(powerPlantMarket);
+	//bureaucracy(deck, powerPlantMarket, market);
+	//print(powerPlantMarket);
+	sortMarket(powerPlantMarket);
+	print(powerPlantMarket);
+	// print(powerPlantMarket);
+	//shuffle(deck);
+	//print(deck);
+	//cout << deck.size() << endl;
+
+
 	vector<Player*> players;
+	
 	players.push_back(new Player("Nicole", "Red"));
 	players.push_back(new Player("Voldermort", "Green"));
 	players.push_back(new Player("Pikachu", "Blue"));
 	players.push_back(new Player("Smith", "Purple"));
 
-	graph.AddPlayerToCity(players[0], "Berlin");
-	graph.AddPlayerToCity(players[0], "Frankfurt-O");
-	graph.AddPlayerToCity(players[1], "Kiel");
-	graph.AddPlayerToCity(players[2], "Frankfurt-M");
-	graph.AddPlayerToCity(players[2], "Hamburg");
-	graph.AddPlayerToCity(players[2], "Cuxhaven");
+	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Berlin");
+	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Frankfurt-O");
+	graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
+	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
+	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
+	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
 
 
 	//Game loop !!!!
@@ -355,25 +426,34 @@ int main() {
 			
 			//task 2 - step 1
 			DeterminePlayerOrder(players, round);
+			std::sort(players.begin(), players.end(), Player::compByOrder);
 			round += 1;
 			DeterminePlayerOrder(players, round);
+			std::sort(players.begin(), players.end(), Player::compByOrder);
 			
 			//task2 - step 2
 			for (int i = 0; i < players.size(); i++) {
-				cout << "Pass or Auction? (P/A): ";
-				cin >> input;
-				cout << endl;
-				while (input != 'P' && input != 'A') {
-					cout << "This input is not valid. Please type in P (for Pass) or A (for Auction): ";
+				for (int j = 0; j < powerPlantMarket.size(); j++) {
+					cout << players[i]->getName() << ", would you like to Pass or Auction this powerplant?";
+					powerPlantMarket[j]->toString();
+					cout << endl;
+					cout << "Pass or Auction? (P/A): ";
 					cin >> input;
 					cout << endl;
-				}
-				if (input == 'P') {
-					//Player::Pass();
-				}
-				if (input == 'A') {
-					cout << players[i]->getName() << " has chosen to Auction (A) for this powerplant" << endl;
-					cout << endl;
+					while (input != 'P' && input != 'A') {
+						cout << "This input is not valid. Please type in P (for Pass) or A (for Auction): ";
+						cin >> input;
+						cout << endl;
+					}
+					if (input == 'P') {
+						//Player::Pass();
+					}
+					if (input == 'A') {
+						cout << players[i]->getName() << " has chosen to Auction (A) for this powerplant" << endl;
+						Auction(powerPlantMarket[j], players, players[i]);
+						cout << endl;
+						break;
+					}
 				}
 			}
 
@@ -382,7 +462,7 @@ int main() {
 		gameIsNotFinished = true;
 	}
 	deleteDeck(deck);
-	*/
+	
 	return 0;
 }
 

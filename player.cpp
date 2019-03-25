@@ -128,6 +128,6 @@ void Player::toString() {
 //	cout << endl;
 //}
 
-void Player::Auction(PowerPlant p) {
-
-}
+//void Player::Auction(GameCard * p) {
+//
+//}
