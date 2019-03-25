@@ -93,7 +93,7 @@ public:
 	//additional functions
 	//City findCityByName(string name);
 	void removeRegions(string color);
-	void add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
+	bool add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
 	int HowManyPlayersAreInCity(string cityName);
 	vector<City> FindCitiesOwnedByPlayer(Player * player);

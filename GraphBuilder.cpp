@@ -189,7 +189,7 @@ void GraphBuilder::removeRegions(string color) {
 //function to add players to "cities"(aka Nodes) in the physical map
 //and updates Player info at the same time
 //USE THIS FUNCTION TO ADD CITIES TO PLAYERS DURING GAMEPLAY
-void GraphBuilder::add_CityToPlayer_and_PlayerToMap(Player * pl, string name) {
+bool GraphBuilder::add_CityToPlayer_and_PlayerToMap(Player * pl, string name) {
 	City c = City();
 
 	for (int i = 0; i < totalVertices; i++) {
@@ -200,13 +200,17 @@ void GraphBuilder::add_CityToPlayer_and_PlayerToMap(Player * pl, string name) {
 			if (graph->arr[i].player.size() < 4) {
 				graph->arr[i].player.push_back(*pl); //add Player to the physical map
 				pl->addCity(c);	//add/update new City object to Player "cities" attribute 
+				return true;
 			}
 			else {
 				cout << "--------Can't add player to " << graph->arr[i].city.getCityName() << " because it is too full! (already has 3 players)--------" << endl;
+				return false;
 			}
 		}
-		else if ((graph->arr[i].city.getCityName() == name) && (!graph->arr[i].city.isAvailable()))
+		else if ((graph->arr[i].city.getCityName() == name) && (!graph->arr[i].city.isAvailable())) {
 			cout << "--------" << graph->arr[i].city.getCityName() << " is not available for purchase--------" << endl;
+			return false;
+		}
 	}
 }
 
