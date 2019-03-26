@@ -106,6 +106,8 @@ bool GraphBuilder::areChosenRegionsConnected(vector<string> chosenRegCols) {
 
 bool GraphBuilder::areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE) {
     
+    // throw invalid chosenRegCols size or something like that // TODO
+    
     for(int i = 0; i < chosenRegCols.size(); i++) {
         for(int j = 0; j < chosenRegCols.size(); j++) {
             if( !hasPath( chosenRegCols.at(i) , chosenRegCols.at(j), getChosenAdjacentRegionsTriplets(arts, chosenRegCols), 0, MAX_PATH_SIZE) ) {
