@@ -69,6 +69,9 @@ public:
 	static bool compByOrder(const Player* a, const Player* b) {
 		return a->playerOrder < b->playerOrder;
 	}
+	static bool reverseOrder(const Player* a, const Player* b) {
+		return b->playerOrder < a->playerOrder;
+	}
 
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);

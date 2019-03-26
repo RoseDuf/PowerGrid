@@ -199,11 +199,17 @@ static void DeterminePlayerOrder(vector<Player*> players, int round) {
 
 		cout << "Initial player order: " << endl;
 		cout << endl;
-
+		
 		for (int i = 0; i < players.size(); i++) {
 			players.at(i)->setplayerOrder(playerOrder[i]);
+		}
+
+		//sort the order of the vertex
+		std::sort(players.begin(), players.end(), Player::compByOrder);
+		for (int i = 0; i < players.size(); i++) {
 			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
 		}
+		
 		cout << endl;
 	}
 
@@ -232,7 +238,9 @@ static void sortMarket(vector<PowerPlant*> &_powerPlantMarket)
 }
 
 static void Auction(PowerPlant * powerplant, vector<Player*> players, Player * pl) {
+	cout << endl;
 	cout << "$$$$$$ Give your best price! $$$$$$" << endl;
+	cout << endl;
 	vector<Player*> player = players;
 	bool bought = false;
 	int price = powerplant->getCardNumber();
@@ -290,10 +298,7 @@ int main() {
 	Elektro elektro = Elektro(10, 5, 50);
 	//ResourceToken resource = ResourceToken(3, "oil");
 	PowerPlant powerplant = PowerPlant(3, 2, 2, 0, 0, 0);
-	City c1 = City(1, "Kiel", "GREEN");
-	City c2 = City(2, "Hamburg", "GREEN");
 
-	Player * p1 = new Player("Nicole", "Red");
 	//p1.collectElektro(elektro);
 	*/
 	
@@ -302,6 +307,8 @@ int main() {
 	graph.buildMap();
 
 	/*
+	Player * p1 = new Player("Nicole", "Red");
+	Player * p2 = new Player("Rose", "Green");
 	graph.printGraph();
 
 	cout << endl;
@@ -336,9 +343,9 @@ int main() {
 	cout << endl;
 
 	//add tokens to map
-	graph.add_ElektrosToCity(elektro, "Berlin");
+	//graph.add_ElektrosToCity(elektro, "Berlin");
 	//graph.add_ResourcesToCity(resource, "Berlin");
-	graph.add_PowerPlantToCity(powerplant, "Berlin");
+	//graph.add_PowerPlantToCity(powerplant, "Berlin");
 
 	cout << endl;
 	//print contents 
@@ -348,9 +355,12 @@ int main() {
 
 	
 	//add player to city
+	City c1 = City(1, "Kiel", "GREEN");
+	City c2 = City(2, "Hamburg", "GREEN");
 	graph.add_CityToPlayer_and_PlayerToMap(p1, "Berlin");
 	p1->addCity(c1);
 	p1->addCity(c2);
+	graph.add_CityToPlayer_and_PlayerToMap(p2, "Hamburg");
 	graph.AddPlayerToMap(p1);
 	
 	vector<City> citiesOwned = graph.FindCitiesOwnedByPlayer(p1);
@@ -426,34 +436,49 @@ int main() {
 			
 			//task 2 - step 1
 			DeterminePlayerOrder(players, round);
-			std::sort(players.begin(), players.end(), Player::compByOrder);
+			
 			round += 1;
 			DeterminePlayerOrder(players, round);
 			std::sort(players.begin(), players.end(), Player::compByOrder);
 			
+			
 			//task2 - step 2
 			for (int i = 0; i < players.size(); i++) {
 				for (int j = 0; j < powerPlantMarket.size(); j++) {
-					cout << players[i]->getName() << ", would you like to Pass or Auction this powerplant?";
 					powerPlantMarket[j]->toString();
-					cout << endl;
-					cout << "Pass or Auction? (P/A): ";
-					cin >> input;
-					cout << endl;
-					while (input != 'P' && input != 'A') {
-						cout << "This input is not valid. Please type in P (for Pass) or A (for Auction): ";
-						cin >> input;
-						cout << endl;
-					}
-					if (input == 'P') {
-						//Player::Pass();
-					}
-					if (input == 'A') {
-						cout << players[i]->getName() << " has chosen to Auction (A) for this powerplant" << endl;
-						Auction(powerPlantMarket[j], players, players[i]);
-						cout << endl;
+				}
+				cout << players[i]->getName() << ", would you like to Pass or Auction a powerplant?" << endl;
+				cout << endl;
+				cout << "If you would like to Pass, press 'P'. If you would like to Auction a powerplant, enter the card number of the powerplant you want: ";
+				cin >> input;
+				cout << endl;
+
+				//find if card is available
+				bool isCardInVector;
+				int targetpp;
+				for (int k = 0; k <= powerPlantMarket.size(); k++) {
+					if ((input-48) == powerPlantMarket[k]->getCardNumber()) {
+						targetpp = k;
+						isCardInVector = true;
 						break;
 					}
+					else
+						isCardInVector = false;
+				}
+
+				while (input != 'P' && isCardInVector == false) {
+						cout << "This input is not valid. Please type in P (for Pass) or powerplant card number: ";
+						cin >> input;
+						cout << endl;
+				}
+				if (input == 'P') {
+					//Player::Pass();
+				}
+				if (isCardInVector) {
+					cout << players[i]->getName() << " has chosen to Auction (A) for powerplant: " << powerPlantMarket[targetpp]->getCardNumber() << endl;
+					Auction(powerPlantMarket[targetpp], players, players[i]);
+					cout << endl;
+					break;
 				}
 			}
 
