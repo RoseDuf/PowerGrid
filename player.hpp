@@ -63,13 +63,13 @@ public:
 	void setplayerOrder(int playerOrder);
 
 	//to sort player's by the number of cities owned (to determine order)
-	static bool compByCities(const Player* a, const Player* b){
+	static bool compByCities(Player* a, Player* b){
 		return b->citiesOwned.size() < a->citiesOwned.size();
 	}
-	static bool compByOrder(const Player* a, const Player* b) {
+	static bool compByOrder(Player* a, Player* b) {
 		return a->playerOrder < b->playerOrder;
 	}
-	static bool reverseOrder(const Player* a, const Player* b) {
+	static bool reverseOrder(Player* a, Player* b) {
 		return b->playerOrder < a->playerOrder;
 	}
 
