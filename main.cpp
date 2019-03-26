@@ -6,7 +6,7 @@
 #include <iostream>
 #include "player.hpp"
 #include "City.h"
-//#include "GraphBuilder.h"
+#include "GraphBuilder.h"
 
 #include "HelperFunctions.hpp"
 #include <algorithm>
@@ -153,6 +153,35 @@ static void deleteDeck(vector<GameCard*> &_deck)
 
 int main() {
     
+    std::cout << "true = " << true << std::endl;
+    // Select a map
+    std::string mapFilename = "file.map";
+    MapData mapData = PowerGridIO::getMapData(mapFilename);
+    std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
+    vector<string> chosenRegCols;
+    /*without_user_input_version:chosenRegCols.push_back("RED");
+    chosenRegCols.push_back("ORANGE");
+    chosenRegCols.push_back("GREEN");
+    chosenRegCols.push_back("PURPLE");
+    //chosenRegCols.push_back("YELLOW");//
+    //chosenRegCols.push_back("BLUE");*/
+    
+        // Select the number of players in the game
+    std::cout << "How many players? (2-6):";
+    int amountOfPlayers = 0;
+    std::cin >> amountOfPlayers;
+    for(int i = 0; i < amountOfPlayers; i++) {
+        
+        std::cout << "Choose region color " << (i+1) << ":";
+        std::string currentRegionColorChoice = "";
+        std::cin >> currentRegionColorChoice;
+        chosenRegCols.push_back(currentRegionColorChoice);
+    }
+    
+    int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
+    GraphBuilder graph( amountOfVertices, mapFilename );
+    std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+    
     static vector<GameCard*> deck;
     
     makingDeck(deck);
@@ -169,6 +198,8 @@ int main() {
      test->toString();
     delete test;
     test= NULL;
+    
+    return 0;
 }
 
 /*#include "PowerGridIO.hpp"
