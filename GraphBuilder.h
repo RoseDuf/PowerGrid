@@ -62,7 +62,8 @@ public:
 	void addEdge(Graph * graph, EdgeTriplet edges);
 	void addConnectedCitiestoVector();
 	void printGraph();
-
+    bool areChosenRegionsConnected(vector<string> chosenRegCols);
+    
 	//searching algorithm funtions
 	/*
 	MinHeapNode * newMinHeapNode(int v, int dist);
@@ -104,7 +105,9 @@ private:
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;
-
+    vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
+    bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
+    bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
 };
 
 #endif
