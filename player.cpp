@@ -4,7 +4,6 @@
 //
 
 #include <iostream>
-#include <string>
 #include <vector>
 #include "player.hpp"
 using namespace std;
@@ -22,12 +21,12 @@ Player::Player(string name, string color) {
 }
 
 Player::Player(string name, string color, vector<PowerPlant>
-	powerPlant, Elektro wallet, /*vector<City> cities,*/
+	powerPlant, Elektro wallet, vector<City> cities,
 	/*vector<ResourceToken> resources,*/ int playerOrder) {
 	this->name = name;
 	this->color = color;
 	this->wallet = wallet;
-	//this->citiesOwned = cities;
+	this->citiesOwned = cities;
 	//this->resources = resources;
 	this->playerOrder = playerOrder;
 }
@@ -38,7 +37,7 @@ Player::Player(const Player &p2) {
 	name = p2.name;
 	color = p2.color;
 	wallet = p2.wallet;
-	//citiesOwned = p2.citiesOwned;
+	citiesOwned = p2.citiesOwned;
 	//resources = p2.resources;
 	playerOrder = p2.playerOrder;
 }
@@ -60,11 +59,9 @@ void Player::setColor(string c) {
 vector<PowerPlant> Player::getPowerPlant() {
 	return powerPlants;
 }
-
 void Player::setPowerPlant(vector<PowerPlant> pp) {
 	powerPlants = pp;
 }
-
 void Player::addPowerPlant(PowerPlant p) {
 	powerPlants.push_back(p);
 }
@@ -72,7 +69,7 @@ void Player::addPowerPlant(PowerPlant p) {
 //vector<ResourceToken> Player::getResources() {
 //	return resources;
 //}
-/*
+
 vector<City> Player::getCitiesOwned() {
 	return citiesOwned;
 }
@@ -82,7 +79,7 @@ void Player::setCitiesOwned(vector<City> c) {
 void Player::addCity(City city) {
 	citiesOwned.push_back(city);
 }
-*/
+
 void  Player::collectElektro(int _bill1, int _bill10, int _bill50)
 {
 	wallet.addElektros(_bill1, _bill10, _bill50);
@@ -120,10 +117,10 @@ void Player::toString() {
 
 	cout << "\nAmount of Elektro: " << endl;
 	wallet.toString();
-	/*cout << "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
+	cout << "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
 	for (int i = 0; i < citiesOwned.size(); i++) {
 		cout << citiesOwned[i].getCityName() << endl;
-	}*/
+	}
 }
 
 //void Player::Pass(PowerPlant p) {
