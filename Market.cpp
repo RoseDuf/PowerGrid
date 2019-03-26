@@ -34,8 +34,6 @@ Market::~Market()
     {
         uranium_supply+=number;
     }
-    
-    return 0;
 }
 
 void Market::restockMarket(int step)
@@ -43,24 +41,27 @@ void Market::restockMarket(int step)
     //need to check if enough in supply before restock***
     if(step==1)
     {
-        coal_market+=3;
-        oil_market+=2;
-        garbage_market+=1;
-        uranium_market+=1;
+        //checks if there are enough tokens left in  the supply "bag" to restock the  market according
+        //to specific step
+        //if not, add what is left from the supply
+        checkSupply("coal", 3) ? coal_market+=3 : coal_market+=coal_supply;
+        checkSupply("oil", 2) ? oil_market+=2 : oil_market+=oil_supply;
+        checkSupply("garbage", 1) ? garbage_market+=1 : garbage_market+=garbage_supply;
+        checkSupply("uranium", 1) ? uranium_market+=1 : uranium_market+=uranium_supply;
     }
     else if(step==2)
     {
-        coal_market+=4;
-        oil_market+=2;
-        garbage_market+=2;
-        uranium_market+=1;
+        checkSupply("coal", 4) ? coal_market+=4 : coal_market+=coal_supply;
+        checkSupply("oil", 2) ? oil_market+=2 : oil_market+=oil_supply;
+        checkSupply("garbage", 2) ? garbage_market+=2 : garbage_market+=garbage_supply;
+        checkSupply("uranium", 1) ? uranium_market+=1 : uranium_market+=uranium_supply;
     }
     else if(step==3)
     {
-        coal_market+=3;
-        oil_market+=4;
-        garbage_market+=3;
-        uranium_market+=1;
+        checkSupply("coal", 3) ? coal_market+=3 : coal_market+=coal_supply;
+        checkSupply("oil", 4) ? oil_market+=4 : oil_market+=oil_supply;
+        checkSupply("garbage", 3) ? garbage_market+=3 : garbage_market+=garbage_supply;
+        checkSupply("uranium", 1) ? uranium_market+=1 : uranium_market+=uranium_supply;
     }
     else
     {
