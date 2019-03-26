@@ -14,6 +14,30 @@ Market::~Market()
 {
 
 }
+
+ void Market::addToSupply(string type, int number)
+{
+    if(type=="coal")
+    {
+        coal_supply+=number;
+    }
+    else if(type=="oil")
+    {
+        oil_supply+=number;
+    }
+    
+    else if(type=="garbage")
+    {
+        garbage_supply+=number;
+    }
+    else if(type=="uranium")
+    {
+        uranium_supply+=number;
+    }
+    
+    return 0;
+}
+
 void Market::restockMarket(int step)
 {
     //need to check if enough in supply before restock***

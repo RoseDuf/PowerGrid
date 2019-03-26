@@ -20,6 +20,8 @@ public:
     bool checkMarket(string type, int number);
     bool checkSupply(string type, int number);
     int getPrice(string type);
+    
+    void addToSupply(string type, int number);
 private:
     
     //total resource token pieces in the game

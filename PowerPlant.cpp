@@ -229,7 +229,7 @@ int PowerPlant::getRTNeeded(string type, int num)
     return 0;
 }
 
-void PowerPlant::powerCity(string type)
+void PowerPlant::powerCity(string type, Market* market)
 {
 
     if(type=="coal")
@@ -237,6 +237,7 @@ void PowerPlant::powerCity(string type)
        if(checkIfNeeded("coal") && checkIfEnoughStock("coal"))
        {
           coal_stocked-=coal_needed;
+          market->addToSupply("coal", coal_needed);
        }
     }
     else if(type=="oil")
@@ -244,6 +245,7 @@ void PowerPlant::powerCity(string type)
         if(checkIfNeeded("oil") && checkIfEnoughStock("oil"))
         {
             oil_stocked-=oil_needed;
+            market->addToSupply("oil", oil_needed);
         }
     }
     
@@ -252,6 +254,7 @@ void PowerPlant::powerCity(string type)
         if(checkIfNeeded("garbage") && checkIfEnoughStock("garbage"))
         {
             garbage_stocked-=garbage_needed;
+             market->addToSupply("garbage", garbage_needed);
         }
     }
     else if(type=="uranium")
@@ -259,6 +262,7 @@ void PowerPlant::powerCity(string type)
         if(checkIfNeeded("uranium") && checkIfEnoughStock("uranium"))
         {
             uranium_stocked-=uranium_needed;
+              market->addToSupply("uranium", uranium_needed);
         }
     }
 }

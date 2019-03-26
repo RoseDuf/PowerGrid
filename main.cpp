@@ -168,44 +168,101 @@ static void sortMarket(vector<GameCard*> &_powerPlantMarket)
     sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
     
 }
-static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket, Market &market)
+static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket, Market &_market, int _step, vector<Player*> &_players)
 {
     //RN i made several methods in the main, to test things out, but I think I will be making classes to
     //better implement this
     
+    //NEED TO SEE WHEN IN THE GAME: REMOVING 1st and last power plant in step ## ?
+    
     //removing most expensive Power plant from the market and placing it under the draw deck
-    GameCard *test = _powerPlantMarket.at(_powerPlantMarket.size()-1);
+    GameCard *MostExpensive = _powerPlantMarket.at(_powerPlantMarket.size()-1);
     _powerPlantMarket.pop_back();
-    _deck.push_back(test);
+    _deck.push_back(MostExpensive);
     
     //drawing new card from deck and adding it the power plant market
-    GameCard *temp = _deck.at(0);
+    GameCard *newCard = _deck.at(0);
     _deck.erase(_deck.begin());
-    _powerPlantMarket.push_back(temp);
+    _powerPlantMarket.push_back(newCard);
+    //placing the cards in ascending order of price
+    sortMarket(_powerPlantMarket);
     
+    int numCitiesPowered = 0;
+    //number of type bills
+    int bill1=0;
+    int bill10=0;
+    int bill50=0;
+    //profit the players gets when powering a certain number of cities
+    int profit=0;
     
-    //players collect cash according to cities powered
-    
+    //each player collects cash according to cities powered
+    for(int i = 0; i < _players.size(); i++)
+    {
+        //***need a method to determine the number of cities powered
+       // numCitiesPowered = _players[i]->getCitiesOwned();
+         //profit = checkProfit(numCitiesPowered);
+        
+        bill50 = (profit - profit%50)/50;
+        profit-=bill50*50;
+        bill10 = (profit - profit%10)/10;
+        profit-=bill10*10;
+        bill1 = profit;
+        _players[i]->collectElektro(bill1,bill10, bill50);
+    }
     //restock resource market
+    _market.restockMarket(_step);
+    
+    //**NEED TO ADD: when power plants power cities, add the tokens back to supply
+}
+
+static int checkProfit(int _num)
+{
+    if(_num==0) return 10;
+    else if(_num==1) return 22;
+    else if(_num==2) return 33;
+    else if(_num==3) return 44;
+    else if(_num==4) return 54;
+    else if(_num==5) return 64;
+    else if(_num==6) return 73;
+    else if(_num==7) return 82;
+    else if(_num==8) return 90;
+    else if(_num==9) return 98;
+    else if(_num==10) return 105;
+    else if(_num==11) return 112;
+    else if(_num==12) return 118;
+    else if(_num==13) return 124;
+    else if(_num==14) return 129;
+    else if(_num==15) return 134;
+    else if(_num==16) return 138;
+    else if(_num==17) return 142;
+    else if(_num==18) return 145;
+    else if(_num==19) return 148;
+    else if(_num==20) return 150;
+    return 0;
 }
 
 int main() {
     
     static vector<GameCard*> deck;
+        static vector<Player*> players;
     static vector<GameCard*> powerPlantMarket;
     
     
  Market market = Market();
     
     makingDeck(deck, powerPlantMarket);
+    
    //print(powerPlantMarket);
-    //bureaucracy(deck, powerPlantMarket, market);
+    
+    int step = 1;
+    
+    bureaucracy(deck, powerPlantMarket, market, step, players);
     //print(powerPlantMarket);
-    sortMarket(powerPlantMarket);
+  
     //print(powerPlantMarket);
    // print(powerPlantMarket);
     //shuffle(deck);
-    print(deck);
+    //print(deck);
     //cout << deck.size() << endl;
 }
 
