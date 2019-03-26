@@ -1,173 +1,182 @@
-//  main.cpp
-//  player
-//  Driver class for Player object
-//change..
+//main for task 3
 
-#include <iostream>
+#include "Game.h"
+#include <vector>
+#include <string>
+#include <cstdlib>
 #include <algorithm>
+#include <random>
 #include "player.hpp"
-#include "City.h"
-
-//#include "GraphBuilder.h"
-
-#include "HelperFunctions.hpp"
+#include "Market.hpp"
 
 using namespace std;
-using namespace HelperFunctions;
+
+//playerOrder must be available to all of Driver
+/*static vector<Player*> playerOrder;
+
+static void DeterminePlayerOrder(vector<Player*> players, int round) {
+
+	if (round == 1) {
+		for (int i = 0; i < players.size(); i++) {
+			playerOrder.push_back(players[i]);
+		}
+
+		//give random turn to each player
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(playerOrder.begin(), playerOrder.end(), g);
+
+		cout << "Initial player order: " << endl;
+		cout << endl;
+
+		for (int i = 0; i < players.size(); i++) {
+			cout << "Player: " << playerOrder[i] -> getName() << ", Turn: " << (i+1) << endl;
+		}
+		cout << endl;
+	}
+
+	else if (round == 2 || round == 3) {
+		//reverse vector order
+		reverse(playerOrder.begin(), playerOrder.end());
+
+		cout << "Current player order:\n" << endl;
+
+		for (int i = 0; i < players.size(); i++) {
+			cout << "Player: " << playerOrder[i]->getName() << ", Turn: " << (i + 1) << endl;
+		}
+		cout << endl;
+	}
+
+	/*else {
+		cout << "Current player order: " << endl;
+		cout << endl;
+
+		//sort players by the number of cities they have (for the rest of the game)
+		std::sort(players.begin(), players.end(), Player::compByCities);
+
+		for (int i = 0; i < players.size(); i++) {
+			players.at(i)->setplayerOrder(i);
+		}
+
+		for (int i = 0; i < players.size(); i++) {
+			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+		}
+		cout << endl;
+	}}*/
 
 
-static void shuffle(vector<GameCard*> &_deck)
-{
-    cout << "===============" << endl;
-     cout << "===============" << endl;
-    cout << "SHUFFLED" << endl;
-    cout << "===============" << endl;
-    cout << "===============" << endl;
-    random_shuffle(_deck.begin(),_deck.end());
-}
-static void makingDeck(vector<GameCard*> &_deck)
-{
-    //_deck = &deck;
-    ///
-    //GameCard p1 =    GameCard("Here");
-    
-    //now it is a pointer to a PowerPlant object, now a true pointer
-    //without the new, we were staying in the stack, the child part was local, with new , the child part goes into the heap and isn,t lost.
-    
-    //before it is was just an object,
-    
-    
-    //  PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_needed, int _oil_needed, int _garbage_needed, int _uranium_needed);
 
-    PowerPlant *p1 = new PowerPlant(3, 1, 0, 2, 0, 0);
-    PowerPlant *p2 = new PowerPlant(4, 1, 2, 0, 0, 0);
-    PowerPlant *p3 = new PowerPlant(5, 1, 2, 2, 0, 0);
-    PowerPlant *p4 = new PowerPlant(6, 1, 0, 0, 1, 0);
-    PowerPlant *p5 = new PowerPlant(7, 2, 0, 3, 0, 0);
-    PowerPlant *p6 = new PowerPlant(8, 2, 3, 0, 0, 0);
-    PowerPlant *p7 = new PowerPlant(9, 1, 0, 1, 0, 0);
-    PowerPlant *p8 = new PowerPlant(10, 2, 2, 0, 0, 0);
-    PowerPlant *p9 = new PowerPlant(11, 2, 0, 0, 0, 1);
-    PowerPlant *p10 = new PowerPlant(12, 2, 2, 2, 0, 0);
-    PowerPlant *p11 = new PowerPlant(13, 1, 0, 0, 0, 0);
-    PowerPlant *p12 = new PowerPlant(14, 2, 0, 0, 2, 0);
-    PowerPlant *p13 = new PowerPlant(15, 3, 2, 0, 0, 0);
-    PowerPlant *p14 = new PowerPlant(16, 3, 0, 2, 0, 0);
-    PowerPlant *p15 = new PowerPlant(17, 2, 0, 0, 0, 1);
-    PowerPlant *p16 = new PowerPlant(18, 2, 0, 0, 0, 0);
-    PowerPlant *p17 = new PowerPlant(19, 3, 0, 0, 2, 0);
-    PowerPlant *p18 = new PowerPlant(20, 5, 3, 0, 0, 0);
-    PowerPlant *p19 = new PowerPlant(21, 4, 2, 2, 0, 0);
-    PowerPlant *p20 = new PowerPlant(22, 2, 0, 0, 0, 0);
-    PowerPlant *p21 = new PowerPlant(23, 3, 0, 0, 0, 1);
-    PowerPlant *p22 = new PowerPlant(24, 4, 0, 0, 2, 0);
-    PowerPlant *p23 = new PowerPlant(25, 5, 2, 0, 0, 0);
-    PowerPlant *p24 = new PowerPlant(26, 5, 0, 2, 0, 0);
-    PowerPlant *p25 = new PowerPlant(27, 3, 0, 0, 0, 0);
-    PowerPlant *p26 = new PowerPlant(28, 4, 0, 0, 0, 1);
-    PowerPlant *p27 = new PowerPlant(29, 4, 2, 2, 0, 0);
-    PowerPlant *p28 = new PowerPlant(30, 6, 0, 0, 3, 0);
-    PowerPlant *p29 = new PowerPlant(31, 6, 3, 0, 0, 0);
-    PowerPlant *p30 = new PowerPlant(32, 6, 0, 3, 0, 0);
-    PowerPlant *p31 = new PowerPlant(33, 4, 0, 0, 0, 0);
-    PowerPlant *p32 = new PowerPlant(34, 5, 0, 0, 0, 1);
-    PowerPlant *p33 = new PowerPlant(35, 5, 0, 1, 0, 0);
-    PowerPlant *p34 = new PowerPlant(36, 7, 3, 0, 0, 0);
-    PowerPlant *p35 = new PowerPlant(37, 4, 0, 0, 0, 0);
-    PowerPlant *p36 = new PowerPlant(38, 7, 0, 0, 3, 0);
-    PowerPlant *p37 = new PowerPlant(39, 6, 0, 0, 0, 1);
-    PowerPlant *p38 = new PowerPlant(40, 6, 0, 2, 0, 0);
-    PowerPlant *p39 = new PowerPlant(42, 6, 2, 0, 0, 0);
-    PowerPlant *p40 = new PowerPlant(44, 5, 0, 0, 0, 0);
-    PowerPlant *p41 = new PowerPlant(46, 7, 3, 3, 0, 0);
-    PowerPlant *p42 = new PowerPlant(50, 6, 0, 0, 0, 0);
-    
-    
-    GameCard s3 = GameCard("s3");
-    
-    _deck.push_back(p1);
-    _deck.push_back(p2);
-    _deck.push_back(p3);
-    _deck.push_back(p4);
-    _deck.push_back(p5);
-    _deck.push_back(p6);
-    _deck.push_back(p7);
-    _deck.push_back(p8);
-    
-    
-     _deck.push_back(p9);
-     _deck.push_back(p10);
-     _deck.push_back(p11);
-     _deck.push_back(p12);
-     _deck.push_back(p13);
-     _deck.push_back(p14);
-     _deck.push_back(p15);
-     _deck.push_back(p16);
-     _deck.push_back(p17);
-     _deck.push_back(p18);
-     _deck.push_back(p19);
-     _deck.push_back(p20);
-     _deck.push_back(p21);
-     _deck.push_back(p22);
-     _deck.push_back(p23);
-     _deck.push_back(p24);
-     _deck.push_back(p25);
-     _deck.push_back(p26);
-     _deck.push_back(p27);
-     _deck.push_back(p28);
-     _deck.push_back(p29);
-     _deck.push_back(p30);
-     _deck.push_back(p31);
-     _deck.push_back(p32);
-     _deck.push_back(p33);
-     _deck.push_back(p34);
-     _deck.push_back(p35);
-     _deck.push_back(p36);
-     _deck.push_back(p37);
-     _deck.push_back(p38);
-     _deck.push_back(p39);
-     _deck.push_back(p40);
-     _deck.push_back(p41);
-     _deck.push_back(p42);
-    
-    
-}
 
-static void printDeck(vector<GameCard*> &_deck)
-{
-    for (int i = 0; i < _deck.size() ; i++)
-    {
-        _deck[i]->toString();
-    }
-}
-
-static void deleteDeck(vector<GameCard*> &_deck)
-{
-    for (int i = 0; i < _deck.size() ; i++)
-    {
-        
-        delete _deck[i];
-        _deck[i] = NULL;
-    }
-    
-}
 
 int main() {
-    
-    static vector<GameCard*> deck;
-    
-    makingDeck(deck);
-    //printDeck(deck);
-    shuffle(deck);
-   // printDeck(deck);
-    cout << deck.size() << endl;
-    deleteDeck(deck);
-    PowerPlant *test = new PowerPlant(66, 6, 1, 0, 0, 0);
-    test->toString();
-    test->stockRT("coal", 2);
-     test->toString();
-    test->powerCity("coal");
-     test->toString();
-    delete test;
-    test= NULL;
+
+	vector <Player*> players{};
+	players.push_back(new Player("Nicole", "red"));
+	players.push_back(new Player("Voldermort", "Green"));
+	players.push_back(new Player("Pikachu", "Blue"));
+	players.push_back(new Player("Smith", "Purple"));
+
+
+	Game game1(players);
+
+
+	Market m1 = Market();
+
+	PowerPlant test1(2, 2, 3, 2, 0, 0);
+
+	vector<PowerPlant> p1vect{};
+
+	Player* p1 = players[0];
+
+	p1vect.push_back(test1);
+	p1->setPowerPlant(p1vect);
+
+	/* //this works//
+	vector <PowerPlant> show = p1.getPowerPlant();
+
+	for (int i =0; i < show.size(); i++) {
+		show[i].toString();
+	}*/
+
+	game1.dashboard(p1);
+
+
+	//TASK 3 --- BUYING RESOURCES --- //
+
+	bool gameIsNotFinished = true;
+	int round = 2;
+
+	while (gameIsNotFinished) {
+
+		if (round == 2) {
+
+			//call method to reverse player order ***Use std::sort***
+			//DeterminePlayerOrder(players, round);
+
+			//for (int i = 0; i < playerOrder.size(); i++) {
+				//cout << "Your turn " + playerOrder[i]->getName() << endl;
+
+				//display Resource Market
+			m1.display();
+
+			//make this better in future by creating an exception that catches this...
+			//vector <PowerPlant> temp = playerOrder[i]->getPowerPlant();
+			//if ( temp.size() == 0) {
+			cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
+		}
+		else {
+			bool isMatch = false;
+			string resource = NULL;
+
+			while (isMatch != true) {
+
+				cout << "Which resources would you like to buy?" << endl;
+				cin >> resource;
+
+				while (resource != "coal" || resource != "oil" || resource != "garbage" || resource != "uranium") {
+					cout << "That input is not valid. Which resources would you like to buy?" << endl;
+					cin >> resource;
+					//}
+
+					cout << "You chose " << resource << endl;
+
+					//check if resources match ones on Player's powerplants
+					//for (int i = 0; i < temp.size(); i++) {
+						//isMatch = temp[i].checkIfNeeded(resource);
+					if (isMatch) {
+						break;
+						//}
+					//}
+
+						cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
+					}
+
+					//check if player can afford resource
+					//if (m1.getPrice(resource) <= playerOrder[i]->getTotalWallet()) {
+					cout << "Sorry you do not have enough Elektros to buy the resource." << endl;
+				}
+				//else {
+					//check ResourceMarket price for resource
+				cout << "You paid " + m1.getPrice(resource) << " Elektros for " + resource << "." << endl;
+
+				//****HOW TO calculate THIS!!***** remove Elektros from player object
+
+				/*playerOrder[i].spendElektros(int, int, int)*/
+
+				//add resource to player object
+
+				//}
+		//}
+	//}
+
+			}
+		}
+
+
+
+		//keep console open
+		cin.get();
+
+	}
+
 }

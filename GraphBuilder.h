@@ -38,11 +38,8 @@ public:
 
 	struct Graph {
 		int v;
-		CityList * arr;
-		~Graph() {
-			delete[] arr;
-			arr = NULL;
-		}
+		vector<CityList> arr;
+		~Graph() {}
 	};
 
 	/*
@@ -95,7 +92,9 @@ public:
 
 	//additional functions
 	//City findCityByName(string name);
-	void AddPlayerToCity(Player * pl, string name);
+	void removeRegions(string color);
+	void add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
+	void AddPlayerToMap(Player * pl);
 	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
@@ -107,7 +106,6 @@ public:
 	bool test_Duplicate_Edges();
 	bool test_MissingEdges();
 	void buildMap();
-
 
 	//variables needed for the graph building
 private:

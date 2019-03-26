@@ -88,7 +88,7 @@ void Elektro::toString()
 	cout << "Elektro " << bills[0].first << " : " << bills[0].second << "\n" <<
 		"Elektro " << bills[1].first << " : " << bills[1].second << "\n" <<
 		"Elektro " << bills[2].first << " : " << bills[2].second
-		<< "\nTotal of Elektros: " << this->getTotalBalance() << endl;
+		<< "\n\nTotal of Elektros: " << this->getTotalBalance() << endl;
 }
 
 /*#include "ElektroBill.hpp"

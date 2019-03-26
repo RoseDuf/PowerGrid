@@ -13,7 +13,17 @@ City::City(int cityno, string cn, string cc) {
 	cityNumber = cityno;
 	cityName = cn;
 	cityColor = cc;
+	available = true;
 }
+
+City::City(int cityno, string cn, string cc, bool a) {
+	cityNumber = cityno;
+	cityName = cn;
+	cityColor = cc;
+	available = a;
+}
+
+City::~City() {}
 
 int City::getCityNumber() {
 	return cityNumber;
@@ -37,4 +47,12 @@ string City::getCityColor() {
 
 void City::setCityColor(string cc) {
 	cityColor = cc;
+}
+
+bool City::isAvailable() {
+	return available;
+}
+
+void City::setAvailable(bool a) {
+	available = a;
 }

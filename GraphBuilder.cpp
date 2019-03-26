@@ -39,7 +39,6 @@ void GraphBuilder::setTotalVertices(int tv) {
 
 vector<vector<int>> GraphBuilder::getConnected() {
 	return connected;
-
 }
 
 //create a new node
@@ -47,7 +46,7 @@ GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int cityno, string city
 
 	AdjListNode * nptr = new AdjListNode;
 
-	nptr->city = City(cityno, cityname, citycolor);
+	nptr->city = City(cityno, cityname, citycolor, true);
 	nptr->cost = cost;
 	nptr->next = NULL;
 	return nptr;
@@ -60,8 +59,11 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> 
 
 	graph->v = totalVertices;
 
-	//create an array of adjacency list. size of array - V
-	graph->arr = new CityList[totalVertices];
+	for (int i = 0; i < totalVertices; i++) {
+		CityList cl = CityList();
+		//create an array of adjacency list. size of array - V
+		graph->arr.push_back(cl);
+	}
 
 	//initialize with NULL (e.g root=NULL)
 	for (int i = 0; i < totalVertices; i++) {
@@ -119,12 +121,22 @@ void GraphBuilder::printGraph() {
 
 	//loop over each adjacent list
 	for (int i = 0; i < graph->v; i++) {
+
 		AdjListNode * root = graph->arr[i].head;
-		cout << "Adjacency list of vertex " << i << endl;
+
+		if (root->city.isAvailable() == true)
+			cout << "City " << i << " is available." << endl;
+		else
+			cout << "City " << i << " is NOT available." << endl;
 
 		//loop over each node in list
 		while (root != NULL) {
-			cout << i << " to " << root->city.getCityNumber() << " costs: " << root->cost << " -> ";
+			cout << i << " to " << root->city.getCityNumber() << " costs: " << root->cost;
+			if (root->city.isAvailable() == true)
+				cout << " /// City: " << root->city.getCityNumber() << " is available." << endl;
+			else
+				cout << " /// City: " << root->city.getCityNumber() << " is NOT available." << endl;
+
 			root = root->next;
 		}
 
@@ -134,6 +146,34 @@ void GraphBuilder::printGraph() {
 		delete root;
 		root = NULL;
 	}
+}
+
+void GraphBuilder::removeRegions(string color) {
+
+	//first, set availability of all edges of a certain color in the adjacency list to FALSE
+	for (int i = 0; i < graph->arr.size(); i++) {
+
+		AdjListNode * root = graph->arr[i].head;
+
+		while (root != NULL) {
+			if (root->city.getCityColor() == color) {
+				root->city.setAvailable(false);
+			}
+			root = root->next;
+		}
+
+		//delete every root pointer created
+		delete root;
+		root = NULL;
+	}
+
+	//second, set availability of all cities of certain color in the CityList to FALSE
+	for (int i = 0; i < graph->arr.size(); i++) {
+		if (graph->arr[i].city.getCityColor() == color) {
+			graph->arr[i].city.setAvailable(false);
+		}
+	}
+
 }
 
 //might not need this function... Leaving it commented out just in case. Who knows ¯\_("/)_/¯
@@ -149,14 +189,36 @@ void GraphBuilder::printGraph() {
 
 //function to add players to "cities"(aka Nodes) in the physical map
 //and updates Player info at the same time
-void GraphBuilder::AddPlayerToCity(Player * pl, string name) {
-	City * c = new City();
+//USE THIS FUNCTION TO ADD CITIES TO PLAYERS DURING GAMEPLAY
+void GraphBuilder::add_CityToPlayer_and_PlayerToMap(Player * pl, string name) {
+	City c = City();
 
 	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].city.getCityName() == name) {
-			c = &(graph->arr[i].city); //find the desired city by its name
+		//so apparently checking if graph->arr[i].city.getAvailable() == true doesn't work...
+		if ((graph->arr[i].city.getCityName() == name) && (graph->arr[i].city.isAvailable())) {
+
+			c = graph->arr[i].city; //find the desired city by its name
 			graph->arr[i].player = *pl; //add Player to the physical map
 			pl->addCity(c);	//add/update new City object to Player "cities" attribute 
+		}
+		else if ((graph->arr[i].city.getCityName() == name) && (!graph->arr[i].city.isAvailable()))
+			cout << "--------" << graph->arr[i].city.getCityName() << " is not available for purchase--------" << endl;
+	}
+}
+
+//This function is ONLY used for reloading a gamestate
+//DO NOT USE THIS METHOD FOR GAMEPLAY
+//FOR LOADING GAMSTATE PURPOSES ONLY!
+void GraphBuilder::AddPlayerToMap(Player * pl) {
+	vector<City> citiesOwned = pl->getCitiesOwned();
+	std::sort(citiesOwned.begin(), citiesOwned.end(), City::compare);
+
+	//update the map
+	for (int i = 0; i < citiesOwned.size(); i++) {
+		for (int j = 0; j < graph->arr.size(); j++) {
+			if (graph->arr[j].city.getCityNumber() == citiesOwned[i].getCityNumber() /*&& (graph->arr[j].city.isAvailable())*/) { //we would have to assume that the cities a player owns are all available
+				graph->arr[j].player = *pl; //add player to Nodes/Cities on the map
+			}
 		}
 	}
 }
@@ -248,13 +310,15 @@ void GraphBuilder::SearchCity(string cityName) {
 			cout << "City Number: " << graph->arr[i].city.getCityNumber() << endl;
 			cout << "City Name: " << graph->arr[i].city.getCityName() << endl;
 			cout << "City Color: " << graph->arr[i].city.getCityColor() << endl;
+			std::cout << std::boolalpha;
+			cout << "City Availability: " << graph->arr[i].city.isAvailable() << endl;
 			cout << "Owned By: " << graph->arr[i].player.getName() << ", " << graph->arr[i].player.getColor() << endl;
 			cout << "---------------Contains---------------" << endl;
 			for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
 				graph->arr[i].powerplants[j].toString();
 			}
-		//	for (int j = 0; j < graph->arr[i].resources.size(); j++) {
-				//graph->arr[i].resources[j].toString();
+			//for (int j = 0; j < graph->arr[i].resources.size(); j++) {
+			//	graph->arr[i].resources[j].toString();
 			//}
 
 			cout << endl;
@@ -276,17 +340,15 @@ void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
 		}
 	}
 }
- 
-/*
+
 //Adds Resources to the City Node
-void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
-	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].city.getCityName() == name) {
-			graph->arr[i].resources.push_back(rt); //add PowerPlant to the physical map
-		}
-	}
-}
-*/
+//void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
+//	for (int i = 0; i < totalVertices; i++) {
+//		if (graph->arr[i].city.getCityName() == name) {
+//			graph->arr[i].resources.push_back(rt); //add PowerPlant to the physical map
+//		}
+//	}
+//}
 
 //Adds PowerPlants to the City Node
 void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
