@@ -153,9 +153,28 @@ static void deleteDeck(vector<GameCard*> &_deck)
 
 int main() {
     
-    std::cout << "true = " << true << std::endl;
+    std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
+    
     // Select a map
-    std::string mapFilename = "file.map";
+    std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
+    std::cout << "1) Germany map" << std::endl;
+    std::cout << "2) USA map" << std::endl;
+    
+    int mapChoice;
+    
+    std::cin >> mapChoice;
+    
+    std::string mapFilename;
+    if(mapChoice == 1) {
+        mapFilename = "germany.map";
+    }
+    else if(mapChoice == 2) {
+        mapFilename = "usa.map"; // TODO
+    }
+    /*else {
+        throw no map exception or something like that
+    }*/
+    
     MapData mapData = PowerGridIO::getMapData(mapFilename);
     std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
     vector<string> chosenRegCols;
