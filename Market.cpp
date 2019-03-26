@@ -15,6 +15,7 @@ Market::~Market()
 
 }
 
+//called in PowerPlant class when the player powers a city and consume the resources stocked on power plant card
  void Market::addToSupply(string type, int number)
 {
     if(type=="coal")
@@ -36,8 +37,19 @@ Market::~Market()
     }
 }
 
+void Market::updateSupply()
+{
+    coal_supply = TOTAL_COAL - coal_market;
+    oil_supply = TOTAL_OIL - oil_market;
+    garbage_supply = TOTAL_GARBAGE - garbage_market;
+    uranium_supply = TOTAL_URANIUM - uranium_market;
+}
+
 void Market::restockMarket(int step)
 {
+    //updating the state of supplies to make sure we are working with the right numbers
+    updateSupply();
+    
     //need to check if enough in supply before restock***
     if(step==1)
     {
@@ -68,10 +80,7 @@ void Market::restockMarket(int step)
         cout << "Invalid step."<< endl;
     }
     
-    coal_supply = TOTAL_COAL - coal_market;
-    oil_supply = TOTAL_OIL - oil_market;
-    garbage_supply = TOTAL_GARBAGE - garbage_market;
-    uranium_supply = TOTAL_URANIUM - uranium_market;
+    updateSupply();
 }
 
 int Market::getPrice(string type)
