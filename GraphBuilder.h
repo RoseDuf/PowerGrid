@@ -17,7 +17,7 @@ public:
 		City city;
 		int cost;
 		AdjListNode * next;
-		~AdjListNode(){
+		~AdjListNode() {
 			delete next;
 			next = NULL;
 		}
@@ -43,20 +43,20 @@ public:
 	};
 
 	/*
-	// Structure to represent a min heap node 
+	// Structure to represent a min heap node
 	struct MinHeapNode
 	{
-		int v;
-		int dist;
+	int v;
+	int dist;
 	};
 
-	// Structure to represent a min heap 
+	// Structure to represent a min heap
 	struct MinHeap
 	{
-		int size;      // Number of heap nodes present currently 
-		int capacity;  // Capacity of min heap 
-		int *pos;     // This is needed for decreaseKey() 
-		MinHeapNode ** array;
+	int size;      // Number of heap nodes present currently
+	int capacity;  // Capacity of min heap
+	int *pos;     // This is needed for decreaseKey()
+	MinHeapNode ** array;
 	};
 	*/
 
@@ -111,6 +111,8 @@ public:
 	bool test_MissingEdges();
 	void buildMap();
 
+	bool eachRegionHasSevenCities();
+
 	//variables needed for the graph building
 private:
 	int totalVertices;
@@ -123,6 +125,8 @@ private:
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
 	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
+	void populateAllRegionColors();
+	std::vector<std::string> ALL_REGION_COLORS;
 };
 
 #endif
