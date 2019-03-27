@@ -48,7 +48,6 @@ int main() {
 #include "GraphBuilder.h"
 #include "Elektro.hpp"
 #include "Market.hpp"
-//#include "ResourceToken.hpp"
 #include "HelperFunctions.hpp"
 
 using namespace std;
@@ -442,20 +441,25 @@ int main() {
 	
 	
 	//Initiate Graph and Build Map
-	GraphBuilder graph = GraphBuilder(42, "powergrid_cities.map");
+	GraphBuilder graph = GraphBuilder(42, "germany.map");
 	graph.buildMap();
 
 	
 	Player * p1 = new Player("Nicole", "Red");
 	Player * p2 = new Player("Rose", "Green");
 	graph.printGraph();
+	
 
 	cout << endl;
 
 	graph.removeRegions("ORANGE");
 
 	graph.printGraph();
+	graph.printAvailableCities();
 
+	graph.IsCityAdjacentToOtherCity("Flensburg", "Kiel");
+
+	graph.CostFromOneCityToAnother("Flensburg", "Kiel");
 	cout << endl;
 	
 	//prints the contents of the 2D vector "connected" from GraphBuilder.h
@@ -468,16 +472,16 @@ int main() {
 	//	}
 	//}
 
-	//bool check1, check2, check3;
+	bool check1, check2, check3;
 	//Test Cases
 	//graph.CostFromOneCityToAnother(0, 1);
-	//std::cout << std::boolalpha;
+	std::cout << std::boolalpha;
 	graph.test_SizeOfMap_and_FileMap();
 	//cout << check3 << endl;
 	graph.test_Duplicate_Edges();
 	//cout << check1 << endl;
-	graph.test_MissingEdges();
-	//cout << check2 << endl;
+	check2 = graph.test_MissingEdges();
+	cout << check2 << endl;
 
 	cout << endl;
 
