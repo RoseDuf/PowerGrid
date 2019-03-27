@@ -28,10 +28,46 @@ GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
+	populateAllRegionColors();
 	/*totalVertices = tv;
 	gameState = PowerGridIO::loadGame(file);
 	graph = createGraph(totalVertices, gameState.getCities());
 	edges = gameState.getEdgeTriplets();*/
+}
+
+void GraphBuilder::populateAllRegionColors() {
+    
+    std::vector<AdjacentRegionsTriplet> tempArts = std::get<2>(mapData);
+    std::set<std::string> tempAllRegionColors;
+    
+    
+    for(int i = 0; i < tempArts.size(); i++) {
+        AdjacentRegionsTriplet currentArt = tempArts.at(i);
+        std::string col0 = std::get<0>(currentArt);
+        std::string col1 = std::get<1>(currentArt);
+        
+        tempAllRegionColors.insert(col0);
+        tempAllRegionColors.insert(col1);
+    }
+    
+    ALL_REGION_COLORS.assign( tempAllRegionColors.begin(), tempAllRegionColors.end());
+}
+
+bool GraphBuilder::eachRegionHasSevenCities() {
+    int counter = 0;
+    
+    for(int i = 0; i < cities.size(); i++) {
+        for(int j = 0; i < cities.size(); j++) {
+            cities.at(j).getCityColor();
+            counter++;
+        }
+        if(counter != 7) {
+            return false;
+        }
+        counter = 0;
+    }
+    
+    return true;
 }
 
 vector<AdjacentRegionsTriplet> GraphBuilder::getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols) {

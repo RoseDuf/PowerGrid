@@ -200,6 +200,7 @@ int main() {
     int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
     GraphBuilder graph( amountOfVertices, mapFilename );
     std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+    std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
     
     static vector<GameCard*> deck;
     
