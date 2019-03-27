@@ -3,6 +3,7 @@
 #include "Game.h"
 #include <vector>
 #include <string>
+#include <iostream>
 #include <cstdlib>
 #include <algorithm>
 #include <random>
@@ -289,7 +290,7 @@ int main() {
 	//============================== Assignment 2, task 2, ================================================
 	static vector<GameCard*> deck;
 	static vector<PowerPlant*> powerPlantMarket;
-	static int phase = 1;
+	static int phase = 1; //should be step
 
 
 	Market market = Market();
@@ -416,7 +417,7 @@ int main() {
 
 	while (gameIsNotFinished) {
 
-		if (round == 2) {
+		if (round == 2) {	//rounds should be phase 
 
 			DeterminePlayerOrder(players, round);
 
@@ -443,6 +444,7 @@ int main() {
 					vector <PowerPlant> temp = players[i]->getPowerPlant();
 					if (temp.size() == 0) {
 						cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
+						//your turn is over stillBuying = false;
 					}
 					else {
 						bool isMatch = false;
@@ -467,12 +469,14 @@ int main() {
 									break;
 								}
 							}
+							//stockRT() instead it also checks space available in powerplant*****
+
 
 							cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
 						}
 
 						//check if player can afford resource
-						if (market.getPrice(resource) <= players[i]->getTotalWallet()) {
+						if (market.getPrice(resource) >= players[i]->getTotalWallet()) {
 							cout << "Sorry you do not have enough Elektros to buy the resource. Your turn is over." << endl;
 							stillBuying = false;
 						}
@@ -485,7 +489,7 @@ int main() {
 							int bill1 = 0;
 							int bill10 = 0;
 							int bill50 = 0;
-
+							int tempPrice = market.getPrice(resource);
 							int totalSpent = 0;
 
 							cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
@@ -498,7 +502,7 @@ int main() {
 							totalSpent = bill1 + bill10 + bill50;
 
 							//while loop to ensure Player pays correct amount for resource
-							while (totalSpent != market.getPrice(resource)) {
+							/*while (totalSpent != market.getPrice(resource)) {
 								cout << "Sorry that total does not equal the price of the resource." << endl;
 								cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
 								cout << "Number of $1 Elektro bills to use: " << endl;
@@ -509,7 +513,18 @@ int main() {
 								cin >> bill50;
 								totalSpent = bill1 + bill10 + bill50;
 
-							}
+							}*/
+
+							//profit variable
+							/*bill50 = ( tempPrice - tempPrice % 50) / 50;
+							tempPrice -= bill5050;
+							bill10 = (tempPrice - tempPrice % 10) / 10;
+							tempPrice -= bill1010;
+							bill1 = tempPrice;
+							players[i]->collectElektro(bill1, bill10, bill50);
+							*/
+
+							//****Use isabelle's method from Discord --- its automatic!!****
 
 							//remove amount of elektros from Player object
 							players[i]->spendElektros(bill1, bill10, bill50);
@@ -561,7 +576,7 @@ int main() {
 							temp[j].stockRT(resource, 1);
 
 							//remove resource from Market
-							market.sellResource(resource, 1);
+							market.rtPurchase(resource, 1);
 
 							//while loop to check if match
 
@@ -595,12 +610,12 @@ int main() {
 						}	//end of else statement regarding player having enough elektros
 
 					}	//stillBuying while loop
-				
 
-			}	// for loop players
-			
-			round++;
-		}		//if round == 2 condition
+
+				}	// for loop players
+
+				round++;
+			}		//if round == 2 condition
 
 			if (round == 3) {
 
@@ -627,83 +642,206 @@ int main() {
 						vector<City> checkCity = players[i]->getCitiesOwned();
 						string chosenCity = NULL;
 
-						if (checkCity.size == 0 || round == 1) {		//**obvi this is in the round == 3 loop so this is wrong 
+						if (checkCity.size() == 0) {
 							cout << "You have 0 cities so far! Choose a city anywhere on the available map: " << endl;
 							cin >> chosenCity;
-						}
 
-						//**TO-DO check is chosenCity is even a valid German city name
 
-						//check if chosenCity is part of the available map
-						bool validCity = false;
+							//**TO-DO check is chosenCity is even a valid German city name
 
-						//check if in valid part of region
-						while (validCity != true) {
-							graph.SearchCity(chosenCity);
-							validCity = graph.cityAvailable(chosenCity);	//if validCity is true will the while loop break immediately?
-							cout << "This city is not in an available region of the map. Please choose another city: " << endl;
+							//check if chosenCity is part of the available map
+							bool validCity = false;
+
+							//check if in valid part of region
+							while (validCity != true) {
+								graph.SearchCity(chosenCity);
+								validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//if validCity is true will the while loop break immediately?
+								if (validCity = true) {
+									break;
+								}
+								else {
+									cout << "This city is not in an available region of the map. Please choose another city: " << endl;
+									cin >> chosenCity;
+								}
+							}		//validCity while loop
+
+							//check if the city is already filled with other players
+							bool emptyCity = false;
+							int cityPrice = 0;
+
+							while (emptyCity != true) {
+
+								//check for phase
+								switch (phase) {
+								case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
+									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+									cin >> chosenCity;
+									validCity = false;
+								}
+										else {
+											validCity = true;
+										}
+										cityPrice = 10;
+										break;
+								case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
+									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+									cin >> chosenCity;
+									validCity = false;
+								}
+										 else {
+											 validCity = true;
+										 }
+										 cityPrice = 15;
+										 break;
+								case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
+									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+									cin >> chosenCity;
+									validCity = false;
+								}
+										else {
+											validCity = true;
+										}
+										cityPrice = 20;
+										break;
+								}
+
+
+							}	//emptyCity while loop
+
+							cout << "You have selected " + chosenCity + ". This city is available to buy." << endl;
+							cout << "\nCalculating price..." << endl;
+							cout << chosenCity + " costs " << cityPrice + " Elektros." << endl;
+
+
+							//check players wallet based on city prices, if they have less than city price
+							if (cityPrice >= players[i]->getTotalWallet()) {
+								cout << "Sorry you do not have enough Elektros to a building for this city. Your turn is over." << endl;
+								stillBuilding = false;
+							}
+							else {
+								cout << "You bought a house in " + chosenCity << endl;
+								graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//**this function adds city to player's city vector?
+							}
+
+						}	//end of if checkCities.size() == 0
+
+						else {
+							// prompt player for city name
+							int numCities = checkCity.size();
+							cout << "You have" + numCities << "cities so far! Choose a city to build on that is adjacent to one of your cities: " << endl;
 							cin >> chosenCity;
-						}		//validCity while loop
 
-						//check if the city is already filled with other players
-						bool emptyCity = false;
 
-						while(emptyCity != true){
+							//check all conditions in the previous code (**later make this its own method in Game.h**)
+							//check if chosenCity is part of the available map
+							bool validCity = false;
 
-						//check for phase
-						switch (phase) {
-						case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-								cout << "Sorry, another player already has a building on this city. Please choose another city: ";
-								cin >> chosenCity;
-								validCity = false;
+							//check if in valid part of region
+							while (validCity != true) {
+								graph.SearchCity(chosenCity);
+								validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//if validCity is true will the while loop break immediately?
+								if (validCity = true) {
+									break;
 								}
 								else {
-									validCity = true;
+									cout << "This city is not in an available region of the map. Please choose another city: " << endl;
+									cin >> chosenCity;
 								}
-								return;
-						case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-								cout << "Sorry, another player already has a building on this city. Please choose another city: ";
-								cin >> chosenCity;
-								validCity = false;
+							}		//validCity while loop
+
+									//check if the city is already filled with other players
+							bool emptyCity = false;
+							int cityPrice = 0;
+
+							while (emptyCity != true) {
+
+								//check for phase
+								switch (phase) {
+								case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
+									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+									cin >> chosenCity;
+									validCity = false;
 								}
-								 else {
-									 validCity = true;
-								 }
-								return;
-						case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-								cout << "Sorry, another player already has a building on this city. Please choose another city: ";
-								cin >> chosenCity;
-								validCity = false;
+										else {
+											validCity = true;
+										}
+										cityPrice = 10;
+										return;
+								case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
+									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+									cin >> chosenCity;
+									validCity = false;
+								}
+										 else {
+											 validCity = true;
+										 }
+										 cityPrice = 15;
+										 return;
+								case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
+									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+									cin >> chosenCity;
+									validCity = false;
+								}
+										else {
+											validCity = true;
+										}
+										cityPrice = 20;
+										return;
+								}
+
+
+							}	//emptyCity while loop
+
+
+							//returns bool to see if chosen city is adjacent to the cities in checkCity
+							for (int i = 0; i < numCities; i++) {
+								if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName()) == true) {
+									cout << chosenCity + " is adjacent to your city " + checkCity[i].getCityName() << "." << endl;
+									break;
 								}
 								else {
-									validCity = true;
+									continue;
 								}
-								return;
+							}
+
+							while (!graph.IsCityAdjacentToOtherCity()) {
+								cout << "The city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
+								cin >> chosenCity;
+								for (int i = 0; i < numCities; i++) {
+									if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName()) == true) {
+										cout << chosenCity + " is adjacent to your city " + checkCity[i].getCityName() << "." << endl;
+										break;
+									}
+									else {
+										continue;
+									}
+								}
 							}
 
 
-						}	//emptyCity while loop
+							//check costs of city plus edges
 
-						cout << "You have selected " + chosenCity + ". This city is available to buy." << endl;
-
-									//set City prices based on phase
-									//check players wallet based on city prices, if they have less than city price
-									// cout << “Insufficient funds” << endl
-									//break out of the loop
-									//cout << “You bought a house in “ + cityChoice << endl;
-									//Graph. Add_citytoPlayer_And_playerToMap (players[i], cityChoice);
-									//round up outside player for loop at end
-
-									else(citiesOwned() > 0)
+						}	//citiesOned is > 0
 
 
-										//only for next loop
-										(vector<City> checkCity = player[i]->getCitiesOwned())
-										For(int i = 1; i < checkCity.size(); i++)
-										String temp;
-									Temp = checkCity[i].getCityName();
 
 
+						char yesno = NULL;
+						cout << "Would you like to buy another City? (Y/N)" << endl;
+						cin >> yesno;
+
+						while (yesno != 'Y' || yesno != 'N') {
+							cout << "That is an invalid response. Please try again (Y/N): " << endl;
+							cin >> yesno;
+						}
+
+						if (yesno == 'Y') {
+							continue;
+						}
+						else {
+							cout << "Your turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
+							stillBuilding = false;
+						}
 
 
 					} //stillBuilding while loop
@@ -712,16 +850,16 @@ int main() {
 
 			}	// round 3 if conditional statement
 
-	}	//GameisNotFinished while loop
+		}	//GameisNotFinished while loop
 
-	
-			
 
-		
 
-		//keep console open
+
+
+
+			//keep console open
 		cin.get();
 
 
-
+	}
 }	//int main()

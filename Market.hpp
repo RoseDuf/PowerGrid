@@ -13,7 +13,7 @@ public:
 
 	Market();
 	//setting up market
-	Market(int coal, int oil, int garbage, int uranium);
+	//Market(int coal, int oil, int garbage, int uranium);
 	~Market();
 	void restockMarket(int step);
 	void rtPurchase(string type, int number);
@@ -21,7 +21,7 @@ public:
 	bool checkMarket(string type, int number);
 	bool checkSupply(string type, int number);
 	int getPrice(string type);
-	void sellResource(string resource, int number);
+	
 
 private:
 

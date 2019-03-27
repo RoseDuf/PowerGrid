@@ -111,28 +111,6 @@ int Market::getPrice(string type)
 	return 0;
 }
 
-void Market::sellResource(string type, int number) {
-
-	if (type == "coal")
-	{
-		coal_market -= number;
-	}
-	else if (type == "oil")
-	{
-		oil_market -= number;
-	}
-
-	else if (type == "garbage")
-	{
-		garbage_market -= number;
-	}
-	else if (type == "uranium")
-	{
-		uranium_market -= number;
-	}
-
-
-}
 
 bool Market::checkSupply(string type, int number)
 {

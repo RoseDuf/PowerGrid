@@ -121,7 +121,6 @@ void GraphBuilder::addConnectedCitiestoVector() {
 		}
 
 		//delete every root pointer created
-		delete root;
 		root = NULL;
 	}
 }
@@ -133,7 +132,7 @@ void GraphBuilder::printGraph() {
 
 		AdjListNode * root = graph->arr[i].head;
 
-		if (root->city.isAvailable() == true)
+		if (root->city.isAvailable())
 			cout << "City " << i << " is available." << endl;
 		else
 			cout << "City " << i << " is NOT available." << endl;
@@ -141,7 +140,7 @@ void GraphBuilder::printGraph() {
 		//loop over each node in list
 		while (root != NULL) {
 			cout << i << " to " << root->city.getCityNumber() << " costs: " << root->cost;
-			if (root->city.isAvailable() == true)
+			if (root->city.isAvailable())
 				cout << " /// City: " << root->city.getCityNumber() << " is available." << endl;
 			else
 				cout << " /// City: " << root->city.getCityNumber() << " is NOT available." << endl;
@@ -152,8 +151,15 @@ void GraphBuilder::printGraph() {
 		cout << endl;
 
 		//delete every root pointer created
-		delete root;
 		root = NULL;
+	}
+}
+
+void GraphBuilder::printAvailableCities() {
+	//loop over each adjacent list
+	for (int i = 0; i<graph->v; i++) {
+		if (graph->arr[i].city.isAvailable())
+			cout << graph->arr[i].city.getCityName() << endl;
 	}
 }
 
@@ -172,7 +178,6 @@ void GraphBuilder::removeRegions(string color) {
 		}
 
 		//delete every root pointer created
-		delete root;
 		root = NULL;
 	}
 
@@ -272,61 +277,72 @@ vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player * pl) {
 }
 
 //error handler to check if a vertex is connected to another
-bool GraphBuilder::IsCityAdjacentToOtherCity(int v1, int v2) {
-	AdjListNode * root = graph->arr[v1].head;
+bool GraphBuilder::IsCityAdjacentToOtherCity(string city1, string city2) {
+	AdjListNode * root = NULL;
+	for (int v1 = 0; v1 < totalVertices; v1++) {
+		if (graph->arr[v1].city.getCityName() == city1) {
+			root = graph->arr[v1].head;
+		}
+	}
+
 	bool check = false;
 
-	cout << "City " << v1 << " is adjacent to city " << v2 << endl;
 	while (check == false) {
-		if (root->city.getCityNumber() == v2) {
+		if (root->city.getCityName() == city2)
 			check = true;
-		}
 		else
 			root = root->next;
 		if (root == NULL)
 			check = false;
 	}
 
-	delete root;
+	//use smart pointers
 	root = NULL;
 
 	if (check == true) {
+		cout << "City " << city1 << " is adjacent to city " << city2 << endl;
 		return true;
 	}
-	else
+	else {
+		cout << "City " << city1 << " is NOT adjacent to city " << city2 << endl;
 		return false;
+	}
 }
 
 //function to look at the cost from one city to another (must be adjacent)
 //will further be used for the gameplay. (i.e. computing the cost of connections between cities to buy)
-int GraphBuilder::CostFromOneCityToAnother(int v1, int v2) {
-	AdjListNode * root = graph->arr[v1].head;
+int GraphBuilder::CostFromOneCityToAnother(string city1, string city2) {
+	AdjListNode * root = NULL;
+	for (int v1 = 0; v1 < totalVertices; v1++) {
+		if (graph->arr[v1].city.getCityName() == city1) {
+			root = graph->arr[v1].head;
+		}
+	}
 	bool check = false;
 
 	//check if the cities are connected first
-	if (IsCityAdjacentToOtherCity(v1, v2) != true) {
+	if (!IsCityAdjacentToOtherCity(city1, city2)) {
 		cout << "These cities aren't next to each other!";
-		return 0;
+		return 100;
 	}
 
-	cout << "Cost from city " << v1 << " to adjacent city " << v2 << ": ";
-
 	while (check == false) {
-		if (root->city.getCityNumber() == v2) {
+		if (root->city.getCityName() == city2)
 			check = true;
-		}
 		else
 			root = root->next;
 		if (root == NULL)
 			check = false;
 	}
 
-	delete root;
+	if (check == true) {
+		cout << "Cost from city " << city1 << " to adjacent city " << city2 << ": ";
+		cout << root->cost << endl;
+		return root->cost;
+	}
+	//use smart pointers
 	root = NULL;
 
-	if (check == true)
-		cout << root->cost << endl;
-	return root->cost;
 }
 
 //prints out information within a node of the map
@@ -367,15 +383,6 @@ void GraphBuilder::SearchCity(string cityName) {
 			//}
 
 			//cout << graph->arr[i].player.
-		}
-	}
-}
-
-bool GraphBuilder::cityAvailable(string cityName) {
-	for (int i = 0; i < totalVertices; i++) {
-
-		if (graph->arr[i].city.getCityName() == cityName) {
-			return graph->arr[i].city.isAvailable;
 		}
 	}
 }
