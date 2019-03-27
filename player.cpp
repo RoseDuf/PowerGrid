@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "player.hpp"
+
 using namespace std;
 
 Player::Player() {
@@ -20,6 +21,77 @@ Player::Player(string name, string playerColor) {
 }
 
 Player::~Player() {
+}
+
+//void Player::powerCity(City city, PowerPlant powerplant, string type, Market market*)
+//{
+ //   city.setPoweredState(true);
+  //  powerplant.powerCity(type, &market);
+//}
+
+void Player::powerCity(City city, PowerPlant powerplant, string type)
+{
+    city.setPoweredState(true);
+    powerplant.powerCity(type);
+}
+
+int Player::getCitiesPowered()
+{
+    int temp = 0;
+    for(int i = 0 ; i < citiesOwned.size(); i++)
+    {
+        if(citiesOwned[i].getPoweredState()) temp++;
+    }
+    return temp;
+}
+//setting powered back to false as we are starting another round in the game
+void Player::setCitiesPowered()
+{
+    for(int i = 0 ; i < citiesOwned.size(); i++)
+    {
+        citiesOwned[i].setPoweredState(false);
+    }
+}
+
+
+int  Player::getTotalCoal()
+{
+    int temp = 0;
+    for(int i = 0; i < powerPlants.size() ; i++)
+    {
+        temp+=powerPlants[i].getRTStocked("coal");
+    }
+    return temp;
+}
+
+int  Player::getTotalOil()
+{
+    int temp = 0;
+    for(int i = 0; i < powerPlants.size() ; i++)
+    {
+        temp+=powerPlants[i].getRTStocked("oil");
+    }
+    return temp;
+}
+
+int  Player::getTotalGarbage()
+{
+    int temp = 0;
+    for(int i = 0; i < powerPlants.size() ; i++)
+    {
+        temp+=powerPlants[i].getRTStocked("garbage");
+    }
+    return temp;
+}
+
+int  Player::getTotalUranium()
+{
+    int temp = 0;
+    for(int i = 0; i < powerPlants.size() ; i++)
+    {
+        temp+=powerPlants[i].getRTStocked("uranium");
+    }
+    return temp;
 }
 
 string Player::getName() {

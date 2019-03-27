@@ -7,12 +7,24 @@ City::City() {
 	cityNumber = 0;
 	cityName = "No Name";
 	cityColor = "BLANK";
+    powered = false;
 }
 
 City::City(int cityno, string cn, string cc) {
 	cityNumber = cityno;
 	cityName = cn;
 	cityColor = cc;
+    powered = false;
+}
+
+void City::setPoweredState(bool set)
+{
+    powered = set;
+}
+
+bool City::getPoweredState()
+{
+    return powered;
 }
 
 int City::getCityNumber() {

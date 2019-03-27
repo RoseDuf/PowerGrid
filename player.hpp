@@ -6,7 +6,7 @@
 #include "PowerPlant.h"
 #include "Elektro.hpp"
 #include "City.h"
-
+//#include "Market.hpp"
 using namespace std;
 
 class Player {
@@ -36,8 +36,18 @@ public:
 	vector<PowerPlant> getPowerPlant();
 
 	void addCity(City city);
+   // void powerCity(City city, PowerPlant powerpant, string type, Market market*);
 	vector<City> getCitiesOwned();
 	void addPowerPlant(PowerPlant p);
-
+    
+    void powerCity(City city, PowerPlant powerplant, string type);
+    int getCitiesPowered();
+    //setting powered back to false as we are starting another round in the game
+    void setCitiesPowered();
+    int getTotalCoal();
+    int getTotalOil();
+    int getTotalGarbage();
+    int getTotalUranium();
+    
 	void toString();
 };

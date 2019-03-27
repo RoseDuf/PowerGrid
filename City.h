@@ -18,12 +18,16 @@ public:
 	void setCityColor(std::string cityColor);
 	int getCityNumber();
 	void setCityNumber(int cityNumber);
+    
+    void setPoweredState(bool set);
+    bool getPoweredState();
 
 private:
 	int cityNumber;
 	std::string cityName;
 	std::string cityColor;
-
+    
+    bool powered;
 };
 
 #endif

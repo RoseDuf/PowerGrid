@@ -3,7 +3,7 @@
 
 #include "GameCard.h"
 #include <vector>
-#include "Market.hpp"
+//#include "Market.hpp"
 
 class PowerPlant :
 	public GameCard
@@ -24,13 +24,13 @@ public:
     void stockRT(string type, int num);
     
     //gets the number of a resource type stocked on power plant card
-    int getRTStocked(string type, int num);
+    int getRTStocked(string type);
     
     //gets the number of a resource type needed
     int getRTNeeded(string type, int num);
     
     //consumes the required amount of a certain type of resource to power the city
-    void powerCity(string type, Market* market);
+    void powerCity(string type);
     
     //check if this type of resource is needed
     bool checkIfNeeded(string type);

@@ -1,3 +1,5 @@
+/*
+
 //  main.cpp
 //  player
 //  Driver class for Player object
@@ -18,7 +20,9 @@ using namespace HelperFunctions;
 /*
  I placed this within the making deck method for testing
  Will implement in a class after testing
+  */
 static void shuffle(vector<GameCard*> &_deck)
+
 {
     cout << "===============" << endl;
      cout << "===============" << endl;
@@ -28,7 +32,7 @@ static void shuffle(vector<GameCard*> &_deck)
    
     random_shuffle(_deck.begin(),_deck.end());
 }
- */
+ 
 static void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket)
 {
     //_deck = &deck;
@@ -139,7 +143,8 @@ static void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantM
     //following game rules:
     //top of deck: powerplant 13
     //bottom: step3 card
-     random_shuffle(_deck.begin(),_deck.end());
+    shuffle(_deck);
+     //random_shuffle(_deck.begin(),_deck.end());
     _deck.push_back(s3);
     _deck.insert(_deck.begin(), p11);
 }
@@ -168,8 +173,37 @@ static void sortMarket(vector<GameCard*> &_powerPlantMarket)
     sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
     
 }
+static int checkProfit(int _num)
+{
+    if(_num==0) return 10;
+    else if(_num==1) return 22;
+    else if(_num==2) return 33;
+    else if(_num==3) return 44;
+    else if(_num==4) return 54;
+    else if(_num==5) return 64;
+    else if(_num==6) return 73;
+    else if(_num==7) return 82;
+    else if(_num==8) return 90;
+    else if(_num==9) return 98;
+    else if(_num==10) return 105;
+    else if(_num==11) return 112;
+    else if(_num==12) return 118;
+    else if(_num==13) return 124;
+    else if(_num==14) return 129;
+    else if(_num==15) return 134;
+    else if(_num==16) return 138;
+    else if(_num==17) return 142;
+    else if(_num==18) return 145;
+    else if(_num==19) return 148;
+    else if(_num==20) return 150;
+    return 0;
+}
+
 static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket, Market &_market, int _step, vector<Player*> &_players)
 {
+        cout << "================" << endl;
+    cout << "BUREAYCRACY" << endl;
+        cout << "================" << endl;
     //RN i made several methods in the main, to test things out, but I think I will be making classes to
     //better implement this
     
@@ -199,8 +233,8 @@ static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlant
     for(int i = 0; i < _players.size(); i++)
     {
         //***need a method to determine the number of cities powered
-       // numCitiesPowered = _players[i]->getCitiesOwned();
-         //profit = checkProfit(numCitiesPowered);
+        numCitiesPowered = _players[i]->getCitiesPowered();
+        profit = checkProfit(numCitiesPowered);
         
         bill50 = (profit - profit%50)/50;
         profit-=bill50*50;
@@ -210,45 +244,20 @@ static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlant
         _players[i]->collectElektro(bill1,bill10, bill50);
     }
     //restock resource market
-    _market.restockMarket(_step);
+   _market.restockMarket(_step);
     
-    //**NEED TO ADD: when power plants power cities, add the tokens back to supply
+   
 }
 
-static int checkProfit(int _num)
-{
-    if(_num==0) return 10;
-    else if(_num==1) return 22;
-    else if(_num==2) return 33;
-    else if(_num==3) return 44;
-    else if(_num==4) return 54;
-    else if(_num==5) return 64;
-    else if(_num==6) return 73;
-    else if(_num==7) return 82;
-    else if(_num==8) return 90;
-    else if(_num==9) return 98;
-    else if(_num==10) return 105;
-    else if(_num==11) return 112;
-    else if(_num==12) return 118;
-    else if(_num==13) return 124;
-    else if(_num==14) return 129;
-    else if(_num==15) return 134;
-    else if(_num==16) return 138;
-    else if(_num==17) return 142;
-    else if(_num==18) return 145;
-    else if(_num==19) return 148;
-    else if(_num==20) return 150;
-    return 0;
-}
 
 int main() {
     
     static vector<GameCard*> deck;
-        static vector<Player*> players;
+    static vector<Player*> players;
     static vector<GameCard*> powerPlantMarket;
     
     
- Market market = Market();
+    Market *market = new Market(players);
     
     makingDeck(deck, powerPlantMarket);
     
@@ -256,21 +265,22 @@ int main() {
     
     int step = 1;
     
-    bureaucracy(deck, powerPlantMarket, market, step, players);
-    //print(powerPlantMarket);
+    market->toString();
+    bureaucracy(deck, powerPlantMarket, *market, step, players);
+    market->toString();
+
   
-    //print(powerPlantMarket);
-   // print(powerPlantMarket);
-    //shuffle(deck);
-    //print(deck);
-    //cout << deck.size() << endl;
-}
-
-/*#include "GameStateIO.hpp"
-
-int main(void) {
- 
+    PowerPlant *test = new PowerPlant(50, 6, 1, 0, 0, 0);
     
-    GameState gameState = GameStateIO::readXmlFile("powergrid_cities.save");
-    return 0;
-}*/
+    
+    //some track with supply and market isn't working ***
+      cout<< "a player bought coal " << endl;
+    test->stockRT("coal", 1);
+    market->rtPurchase("coal", 1);
+     market->toString();
+      cout<< "a player is powering a city " << endl;
+    test->powerCity("coal");
+    market->addToSupply("coal", 1);
+     market->toString();
+}
+*/
