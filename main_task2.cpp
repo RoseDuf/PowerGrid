@@ -240,11 +240,13 @@ static bool isNumber(string s) {
 	return true;
 }
 
+//PASS !!!
 static void Pass(Player * pl) {
 	cout << "No powerplant interests " << pl->getName() << "." << endl;
 	cout << endl;
 }
 
+//AUCTION!!!!!
 static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player * pl) {
 	cout << endl;
 	cout << "$$$$$$ Give your best price! $$$$$$" << endl;
@@ -256,7 +258,6 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 	int newprice = price;
 	char input;
 	bool firstBid = true;
-	bool someOneWon = false;
 
 	//resize the players that are allowed to enter the auction
 	for (int i = 0; i < pl->getplayerOrder(); i++) {
@@ -283,8 +284,7 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 				cout << "Looks like this powerplant is not worth it for " << player[i]->getName() << endl; 
 				cout << endl;
 				player.erase(player.begin() + i);
-				if (player.size() == 0) {
-					someOneWon = false; //Manage the possibility that every one passes
+				if (player.size() == 0) { //manages possibility that everyone passes
 					break;
 				}
 				else
@@ -317,7 +317,7 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 		}
 	}
 
-	if (someOneWon) { //Manage the possibility that every one passes
+	if (player.size() == 1) { //Manage the possibility that every one passes
 		cout << "*******" << player[0]->getName() << " won the Bid with " << price << " Elektros!*******" << endl;
 		cout << endl;
 
@@ -351,7 +351,7 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 		//remove powerplant from vector
 		return powerplant->getIdentifier();
 	}
-	else { //Manage the possibility that every one passes
+	else if (player.size() == 0){ //Manage the possibility that every one passes
 		string pause;
 		cout << "... No one bid? Why did you guys enter the auction in the first place? Oh well..." << endl;
 		cout << "Enter anything to continue..." << endl;
@@ -360,8 +360,9 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 	}
 }
 
+//PHASE 2!
 static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector<Player*> &players) {
-	vector<PowerPlant*> powerPlantMarket;
+	vector<PowerPlant*> powerPlantMarket; //copy 
 	for (int i = 0; i < ppMarket.size(); i++) {
 		powerPlantMarket.push_back(static_cast<PowerPlant*>(ppMarket[i]));
 	}
@@ -384,8 +385,8 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 		//find if card is available
 		bool isCardInVector = false;
 		int targetpp;
-		if (isNumber(input)) {
-			for (int k = 0; k < powerPlantMarket.size(); k++) {
+		if (isNumber(input)) { //check if input is a number
+			for (int k = 0; k < powerPlantMarket.size(); k++) { //check if powerplant number is available
 				if (std::stoi(input) == powerPlantMarket[k]->getCardNumber()) {
 					targetpp = k;
 					isCardInVector = true;
@@ -396,12 +397,13 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 			}
 		}
 
+		//manage user inputting invalid stuff
 		while (input != "P" && isCardInVector == false) {
 			cout << "This input is not valid. Please type in P (for Pass) or powerplant card number: ";
 			cin >> input;
 			cout << endl;
-			if (isNumber(input)) {
-				for (int k = 0; k <= powerPlantMarket.size(); k++) {
+			if (isNumber(input)) { //check if input is a number
+				for (int k = 0; k <= powerPlantMarket.size(); k++) { //check if powerplant number is available
 					if (std::stoi(input) == powerPlantMarket[k]->getCardNumber()) {
 						targetpp = k;
 						isCardInVector = true;
@@ -413,12 +415,15 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 			}
 		}
 		if (input == "P") {
+			//PLAYER PASSES... nothing much happens
 			Pass(players[i]);
 		}
 		if (isCardInVector) {
 			cout << players[i]->getName() << " has chosen to Auction (A) for powerplant: " << powerPlantMarket[targetpp]->getCardNumber() << endl;
+			//ENTER AUCTION!!!!
 			removePP = Auction(powerPlantMarket[targetpp], players, players[i]);
 			cout << endl;
+
 			//remove the bought powerplant from the market
 			for (int m = 0; m < powerPlantMarket.size(); m++) {
 				if (removePP == powerPlantMarket[m]->getIdentifier()) {
@@ -432,6 +437,12 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 			}
 		}
 	}
+	//display the posessions of each player
+	for (int i = 0; i < players.size(); i++) {
+		players[i]->toString();
+		cout << endl;
+	}
+
 	return ppMarket;
 }
 
