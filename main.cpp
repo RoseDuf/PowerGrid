@@ -38,7 +38,7 @@ int main() {
 //  player
 //  Driver class for Player object
 //
-
+/*
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -345,11 +345,17 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 			}
 		}
 
+		string pause;
+		cout << "Enter anything to continue..." << endl;
+		cin >> pause;
 		//remove powerplant from vector
 		return powerplant->getIdentifier();
 	}
 	else { //Manage the possibility that every one passes
+		string pause;
 		cout << "... No one bid? Why did you guys enter the auction in the first place? Oh well..." << endl;
+		cout << "Enter anything to continue..." << endl;
+		cin >> pause;
 		return "";
 	}
 }
@@ -585,6 +591,7 @@ int main() {
 			//task 2 - phase 2
 			EnterAuctioningPhase(powerPlantMarket, players); 
 
+			cout << "Enter anything to continue..." << endl;
 			cin >> pause;
 
 			round = 0;
@@ -592,6 +599,7 @@ int main() {
 		gameIsNotFinished = true;
 	}
 	deleteDeck(deck);
-	*/
+	
 	return 0;
 }
+*/
