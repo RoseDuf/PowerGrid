@@ -5,7 +5,7 @@ Graph implementation code using adjencyList
 #include "City.h"
 #include "player.hpp"
 #include "GameState.hpp"
-
+#include "PowerGridIO.hpp"
 
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
@@ -46,24 +46,24 @@ public:
 	// Structure to represent a min heap node
 	struct MinHeapNode
 	{
-		int v;
-		int dist;
+	int v;
+	int dist;
 	};
 
 	// Structure to represent a min heap
 	struct MinHeap
 	{
-		int size;      // Number of heap nodes present currently
-		int capacity;  // Capacity of min heap
-		int *pos;     // This is needed for decreaseKey()
-		MinHeapNode ** array;
+	int size;      // Number of heap nodes present currently
+	int capacity;  // Capacity of min heap
+	int *pos;     // This is needed for decreaseKey()
+	MinHeapNode ** array;
 	};
 	*/
 
 	//classes to build the graph
 public:
 	//building class functions
-	GraphBuilder(int totalVertices);
+	//GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
 	~GraphBuilder();
 	int getTotalVertices();
@@ -74,6 +74,8 @@ public:
 	void addEdge(Graph * graph, EdgeTriplet edges);
 	void addConnectedCitiestoVector();
 	void printGraph();
+
+	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
 	//searching algorithm funtions
 	/*
@@ -113,11 +115,13 @@ private:
 	int totalVertices;
 	Graph * graph;
 	std::string file;
-	GameState gameState;// = GameStateIO::readXmlFile(file);
+	MapData mapData;
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;
-
+	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
+	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
+	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
 };
 
 #endif
