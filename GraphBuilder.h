@@ -101,6 +101,7 @@ public:
 	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(int v1, int v2);
 	void SearchCity(string cityName);
+	bool cityAvailable(string cityName);
 	//void add_ElektrosToCity(Elektro el, string name);
 	//void add_ResourcesToCity(ResourceToken rt, string name);
 	//void add_PowerPlantToCity(PowerPlant pp, string city);

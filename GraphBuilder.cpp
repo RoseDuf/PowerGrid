@@ -371,6 +371,15 @@ void GraphBuilder::SearchCity(string cityName) {
 	}
 }
 
+bool GraphBuilder::cityAvailable(string cityName) {
+	for (int i = 0; i < totalVertices; i++) {
+
+		if (graph->arr[i].city.getCityName() == cityName) {
+			return graph->arr[i].city.isAvailable;
+		}
+	}
+}
+
 //Adds Elektros to the City Node
 /*
 void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
