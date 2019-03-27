@@ -426,73 +426,70 @@ int main() {
 			//sort(players.begin(), players.end(), Player::reverseOrder);
 
 			for (int i = 0; i < players.size(); i++) {
+
+
 				cout << "Your turn " + players[i]->getName() + "!" << endl;
 				//for (int i = 0; i < playerOrder.size(); i++) {
 					//cout << "Your turn " + playerOrder[i]->getName() << endl;
 
-				//display Resource Market
-				m1.display();
+				bool stillBuying = true;
 
-				//make this better in future by creating an exception that catches this...
-				//*** I THINK TEMP NEEDS TO BE POINTER SO THAT IT CAN STOCKRT THE POWERPLANTS OWNED BY PLAYER
-				vector <PowerPlant> temp = players[i]->getPowerPlant();
-				if (temp.size() == 0) {
-					cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
-				}
-				else {
-					bool isMatch = false;
-					string resource = NULL;
+				while (stillBuying) {
 
-					while (isMatch != true) {
 
-						cout << "Which resources would you like to buy?" << endl;
-						cin >> resource;
+					//display Resource Market
+					m1.display();
 
-						while (resource != "coal" || resource != "oil" || resource != "garbage" || resource != "uranium") {
-							cout << "That input is not valid. Which resources would you like to buy?" << endl;
-							cin >> resource;
-						}
-
-						cout << "You chose " << resource << endl;
-
-						//check if resources match ones on Player's powerplants
-						for (int i = 0; i < temp.size(); i++) {
-							isMatch = temp[i].checkIfNeeded(resource);
-							if (isMatch) {
-								break;
-							}
-						}
-
-						cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
-					}
-
-					//check if player can afford resource
-					if (m1.getPrice(resource) <= players[i]->getTotalWallet()) {
-						cout << "Sorry you do not have enough Elektros to buy the resource." << endl;
+					//make this better in future by creating an exception that catches this...
+					//*** I THINK TEMP NEEDS TO BE POINTER SO THAT IT CAN STOCKRT THE POWERPLANTS OWNED BY PLAYER
+					vector <PowerPlant> temp = players[i]->getPowerPlant();
+					if (temp.size() == 0) {
+						cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
 					}
 					else {
-						//check ResourceMarket price for resource
-						cout << "You will pay " + m1.getPrice(resource) << " Elektros for " + resource << "." << endl;
+						bool isMatch = false;
+						string resource = NULL;
 
-						//bill variables
-						int bill1 = 0;
-						int bill10 = 0;
-						int bill50 = 0;
+						while (isMatch != true) {
 
-						int totalSpent = 0;
+							cout << "Which resources would you like to buy?" << endl;
+							cin >> resource;
 
-						cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
-						cout << "Number of $1 Elektro bills to use: " << endl;
-						cin >> bill1;
-						cout << "Number of $10 Elektro bills to use: " << endl;
-						cin >> bill10;
-						cout << "Number of $50 Elektro bills to use: " << endl;
-						cin >> bill50;
-						totalSpent = bill1 + bill10 + bill50;
+							while (resource != "coal" || resource != "oil" || resource != "garbage" || resource != "uranium") {
+								cout << "That input is not valid. Which resources would you like to buy?" << endl;
+								cin >> resource;
+							}
 
-						//while loop to ensure Player pays correct amount for resource
-						while (totalSpent != m1.getPrice(resource)) {
-							cout << "Sorry that total does not equal the price of the resource." << endl;
+							cout << "You chose " << resource << endl;
+
+							//check if resources match ones on Player's powerplants
+							for (int i = 0; i < temp.size(); i++) {
+								isMatch = temp[i].checkIfNeeded(resource);
+								if (isMatch) {
+									break;
+								}
+							}
+
+							cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
+						}
+
+						//check if player can afford resource
+						if (m1.getPrice(resource) <= players[i]->getTotalWallet()) {
+							cout << "Sorry you do not have enough Elektros to buy the resource. Your turn is over." << endl;
+							stillBuying = false;
+						}
+
+						else {
+							//check ResourceMarket price for resource
+							cout << "You will pay " + m1.getPrice(resource) << " Elektros for " + resource << "." << endl;
+
+							//bill variables
+							int bill1 = 0;
+							int bill10 = 0;
+							int bill50 = 0;
+
+							int totalSpent = 0;
+
 							cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
 							cout << "Number of $1 Elektro bills to use: " << endl;
 							cin >> bill1;
@@ -502,42 +499,38 @@ int main() {
 							cin >> bill50;
 							totalSpent = bill1 + bill10 + bill50;
 
-						}
+							//while loop to ensure Player pays correct amount for resource
+							while (totalSpent != m1.getPrice(resource)) {
+								cout << "Sorry that total does not equal the price of the resource." << endl;
+								cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
+								cout << "Number of $1 Elektro bills to use: " << endl;
+								cin >> bill1;
+								cout << "Number of $10 Elektro bills to use: " << endl;
+								cin >> bill10;
+								cout << "Number of $50 Elektro bills to use: " << endl;
+								cin >> bill50;
+								totalSpent = bill1 + bill10 + bill50;
 
-						//remove amount of elektros from Player object
-						players[i]->spendElektros(bill1, bill10, bill50);
-
-
-						//display Player's PowerPlants
-						for (int i = 0; i < temp.size(); i++) {
-							temp[i].toString();
-						}
-
-						//prompt player to select which powerplant to add resource to
-						bool notValid = true;
-						int selectPlant = 0;
-						cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
-						cin >> selectPlant;
-
-						//check if a valid card number
-						int j = 0;
-						for (int j = 0; i < temp.size(); j++) {
-							if (selectPlant == temp[j].getCardNumber()) {
-								notValid = false;
-								break;
 							}
-							else {
-								continue;
-							}
-						}
 
-						while (notValid) {
-							cout << "Sorry that is not the card number of a PowerPlant you own. Try another card number: " << endl;
+							//remove amount of elektros from Player object
+							players[i]->spendElektros(bill1, bill10, bill50);
+
+
+							//display Player's PowerPlants
+							for (int i = 0; i < temp.size(); i++) {
+								temp[i].toString();
+							}
+
+							//prompt player to select which powerplant to add resource to
+							bool notValid = true;
+							int selectPlant = 0;
 							cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
 							cin >> selectPlant;
 
 							//check if a valid card number
-							for (j = 0; i < temp.size(); j++) {
+							int j = 0;
+							for (int j = 0; i < temp.size(); j++) {
 								if (selectPlant == temp[j].getCardNumber()) {
 									notValid = false;
 									break;
@@ -547,41 +540,73 @@ int main() {
 								}
 							}
 
-						}
+							while (notValid) {
+								cout << "Sorry that is not the card number of a PowerPlant you own. Try another card number: " << endl;
+								cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
+								cin >> selectPlant;
+
+								//check if a valid card number
+								for (j = 0; i < temp.size(); j++) {
+									if (selectPlant == temp[j].getCardNumber()) {
+										notValid = false;
+										break;
+									}
+									else {
+										continue;
+									}
+								}
+
+							}
 
 
-						//add resource to player's appropriate powerplant
-						temp[j].stockRT(resource, 1);
+							//add resource to player's appropriate powerplant
+							temp[j].stockRT(resource, 1);
 
-						//remove resource from Market
+							//remove resource from Market
+							m1.sellResource(resource, 1);
+
+							//while loop to check if match
+
+							char yesno = NULL;
+							cout << "Would you like to buy another resource? (Y/N)" << endl;
+							cin >> yesno;
+
+							while (yesno != 'Y' || yesno != 'N') {
+								cout << "That is an invalid response. Please try again (Y/N): " << endl;
+								cin >> yesno;
+							}
+
+							if (yesno == 'Y') {
+								continue;
+							}
+							else {
+								cout << "Your turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
+								stillBuying = false;
+							}
 
 
+							//Check powerplant class to make sure it can hold up to 2x resources
 
-						//display player’s powerplants
+							//Ask user if (bool finishedBuying = true)? If not continue to loop
 
-						//prompt player to choose which powerplant to add it to
-
-						//while loop to check if match
-
-						//Check powerplant class to make sure it can hold up to 2x resources
-
-						//Ask user if (bool finishedBuying = true)? If not continue to loop
-
-						//**do at the end** Prompt user if they want to transfer their resources from on plant to the other
-
-						//** do at the end ** make sure market is being properly affected
-
-						//make sure each player gets a turn
+							//**do at the end** Prompt user if they want to transfer their resources from on plant to the other
 
 
+							//make sure each player gets a turn
 
+						}	//end of else statement regarding player having enough elektros
 
+					}	//stillBuying while loop
+				
 
-						}
-				}
-					}
+			}	// for loop players
+				
+		}		//if round == 2 condition
+					
 
-				}
+	}
+
+	
 			
 
 		
@@ -591,5 +616,4 @@ int main() {
 
 
 
-	}
 }
