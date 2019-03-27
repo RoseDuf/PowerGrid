@@ -599,6 +599,13 @@ int main() {
 		gameIsNotFinished = true;
 	}
 	deleteDeck(deck);
+
+
+	//delete memory
+	for (int i = 0; i < players.size(); i++) {
+		delete players[i];
+		players[i] = NULL;
+	}
 	
 	return 0;
 }
