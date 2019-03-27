@@ -195,16 +195,12 @@ void Market::rtPurchase(string type, int number)
 
 void Market::display() {
 
-	cout << "\n******** MARKET ********" << endl;
-	cout << "Amount of Coal: " + coal_market << endl;
-	cout << "Current Price: " + getPrice("coal") << endl;
-	cout << "Amount of Oil: " + oil_market << endl;
-	cout << "Current Price: " + getPrice("oil") << endl;
-	cout << "Amount of Garbage: " + garbage_market << endl;
-	cout << "Current Price: " + getPrice("garbage") << endl;
-	cout << "Amount of Uranium: " + uranium_market << endl;
-	cout <<"Current Price: " + getPrice("uranium") << endl;
-	cout << "************************" << endl;
+	cout << "\n************* MARKET *************" << endl;
+	cout << "Amount of Coal: " << coal_market << "\tCurrent Price: " << getPrice("coal") << endl;
+	cout << "Amount of Oil: " << oil_market << "\tCurrent Price: " << getPrice("oil") << endl;
+	cout << "Amount of Garbage: " << garbage_market << "\tCurrent Price: " << getPrice("garbage") << endl;
+	cout << "Amount of Uranium: " << uranium_market << "\tCurrent Price: " << getPrice("uranium") << endl;
+	cout << "**********************************" << endl;
 
 }
 

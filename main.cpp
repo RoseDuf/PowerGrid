@@ -17,7 +17,7 @@
 using namespace std;
 using namespace HelperFunctions;
 
-static void makingDeck(vector<GameCard*> &_deck, vector<PowerPlant*> &_powerPlantMarket)
+static void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket)
 {
 	PowerPlant *p1 = new PowerPlant(3, 1, 0, 2, 0, 0);
 	PowerPlant *p2 = new PowerPlant(4, 1, 2, 0, 0, 0);
@@ -120,14 +120,7 @@ static void makingDeck(vector<GameCard*> &_deck, vector<PowerPlant*> &_powerPlan
 	_deck.insert(_deck.begin(), p11);
 }
 
-
 static void print(vector<GameCard*> &_deck) {
-	for (int i = 0; i < _deck.size(); i++)
-	{
-		_deck[i]->toString();
-	}
-}
-static void print(vector<PowerPlant*> &_deck) {
 	for (int i = 0; i < _deck.size(); i++)
 	{
 		_deck[i]->toString();
@@ -148,69 +141,7 @@ static GameCard* drawCard(vector<GameCard*> &deck) {
 	return temp;
 }
 
-static void sortMarket(vector<PowerPlant*> &_powerPlantMarket)
-{
-	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
-
-}
-
-static void Auction(PowerPlant * powerplant, vector<Player*> players, Player * pl) {
-	cout << endl;
-	cout << "$$$$$$ Give your best price! $$$$$$" << endl;
-	cout << endl;
-	vector<Player*> player = players;
-	bool bought = false;
-	int price = powerplant->getCardNumber();
-	int newprice = price;
-	char input;
-
-	for (int i = 0; i < pl->getplayerOrder(); i++) {
-		player.erase(player.begin() + i);
-	}
-
-	while (player.size() != 1) {
-		for (int i = 0; i < player.size(); i++) {
-			cout << player[i]->getName() << ", would you like to Pass or Bid on this powerplant?";
-			powerplant->toString();
-			cout << endl;
-			cout << "Pass or Bid? (P/B): ";
-			cin >> input;
-			cout << endl;
-			while (input != 'P' && input != 'B') {
-				cout << "This input is not valid. Please type in P (for Pass) or B (for Bid): ";
-				cin >> input;
-				cout << endl;
-			}
-			if (input == 'P') {
-				player.erase(player.begin() + i);
-				i -= 1;
-			}
-			if (input == 'B') {
-				cout << "How much would you like to bid? (minimum " << price << " Elektros): ";
-				cin >> newprice;
-				while (newprice < price) {
-					cout << "What are you doing? The minimum bid is " << price << " Elektros! Try again: ";
-					cin >> newprice;
-				}
-				price = newprice;
-
-
-				cout << players[i]->getName() << " has chosen to Bid " << price << " Elektros for this powerplant" << endl;
-				cout << endl;
-			}
-		}
-	}
-
-	cout << player[0]->getName() << " won the Bid with " << price << " Elektros!" << endl;
-
-	//TODO: Manage the possibility that every one passes
-
-}
-
-
-
-
-static void DeterminePlayerOrder(vector<Player*> players, int round) {
+static void DeterminePlayerOrder(vector<Player*> &players, int round) {
 
 	vector<int> playerOrder;
 
@@ -240,24 +171,6 @@ static void DeterminePlayerOrder(vector<Player*> players, int round) {
 		cout << endl;
 	}
 
-
-	else if (round == 2 || round == 3) {
-		cout << "Current player order: " << endl;
-		cout << endl;
-
-		//reverse player order
-		std::sort(players.begin(), players.end(), Player::reverseOrder);
-
-		for (int i = 0; i < players.size(); i++) {
-			players.at(i)->setplayerOrder(i);
-		}
-
-		for (int i = 0; i < players.size(); i++) {
-			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
-		}
-		cout << endl;
-	}
-
 	else {
 		cout << "Current player order: " << endl;
 		cout << endl;
@@ -276,6 +189,209 @@ static void DeterminePlayerOrder(vector<Player*> players, int round) {
 	}
 }
 
+static void sortMarket(vector<GameCard*> &_powerPlantMarket)
+{
+	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
+
+}
+
+// Returns true if s is a number else false 
+static bool isNumber(string s) {
+	for (int i = 0; i < s.length(); i++)
+		if (isdigit(s[i]) == false)
+			return false;
+
+	return true;
+}
+
+static void Pass(Player * pl) {
+	cout << "No powerplant interests " << pl->getName() << "." << endl;
+	cout << endl;
+}
+
+static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player * pl) {
+	cout << endl;
+	cout << "$$$$$$ Give your best price! $$$$$$" << endl;
+	cout << endl;
+
+	//attributes
+	vector<Player*> player = players; //call copy constructor
+	int price = powerplant->getCardNumber();
+	int newprice = price;
+	char input;
+	bool firstBid = true;
+	bool someOneWon = false;
+
+	//resize the players that are allowed to enter the auction
+	for (int i = 0; i < pl->getplayerOrder(); i++) {
+		player.erase(player.begin());
+	}
+
+	//enter the Auctioning loop
+	while (player.size() > 1) {
+		for (int i = 0; i < player.size(); i++) {
+			cout << player[i]->getName() << ", would you like to Pass or Bid on this powerplant?";
+			powerplant->toString();
+			cout << endl;
+			cout << "Pass or Bid? (P/B). Current bid is " << price << " Elektros: ";
+			cin >> input;
+
+			//make sure user inputs correct thing
+			while (input != 'P' && input != 'B') {
+				cout << "This input is not valid. Please type in P (for Pass) or B (for Bid): ";
+				cin >> input;
+			}
+
+			if (input == 'P') {
+				cout << endl;
+				cout << "Looks like this powerplant is not worth it for " << player[i]->getName() << endl;
+				cout << endl;
+				player.erase(player.begin() + i);
+				if (player.size() == 0) {
+					someOneWon = false; //Manage the possibility that every one passes
+					break;
+				}
+				else
+					i -= 1;
+			}
+
+			if (input == 'B') {
+				if (firstBid) { //The first bid should be the same price as the card number
+					cout << "How much would you like to bid? (minimum " << price << " Elektros): ";
+					cin >> newprice;
+					while (newprice < price) {
+						cout << "What are you doing? The minimum bid is " << price << " Elektros! Try again: ";
+						cin >> newprice;
+					}
+					firstBid = false;
+				}
+				else { //The other bids should be bigger than the previous bidding price
+					cout << "How much would you like to bid? (minimum " << price + 1 << " Elektros): ";
+					cin >> newprice;
+					while (newprice <= price) {
+						cout << "What are you doing? The minimum bid is " << price + 1 << " Elektros! Try again: ";
+						cin >> newprice;
+					}
+				}
+				price = newprice; //update price
+
+				cout << player[i]->getName() << " has chosen to Bid " << price << " Elektros for this powerplant." << endl;
+				cout << endl;
+			}
+		}
+	}
+
+	if (someOneWon) { //Manage the possibility that every one passes
+		cout << "*******" << player[0]->getName() << " won the Bid with " << price << " Elektros!*******" << endl;
+		cout << endl;
+
+		//do payment
+		//calculate the amount of bills needed
+		int bill1 = 0;
+		int bill10 = 0;
+		int bill50 = 0;
+
+		bill50 = (price - price % 50) / 50;
+		price -= bill50 * 50;
+		bill10 = (price - price % 10) / 10;
+		price -= bill10 * 10;
+		bill1 = price;
+
+		//print before after wallet and spend electros
+		for (int k = 0; k < players.size(); k++) {
+			if (player[0]->getName() == players[k]->getName()) {
+				cout << "Your previous balance: " << endl;
+				players[k]->walletToString();
+				players[k]->spendElektros(bill1, bill10, bill50); //update wallet
+				cout << "Your new balance: " << endl;
+				players[k]->walletToString();
+				players[k]->addPowerPlant(*powerplant); //update owned powerplants
+			}
+		}
+
+		//remove powerplant from vector
+		return powerplant->getIdentifier();
+	}
+	else { //Manage the possibility that every one passes
+		cout << "... No one bid? Why did you guys enter the auction in the first place? Oh well..." << endl;
+		return "";
+	}
+}
+
+static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector<Player*> &players) {
+	vector<PowerPlant*> powerPlantMarket;
+	for (int i = 0; i < ppMarket.size(); i++) {
+		powerPlantMarket.push_back(static_cast<PowerPlant*>(ppMarket[i]));
+	}
+
+	//task 2 - phase 2
+	string removePP;
+	string input;
+
+	for (int i = 0; i < players.size(); i++) {
+		for (int j = 0; j < powerPlantMarket.size(); j++) {
+			powerPlantMarket[j]->toString();
+		}
+		cout << endl;
+		cout << players[i]->getName() << ", would you like to Pass or Auction a powerplant?" << endl;
+		cout << endl;
+		cout << "If you would like to Pass, press 'P'. If you would like to Auction a powerplant, enter the card number of the powerplant you want: ";
+		cin >> input;
+		cout << endl;
+
+		//find if card is available
+		bool isCardInVector = false;
+		int targetpp;
+		if (isNumber(input)) {
+			for (int k = 0; k < powerPlantMarket.size(); k++) {
+				if (std::stoi(input) == powerPlantMarket[k]->getCardNumber()) {
+					targetpp = k;
+					isCardInVector = true;
+					break;
+				}
+				else
+					isCardInVector = false;
+			}
+		}
+
+		while (input != "P" && isCardInVector == false) {
+			cout << "This input is not valid. Please type in P (for Pass) or powerplant card number: ";
+			cin >> input;
+			cout << endl;
+			if (isNumber(input)) {
+				for (int k = 0; k <= powerPlantMarket.size(); k++) {
+					if (std::stoi(input) == powerPlantMarket[k]->getCardNumber()) {
+						targetpp = k;
+						isCardInVector = true;
+						break;
+					}
+					else
+						isCardInVector = false;
+				}
+			}
+		}
+		if (input == "P") {
+			Pass(players[i]);
+		}
+		if (isCardInVector) {
+			cout << players[i]->getName() << " has chosen to Auction (A) for powerplant: " << powerPlantMarket[targetpp]->getCardNumber() << endl;
+			removePP = Auction(powerPlantMarket[targetpp], players, players[i]);
+			cout << endl;
+			//remove the bought powerplant from the market
+			for (int m = 0; m < powerPlantMarket.size(); m++) {
+				if (removePP == powerPlantMarket[m]->getIdentifier()) {
+					powerPlantMarket.erase(powerPlantMarket.begin() + m);
+				}
+			}
+			for (int m = 0; m < ppMarket.size(); m++) {
+				if (removePP == ppMarket[m]->getIdentifier()) {
+					ppMarket.erase(ppMarket.begin() + m);
+				}
+			}
+		}
+	}
+	return ppMarket;
+}
 
 
 int main() {
@@ -283,13 +399,13 @@ int main() {
 	//========================================TASK 1===================================================
 
 	//Initiate Graph and Build Map
-	GraphBuilder graph = GraphBuilder(42, "powergrid_cities.map");
+	GraphBuilder graph = GraphBuilder(42, "germany.map");
 	graph.buildMap();
 
 	//TASK 2 (Rose)
 	//============================== Assignment 2, task 2, ================================================
 	static vector<GameCard*> deck;
-	static vector<PowerPlant*> powerPlantMarket;
+	static vector<GameCard*> powerPlantMarket;
 	static int phase = 1; //should be step
 
 
@@ -321,75 +437,35 @@ int main() {
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
 
-
 	//Game loop !!!!
-
-	int numPlayers = players.size();
-	vector<int> playerOrder;
-
-	char input;
-
-	bool gameIsNotFinished = false;
+	bool gameIsNotFinished = true;
 	int round = 1;
-
+	string pause;
+	/*
 	while (gameIsNotFinished == false) {
 
 		while (round >= 1) {
 
-			//task 2 - step 1
+			//task 2 - phase 1
 			DeterminePlayerOrder(players, round);
 
 			round += 1;
 			DeterminePlayerOrder(players, round);
-			std::sort(players.begin(), players.end(), Player::compByOrder);
 
+			cout << "Enter anything to continue..." << endl;
+			cin >> pause;
 
-			//task2 - step 2
-			for (int i = 0; i < players.size(); i++) {
-				for (int j = 0; j < powerPlantMarket.size(); j++) {
-					powerPlantMarket[j]->toString();
-				}
-				cout << players[i]->getName() << ", would you like to Pass or Auction a powerplant?" << endl;
-				cout << endl;
-				cout << "If you would like to Pass, press 'P'. If you would like to Auction a powerplant, enter the card number of the powerplant you want: ";
-				cin >> input;
-				cout << endl;
+			//task 2 - phase 2
+			//EnterAuctioningPhase(powerPlantMarket, players);
 
-				//find if card is available
-				bool isCardInVector;
-				int targetpp;
-				for (int k = 0; k <= powerPlantMarket.size(); k++) {
-					if ((input - 48) == powerPlantMarket[k]->getCardNumber()) {
-						targetpp = k;
-						isCardInVector = true;
-						break;
-					}
-					else
-						isCardInVector = false;
-				}
-
-				while (input != 'P' && isCardInVector == false) {
-					cout << "This input is not valid. Please type in P (for Pass) or powerplant card number: ";
-					cin >> input;
-					cout << endl;
-				}
-				if (input == 'P') {
-					//Player::Pass();
-				}
-				if (isCardInVector) {
-					cout << players[i]->getName() << " has chosen to Auction (A) for powerplant: " << powerPlantMarket[targetpp]->getCardNumber() << endl;
-					Auction(powerPlantMarket[targetpp], players, players[i]);
-					cout << endl;
-					break;
-				}
-			}
+			cin >> pause;
 
 			round = 0;
 		}
 		gameIsNotFinished = true;
 	}
 	deleteDeck(deck);
-
+	*/
 
 	/*PowerPlant test1(2, 2, 3, 2, 0, 0);
 
@@ -439,12 +515,18 @@ int main() {
 					//display Resource Market
 					market.display();
 
+					string pause;
+					cout << "Enter any character to continue..." << endl;
+					cin >> pause;
+					cout << endl;
+
 					//make this better in future by creating an exception that catches this...
 					//*** I THINK TEMP NEEDS TO BE POINTER SO THAT IT CAN STOCKRT THE POWERPLANTS OWNED BY PLAYER
 					vector <PowerPlant> temp = players[i]->getPowerPlant();
 					if (temp.size() == 0) {
 						cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
-						//your turn is over stillBuying = false;
+						cout << "Your turn is over." << endl;
+						stillBuying = false;
 					}
 					else {
 						bool isMatch = false;
@@ -766,7 +848,7 @@ int main() {
 											validCity = true;
 										}
 										cityPrice = 10;
-										return;
+										break;
 								case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
 									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
 									cin >> chosenCity;
@@ -776,7 +858,7 @@ int main() {
 											 validCity = true;
 										 }
 										 cityPrice = 15;
-										 return;
+										 break;
 								case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
 									cout << "Sorry, another player already has a building on this city. Please choose another city: ";
 									cin >> chosenCity;
@@ -786,7 +868,7 @@ int main() {
 											validCity = true;
 										}
 										cityPrice = 20;
-										return;
+										break;
 								}
 
 
@@ -795,7 +877,7 @@ int main() {
 
 							//returns bool to see if chosen city is adjacent to the cities in checkCity
 							for (int i = 0; i < numCities; i++) {
-								if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName()) == true) {
+								if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
 									cout << chosenCity + " is adjacent to your city " + checkCity[i].getCityName() << "." << endl;
 									break;
 								}
@@ -804,7 +886,7 @@ int main() {
 								}
 							}
 
-							while (!graph.IsCityAdjacentToOtherCity()) {
+							while (!graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
 								cout << "The city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
 								cin >> chosenCity;
 								for (int i = 0; i < numCities; i++) {
@@ -850,9 +932,11 @@ int main() {
 
 			}	// round 3 if conditional statement
 
+			gameIsNotFinished = false;
+
 		}	//GameisNotFinished while loop
 
-
+		deleteDeck(deck);
 
 
 
@@ -862,4 +946,6 @@ int main() {
 
 
 	}
+
+	return 0;
 }	//int main()

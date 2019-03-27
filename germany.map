@@ -4,19 +4,16 @@
     <cityName>Flensburg</cityName>
     <cityColor>GREEN</cityColor>
   </City>
-
   <City>
     <verticeNumber>1</verticeNumber>
     <cityName>Kiel</cityName>
     <cityColor>GREEN</cityColor>
   </City>
-
   <City>
     <verticeNumber>2</verticeNumber>
     <cityName>Hamburg</cityName>
     <cityColor>GREEN</cityColor>
   </City>
-
   <City>
     <verticeNumber>3</verticeNumber>
     <cityName>Cuxhaven</cityName>
@@ -1280,93 +1277,95 @@
     <edgeCost>14</edgeCost>
   </EdgeTriplet>
 
-  <AdjacentRegionsTriplet>
+
+<AdjacentRegionsTriplet>
     <RegionColor>GREEN</RegionColor>
     <RegionColor>ORANGE</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>GREEN</RegionColor>
     <RegionColor>RED</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>GREEN</RegionColor>
     <RegionColor>YELLOW</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>GREEN</RegionColor>
     <RegionColor>BLUE</RegionColor>
     <areAdjacent>false</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>GREEN</RegionColor>
     <RegionColor>PURPLE</RegionColor>
     <areAdjacent>false</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>ORANGE</RegionColor>
     <RegionColor>YELLOW</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>ORANGE</RegionColor>
     <RegionColor>RED</RegionColor>
     <areAdjacent>false</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>ORANGE</RegionColor>
     <RegionColor>BLUE</RegionColor>
     <areAdjacent>false</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>GREEN</RegionColor>
     <RegionColor>PURPLE</RegionColor>
     <areAdjacent>false</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>RED</RegionColor>
     <RegionColor>YELLOW</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>RED</RegionColor>
     <RegionColor>BLUE</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>RED</RegionColor>
     <RegionColor>PURPLE</RegionColor>
     <areAdjacent>false</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>YELLOW</RegionColor>
     <RegionColor>BLUE</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>YELLOW</RegionColor>
     <RegionColor>PURPLE</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
 
-  <AdjacentRegionsTriplet>
+<AdjacentRegionsTriplet>
     <RegionColor>BLUE</RegionColor>
     <RegionColor>PURPLE</RegionColor>
     <areAdjacent>true</areAdjacent>
-  </AdjacentRegionsTriplet>
+</AdjacentRegionsTriplet>
+
 </MapData>

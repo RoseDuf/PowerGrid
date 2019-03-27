@@ -191,7 +191,7 @@ void GraphBuilder::removeRegions(string color) {
 }
 
 //might not need this function... Leaving it commented out just in case. Who knows ¯\_("/)_/¯
-/*City GraphBuilder::findCityByName(string name) {
+City GraphBuilder::findCityByName(string name) {
 City city;
 for (int i = 0; i < totalVertices; i++) {
 if (graph->arr[i].city.getCityName == name) {
@@ -199,7 +199,7 @@ return graph->arr[i].city;
 }
 }
 cout << "No city of this name found in the map..." << endl;
-}*/
+}
 
 //function to add players to "cities"(aka Nodes) in the physical map
 //and updates Player info at the same time
