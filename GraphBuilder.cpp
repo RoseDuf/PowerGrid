@@ -4,7 +4,7 @@
 #include <utility>      // std::pair, std::get
 #include <vector>
 #include "GraphBuilder.h"
-#include "GameState.hpp"
+#include "PowerGridIO.hpp"
 #include "City.h"
 #include "player.hpp"
 #include <limits.h>
@@ -19,7 +19,7 @@ GraphBuilder::GraphBuilder(int tv) {
 
 GraphBuilder::GraphBuilder(int tv, std::string file) {
 	totalVertices = tv;
-	gameState = GameStateIO::readXmlFile(file);
+	gameState = PowerGridIO::readXmlFile(file);
 	graph = createGraph(totalVertices, gameState.getCities());
 	edges = gameState.getEdgeTriplets();
 }

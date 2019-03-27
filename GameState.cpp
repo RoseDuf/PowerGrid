@@ -23,9 +23,7 @@ void GameState::setCities(std::vector<City> cities) {
 }
 
 GameState::GameState(int turnOfPlayer, std::vector<City> cities, std::vector<EdgeTriplet> edgeTriplets, std::vector<Player> playas)
-	: turnOfPlayer(turnOfPlayer), cities(cities), edgeTriplets(edgeTriplets), players(playas) {
-	std::cout << "hilo" << std::endl;
-}
+	: turnOfPlayer(turnOfPlayer), cities(cities), edgeTriplets(edgeTriplets), players(playas) {}
 
 void GameState::setEdgeTriplets(std::vector<EdgeTriplet> edgeTriplets) {
 	this->edgeTriplets = edgeTriplets;
@@ -67,4 +65,35 @@ void GameState::addPlayers(std::vector<Player> playersToAdd) {
 
 void GameState::addPlayer(Player playerToAdd) {
 	players.push_back(playerToAdd);
+}
+
+MapData GameState::getMapData() {
+	MapData mapData = MapData(getCities(), getEdgeTriplets(), getAdjacentRegionsTriplets());
+	return mapData;
+}
+
+void GameState::setMapData(MapData mapData) {
+	setCities(std::get<0>(mapData));
+	setEdgeTriplets(std::get<1>(mapData));
+	setAdjacentRegionsTriplets(std::get<2>(mapData));
+}
+
+std::vector<AdjacentRegionsTriplet> GameState::getAdjacentRegionsTriplets() {
+
+	return adjacentRegionsTriplets;
+}
+
+void GameState::setAdjacentRegionsTriplets(std::vector<AdjacentRegionsTriplet> adjacentRegionsTriplets) {
+	this->adjacentRegionsTriplets = adjacentRegionsTriplets;
+}
+
+void GameState::addAdjacentRegionsTriplets(std::vector<AdjacentRegionsTriplet> additionalAdjacentRegionsTriplets) {
+
+	for (int i = 0; i < additionalAdjacentRegionsTriplets.size(); i++) {
+		this->adjacentRegionsTriplets.push_back(additionalAdjacentRegionsTriplets.at(i));
+	}
+}
+
+void GameState::addAdjacentRegionsTriplet(AdjacentRegionsTriplet additionalAdjacentRegionsTriplet) {
+	this->adjacentRegionsTriplets.push_back(additionalAdjacentRegionsTriplet);
 }
