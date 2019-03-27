@@ -433,19 +433,19 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 int main() {
 
 //============================== Assignment 1 ================================================
-	/*
+	
 	Elektro elektro = Elektro(10, 5, 50);
 	//ResourceToken resource = ResourceToken(3, "oil");
 	PowerPlant powerplant = PowerPlant(3, 2, 2, 0, 0, 0);
 
 	//p1.collectElektro(elektro);
-	*/
+	
 	
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "powergrid_cities.map");
 	graph.buildMap();
 
-	/*
+	
 	Player * p1 = new Player("Nicole", "Red");
 	Player * p2 = new Player("Rose", "Green");
 	graph.printGraph();
@@ -523,8 +523,8 @@ int main() {
 
 	cin.get();
 	
-	*/
 	
+	/*
 	//============================== Assignment 2, task 2, ================================================
 	static vector<GameCard*> deck;
 	static vector<GameCard*> powerPlantMarket;
@@ -588,6 +588,6 @@ int main() {
 		gameIsNotFinished = true;
 	}
 	deleteDeck(deck);
-	
+	*/
 	return 0;
 }

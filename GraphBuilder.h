@@ -5,7 +5,7 @@ Graph implementation code using adjencyList
 #include "City.h"
 #include "player.hpp"
 #include "GameState.hpp"
-#include "GameStateIO.hpp"
+#include "PowerGridIO.hpp"
 
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
@@ -63,7 +63,7 @@ public:
 	//classes to build the graph
 public:
 	//building class functions
-	GraphBuilder(int totalVertices);
+	//GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
 	~GraphBuilder();
 	int getTotalVertices();
@@ -74,6 +74,8 @@ public:
 	void addEdge(Graph * graph, EdgeTriplet edges);
 	void addConnectedCitiestoVector();
 	void printGraph();
+
+	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
 	//searching algorithm funtions
 	/*
@@ -113,11 +115,13 @@ private:
 	int totalVertices;
 	Graph * graph;
 	std::string file;
-	GameState gameState;// = GameStateIO::readXmlFile(file);
+	MapData mapData;
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;
-
+	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
+	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
+	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
 };
 
 #endif

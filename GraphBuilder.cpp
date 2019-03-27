@@ -4,24 +4,34 @@
 #include <utility>      // std::pair, std::get
 #include <vector>
 #include "GraphBuilder.h"
-#include "GameState.hpp"
+#include "PowerGridIO.hpp"
 #include "City.h"
 #include "player.hpp"
 #include <limits.h>
 #include <algorithm>
+#include <set>
 using namespace std;
 
-GraphBuilder::GraphBuilder(int tv) {
+/*
+GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
 	totalVertices = tv;
-	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();
+	graph = createGraph(totalVertices, std::get<0>(mapData));
+	edges = std::get<1>(mapData);
+	//totalVertices = tv;
+	//graph = createGraph(totalVertices, gameState.getCities());
+	//edges = gameState.getEdgeTriplets();
 }
+*/
 
-GraphBuilder::GraphBuilder(int tv, std::string file) {
+GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	totalVertices = tv;
-	gameState = GameStateIO::readXmlFile(file);
+	mapData = PowerGridIO::getMapData(mapFilename);
+	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
+	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
+	/*totalVertices = tv;
+	gameState = PowerGridIO::loadGame(file);
 	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();
+	edges = gameState.getEdgeTriplets();*/
 }
 
 GraphBuilder::~GraphBuilder(){
@@ -394,7 +404,7 @@ void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
 //test case to test if the number of cities from the file matches the number of nodes in the map
 bool GraphBuilder::test_SizeOfMap_and_FileMap() {
 
-	vector<City> citiesfile = gameState.getCities();
+	vector<City> citiesfile = std::get<0>(mapData);
 	if (citiesfile.size() == totalVertices) {
 		cout << "Number of cities in physical map and map from file match!" << endl;
 		return true;
@@ -478,7 +488,89 @@ void GraphBuilder::buildMap() {
 	// careful not to add any dupilcate edges that we already defined
 }
 
+vector<AdjacentRegionsTriplet> GraphBuilder::getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols) {
+	std::set<AdjacentRegionsTriplet> tempArts; // use a set to easily remove duplicates
 
+	for (int i = 0; i < arts.size(); i++) {
+		string col0 = get<0>(arts.at(i));
+		string col1 = get<1>(arts.at(i));
+		//bool b2 = get<2>( arts.at(i) );
+		for (int j = 0; j < chosenRegCols.size(); j++) {
+			for (int k = 0; k < chosenRegCols.size(); k++) {
+				if ((col0 == chosenRegCols.at(j) && col1 == chosenRegCols.at(k)) || ((col1 == chosenRegCols.at(j) && col0 == chosenRegCols.at(k)))) {
+					tempArts.insert(arts.at(i));
+				}
+			}
+		}
+	}
+
+	std::vector<AdjacentRegionsTriplet> tempArts2;
+
+	for (auto it = tempArts.begin(); it != tempArts.end(); it++) {
+		tempArts2.push_back(*it);
+	}
+
+	return tempArts2;
+}
+
+bool GraphBuilder::hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE) {
+
+	if (begCol == endCol) {
+		return true;
+	}
+
+	if (pathSize > MAX_PATH_SIZE) {
+		return false;
+	}
+	bool previousPathFound = false;
+	for (int i = 0; i < arts.size(); i++) {
+
+		string col0 = get<0>(arts.at(i));
+		string col1 = get<1>(arts.at(i));
+		bool b2 = get<2>(arts.at(i));
+
+		if (((begCol == col0 && endCol == col1) || (begCol == col1 && endCol == col0)) && b2 == true) {
+			return true;
+		}
+
+		if (begCol == col0 && endCol != col1 && b2 == true) {
+			//return hasPath(col1,endCol, arts, ++pathSize, MAX_PATH_SIZE);
+			previousPathFound = previousPathFound || hasPath(col1, endCol, arts, ++pathSize, MAX_PATH_SIZE);
+		}
+
+		if (begCol == col1 && endCol != col0 && b2 == true) {
+			//return hasPath(col0,endCol, arts, ++pathSize, MAX_PATH_SIZE);
+			previousPathFound = previousPathFound || hasPath(col0, endCol, arts, ++pathSize, MAX_PATH_SIZE);
+		}
+
+		if (previousPathFound == true) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool GraphBuilder::areChosenRegionsConnected(vector<string> chosenRegCols) {
+	const int MAX_PATH_SIZE = chosenRegCols.size(); /* This is the smallest value that's large enough because each color in chosenRegCols has one path to each color, including itself, to test. */
+	vector<AdjacentRegionsTriplet> arts = std::get<2>(this->mapData);
+
+	return areChosenRegionsConnected(arts, chosenRegCols, MAX_PATH_SIZE);
+}
+
+bool GraphBuilder::areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE) {
+
+	// throw invalid chosenRegCols size or something like that // TODO
+
+	for (int i = 0; i < chosenRegCols.size(); i++) {
+		for (int j = 0; j < chosenRegCols.size(); j++) {
+			if (!hasPath(chosenRegCols.at(i), chosenRegCols.at(j), getChosenAdjacentRegionsTriplets(arts, chosenRegCols), 0, MAX_PATH_SIZE)) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 
 /* ----------------------------------------------------------------------------------------------------------
