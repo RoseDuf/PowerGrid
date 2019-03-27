@@ -173,7 +173,7 @@ int main() {
     }
     /*else {
         throw no map exception or something like that
-    }*/
+    }//*/
     
     MapData mapData = PowerGridIO::getMapData(mapFilename);
     std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
@@ -183,7 +183,7 @@ int main() {
     chosenRegCols.push_back("GREEN");
     chosenRegCols.push_back("PURPLE");
     //chosenRegCols.push_back("YELLOW");//
-    //chosenRegCols.push_back("BLUE");*/
+    //chosenRegCols.push_back("BLUE");//*/
     
         // Select the number of players in the game
     std::cout << "How many players? (2-6):";
@@ -198,10 +198,15 @@ int main() {
     }
     
     int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
-    GraphBuilder graph( amountOfVertices, mapFilename );
+    GraphBuilder graph = GraphBuilder( amountOfVertices, mapFilename );
+	graph.buildMap(); //DON'T FORGET TO BUILD MAP !!
+
     std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
     std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
-    
+	std::cout << "is connected graph?:" << graph.test_MissingEdges() << std::endl;
+	std::cout << "does map have duplicate edges?:" << graph.test_Duplicate_Edges() << std::endl;
+
+	/*
     static vector<GameCard*> deck;
     
     makingDeck(deck);
@@ -218,7 +223,7 @@ int main() {
      test->toString();
     delete test;
     test= NULL;
-    
+    //*/
     return 0;
 }
 
