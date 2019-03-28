@@ -298,7 +298,7 @@ int main() {
 	DeterminePlayerOrder(players, phase);
 	phase = 2;
 
-	while (gameIsNotFinished) {
+	//while (gameIsNotFinished) {
 
 		//if (phase == 2) {
 
@@ -558,11 +558,11 @@ int main() {
 					}	//end of else statement regarding player having enough electrons
 
 				}	//end of else statement saying you have a powerplant therefore can buy resource
-			breakhere:continue;
+			
 
 			}	// while Still Buying Loop
 
-
+		breakhere:continue;
 		}		//end of Player for loop
 
 		//phase = 3;
@@ -577,7 +577,7 @@ int main() {
 		for (int i = 0; i < players.size(); i++) {
 
 
-			cout << "Your turn " + players[i]->getName() + "!" << endl;
+			cout << "Your turn " << players[i]->getName() << "!" << endl;
 			//for (int i = 0; i < playerOrder.size(); i++) {
 			//cout << "Your turn " + playerOrder[i]->getName() << endl;
 
@@ -657,9 +657,9 @@ int main() {
 
 					}	//emptyCity while loop
 
-					cout << "You have selected " + chosenCity + ". This city is available to buy." << endl;
+					cout << "You have selected " << chosenCity << ". This city is available to buy." << endl;
 					cout << "\nCalculating price..." << endl;
-					cout << chosenCity + " costs " << cityPrice + " Elektros." << endl;
+					cout << chosenCity << " costs " << cityPrice << " Elektros." << endl;
 
 
 					//check players wallet based on city prices, if they have less than city price
@@ -668,7 +668,7 @@ int main() {
 						stillBuilding = false;
 					}
 					else {
-						cout << "You bought a house in " + chosenCity << endl;
+						cout << "You bought a house in " << chosenCity << endl;
 						graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//**this function adds city to player's city vector?
 					}
 
@@ -677,7 +677,7 @@ int main() {
 				else {
 					// prompt player for city name
 					int numCities = checkCity.size();
-					cout << "You have" + numCities << "cities so far! Choose a city to build on that is adjacent to one of your cities: " << endl;
+					cout << "You have" << numCities << "cities so far! Choose a city to build on that is adjacent to one of your cities: " << endl;
 					cin >> chosenCity;
 
 
@@ -745,7 +745,7 @@ int main() {
 					//returns bool to see if chosen city is adjacent to the cities in checkCity
 					for (int i = 0; i < numCities; i++) {
 						if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
-							cout << chosenCity + " is adjacent to your city " + checkCity[i].getCityName() << "." << endl;
+							cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
 							break;
 						}
 						else {
@@ -758,7 +758,7 @@ int main() {
 						cin >> chosenCity;
 						for (int i = 0; i < numCities; i++) {
 							if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName()) == true) {
-								cout << chosenCity + " is adjacent to your city " + checkCity[i].getCityName() << "." << endl;
+								cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
 								break;
 							}
 							else {
@@ -788,7 +788,7 @@ int main() {
 					continue;
 				}
 				else {
-					cout << "Your turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
+					cout << "Your turn is over. It is " << players[i + 1]->getName() << "'s turn next!" << endl;
 					stillBuilding = false;
 				}
 
@@ -797,11 +797,11 @@ int main() {
 
 		}	//player loop
 
-	//}	// phase 3 if conditional statement
+			//}	// phase 3 if conditional statement
 
-		gameIsNotFinished = false;
+		//gameIsNotFinished = false;
 
-	}	//GameisNotFinished while loop
+	//}	//GameisNotFinished while loop
 
 	deleteDeck(deck);
 
