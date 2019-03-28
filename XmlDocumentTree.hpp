@@ -12,6 +12,7 @@ class XmlDocumentTree {
         XmlDocumentTree(XmlDocumentNode* rootNode);
         XmlDocumentTree(std::string rootElementName, std::string rootElementValue);
         XmlDocumentNode* getRootNode();
+        ~XmlDocumentTree();
 };
 
 #endif

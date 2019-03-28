@@ -19,6 +19,7 @@ class XmlDocumentNode {
         std::list<XmlDocumentNode*> getChildNodes();
         void addChildNode(XmlDocumentNode* childNodeToAdd);
         void addChildNodes(std::list<XmlDocumentNode*> childNodesToAdd);
+        ~XmlDocumentNode();
 };
 
 #endif

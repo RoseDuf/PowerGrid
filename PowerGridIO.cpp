@@ -314,6 +314,7 @@ namespace PowerGridIO {
         MapData generateMapData(XmlDocumentTree* tree) {
          
             MapData generatedMapData = generateMapData( tree->getRootNode() );
+            delete tree;
             return generatedMapData;
         }
         
@@ -346,6 +347,7 @@ namespace PowerGridIO {
         GameState generateGameState(XmlDocumentTree* tree) {
             
             GameState generatedGameState = generateGameState( tree->getRootNode() );
+            delete tree;
             return generatedGameState;
         }
     }
