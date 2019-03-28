@@ -38,3 +38,9 @@ void XmlDocumentNode::addChildNodes(std::list<XmlDocumentNode*> childNodesToAdd)
         childNodesToAdd.pop_front();
     }
 }
+
+XmlDocumentNode::~XmlDocumentNode() {
+    for(auto it = childNodes.begin(); it != childNodes.end(); it++) {
+        delete *it;
+    }
+}
