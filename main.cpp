@@ -157,21 +157,28 @@ static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 
 		cout << "Initial player order: " << endl;
 		cout << endl;
-
 		for (int i = 0; i < players.size(); i++) {
-			players.at(i)->setplayerOrder(playerOrder[i]);
+			players.at(i)->setplayerOrder(i);
 		}
+
+		/*for (int i = 0; i < players.size(); i++) {
+			players.at(i)->setplayerOrder(playerOrder[i]);
+		}*/
 		for (int i = 0; i < players.size(); i++) {
 			cout << "Player: " << players.at(i)->getName() << endl;
 		}
 		cout << endl;
 	}
-	else if (phase == 2 || phase  == 3) {
+	else if (phase == 2) {
 		cout << "Current player order:" << endl;
 		cout << endl;
 
 	//sort the order of the vertex
 	std::sort(players.begin(), players.end(), Player::reverseOrder);
+
+	for (int i = 0; i < players.size(); i++) {
+		players.at(i)->setplayerOrder(i);
+	}
 	for (int i = 0; i < players.size(); i++) {
 		cout << "Player: " << players.at(i)->getName() << endl;
 	}
