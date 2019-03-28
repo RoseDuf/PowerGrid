@@ -11,6 +11,7 @@ using namespace std;
 
 Game::Game() {
 	cout << "Welcome to PowerGrid!" << endl;
+	cout << endl;
 }
 
 Game::Game(vector <Player*> players)
@@ -35,26 +36,28 @@ void Game::dashboard(Player* p) {
 	//Display list of player's powerplants
 	//***need to reformat powerplant toString so that it looks better in dashboard***
 	//NEEDS DEBUGGING
-	vector <PowerPlant> show{ NULL };
-	show = p->getPowerPlant();
+	vector <PowerPlant> show = p->getPowerPlant();
+
 	for (int i = 0; i < show.size(); i++) {
 		show[i].toString();
 		cout << endl;
 	}
-	cout << "***********************************************************" << endl;
-
+	
+	cout << endl;
 	cout << "Cities:\n" << endl;
-	cout << "***********************************************************" << endl;
-	//*** add cities later
 
+	vector<City> showCities;
+	showCities = p->getCitiesOwned();
+	for (int i = 0; i < showCities.size(); i++) {
+		showCities[i].getCityName();
+		cout << endl;
+	}
 
-	cout << "Houses:\n" << endl;
-	cout << "***********************************************************" << endl;
-	//*** add houses later
 
 	cout << "Elektros:\n" << endl;
 	p->walletToString();
-	cout << "***********************************************************" << endl;
+	cout << endl;
+	
 	cout << "Resources:\n" << endl;
 	
 	//cycle through player's powerplant vectors to see which resources they own

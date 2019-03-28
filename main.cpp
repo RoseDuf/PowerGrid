@@ -169,7 +169,7 @@ static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 		}
 		cout << endl;
 	}
-	else if (phase == 2) {
+	else if (phase == 2 || phase == 3) {
 		cout << "Current player order:" << endl;
 		cout << endl;
 
@@ -232,6 +232,7 @@ int main() {
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "germany.map");
 	graph.buildMap();
+	Game g1 = Game();
 
 	//TASK 2 (Rose)
 	//============================== Assignment 2, task 2, ================================================
@@ -268,6 +269,22 @@ int main() {
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
 
+	//set sample powerplants to players
+	PowerPlant *p1 = new PowerPlant(3, 1, 0, 2, 0, 0);
+	PowerPlant *p29 = new PowerPlant(31, 6, 3, 0, 0, 0);
+	PowerPlant *p35 = new PowerPlant(37, 4, 0, 0, 0, 0);
+	PowerPlant *p36 = new PowerPlant(38, 7, 0, 0, 3, 0);
+	PowerPlant *p37 = new PowerPlant(39, 6, 0, 0, 0, 1);
+	PowerPlant *p38 = new PowerPlant(40, 6, 0, 2, 0, 0);
+	PowerPlant *p39 = new PowerPlant(42, 6, 2, 0, 0, 0);
+
+	players[0]->addPowerPlant(*p1);
+	players[1]->addPowerPlant(*p29);
+	players[1]->addPowerPlant(*p35);
+	players[2]->addPowerPlant(*p36);
+
+	
+
 	//Game loop !!!!
 	bool gameIsNotFinished = true;
 	int phase = 2;
@@ -293,6 +310,9 @@ int main() {
 
 
 				cout << "Your turn " + players[i]->getName() + "!" << endl;
+				cout << "\nEnter any character to see your dashboard..." << endl;
+				cin >> pause;
+				g1.dashboard(players[i]);
 				//for (int i = 0; i < playerOrder.size(); i++) {
 					//cout << "Your turn " + playerOrder[i]->getName() << endl;
 
@@ -315,11 +335,12 @@ int main() {
 					if (temp.size() == 0) {
 						cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
 						cout << "Your turn is over." << endl;
+						cout << endl;
 						stillBuying = false;
 					}
 					else {
 						bool isMatch = false;
-						string resource = NULL;
+						string resource;
 
 						while (isMatch != true) {
 
@@ -451,7 +472,7 @@ int main() {
 
 							//while loop to check if match
 
-							char yesno = NULL;
+							char yesno;
 							cout << "Would you like to buy another resource? (Y/N)" << endl;
 							cin >> yesno;
 
@@ -511,7 +532,7 @@ int main() {
 							//*TO-DO
 
 						vector<City> checkCity = players[i]->getCitiesOwned();
-						string chosenCity = NULL;
+						string chosenCity;
 
 						if (checkCity.size() == 0) {
 							cout << "You have 0 cities so far! Choose a city anywhere on the available map: " << endl;
@@ -697,7 +718,7 @@ int main() {
 
 
 
-						char yesno = NULL;
+						char yesno;
 						cout << "Would you like to buy another City? (Y/N)" << endl;
 						cin >> yesno;
 
