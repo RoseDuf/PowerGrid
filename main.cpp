@@ -321,6 +321,9 @@ int main() {
 
 				while (stillBuying) {
 
+					vector <PowerPlant> powerPlantsTEMP;
+					powerPlantsTEMP = players[i]->getPowerPlant();
+
 
 					//display Resource Market
 					market.display();
@@ -329,7 +332,7 @@ int main() {
 					//make this better in future by creating an exception that catches this...
 					//*** I THINK TEMP NEEDS TO BE POINTER SO THAT IT CAN STOCKRT THE POWERPLANTS OWNED BY PLAYER
 					
-					if (players[i]->getPowerPlant().size() == 0) {
+					if (powerPlantsTEMP.size() == 0) {
 						cout << "Sorry you do not own a PowerPlant and therefore cannot buy resources." << endl;
 						cout << "Your turn is over." << endl;
 						cout << endl;
@@ -349,29 +352,28 @@ int main() {
 							while (notValidSource) {
 								if (resource == "coal") {
 									notValidSource = false;
+									break;
 								}
 								else if (resource == "oil") {
 									notValidSource = false;
+									break;
 								}
 								else if (resource == "garbage") {
 									notValidSource = false;
+									break;
 								}
 								else if (resource == "uranium") {
 									notValidSource = false;
+									break;
 								}
 								else {
 									notValidSource = true;
 									cout << "That is an invalid resource. Please choose another resource: " << endl;
 									cin >> resource;
 								}
-
-
 							}
 
-							/*while (resource != "coal" || resource != "oil" || resource != "garbage" || resource != "uranium") {
-								cout << "That input is not valid. Which resources would you like to buy?" << endl;
-								cin >> resource;
-							}*/
+							
 
 							cout << "You chose " << resource << "." << endl;
 							cout << endl;
@@ -379,13 +381,14 @@ int main() {
 							bool inPowerPlant = false;
 
 							//check if resources match ones on Player's powerplants
-							for (int x = 0; i < players[i]->getPowerPlant().size(); x++) {
-								inPowerPlant = players[i]->getPowerPlant()[x].checkIfNeeded(resource);
+							for (int x = 0; x < powerPlantsTEMP.size(); x++) {
+								inPowerPlant = powerPlantsTEMP[x].checkIfNeeded(resource);
 								if (inPowerPlant) {
 									isMatch = true;
 									break;
 								}
 							}
+
 							//stockRT() instead it also checks space available in powerplant*****
 							char yn;
 							if (inPowerPlant == false) {
@@ -471,8 +474,8 @@ int main() {
 							cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
 
 							//display Player's PowerPlants
-							for (int i = 0; i < players[i]->getPowerPlant().size(); i++) {
-								players[i]->getPowerPlant()[i].toString();
+							for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
+								powerPlantsTEMP[z].toString();
 							}
 
 							//prompt player to select which powerplant to add resource to
@@ -483,8 +486,8 @@ int main() {
 
 							//check if a valid card number
 							int y = 0;
-							for (y = 0; i < players[i]->getPowerPlant().size(); y++) {
-								if (selectPlant == players[i]->getPowerPlant()[y].getCardNumber()) {
+							for (y = 0; y < players[i]->getPowerPlant().size(); y++) {
+								if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
 									notValid = false;
 									break;
 								}
@@ -494,13 +497,13 @@ int main() {
 							}
 
 							while (notValid) {
-								cout << "Sorry that is not the card number of a PowerPlant you own. Try another card number: " << endl;
+								cout << "Sorry that is not the card number of a PowerPlant you own. Try another card number. " << endl;
 								cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
 								cin >> selectPlant;
 
 								//check if a valid card number ****Might cause error****
-								for (y = 0; i < players[i]->getPowerPlant().size(); y++) {
-									if (selectPlant == players[i]->getPowerPlant()[y].getCardNumber()) {
+								for (y = 0; y < players[i]->getPowerPlant().size(); y++) {
+									if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
 										notValid = false;
 										break;
 									}
@@ -512,9 +515,9 @@ int main() {
 							}
 
 
-							//add resource to player's appropriate powerplant
-							players[i]->getPowerPlant()[y].stockRT(resource, 1);
-							cout << "Resource has been added to the PowerPlant " << endl;
+							//add resource to player's appropriate powerplant **** THIS GONNA ERROR***
+							powerPlantsTEMP[y].stockRT(resource, 1);
+							cout << "Resource has been added to the PowerPlant... " << endl;
 
 							//remove resource from Market
 							market.rtPurchase(resource, 1);
@@ -535,7 +538,9 @@ int main() {
 							}
 							else {
 								cout << "Your turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
+								cout << endl;
 								stillBuying = false;
+								goto break_me_here;
 							}
 
 
