@@ -107,7 +107,7 @@ public:
 	//void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(string city1, string city2);
 	bool test_SizeOfMap_and_FileMap();
-	bool test_Duplicate_Edges();
+	bool hasDuplicateEdge();
 	bool test_MissingEdges();
 	void buildMap();
 

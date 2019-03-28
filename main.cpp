@@ -199,7 +199,7 @@ int main() {
     
     int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
     GraphBuilder graph = GraphBuilder( amountOfVertices, mapFilename );
-	graph.buildMap(); //DON'T FORGET TO BUILD MAP !!
+	//graph.buildMap(); //DON'T FORGET TO BUILD MAP !! // I PUT IT IN THE CONSTRUCTOR NOW.
 
     std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
     std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;

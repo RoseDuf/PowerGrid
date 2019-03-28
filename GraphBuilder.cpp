@@ -1,4 +1,4 @@
-﻿
+
 #include<iostream>
 #include<cstdlib>
 #include <utility>      // std::pair, std::get
@@ -32,6 +32,7 @@ GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 								  gameState = PowerGridIO::loadGame(file);
 								  graph = createGraph(totalVertices, gameState.getCities());
 								  edges = gameState.getEdgeTriplets();*/
+    buildMap();
 }
 
 GraphBuilder::~GraphBuilder() {
@@ -192,7 +193,7 @@ void GraphBuilder::removeRegions(string color) {
 
 }
 
-//might not need this function... Leaving it commented out just in case. Who knows �\_("/)_/�
+//might not need this function... Leaving it commented out just in case. Who knows ?\_("/)_/?
 City GraphBuilder::findCityByName(string name) {
 	City city;
 	for (int i = 0; i < totalVertices; i++) {
@@ -439,7 +440,7 @@ bool GraphBuilder::test_SizeOfMap_and_FileMap() {
 	}
 }
 
-bool GraphBuilder::test_Duplicate_Edges() {
+bool GraphBuilder::hasDuplicateEdge() {
 	bool check = false;
 
 	for (int i = 0; i < connected.size(); i++) {
@@ -457,11 +458,11 @@ bool GraphBuilder::test_Duplicate_Edges() {
 
 	if (check == true) {
 		cout << "No duplicate edges" << endl;
-		return true;
+		return false; // has no duplicate edge(s)
 	}
 	else {
 		cout << "Duplicate Edge exists!!! " << endl;
-		return false;
+		return true; // has at least one duplicate edge
 	}
 }
 
