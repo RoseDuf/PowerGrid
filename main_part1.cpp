@@ -57,12 +57,20 @@ int main() {
     GraphBuilder graph = GraphBuilder( amountOfVertices, mapFilename );
 
     std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+    std::cout << std::endl;
     std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
+    std::cout << std::endl;
 	std::cout << "does map have duplicate edge(s)?:" << graph.hasDuplicateEdge() << std::endl;
+    std::cout << std::endl;
     std::cout << "does map have missing edge(s)?:" << graph.hasMissingEdge() << std::endl;
     
+    std::cout << std::endl;
+    
     if( graph.hasDuplicateEdge() || graph.hasMissingEdge() ) {
-        std::cout << "The graph is invalid." << std::endl;
+        std::cout << "The map is invalid." << std::endl;
+    }
+    else {
+        std::cout << "The map is valid." << std::endl;
     }
     
     return 0;
