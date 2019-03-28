@@ -61,5 +61,9 @@ int main() {
 	std::cout << "does map have duplicate edge(s)?:" << graph.hasDuplicateEdge() << std::endl;
     std::cout << "does map have missing edge(s)?:" << graph.hasMissingEdge() << std::endl;
     
+    if( graph.hasDuplicateEdge() || graph.hasMissingEdge() ) {
+        std::cout << "The graph is invalid." << std::endl;
+    }
+    
     return 0;
 }
