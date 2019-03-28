@@ -282,6 +282,7 @@ int main() {
 	players[1]->addPowerPlant(*p29);
 	players[1]->addPowerPlant(*p35);
 	players[2]->addPowerPlant(*p36);
+	players[3]->addPowerPlant(*p37);
 
 	
 
@@ -347,10 +348,34 @@ int main() {
 							cout << "Which resources would you like to buy?" << endl;
 							cin >> resource;
 
-							while (resource != "coal" || resource != "oil" || resource != "garbage" || resource != "uranium") {
+							bool notValidSource = true;
+
+							while (notValidSource) {
+								if (resource == "coal") {
+									notValidSource = false;
+								}
+								else if (resource == "oil") {
+									notValidSource = false;
+								}
+								else if (resource == "garbage") {
+									notValidSource = false;
+								}
+								else if (resource == "uranium") {
+									notValidSource = false;
+								}
+								else {
+									notValidSource = true;
+									cout << "That is an invalid resource. Please choose another resource: " << endl;
+									cin >> resource;
+								}
+
+
+							}
+
+							/*while (resource != "coal" || resource != "oil" || resource != "garbage" || resource != "uranium") {
 								cout << "That input is not valid. Which resources would you like to buy?" << endl;
 								cin >> resource;
-							}
+							}*/
 
 							cout << "You chose " << resource << endl;
 

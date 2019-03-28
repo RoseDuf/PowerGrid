@@ -31,34 +31,38 @@ void Game::dashboard(Player* p) {
 	cout << "\n***********************************************************" << endl;
 	cout << p->getName() + "'s Dashboard: " << endl;
 	cout << "***********************************************************" << endl;
-	cout << "PowerPlants:" << endl;
+	cout << "PowerPlants:";
 	
 	//Display list of player's powerplants
 	//***need to reformat powerplant toString so that it looks better in dashboard***
 	//NEEDS DEBUGGING
-	vector <PowerPlant> show = p->getPowerPlant();
+	if (p->getPowerPlant().size() == 0) {
+		cout << "You have 0 powerplants." << endl;
+	}
 
-	for (int i = 0; i < show.size(); i++) {
-		show[i].toString();
+	for (int i = 0; i < p->getPowerPlant().size(); i++) {
+		p->getPowerPlant()[i].toString();
 		cout << endl;
 	}
 	
 	cout << endl;
 	cout << "Cities:\n" << endl;
 
-	vector<City> showCities;
-	showCities = p->getCitiesOwned();
-	for (int i = 0; i < showCities.size(); i++) {
-		showCities[i].getCityName();
+	if (p->getCitiesOwned().size() == 0) {
+		cout << "You have 0 cities." << endl;
+		cout << endl;
+	}
+	for (int i = 0; i < p->getCitiesOwned().size(); i++) {
+		p->getCitiesOwned()[i].getCityName();
 		cout << endl;
 	}
 
 
-	cout << "Elektros:\n" << endl;
+	cout << "\nElektros:\n" << endl;
 	p->walletToString();
 	cout << endl;
 	
-	cout << "Resources:\n" << endl;
+	cout << "\nResources:\n" << endl;
 	
 	//cycle through player's powerplant vectors to see which resources they own
 
@@ -67,17 +71,17 @@ void Game::dashboard(Player* p) {
 	int player_garbage = 0;
 	int player_uranium = 0;
 
-	for (int i = 0; i < show.size(); i++) {
-		player_coal += show[i].getRTStocked("coal");
-		player_oil += show[i].getRTStocked("oil");
-		player_garbage += show[i].getRTStocked("garbage");
-		player_uranium += show[i].getRTStocked("uranium");
+	for (int i = 0; i < p->getPowerPlant().size(); i++) {
+		player_coal += p->getPowerPlant()[i].getRTStocked("coal");
+		player_oil += p->getPowerPlant()[i].getRTStocked("oil");
+		player_garbage += p->getPowerPlant()[i].getRTStocked("garbage");
+		player_uranium += p->getPowerPlant()[i].getRTStocked("uranium");
 	}
 
-	cout << "Amount of Coal Owned: " + player_coal << endl;
-	cout << "Amount of Oil Owned: " + player_oil << endl;
-	cout << "Amount of Garbage Owned: " + player_garbage << endl;
-	cout << "Amount of Uranium Owned: " + player_uranium << endl;
+	cout << "Amount of Coal Owned: " << player_coal << endl;
+	cout << "Amount of Oil Owned: " << player_oil << endl;
+	cout << "Amount of Garbage Owned: " << player_garbage << endl;
+	cout << "Amount of Uranium Owned: " << player_uranium << endl;
 	cout << "***********************************************************" << endl;
 
 
