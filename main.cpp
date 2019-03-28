@@ -701,7 +701,7 @@ int main() {
 						graph.SearchCity(chosenCity);
 						invalidCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//if validCity is true will the while loop break immediately?
 						if (!invalidCity) {
-							break;
+							goto breakout;
 						}
 						else {
 							cout << "This city is not in an available region of the map. Please choose another city: " << endl;
@@ -709,7 +709,7 @@ int main() {
 							invalidCity = true;
 						}
 					}		//validCity while loop
-
+				breakout: continue;
 							//check if the city is already filled with other players
 					bool emptyCity = false;
 					int cityPrice = 0;
@@ -721,30 +721,30 @@ int main() {
 						case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
 							cout << "Sorry, another player already has a building on this city. Please choose another city: ";
 							cin >> chosenCity;
-							validCity = false;
+							invalidCity = true;
 						}
 								else {
-									validCity = true;
+									invalidCity = false;
 								}
 								cityPrice = 10;
 								break;
 						case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
 							cout << "Sorry, another player already has a building on this city. Please choose another city: ";
 							cin >> chosenCity;
-							validCity = false;
+							invalidCity = true;
 						}
 								 else {
-									 validCity = true;
+									 invalidCity = false;
 								 }
 								 cityPrice = 15;
 								 break;
 						case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
 							cout << "Sorry, another player already has a building on this city. Please choose another city: ";
 							cin >> chosenCity;
-							validCity = false;
+							invalidCity = true;
 						}
 								else {
-									validCity = true;
+									invalidCity = false;
 								}
 								cityPrice = 20;
 								break;
