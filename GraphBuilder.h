@@ -108,7 +108,7 @@ public:
 	int CostFromOneCityToAnother(string city1, string city2);
 	bool test_SizeOfMap_and_FileMap();
 	bool hasDuplicateEdge();
-	bool test_MissingEdges();
+	bool hasMissingEdge();
 	void buildMap();
 
 	bool eachRegionHasSevenCities();

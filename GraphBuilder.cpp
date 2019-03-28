@@ -466,7 +466,7 @@ bool GraphBuilder::hasDuplicateEdge() {
 	}
 }
 
-bool GraphBuilder::test_MissingEdges() {
+bool GraphBuilder::hasMissingEdge() {
 	bool check = true;
 
 	for (int i = 0; i < connected.size(); i++) {
@@ -481,11 +481,11 @@ bool GraphBuilder::test_MissingEdges() {
 
 	if (check == true) {
 		cout << "No disconnected cities." << endl;
-		return true;
+		return false; // does not have any missing edges
 	}
 	else {
 		cout << "Disconnected Edge Exists!" << endl;
-		return false;
+		return true; // has at least one missing edge
 	}
 }
 
