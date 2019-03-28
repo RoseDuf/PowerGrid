@@ -1,4 +1,4 @@
-
+ï»¿ï»¿
 #include<iostream>
 #include<cstdlib>
 #include <utility>      // std::pair, std::get
@@ -132,22 +132,23 @@ void GraphBuilder::printGraph() {
 
 		AdjListNode * root = graph->arr[i].head;
 
-		if (root->city.isAvailable())
-			cout << "City " << i << " is available." << endl;
-		else
-			cout << "City " << i << " is NOT available." << endl;
-
-		//loop over each node in list
-		while (root != NULL) {
-			cout << i << " to " << root->city.getCityNumber() << " costs: " << root->cost;
+		if (root != NULL) {
 			if (root->city.isAvailable())
-				cout << " /// City: " << root->city.getCityNumber() << " is available." << endl;
-			else
-				cout << " /// City: " << root->city.getCityNumber() << " is NOT available." << endl;
+				cout << "City " << i << " is available." << endl;
+			else if (!root->city.isAvailable())
+				cout << "City " << i << " is NOT available." << endl;
 
-			root = root->next;
+			//loop over each node in list
+			while (root != NULL) {
+				cout << i << " to " << root->city.getCityNumber() << " costs: " << root->cost;
+				if (root->city.isAvailable())
+					cout << " /// City: " << root->city.getCityNumber() << " is available." << endl;
+				else
+					cout << " /// City: " << root->city.getCityNumber() << " is NOT available." << endl;
+
+				root = root->next;
+			}
 		}
-
 		cout << endl;
 
 		//delete every root pointer created
@@ -157,6 +158,7 @@ void GraphBuilder::printGraph() {
 
 void GraphBuilder::printAvailableCities() {
 	//loop over each adjacent list
+
 	for (int i = 0; i<graph->v; i++) {
 		if (graph->arr[i].city.isAvailable())
 			cout << graph->arr[i].city.getCityName() << endl;
@@ -190,15 +192,15 @@ void GraphBuilder::removeRegions(string color) {
 
 }
 
-//might not need this function... Leaving it commented out just in case. Who knows ¯\_("/)_/¯
+//might not need this function... Leaving it commented out just in case. Who knows ï¿½\_("/)_/ï¿½
 City GraphBuilder::findCityByName(string name) {
-City city;
-for (int i = 0; i < totalVertices; i++) {
-if (graph->arr[i].city.getCityName() == name) {
-return graph->arr[i].city;
-}
-}
-cout << "No city of this name found in the map..." << endl;
+	City city;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == name) {
+			return graph->arr[i].city;
+		}
+	}
+	cout << "No city of this name found in the map..." << endl;
 }
 
 //function to add players to "cities"(aka Nodes) in the physical map
@@ -288,12 +290,14 @@ bool GraphBuilder::IsCityAdjacentToOtherCity(string city1, string city2) {
 	bool check = false;
 
 	while (check == false) {
+		if (root == NULL) {
+			check = false;
+			break;
+		}
 		if (root->city.getCityName() == city2)
 			check = true;
 		else
 			root = root->next;
-		if (root == NULL)
-			check = false;
 	}
 
 	//use smart pointers
@@ -327,12 +331,14 @@ int GraphBuilder::CostFromOneCityToAnother(string city1, string city2) {
 	}
 
 	while (check == false) {
+		if (root == NULL) {
+			check = false;
+			break;
+		}
 		if (root->city.getCityName() == city2)
 			check = true;
 		else
 			root = root->next;
-		if (root == NULL)
-			check = false;
 	}
 
 	if (check == true) {
@@ -434,13 +440,14 @@ bool GraphBuilder::test_SizeOfMap_and_FileMap() {
 }
 
 bool GraphBuilder::test_Duplicate_Edges() {
-	bool check;
+	bool check = false;
 
 	for (int i = 0; i < connected.size(); i++) {
 		std::sort(connected[i].begin(), connected[i].end());
 		for (int j = 1; j < connected[i].size(); j++) {
 			if (connected[i][j - 1] == connected[i][j]) {
 				check = false;
+				break;
 			}
 			else {
 				check = true;
@@ -459,11 +466,12 @@ bool GraphBuilder::test_Duplicate_Edges() {
 }
 
 bool GraphBuilder::test_MissingEdges() {
-	bool check;
+	bool check = true;
 
 	for (int i = 0; i < connected.size(); i++) {
 		if (connected[i].size() == 0) {
 			check = false;
+			break;
 		}
 		else if (connected[i].size() > 0) {
 			check = true;
@@ -588,6 +596,22 @@ bool GraphBuilder::areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts
 	return true;
 }
 
+bool GraphBuilder::eachRegionHasSevenCities() {
+	int counter = 0;
+
+	for (int i = 0; i < cities.size(); i++) {
+		for (int j = 0; i < cities.size(); j++) {
+			cities.at(j).getCityColor();
+			counter++;
+		}
+		if (counter != 7) {
+			return false;
+		}
+		counter = 0;
+	}
+
+	return true;
+}
 
 /* ----------------------------------------------------------------------------------------------------------
 Dijkstra Search algorithm source code taken and modified from:
@@ -784,6 +808,3 @@ dist = NULL;
 }
 */
 // ----------------------------------------------------------------------------------------------------------
-
-
-
