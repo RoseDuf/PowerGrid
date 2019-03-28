@@ -64,7 +64,7 @@ public:
 	vector<City> getCitiesOwned();
 	void setCitiesOwned(vector<City> c);
 
-	int getHouses();
+	int getRemainingHouses();
 	void setHouses(int houses);
 
 	int getplayerOrder();

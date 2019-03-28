@@ -17,7 +17,7 @@
  int main() {
      
 	 Player * p1 = new Player("Nicole", "Red");
-	 cout << p1->getName() << " has " << p1->getHouses() << " houses left." << endl;
+	 cout << p1->getName() << " has " << p1->getRemainingHouses() << " houses left." << endl;
 	 cout << endl;
 
      std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
@@ -89,7 +89,7 @@
 	 cout << endl;
 	 cout << "After buying a city..." << endl;
 	 graph.add_CityToPlayer_and_PlayerToMap(p1, "Berlin");
-	 cout << p1->getName() << " has " << p1->getHouses() << " houses left." << endl;
+	 cout << p1->getName() << " has " << p1->getRemainingHouses() << " houses left." << endl;
 
 	 delete p1;
 	 p1 = NULL;

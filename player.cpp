@@ -102,7 +102,7 @@ void Player::setplayerOrder(int t) {
 	playerOrder = t;
 }
 
-int Player::getHouses() {
+int Player::getRemainingHouses() {
 	return houses - citiesOwned.size();
 }
 void Player::setHouses(int h) {
