@@ -18,7 +18,8 @@ private:
     Elektro wallet;
 	vector<City> citiesOwned;
 
-
+    int numCitiesOwned=0;
+    int numPPOwned=0;
 public:
     
 	Player();
@@ -34,7 +35,8 @@ public:
 	string getName();
 	string getColor();
 	vector<PowerPlant> getPowerPlant();
-
+    int getNumCitiesOwned();
+    int getNumPPOwned();
 	void addCity(City city);
    // void powerCity(City city, PowerPlant powerpant, string type, Market market*);
 	vector<City> getCitiesOwned();

@@ -116,6 +116,7 @@ vector<ResourceToken> Player::getResources() {
 void Player::addCity(City city) {
 	cout << "hiiiiiiiiii" << endl;
 	citiesOwned.push_back(city);
+    numCitiesOwned++;
 	cout << citiesOwned.size() << endl;
 }
 
@@ -125,6 +126,15 @@ void Player::addPowerPlant(PowerPlant p) {
 	powerPlants.push_back(p);
 }
 
+int Player::getNumCitiesOwned()
+{
+    return numCitiesOwned;
+}
+
+int Player::getNumPPOwned()
+{
+    return numPPOwned;
+}
 vector<City> Player::getCitiesOwned() {
 	return citiesOwned;
 }

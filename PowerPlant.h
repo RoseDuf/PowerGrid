@@ -42,8 +42,10 @@ public:
     bool checkIfEnoughStock(string type);
     virtual void toString() override;
 
+    int get_numCitiesPowered_ACTIVE();
 private:
     
+    int numCitiesPowered_ACTIVE = 0;
 	int cardNumber;
 	int numCitiesPowered;
     

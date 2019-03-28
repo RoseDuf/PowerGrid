@@ -196,7 +196,7 @@ static int checkProfit(int _num)
     else if(_num==20) return 150;
     return 0;
 }
-
+/*
 static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket, Market &_market, int _step, vector<Player*> &_players)
 {
     cout << "================" << endl;
@@ -219,45 +219,21 @@ static void bureaucracy(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlant
     //placing the cards in ascending order of price
     sortMarket(_powerPlantMarket);
     
-    int numCitiesPowered = 0;
-    //number of type bills
-    int bill1=0;
-    int bill10=0;
-    int bill50=0;
-    //profit the players gets when powering a certain number of cities
-    int profit=0;
-    
-    //each player collects cash according to cities powered
-    for(int i = 0; i < _players.size(); i++)
-    {
-        //***need a method to determine the number of cities powered
-        numCitiesPowered = _players[i]->getCitiesPowered();
-        profit = checkProfit(numCitiesPowered);
-        
-        bill50 = (profit - profit%50)/50;
-        profit-=bill50*50;
-        bill10 = (profit - profit%10)/10;
-        profit-=bill10*10;
-        bill1 = profit;
-        _players[i]->collectElektro(bill1,bill10, bill50);
-    }
     //restock resource market
     _market.restockMarket(_step);
     
     
 }
 
-
+*/
 int main() {
-    
+    /*
     static vector<GameCard*> deck;
     static vector<Player*> players;
     static vector<GameCard*> powerPlantMarket;
     
     
-    Market *market = new Market(players);
-    
-    makingDeck(deck, powerPlantMarket);
+  
     
     //print(powerPlantMarket);
     
@@ -285,5 +261,109 @@ int main() {
     test->powerCity("coal");
     market->addToSupply("coal", 1);
     market->toString();
+    */
+    //========================================TASK 1===================================================
+    
+    //Initiate Graph and Build Map
+    //GraphBuilder graph = GraphBuilder(42, "germany.map");
+    //graph.buildMap();
+    bool bureaucracy = true;
+     vector<Player*> players;
+    Market *market = new Market(players);
+    vector<GameCard*> deck;
+    vector<GameCard*> powerPlantMarket;
+    makingDeck(deck, powerPlantMarket);
+    int numCitiesPowered = 0;
+    //number of type bills
+    int bill1=0;
+    int bill10=0;
+    int bill50=0;
+    //profit the players gets when powering a certain number of cities
+    int profit=0;
+    
+    string choice;
+    int round = 1;
+ 
+        players.push_back(new Player("Nicole", "Red"));
+        players.push_back(new Player("Voldermort", "Green"));
+        players.push_back(new Player("Pikachu", "Blue"));
+        players.push_back(new Player("Smith", "Purple"));
+        /*
+        graph.add_CityToPlayer_and_PlayerToMap(players[0], "Berlin");
+        graph.add_CityToPlayer_and_PlayerToMap(players[0], "Frankfurt-O");
+        graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
+        graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
+        graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
+        graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
+         */
+      
+    cout << "================" << endl;
+    cout << "BUREAYCRACY" << endl;
+    cout << "================" << endl;
+    
+       // DeterminePlayerOrder(players, round);
+    
+        for (int i = 0; i < players.size(); i++) {
+            
+           vector<PowerPlant> powerPlantsTEMP;
+            cout << "Your turn " + players[i]->getName() + "!" << endl;
+          
+            cout << "You own  " << players[i]->getNumCitiesOwned() << " cities." << endl;
+             cout << "You own  " << players[i]->getNumPPOwned() << " power plants." << endl;
+            powerPlantsTEMP =players[i]->getPowerPlant();
+            
+            for(int i = 0 ; i < players[i]->getPowerPlant().size(); i++ )
+            {
+                powerPlantsTEMP[i].toString();
+                
+                 cout << "Would you like to power " << powerPlantsTEMP[i].getCitiesPowered() << " with this powerplant?" << endl;
+                
+                cin >> choice;
+                if(choice == "yes")
+                {
+                    cout << "With which resource?" << endl;
+                    cin >> choice;
+                    powerPlantsTEMP[i].powerCity(choice);
+                }
+                else
+                {
+                cout << "Next Power Plant: " << endl;
+                    cout  << endl;
+                    cout  << endl;
+                }
+                numCitiesPowered+=powerPlantsTEMP[i].get_numCitiesPowered_ACTIVE();
+            }
+            
+            
+            cout << "By powering " << numCitiesPowered << ", you earn: " << checkProfit(numCitiesPowered) << endl;
+           
+            profit = checkProfit(numCitiesPowered);
+            
+            bill50 = (profit - profit%50)/50;
+            profit-=bill50*50;
+            bill10 = (profit - profit%10)/10;
+            profit-=bill10*10;
+            bill1 = profit;
+            players[i]->collectElektro(bill1,bill10, bill50);
+            
+            cout << "Updated Wallet: " << endl;
+            players[i]->toString();
+        }
+    
+    int step = 1;
+    //removing most expensive Power plant from the market and placing it under the draw deck
+    GameCard *MostExpensive = powerPlantMarket.at(powerPlantMarket.size()-1);
+    powerPlantMarket.pop_back();
+    deck.push_back(MostExpensive);
+    
+    //drawing new card from deck and adding it the power plant market
+    GameCard *newCard = deck.at(0);
+    deck.erase(deck.begin());
+    powerPlantMarket.push_back(newCard);
+    //placing the cards in ascending order of price
+    sortMarket(powerPlantMarket);
+    
+    //restock resource market
+    market->restockMarket(step);
 }
 
