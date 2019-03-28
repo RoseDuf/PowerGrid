@@ -1,3 +1,4 @@
+
 #include "Market.hpp"
 
 
@@ -24,13 +25,16 @@ Market::~Market()
 //called in PowerPlant class when the player powers a city and consume the resources stocked on power plant card
 void Market::addToSupply(string type, int number)
 {
+	cout << "adding to suplply " << type << number << endl;
 	if (type == "coal")
 	{
 		coal_supply += number;
 	}
 	else if (type == "oil")
 	{
+		cout << "oilSupply" << oil_supply << endl;
 		oil_supply += number;
+		cout << "oilSupply" << oil_supply << endl;
 	}
 
 	else if (type == "garbage")
@@ -41,7 +45,7 @@ void Market::addToSupply(string type, int number)
 	{
 		uranium_supply += number;
 	}
-	updateSupply();
+
 }
 
 void Market::updateSupply()
@@ -65,10 +69,10 @@ void Market::updateSupply()
 	//cout << "players oil: "<< playersOil << endl;
 	//cout << "players garbage: "<< playersGarbage << endl;
 	//cout << "players uranium: "<< playersUranium << endl;
-	coal_supply = TOTAL_COAL - coal_market - playersCoal;
-	oil_supply = TOTAL_OIL - oil_market - playersOil;
-	garbage_supply = TOTAL_GARBAGE - garbage_market - playersGarbage;
-	uranium_supply = TOTAL_URANIUM - uranium_market - playersUranium;
+	coal_supply = TOTAL_COAL - coal_market;
+	oil_supply = TOTAL_OIL - oil_market;
+	garbage_supply = TOTAL_GARBAGE - garbage_market;
+	uranium_supply = TOTAL_URANIUM - uranium_market;
 }
 
 void Market::restockMarket(int step)
@@ -81,24 +85,141 @@ void Market::restockMarket(int step)
 		//checks if there are enough tokens left in  the supply "bag" to restock the  market according
 		//to specific step
 		//if not, add what is left from the supply
-		checkSupply("coal", 3) ? coal_market += 3 : coal_market += coal_supply;
-		checkSupply("oil", 2) ? oil_market += 2 : oil_market += oil_supply;
-		checkSupply("garbage", 1) ? garbage_market += 1 : garbage_market += garbage_supply;
-		checkSupply("uranium", 1) ? uranium_market += 1 : uranium_market += uranium_supply;
+		if (checkSupply("coal", 3))
+		{
+			coal_market += 3;
+			coal_supply -= 3;
+		}
+		else
+		{
+			coal_market += coal_supply;
+			coal_supply = 0;
+		}
+
+		if (checkSupply("oil", 2))
+		{
+			oil_market += 2;
+			oil_supply -= 2;
+		}
+		else
+		{
+			oil_market += oil_supply;
+			oil_supply = 0;
+		}
+
+		if (checkSupply("garbage", 1))
+		{
+			garbage_market += 1;
+			garbage_supply -= 1;
+		}
+		else
+		{
+			garbage_market += garbage_supply;
+			garbage_supply = 0;
+		}
+		if (checkSupply("uranium", 1))
+		{
+			uranium_market += 1;
+			uranium_supply -= 1;
+		}
+		else
+		{
+			uranium_market += uranium_supply;
+			uranium_supply = 0;
+		}
+
 	}
 	else if (step == 2)
 	{
-		checkSupply("coal", 4) ? coal_market += 4 : coal_market += coal_supply;
-		checkSupply("oil", 2) ? oil_market += 2 : oil_market += oil_supply;
-		checkSupply("garbage", 2) ? garbage_market += 2 : garbage_market += garbage_supply;
-		checkSupply("uranium", 1) ? uranium_market += 1 : uranium_market += uranium_supply;
+		if (checkSupply("coal", 4))
+		{
+			coal_market += 4;
+			coal_supply -= 4;
+		}
+		else
+		{
+			coal_market += coal_supply;
+			coal_supply = 0;
+		}
+
+		if (checkSupply("oil", 2))
+		{
+			oil_market += 2;
+			oil_supply -= 2;
+		}
+		else
+		{
+			oil_market += oil_supply;
+			oil_supply = 0;
+		}
+
+		if (checkSupply("garbage", 2))
+		{
+			garbage_market += 2;
+			garbage_supply -= 2;
+		}
+		else
+		{
+			garbage_market += garbage_supply;
+			garbage_supply = 0;
+		}
+		if (checkSupply("uranium", 1))
+		{
+			uranium_market += 1;
+			uranium_supply -= 1;
+		}
+		else
+		{
+			uranium_market += uranium_supply;
+			uranium_supply = 0;
+		}
+
 	}
 	else if (step == 3)
 	{
-		checkSupply("coal", 3) ? coal_market += 3 : coal_market += coal_supply;
-		checkSupply("oil", 4) ? oil_market += 4 : oil_market += oil_supply;
-		checkSupply("garbage", 3) ? garbage_market += 3 : garbage_market += garbage_supply;
-		checkSupply("uranium", 1) ? uranium_market += 1 : uranium_market += uranium_supply;
+
+		if (checkSupply("coal", 3))
+		{
+			coal_market += 3;
+			coal_supply -= 3;
+		}
+		else
+		{
+			coal_market += coal_supply;
+			coal_supply = 0;
+		}
+
+		if (checkSupply("oil", 4))
+		{
+			oil_market += 4;
+			oil_supply -= 4;
+		}
+		else
+		{
+			oil_market += oil_supply;
+			oil_supply = 0;
+		}
+
+		if (checkSupply("garbage", 3))
+		{
+			garbage_market += 3;
+			garbage_supply -= 3;
+		}
+		else
+		{
+			garbage_market += garbage_supply;
+			garbage_supply = 0;
+		}
+		if (checkSupply("uranium", 1))
+		{
+			uranium_market += 1;
+			uranium_supply -= 1;
+		}
+		else
+		{
+			uranium_market += uranium_supply;
+			uranium_supply = 0;
+		}
 	}
 	else
 	{
@@ -106,7 +227,7 @@ void Market::restockMarket(int step)
 	}
 
 	//updating the state of supplies to make sure we are working with the right numbers
-	updateSupply();
+	//updateSupply();
 }
 
 int Market::getPrice(string type)
@@ -174,7 +295,7 @@ int Market::getPrice(string type)
 
 bool Market::checkSupply(string type, int number)
 {
-	updateSupply();
+	//updateSupply();
 	if (type == "coal")
 	{
 		return number <= coal_supply ? true : false;
@@ -252,12 +373,12 @@ void Market::rtPurchase(string type, int number)
 	}
 
 	//updating the state of supplies to make sure we are working with the right numbers
-	updateSupply();
+	//updateSupply();
 }
 
 bool Market::checkMarket(string type, int number)
 {
-	updateSupply();
+	//updateSupply();
 	if (type == "coal")
 	{
 		return number <= coal_market ? true : false;

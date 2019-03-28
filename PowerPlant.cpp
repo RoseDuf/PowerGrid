@@ -211,7 +211,7 @@ int PowerPlant::getRTStocked(string type)
 	return 0;
 }
 
-int PowerPlant::getRTNeeded(string type, int num)
+int PowerPlant::getRTNeeded(string type)
 {
 	if (type == "coal")
 	{

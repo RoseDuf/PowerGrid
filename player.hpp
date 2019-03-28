@@ -28,6 +28,8 @@ private:
 	int numCitiesOwned = 0;
 	int numPPOwned = 0;
 
+	int houses;
+
 public:
     
 	Player();
@@ -61,6 +63,9 @@ public:
 	void addCity(City city);
 	vector<City> getCitiesOwned();
 	void setCitiesOwned(vector<City> c);
+
+	int getHouses();
+	void setHouses(int houses);
 
 	int getplayerOrder();
 	void setplayerOrder(int playerOrder);

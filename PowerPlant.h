@@ -27,7 +27,7 @@ public:
 	int getRTStocked(string type);
 
 	//gets the number of a resource type needed
-	int getRTNeeded(string type, int num);
+	int getRTNeeded(string type);
 
 	//consumes the required amount of a certain type of resource to power the city
 	void powerCity(string type);

@@ -18,6 +18,7 @@ Player::Player(string name, string color) {
 	this->name = name;
 	this->color = color;
 	wallet = Elektro(10, 4, 0);
+	houses = 22;
 }
 
 Player::Player(string name, string color, vector<PowerPlant>
@@ -27,6 +28,7 @@ Player::Player(string name, string color, vector<PowerPlant>
 	this->wallet = wallet;
 	this->citiesOwned = cities;
 	this->playerOrder = playerOrder;
+	houses = 22;
 }
 
 Player::~Player() {}
@@ -98,6 +100,13 @@ int Player::getplayerOrder() {
 }
 void Player::setplayerOrder(int t) {
 	playerOrder = t;
+}
+
+int Player::getHouses() {
+	return houses - citiesOwned.size();
+}
+void Player::setHouses(int h) {
+	houses = h;
 }
 
 int Player::getNumCitiesOwned() {
