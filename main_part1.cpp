@@ -21,6 +21,8 @@ int main() {
     std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
     std::cout << "1) Germany map" << std::endl;
     std::cout << "2) USA map" << std::endl;
+    std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
+    std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
     
     int mapChoice;
     
@@ -32,6 +34,12 @@ int main() {
     }
     else if(mapChoice == 2) {
         mapFilename = "usa.map"; // TODO
+    }
+    else if(mapChoice == 3) {
+        mapFilename = "duplicate_edge(s).map";
+    }
+    else if(mapChoice == 4) {
+        mapFilename = "missing_edge(s).map";
     }
     /*else {
         throw no map exception or something like that
