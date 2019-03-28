@@ -28,11 +28,11 @@ GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
-	buildMap();
 	/*totalVertices = tv;
 	gameState = PowerGridIO::loadGame(file);
 	graph = createGraph(totalVertices, gameState.getCities());
 	edges = gameState.getEdgeTriplets();*/
+	buildMap();
 }
 
 GraphBuilder::~GraphBuilder() {
@@ -193,7 +193,7 @@ void GraphBuilder::removeRegions(string color) {
 
 }
 
-//might not need this function... Leaving it commented out just in case. Who knows �\_("/)_/�
+//might not need this function... Leaving it commented out just in case. Who knows ?\_("/)_/?
 City GraphBuilder::findCityByName(string name) {
 	City city;
 	for (int i = 0; i < totalVertices; i++) {
@@ -454,15 +454,18 @@ bool GraphBuilder::hasDuplicateEdge() {
 				check = true;
 			}
 		}
+		if (check = false) {
+			break;
+		}
 	}
 
 	if (check == true) {
 		cout << "No duplicate edges" << endl;
-		return false;
+		return false; // has no duplicate edge(s)
 	}
 	else {
 		cout << "Duplicate Edge exists!!! " << endl;
-		return true;
+		return true; // has at least one duplicate edge
 	}
 }
 
@@ -481,11 +484,11 @@ bool GraphBuilder::hasMissingEdge() {
 
 	if (check == true) {
 		cout << "No disconnected cities." << endl;
-		return false;
+		return false; // does not have any missing edges
 	}
 	else {
 		cout << "Disconnected Edge Exists!" << endl;
-		return true;
+		return true; // has at least one missing edge
 	}
 }
 
