@@ -2,7 +2,7 @@
 //  player
 //  Driver class for Player object
 //
-/*
+
 #include <iostream>
 #include "player.hpp"
 #include "City.h"
@@ -14,7 +14,7 @@ using namespace std;
 using namespace HelperFunctions;
 
 
-int main() {
+/*int main() {
     GameState gameState = GameStateIO::readXmlFile("powergrid_cities.map");
     std::vector<City> cities = gameState.getCities();
     std::vector<EdgeTriplet> edgeTriplets = gameState.getEdgeTriplets();
@@ -38,7 +38,7 @@ int main() {
 //  player
 //  Driver class for Player object
 //
-/*
+
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -154,4 +154,3 @@ int main() {
 	
 	return 0;
 }
-*/
