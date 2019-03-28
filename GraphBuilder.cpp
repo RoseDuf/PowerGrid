@@ -454,6 +454,9 @@ bool GraphBuilder::hasDuplicateEdge() {
 				check = true;
 			}
 		}
+		if (check = false) {
+			break;
+		}
 	}
 
 	if (check == true) {

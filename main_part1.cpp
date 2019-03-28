@@ -36,7 +36,7 @@ int main() {
         mapFilename = "usa.map"; // TODO
     }
     else if(mapChoice == 3) {
-        mapFilename = "duplicate_edge(s).map";
+        mapFilename = "duplicate_edges.map";
     }
     else if(mapChoice == 4) {
         mapFilename = "missing_edge(s).map";
