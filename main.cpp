@@ -325,7 +325,6 @@ int main() {
 					//display Resource Market
 					market.display();
 
-					cout << endl;
 
 					//make this better in future by creating an exception that catches this...
 					//*** I THINK TEMP NEEDS TO BE POINTER SO THAT IT CAN STOCKRT THE POWERPLANTS OWNED BY PLAYER
@@ -428,14 +427,18 @@ int main() {
 							int tempPrice = market.getPrice(resource);
 							int totalSpent = 0;
 
+
+							//this code below works
 							bill50 = (tempPrice - tempPrice % 50) / 50;
 							tempPrice -= bill50 * 50;
 							bill10 = (tempPrice - tempPrice % 10) / 10;
 							tempPrice -= bill10 * 10;
 							bill1 = tempPrice;
 
-							cout << "That will cost you " << bill50 << " $50 Elektro bills, " << bill10 << " $10 Elektro bills, and " << bill1 << " $1 Elektro bills." << endl;
+							cout << "That will cost you " << bill50 << " x $50 Elektro bills, " << bill10 << " x $10 Elektro bills, and " << bill1 << " x $1 Elektro bills." << endl;
 							players[i]->spendElektros(bill1, bill10, bill50);
+
+							
 
 							//while loop to ensure Player pays correct amount for resource
 							/*while (totalSpent != market.getPrice(resource)) {
@@ -463,7 +466,7 @@ int main() {
 							//****Use isabelle's method from Discord --- its automatic!!****
 
 							//remove amount of elektros from Player object
-							players[i]->spendElektros(bill1, bill10, bill50);
+							
 
 							cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
 
@@ -479,9 +482,9 @@ int main() {
 							cin >> selectPlant;
 
 							//check if a valid card number
-							int j = 0;
-							for (int j = 0; i < players[j]->getPowerPlant().size(); j++) {
-								if (selectPlant == players[i]->getPowerPlant()[j].getCardNumber()) {
+							int y = 0;
+							for (y = 0; i < players[i]->getPowerPlant().size(); y++) {
+								if (selectPlant == players[i]->getPowerPlant()[y].getCardNumber()) {
 									notValid = false;
 									break;
 								}
@@ -495,9 +498,9 @@ int main() {
 								cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
 								cin >> selectPlant;
 
-								//check if a valid card number
-								for (j = 0; i < players[i]->getPowerPlant().size(); j++) {
-									if (selectPlant == players[i]->getPowerPlant()[j].getCardNumber()) {
+								//check if a valid card number ****Might cause error****
+								for (y = 0; i < players[i]->getPowerPlant().size(); y++) {
+									if (selectPlant == players[i]->getPowerPlant()[y].getCardNumber()) {
 										notValid = false;
 										break;
 									}
@@ -510,7 +513,8 @@ int main() {
 
 
 							//add resource to player's appropriate powerplant
-							players[i]->getPowerPlant()[j].stockRT(resource, 1);
+							players[i]->getPowerPlant()[y].stockRT(resource, 1);
+							cout << "Resource has been added to the PowerPlant " << endl;
 
 							//remove resource from Market
 							market.rtPurchase(resource, 1);
@@ -518,10 +522,10 @@ int main() {
 							//while loop to check if match
 
 							char yesno;
-							cout << "Would you like to buy another resource? (Y/N)" << endl;
+							cout << "\nWould you like to buy another resource? (Y/N)" << endl;
 							cin >> yesno;
 
-							while (yesno != 'Y' || yesno != 'N') {
+							while (yesno != 'Y' && yesno != 'N') {
 								cout << "That is an invalid response. Please try again (Y/N): " << endl;
 								cin >> yesno;
 							}
