@@ -124,12 +124,3 @@ void Player::toString() {
 		cout << citiesOwned[i].getCityName() << endl;
 	}
 }
-
-//void Player::Pass(PowerPlant p) {
-//	cout << name << " has chosen to Pass (P) on powerplant " << p.getCardNumber << endl;
-//	cout << endl;
-//}
-
-//void Player::Auction(GameCard * p) {
-//
-//}

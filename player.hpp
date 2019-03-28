@@ -77,9 +77,4 @@ public:
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
 	void toString();
-
-	//task2 - step2 -> auctioning powerplants
-	//void Pass(PowerPlant p);
-	//void Auction(GameCard * p);
-
 };
