@@ -215,7 +215,25 @@ static void sortMarket(vector<GameCard*> &_powerPlantMarket) {
      std::cout << "How many players? (2-6):";
      int amountOfPlayers = 0;
      std::cin >> amountOfPlayers;
-     for(int i = 0; i < amountOfPlayers; i++) {
+     
+     int amountOfRegionsToChoose = 0;
+     if(amountOfPlayers == 2) {
+         amountOfRegionsToChoose = 3;
+     }
+     else if(amountOfPlayers == 3) {
+         amountOfRegionsToChoose = 3;
+     }
+     else if(amountOfPlayers == 4) {
+        amountOfRegionsToChoose = 4;
+     }
+     else if(amountOfPlayers == 5) {
+        amountOfRegionsToChoose = 5; 
+     }
+     else if(amountOfPlayers == 6) {
+        amountOfRegionsToChoose = 5; 
+     }
+     
+     for(int i = 0; i < amountOfRegionsToChoose; i++) {
          
          std::cout << "Choose region color " << (i+1) << ":";
          std::string currentRegionColorChoice = "";
