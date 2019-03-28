@@ -430,3 +430,14 @@ void Market::toString()
 	cout << "Garbage: " << garbage_supply << endl;
 	cout << "Urianium: " << uranium_supply << endl;
 }
+
+void Market::display() {
+
+	cout << "\n***************** MARKET *****************" << endl;
+	cout << "Amount of Coal: " << coal_market << "\tCurrent Price: " << getPrice("coal") << endl;
+	cout << "Amount of Oil: " << oil_market << "\tCurrent Price: " << getPrice("oil") << endl;
+	cout << "Amount of Garbage: " << garbage_market << "\tCurrent Price: " << getPrice("garbage") << endl;
+	cout << "Amount of Uranium: " << uranium_market << "\tCurrent Price: " << getPrice("uranium") << endl;
+	cout << "******************************************" << endl;
+
+}

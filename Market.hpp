@@ -52,6 +52,7 @@ public:
 	bool checkMarket(string type, int number);
 	bool checkSupply(string type, int number);
 	int getPrice(string type);
+	void display();
 	void updateSupply();
 	void addToSupply(string type, int number);
 
