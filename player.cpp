@@ -114,9 +114,7 @@ void Player::setplayerOrder(int t) {
 void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
-	for (int i = 0; i < powerPlants.size(); i++) {
-		powerPlants[i].toString();
-	}
+
 	cout << "\nAmount of Elektro: " << endl;
 	wallet.toString();
 	cout << "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
