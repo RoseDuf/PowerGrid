@@ -204,7 +204,7 @@ int main() {
     std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
     std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
 	std::cout << "is connected graph?:" << graph.test_MissingEdges() << std::endl;
-	std::cout << "does map have duplicate edges?:" << graph.test_Duplicate_Edges() << std::endl;
+	std::cout << "does map have duplicate edges?:" << graph.hasDuplicateEdge() << std::endl;
 
 	/*
     static vector<GameCard*> deck;
