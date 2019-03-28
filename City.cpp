@@ -56,3 +56,11 @@ bool City::isAvailable() {
 void City::setAvailable(bool a) {
 	available = a;
 }
+
+void City::setPoweredState(bool set) {
+	powered = set;
+}
+
+bool City::getPoweredState() {
+	return powered;
+}

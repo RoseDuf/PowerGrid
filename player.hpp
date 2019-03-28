@@ -1,11 +1,14 @@
 //  player Header File
 
-#pragma once
+#ifndef PLAYER_HPP_
+#define PLAYER_HPP_
+
 #include <iostream>
 #include <cstdlib>
 #include "PowerPlant.h"
 #include "Elektro.hpp"
 #include "City.h"
+//#include "ResourceToken.hpp"
 
 using namespace std;
 
@@ -13,31 +16,78 @@ class Player {
     
 private:
     string name;
-	string playerColor;
+	string color;
 	vector<PowerPlant> powerPlants;
-    Elektro wallet;
+    
+   	//vector<Elektro> elektros;
+   	Elektro wallet;
 	vector<City> citiesOwned;
+	//vector<ResourceToken> resources;
+	int playerOrder;
 
+	int numCitiesOwned = 0;
+	int numPPOwned = 0;
 
 public:
     
 	Player();
-	Player(string name, string playerColor);
-	~Player();
+	Player(string name, string color);
+	Player(string name, string color, vector<PowerPlant> 
+		powerPlant, Elektro wallet, vector<City> citiesOwned, int playerOrder);
+	~Player(); 
+	Player(const Player &p2); //copy constructor
     
-   	 void collectElektro(int _bill1, int _bill10, int _bill50);
-   	 void spendElektros(int _bill1, int _bill10, int _bill50);
+    
+  	void collectElektro(int _bill1, int _bill10, int _bill50);
+    void spendElektros(int _bill1, int _bill10, int _bill50);
 	//just prints the waller content
-   	 void getWallet();
+   	void walletToString();
 	//returns how much the players has
     int getTotalWallet();
+	void setTotalWallet(Elektro w);
+
 	string getName();
+	void setName(string name);
+
 	string getColor();
+	void setColor(string color);
+
 	vector<PowerPlant> getPowerPlant();
+	void setPowerPlant(vector<PowerPlant> pp);
+
+	int getNumCitiesOwned();
+	int getNumPPOwned();
 
 	void addCity(City city);
 	vector<City> getCitiesOwned();
+	void setCitiesOwned(vector<City> c);
+
+	int getplayerOrder();
+	void setplayerOrder(int playerOrder);
+
 	void addPowerPlant(PowerPlant p);
 
+	void powerCity(City city, PowerPlant powerplant, string type);
+	int getCitiesPowered();
+	//setting powered back to false as we are starting another round in the game
+	void setCitiesPowered();
+	int getTotalCoal();
+	int getTotalOil();
+	int getTotalGarbage();
+	int getTotalUranium();
+
 	void toString();
+
+	//to sort player's by the number of cities owned (to determine order)
+	static bool compByCities(const Player* a, const Player* b) {
+		return b->citiesOwned.size() < a->citiesOwned.size();
+	}
+	static bool compByOrder(const Player* a, const Player* b) {
+		return a->playerOrder < b->playerOrder;
+	}
+	static bool reverseOrder(const Player* a, const Player* b) {
+		return b->playerOrder < a->playerOrder;
+	}
 };
+
+#endif
