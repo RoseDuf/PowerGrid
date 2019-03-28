@@ -300,7 +300,7 @@ int main() {
 
 	while (gameIsNotFinished) {
 
-		if (phase == 2) {
+		//if (phase == 2) {
 
 			DeterminePlayerOrder(players, phase);
 
@@ -393,7 +393,7 @@ int main() {
 							char yn;
 							if (inPowerPlant == false) {
 								cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
-								cout << "Would you like to try to buy another resource?(Y/N)" << endl;
+								cout << "\nWould you like to try to buy another resource?(Y/N)" << endl;
 								cin >> yn;
 
 								while (yn != 'Y' && yn != 'N') {
@@ -405,7 +405,7 @@ int main() {
 									continue;
 								}
 								 if (yn == 'N') {
-									cout << "Your turn is over." << endl;
+									cout << "\nYour turn is over." << endl;
 									cout << endl;
 									stillBuying = false;
 									goto break_me_here;
@@ -484,7 +484,7 @@ int main() {
 							cout << "\nPlease enter the card number of the PowerPlant you want to add the " << resource << " to: " << endl;
 							cin >> selectPlant;
 
-							//check if a valid card number
+							//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE*****
 							int y = 0;
 							for (y = 0; y < players[i]->getPowerPlant().size(); y++) {
 								if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
@@ -537,7 +537,7 @@ int main() {
 								continue;
 							}
 							else {
-								cout << "Your turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
+								cout << "\nYour turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
 								cout << endl;
 								stillBuying = false;
 								goto break_me_here;
@@ -560,10 +560,11 @@ int main() {
 
 				}	// for loop players
 
-				phase++;
-			}		//if phase == 2 condition
 
-			if (phase == 3) {
+			//}		//if phase == 2 condition
+
+			//phase = 3;
+			//if (phase == 3) {
 
 				//player loop
 				DeterminePlayerOrder(players, phase);
@@ -794,7 +795,7 @@ int main() {
 
 				}	//player loop
 
-			}	// phase 3 if conditional statement
+			//}	// phase 3 if conditional statement
 
 			gameIsNotFinished = false;
 
