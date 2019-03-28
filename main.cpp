@@ -713,6 +713,8 @@ int main() {
 
 				cout << "You found a city that is available!" << endl;
 				cout << "Now lets check some more conditions..." << endl;
+				cout << "How many players in Halle"<< endl;
+				cout << graph.HowManyPlayersAreInCity(chosenCity);
 					//check if the city is already filled with other players
 					bool emptyCity = false;
 				int cityPrice = 0;
@@ -722,7 +724,7 @@ int main() {
 					//check for phase
 					switch (step) {
 					case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-						cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
 						cin >> chosenCity;
 						validCity = false;
 					}
@@ -732,7 +734,7 @@ int main() {
 							cityPrice = 10;
 							break;
 					case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-						cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
 						cin >> chosenCity;
 						validCity = false;
 					}
@@ -742,7 +744,7 @@ int main() {
 							 cityPrice = 15;
 							 break;
 					case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-						cout << "Sorry, another player already has a building on this city. Please choose another city: ";
+						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
 						cin >> chosenCity;
 						validCity = false;
 					}
