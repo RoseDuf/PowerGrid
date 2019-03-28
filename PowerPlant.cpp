@@ -64,7 +64,7 @@ bool PowerPlant::checkIfNeeded(string type)
 		if (uranium_needed == 0) temp = false;
 	}
 
-	if (temp == false)cout << "This power plant can't be powered with this resource." << endl;
+	if (temp == false)//cout << "This power plant can't be powered with this resource." << endl;
 	return temp;
 }
 
