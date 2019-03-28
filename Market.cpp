@@ -281,7 +281,7 @@ bool Market::checkMarket(string type, int number)
 
 void Market::toString()
 {
-    //updateSupply();
+    updateSupply();
     
     cout<< "RESOURCE TOKEN INFORMATION" << endl;
         cout << "================" << endl;

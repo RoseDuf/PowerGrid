@@ -22,12 +22,12 @@ using namespace HelperFunctions;
 static void shuffle(vector<GameCard*> &_deck)
 
 {
-    cout << "===============" << endl;
+  /*  cout << "===============" << endl;
     cout << "===============" << endl;
     cout << "SHUFFLED" << endl;
     cout << "===============" << endl;
     cout << "===============" << endl;
-    
+    */
     random_shuffle(_deck.begin(),_deck.end());
 }
 
@@ -303,6 +303,7 @@ int main() {
     
        // DeterminePlayerOrder(players, round);
     
+    //iterating through players
         for (int i = 0; i < players.size(); i++) {
             
            vector<PowerPlant> powerPlantsTEMP;
@@ -312,18 +313,34 @@ int main() {
              cout << "You own  " << players[i]->getNumPPOwned() << " power plants." << endl;
             powerPlantsTEMP =players[i]->getPowerPlant();
             
+            //iterating through powerplants
             for(int i = 0 ; i < players[i]->getPowerPlant().size(); i++ )
             {
                 powerPlantsTEMP[i].toString();
                 
-                 cout << "Would you like to power " << powerPlantsTEMP[i].getCitiesPowered() << " with this powerplant?" << endl;
+                 cout << "Would you like to power " << powerPlantsTEMP[i].getCitiesPowered() << " with this powerplant? yes or no" << endl;
                 
                 cin >> choice;
+                bool valid = false;
                 if(choice == "yes")
                 {
                     cout << "With which resource?" << endl;
-                    cin >> choice;
-                    powerPlantsTEMP[i].powerCity(choice);
+                    while(!valid)
+                    {
+                        cin >> choice;
+                      if(choice == "coal"|| choice == "oil" || choice == "garbage"|| choice == "uranium")
+                      {
+                       powerPlantsTEMP[i].powerCity(choice);
+                        valid = true;
+                      }
+                      else
+                        {
+                            cout << "Enter a valid input please." << endl;
+                        valid = false;
+                        }
+                    }
+                  
+                   
                 }
                 else
                 {
@@ -338,7 +355,10 @@ int main() {
             cout << "By powering " << numCitiesPowered << ", you earn: " << checkProfit(numCitiesPowered) << endl;
            
             profit = checkProfit(numCitiesPowered);
-            
+            cout << "================" << endl;
+            cout << "Initial Wallet: " << endl;
+            cout << "================" << endl;
+            players[i]->toString();
             bill50 = (profit - profit%50)/50;
             profit-=bill50*50;
             bill10 = (profit - profit%10)/10;
@@ -346,7 +366,9 @@ int main() {
             bill1 = profit;
             players[i]->collectElektro(bill1,bill10, bill50);
             
+           cout << "================" << endl;
             cout << "Updated Wallet: " << endl;
+            cout << "================" << endl;
             players[i]->toString();
         }
     
@@ -362,8 +384,36 @@ int main() {
     powerPlantMarket.push_back(newCard);
     //placing the cards in ascending order of price
     sortMarket(powerPlantMarket);
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+    cout << "PRINTING DECK" << endl;
+    cout << "===============" << endl;
+    cout << "===============" << endl;
     
+    print(deck);
+    
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+    cout << "PRINTING POWERPLANT MARKET" << endl;
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+    
+    print(powerPlantMarket);
     //restock resource market
+    
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+    cout << "PRINTING RESOURCE MARKET" << endl;
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+     market->toString();
     market->restockMarket(step);
+    
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+    cout << "PRINTING RESOURCE MARKET::RESTOCKED" << endl;
+    cout << "===============" << endl;
+    cout << "===============" << endl;
+    market->toString();
 }
 
