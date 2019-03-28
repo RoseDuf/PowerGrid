@@ -194,7 +194,7 @@ void GraphBuilder::removeRegions(string color) {
 City GraphBuilder::findCityByName(string name) {
 City city;
 for (int i = 0; i < totalVertices; i++) {
-if (graph->arr[i].city.getCityName == name) {
+if (graph->arr[i].city.getCityName() == name) {
 return graph->arr[i].city;
 }
 }
