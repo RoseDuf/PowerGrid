@@ -2,42 +2,6 @@
 //  player
 //  Driver class for Player object
 //
-/*
-#include <iostream>
-#include "player.hpp"
-#include "City.h"
-#include "GraphBuilder.h"
-
-#include "HelperFunctions.hpp"
-
-using namespace std;
-using namespace HelperFunctions;
-
-
-int main() {
-    GameState gameState = GameStateIO::readXmlFile("powergrid_cities.map");
-    std::vector<City> cities = gameState.getCities();
-    std::vector<EdgeTriplet> edgeTriplets = gameState.getEdgeTriplets();
-    std::cout << "hilo" << std::endl;
-
-	for (int i = 0; i < cities.size(); i++) {
-		std::cout << cities[i].getCityNumber() << endl;
-	}
-
-	
-	for (int i = 0; i < edgeTriplets.size(); i++) {
-		std::cout << std::get<0>(edgeTriplets[i]).getCityNumber() << endl;
-	}
-
-	
-
-}
-*/
-
-//  main.cpp
-//  player
-//  Driver class for Player object
-//
 
 #include <iostream>
 #include <algorithm>
@@ -258,6 +222,7 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 	int newprice = price;
 	char input;
 	bool firstBid = true;
+	bool lastBid = true;
 
 	//resize the players that are allowed to enter the auction
 	for (int i = 0; i < pl->getplayerOrder(); i++) {
@@ -267,52 +232,64 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 	//enter the Auctioning loop
 	while (player.size() > 1) {
 		for (int i = 0; i < player.size(); i++) {
-			cout << player[i]->getName() << ", would you like to Pass or Bid on this powerplant?";
-			powerplant->toString();
-			cout << endl;
-			cout << "Pass or Bid? (P/B). Current bid is " << price << " Elektros: ";
-			cin >> input;
-
-			//make sure user inputs correct thing
-			while (input != 'P' && input != 'B') {
-				cout << "This input is not valid. Please type in P (for Pass) or B (for Bid): ";
+			if (player.size() == 1 && lastBid) {
+				break;
+			}
+			else {
+				cout << player[i]->getName() << ", would you like to Pass or Bid on this powerplant?";
+				powerplant->toString();
+				cout << endl;
+				cout << "Pass or Bid? (P/B). Current bid is " << price << " Elektros: ";
 				cin >> input;
-			}
 
-			if (input == 'P') {
-				cout << endl;
-				cout << "Looks like this powerplant is not worth it for " << player[i]->getName() << endl; 
-				cout << endl;
-				player.erase(player.begin() + i);
-				if (player.size() == 0) { //manages possibility that everyone passes
-					break;
+				//make sure user inputs correct thing
+				while (input != 'P' && input != 'B') {
+					cout << "This input is not valid. Please type in P (for Pass) or B (for Bid): ";
+					cin >> input;
 				}
-				else
-					i -= 1;
-			}
 
-			if (input == 'B') {
-				if (firstBid) { //The first bid should be the same price as the card number
-					cout << "How much would you like to bid? (minimum " << price << " Elektros): ";
-					cin >> newprice;
-					while (newprice < price) {
-						cout << "What are you doing? The minimum bid is " << price << " Elektros! Try again: ";
-						cin >> newprice;
+				if (input == 'P') {
+					cout << endl;
+					cout << "Looks like this powerplant is not worth it for " << player[i]->getName() << endl;
+					cout << endl;
+					player.erase(player.begin() + i);
+					if (player.size() == 0) { //manages possibility that everyone passes
+						break;
 					}
-					firstBid = false;
-				}
-				else { //The other bids should be bigger than the previous bidding price
-					cout << "How much would you like to bid? (minimum " << price+1 << " Elektros): ";
-					cin >> newprice;
-					while (newprice <= price) {
-						cout << "What are you doing? The minimum bid is " << price+1 << " Elektros! Try again: ";
-						cin >> newprice;
+					else {
+						//handles the bug that when everybody passes, the last player automatically wins the bid (bad)
+						if (player[0]->getName() == players[players.size()-1]->getName()) { 
+							i -= 1;
+							lastBid = false;
+						}
+						else
+							i -= 1;
 					}
 				}
-				price = newprice; //update price
 
-				cout << player[i]->getName() << " has chosen to Bid " << price << " Elektros for this powerplant." << endl;
-				cout << endl;
+				if (input == 'B') {
+					if (firstBid) { //The first bid should be the same price as the card number
+						cout << "How much would you like to bid? (minimum " << price << " Elektros): ";
+						cin >> newprice;
+						while (newprice < price) {
+							cout << "What are you doing? The minimum bid is " << price << " Elektros! Try again: ";
+							cin >> newprice;
+						}
+						firstBid = false;
+					}
+					else { //The other bids should be bigger than the previous bidding price
+						cout << "How much would you like to bid? (minimum " << price + 1 << " Elektros): ";
+						cin >> newprice;
+						while (newprice <= price) {
+							cout << "What are you doing? The minimum bid is " << price + 1 << " Elektros! Try again: ";
+							cin >> newprice;
+						}
+					}
+					price = newprice; //update price
+
+					cout << player[i]->getName() << " has chosen to Bid " << price << " Elektros for this powerplant." << endl;
+					cout << endl;
+				}
 			}
 		}
 	}
@@ -447,104 +424,9 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 }
 
 int main() {
-
-//============================== Assignment 1 ================================================
-	/*
-	Elektro elektro = Elektro(10, 5, 50);
-	//ResourceToken resource = ResourceToken(3, "oil");
-	PowerPlant powerplant = PowerPlant(3, 2, 2, 0, 0, 0);
-
-	//p1.collectElektro(elektro);
-	*/
 	
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "germany.map");
-	graph.buildMap();
-
-	/*
-	Player * p1 = new Player("Nicole", "Red");
-	Player * p2 = new Player("Rose", "Green");
-	graph.printGraph();
-	
-
-	cout << endl;
-
-	graph.removeRegions("ORANGE");
-
-	graph.printGraph();
-	graph.printAvailableCities();
-
-	graph.IsCityAdjacentToOtherCity("Flensburg", "Kiel");
-
-	graph.CostFromOneCityToAnother("Flensburg", "Kiel");
-	cout << endl;
-	
-	//prints the contents of the 2D vector "connected" from GraphBuilder.h
-	//vector<vector<int>> vec = graph.getConnected();
-  
-	//for (int i = 0; i < vec.size(); i++) {
-	//	cout << "for slot " << i << " there is: " << endl;
-	//	for (int j = 0; j < vec[i].size(); j++) {
-	//		cout << vec[i][j] << endl;
-	//	}
-	//}
-
-	bool check1, check2, check3;
-	//Test Cases
-	//graph.CostFromOneCityToAnother(0, 1);
-	std::cout << std::boolalpha;
-	graph.test_SizeOfMap_and_FileMap();
-	//cout << check3 << endl;
-	graph.test_Duplicate_Edges();
-	//cout << check1 << endl;
-	check2 = graph.test_MissingEdges();
-	cout << check2 << endl;
-
-	cout << endl;
-
-	//add tokens to map
-	//graph.add_ElektrosToCity(elektro, "Berlin");
-	//graph.add_ResourcesToCity(resource, "Berlin");
-	//graph.add_PowerPlantToCity(powerplant, "Berlin");
-
-	cout << endl;
-	//print contents 
-	graph.SearchCity("Berlin");
-
-	cout << endl;
-
-	
-	//add player to city
-	City c1 = City(1, "Kiel", "GREEN");
-	City c2 = City(2, "Hamburg", "GREEN");
-	graph.add_CityToPlayer_and_PlayerToMap(p1, "Berlin");
-	p1->addCity(c1);
-	p1->addCity(c2);
-	graph.add_CityToPlayer_and_PlayerToMap(p2, "Hamburg");
-	graph.AddPlayerToMap(p1);
-	
-	vector<City> citiesOwned = graph.FindCitiesOwnedByPlayer(p1);
-
-	for (int i = 0; i < citiesOwned.size(); i++) {
-		cout << "Player: " << p1->getName() << ", Color: " << p1->getColor()
-			<< ", is in City: " << citiesOwned[i].getCityName() << endl;
-	}
-
-	cout << endl;
-
-	//print contents
-	graph.SearchCity("Berlin");
-	graph.SearchCity("Kiel");
-	graph.SearchCity("Hamburg");
-
-	cout << endl;
-
-	//print cities owned by player
-	p1->toString();
-
-	cin.get();
-	
-	*/
 	
 	//============================== Assignment 2, task 2, ================================================
 	static vector<GameCard*> deck;

@@ -28,10 +28,11 @@ GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
-								  /*totalVertices = tv;
-								  gameState = PowerGridIO::loadGame(file);
-								  graph = createGraph(totalVertices, gameState.getCities());
-								  edges = gameState.getEdgeTriplets();*/
+	buildMap();
+	/*totalVertices = tv;
+	gameState = PowerGridIO::loadGame(file);
+	graph = createGraph(totalVertices, gameState.getCities());
+	edges = gameState.getEdgeTriplets();*/
 }
 
 GraphBuilder::~GraphBuilder() {
@@ -439,7 +440,7 @@ bool GraphBuilder::test_SizeOfMap_and_FileMap() {
 	}
 }
 
-bool GraphBuilder::test_Duplicate_Edges() {
+bool GraphBuilder::hasDuplicateEdge() {
 	bool check = false;
 
 	for (int i = 0; i < connected.size(); i++) {
@@ -457,15 +458,15 @@ bool GraphBuilder::test_Duplicate_Edges() {
 
 	if (check == true) {
 		cout << "No duplicate edges" << endl;
-		return true;
+		return false;
 	}
 	else {
 		cout << "Duplicate Edge exists!!! " << endl;
-		return false;
+		return true;
 	}
 }
 
-bool GraphBuilder::test_MissingEdges() {
+bool GraphBuilder::hasMissingEdge() {
 	bool check = true;
 
 	for (int i = 0; i < connected.size(); i++) {
@@ -480,11 +481,11 @@ bool GraphBuilder::test_MissingEdges() {
 
 	if (check == true) {
 		cout << "No disconnected cities." << endl;
-		return true;
+		return false;
 	}
 	else {
 		cout << "Disconnected Edge Exists!" << endl;
-		return false;
+		return true;
 	}
 }
 
