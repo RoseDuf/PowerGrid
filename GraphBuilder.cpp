@@ -439,12 +439,13 @@ bool GraphBuilder::test_SizeOfMap_and_FileMap() {
 }
 
 bool GraphBuilder::hasDuplicateEdge() {
-	bool check = false;
+	bool check = true;
 
 	for (int i = 0; i < connected.size(); i++) {
 		std::sort(connected[i].begin(), connected[i].end());
 		for (int j = 1; j < connected[i].size(); j++) {
 			if (connected[i][j - 1] == connected[i][j]) {
+				cout << connected[i][j - 1] << endl;
 				check = false;
 				break;
 			}

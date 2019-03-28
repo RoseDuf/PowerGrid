@@ -428,5 +428,27 @@
 //	std::cout << "===============" << endl;
 //	std::cout << "===============" << endl;
 //    market->toString();
+//
+//	delete newCard;
+//	newCard = NULL;
+//
+//	delete MostExpensive;
+//	MostExpensive = NULL;
+//
+//	delete market;
+//	market = NULL;
+//
+//	delete p1;
+//	p1 = NULL;
+//
+//	delete p2;
+//	p2 = NULL;
+//
+//	for (int i = 0; i < players.size(); i++) {
+//		delete players[i];
+//		players[i] = NULL;
+//	}
+//	
+//	return 0;
 //}
 //
