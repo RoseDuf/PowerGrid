@@ -17,7 +17,7 @@
  int main() {
      
 	 Player * p1 = new Player("Nicole", "Red");
-	 cout << p1->getName() << " has " << p1->getRemainingHouses() << " houses left." << endl;
+	 cout << p1->getName() << " has " << p1->getRemainingHouses() << " houses left and " << p1->getTotalWallet() << " Elektros."<< endl;
 	 cout << endl;
 
      std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
