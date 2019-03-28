@@ -589,7 +589,7 @@ int main() {
 		bool stillBuilding = true;
 
 		while (stillBuilding) {
-
+			int cityPrice = 0;
 			//display map with available cities
 				//*TO-DO
 
@@ -621,7 +621,7 @@ int main() {
 
 				//check if the city is already filled with other players
 				bool emptyCity = false;
-				int cityPrice = 0;
+			 cityPrice = 0;
 
 				while (emptyCity != true) {
 
@@ -709,15 +709,16 @@ int main() {
 						cin >> chosenCity;
 						validCity = false;
 					}
-				}		//validCity while loop
+						//validCity while loop
 
 				cout << "You found a city that is available!" << endl;
 				cout << "Now lets check some more conditions..." << endl;
-				cout << "How many players in Halle"<< endl;
-				cout << graph.HowManyPlayersAreInCity(chosenCity);
+				cout << endl;
+				//cout << "How many players in Halle"<< endl;
+				//cout << graph.HowManyPlayersAreInCity(chosenCity);
 					//check if the city is already filled with other players
 					bool emptyCity = false;
-				int cityPrice = 0;
+				
 
 				while (emptyCity != true) {
 
@@ -755,12 +756,12 @@ int main() {
 							break;
 					}
 
-
+				}
 				}	//emptyCity while loop
 
 
 				//returns bool to see if chosen city is adjacent to the cities in checkCity
-				for (int i = 0; i < numCities; i++) {
+				/*for (int i = 0; i < numCities; i++) {
 					if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
 						cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
 						break;
@@ -768,20 +769,33 @@ int main() {
 					else {
 						continue;
 					}
-				}
-
+				}*/
+				bool cityBought = false;
+				int price = 0;
 				while (!graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
 					cout << "The city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
 					cin >> chosenCity;
 					for (int i = 0; i < numCities; i++) {
 						if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName()) == true) {
 							cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
+							price = graph.CostFromOneCityToAnother(checkCity[i].getCityName(), chosenCity);
+
+							cityBought = true;
 							break;
 						}
 						else {
 							continue;
 						}
 					}
+				}
+
+				if (cityBought) {
+					int total = 0;
+					cout << "The connection between the two cities costs " << price << endl;
+					cout << "The cost of the city is " << cityPrice << endl;
+					cout << "The total cost is " << total << endl;
+					cout << "You have bought " << chosenCity << endl;
+
 				}
 
 
@@ -796,7 +810,7 @@ int main() {
 			cout << "Would you like to buy another City? (Y/N)" << endl;
 			cin >> yesno;
 
-			while (yesno != 'Y' || yesno != 'N') {
+			while (yesno != 'Y' && yesno != 'N') {
 				cout << "That is an invalid response. Please try again (Y/N): " << endl;
 				cin >> yesno;
 			}
