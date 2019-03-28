@@ -445,7 +445,6 @@ bool GraphBuilder::hasDuplicateEdge() {
 		std::sort(connected[i].begin(), connected[i].end());
 		for (int j = 1; j < connected[i].size(); j++) {
 			if (connected[i][j - 1] == connected[i][j]) {
-				cout << connected[i][j - 1] << endl;
 				check = false;
 				break;
 			}
