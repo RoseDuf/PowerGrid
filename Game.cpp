@@ -48,12 +48,15 @@ void Game::dashboard(Player* p) {
 	cout << endl;
 	cout << "Cities:\n" << endl;
 
-	if (p->getCitiesOwned().size() == 0) {
+	vector <City> citiesTEMP;
+	citiesTEMP = p->getCitiesOwned();
+
+	if (citiesTEMP.size() == 0) {
 		cout << "You have 0 cities." << endl;
 		cout << endl;
 	}
-	for (int i = 0; i < p->getCitiesOwned().size(); i++) {
-		p->getCitiesOwned()[i].getCityName();
+	for (int i = 0; i < citiesTEMP.size(); i++) {
+		citiesTEMP[i].getCityName();
 		cout << endl;
 	}
 
