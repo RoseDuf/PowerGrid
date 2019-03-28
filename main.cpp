@@ -1,12 +1,12 @@
 //main for task 3
 
-#include "Game.h"
 #include <vector>
 #include <string>
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>
 #include <random>
+#include "Game.h"
 #include "player.hpp"
 #include "GraphBuilder.h"
 #include "City.h"
@@ -161,16 +161,24 @@ static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 		for (int i = 0; i < players.size(); i++) {
 			players.at(i)->setplayerOrder(playerOrder[i]);
 		}
-
-		//sort the order of the vertex
-		std::sort(players.begin(), players.end(), Player::compByOrder);
 		for (int i = 0; i < players.size(); i++) {
-			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+			cout << "Player: " << players.at(i)->getName() << endl;
 		}
-
 		cout << endl;
 	}
+	else if (phase == 2 || phase  == 3) {
+		cout << "Current player order:" << endl;
+		cout << endl;
 
+	//sort the order of the vertex
+	std::sort(players.begin(), players.end(), Player::reverseOrder);
+	for (int i = 0; i < players.size(); i++) {
+		cout << "Player: " << players.at(i)->getName() << endl;
+	}
+
+	cout << endl;
+	}
+	
 	else {
 		cout << "Current player order: " << endl;
 		cout << endl;
@@ -183,7 +191,7 @@ static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 		}
 
 		for (int i = 0; i < players.size(); i++) {
-			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+			cout << "Player: " << players.at(i)->getName() <<  endl;
 		}
 		cout << endl;
 	}
@@ -261,14 +269,18 @@ int main() {
 
 	//-------------------TASK 3 --- BUYING RESOURCES -------------------------------------------- //
 
+	phase = 1;
+	DeterminePlayerOrder(players, phase);
+	phase = 2;
+
 	while (gameIsNotFinished) {
 
-		if (phase == 2) {	
+		if (phase == 2) {
 
 			DeterminePlayerOrder(players, phase);
 
 			//call method to reverse player order ***Use std::sort***
-			//sort(players.begin(), players.end(), Player::reverseOrder);
+		
 
 			for (int i = 0; i < players.size(); i++) {
 
@@ -708,14 +720,13 @@ int main() {
 
 		deleteDeck(deck);
 
-
-
-
-			//keep console open
-		cin.get();
-
-
 	}
+
+
+	//keep console open
+	cin.get();
+
+
 
 	return 0;
 }	//int main()
