@@ -210,7 +210,19 @@
     <cityColor>ORANGE</cityColor>
   </City>
 
-  
+  <EdgeTriplet>
+    <City>
+      <verticeNumber>0</verticeNumber>
+      <cityName>Flensburg</cityName>
+      <cityColor>GREEN</cityColor>
+    </City>
+    <City>
+      <verticeNumber>1</verticeNumber>
+      <cityName>Kiel</cityName>
+      <cityColor>GREEN</cityColor>
+    </City>
+    <edgeCost>4</edgeCost>
+  </EdgeTriplet>
   <EdgeTriplet>
     <City>
       <verticeNumber>1</verticeNumber>
