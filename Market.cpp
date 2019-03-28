@@ -2,51 +2,112 @@
 #include "Market.hpp"
 
 
-Market::Market()
+Market::Market(vector<Player*> &_players)
 {
 	coal_market = 24;
 	oil_market = 15;
 	garbage_market = 6;
 	uranium_market = 2;
+	players = _players;
+
+}
+
+Market::Market()
+{
+
 }
 
 Market::~Market()
 {
 
 }
+
+//called in PowerPlant class when the player powers a city and consume the resources stocked on power plant card
+void Market::addToSupply(string type, int number)
+{
+	if (type == "coal")
+	{
+		coal_supply += number;
+	}
+	else if (type == "oil")
+	{
+		oil_supply += number;
+	}
+
+	else if (type == "garbage")
+	{
+		garbage_supply += number;
+	}
+	else if (type == "uranium")
+	{
+		uranium_supply += number;
+	}
+	updateSupply();
+}
+
+void Market::updateSupply()
+{
+
+	int playersCoal = 0;
+	int playersOil = 0;
+	int playersGarbage = 0;
+	int playersUranium = 0;
+
+	for (int i = 0; i < players.size(); i++)
+	{
+		//NEED A WAY TO GET PLAYERS NUMBER OF RESOURCE TOKEN
+		playersCoal += players[i]->getTotalCoal();
+		playersOil += players[i]->getTotalOil();
+		playersGarbage += players[i]->getTotalGarbage();
+		playersUranium += players[i]->getTotalUranium();
+	}
+
+	// cout << "players coal: "<< playersCoal << endl;
+	//cout << "players oil: "<< playersOil << endl;
+	//cout << "players garbage: "<< playersGarbage << endl;
+	//cout << "players uranium: "<< playersUranium << endl;
+	coal_supply = TOTAL_COAL - coal_market - playersCoal;
+	oil_supply = TOTAL_OIL - oil_market - playersOil;
+	garbage_supply = TOTAL_GARBAGE - garbage_market - playersGarbage;
+	uranium_supply = TOTAL_URANIUM - uranium_market - playersUranium;
+}
+
 void Market::restockMarket(int step)
 {
+
+
 	//need to check if enough in supply before restock***
 	if (step == 1)
 	{
-		coal_market += 3;
-		oil_market += 2;
-		garbage_market += 1;
-		uranium_market += 1;
+		//checks if there are enough tokens left in  the supply "bag" to restock the  market according
+		//to specific step
+		//if not, add what is left from the supply
+		checkSupply("coal", 3) ? coal_market += 3 : coal_market += coal_supply;
+		checkSupply("oil", 2) ? oil_market += 2 : oil_market += oil_supply;
+		checkSupply("garbage", 1) ? garbage_market += 1 : garbage_market += garbage_supply;
+		checkSupply("uranium", 1) ? uranium_market += 1 : uranium_market += uranium_supply;
 	}
 	else if (step == 2)
 	{
-		coal_market += 4;
-		oil_market += 2;
-		garbage_market += 2;
-		uranium_market += 1;
+		checkSupply("coal", 4) ? coal_market += 4 : coal_market += coal_supply;
+		checkSupply("oil", 2) ? oil_market += 2 : oil_market += oil_supply;
+		checkSupply("garbage", 2) ? garbage_market += 2 : garbage_market += garbage_supply;
+		checkSupply("uranium", 1) ? uranium_market += 1 : uranium_market += uranium_supply;
 	}
 	else if (step == 3)
 	{
-		coal_market += 3;
-		oil_market += 4;
-		garbage_market += 3;
-		uranium_market += 1;
+		checkSupply("coal", 3) ? coal_market += 3 : coal_market += coal_supply;
+		checkSupply("oil", 4) ? oil_market += 4 : oil_market += oil_supply;
+		checkSupply("garbage", 3) ? garbage_market += 3 : garbage_market += garbage_supply;
+		checkSupply("uranium", 1) ? uranium_market += 1 : uranium_market += uranium_supply;
 	}
 	else
 	{
 		cout << "Invalid step." << endl;
 	}
 
-	coal_supply = TOTAL_COAL - coal_market;
-	oil_supply = TOTAL_OIL - oil_market;
-	garbage_supply = TOTAL_GARBAGE - garbage_market;
-	uranium_supply = TOTAL_URANIUM - uranium_market;
+	//updating the state of supplies to make sure we are working with the right numbers
+	updateSupply();
 }
 
 int Market::getPrice(string type)
@@ -114,6 +175,7 @@ int Market::getPrice(string type)
 
 bool Market::checkSupply(string type, int number)
 {
+	updateSupply();
 	if (type == "coal")
 	{
 		return number <= coal_supply ? true : false;
@@ -189,10 +251,14 @@ void Market::rtPurchase(string type, int number)
 		cout << "Invalid type." << endl;
 
 	}
+
+	//updating the state of supplies to make sure we are working with the right numbers
+	updateSupply();
 }
 
 bool Market::checkMarket(string type, int number)
 {
+	updateSupply();
 	if (type == "coal")
 	{
 		return number <= coal_market ? true : false;
@@ -212,4 +278,35 @@ bool Market::checkMarket(string type, int number)
 	}
 
 	return 0;
+}
+
+void Market::toString()
+{
+	//updateSupply();
+
+	cout << "RESOURCE TOKEN INFORMATION" << endl;
+	cout << "================" << endl;
+	cout << "================" << endl;
+	cout << "TOTAL OF TOKENS --- " << endl;
+	cout << "Coal: " << TOTAL_COAL << endl;
+	cout << "Oil: " << TOTAL_OIL << endl;
+	cout << "Garbage: " << TOTAL_GARBAGE << endl;
+	cout << "Urianium: " << TOTAL_URANIUM << endl;
+
+
+	cout << "================" << endl;
+
+	cout << "Market ---  " << endl;
+	cout << "Coal: " << coal_market << endl;
+	cout << "Oil: " << oil_market << endl;
+	cout << "Garbage: " << garbage_market << endl;
+	cout << "Urianium: " << uranium_market << endl;
+
+	cout << "================" << endl;
+
+	cout << "SUPPLY ---  " << endl;
+	cout << "Coal: " << coal_supply << endl;
+	cout << "Oil: " << oil_supply << endl;
+	cout << "Garbage: " << garbage_supply << endl;
+	cout << "Urianium: " << uranium_supply << endl;
 }

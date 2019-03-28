@@ -22,6 +22,9 @@ public:
 	bool isAvailable();
 	void setAvailable(bool available);
 
+	void setPoweredState(bool set);
+	bool getPoweredState();
+
 	//to sort Cities by their number
 	static bool compare(const City a, const City b) {
 		return a.cityNumber < b.cityNumber;
@@ -33,6 +36,7 @@ private:
 	std::string cityColor;
 	bool available;
 
+	bool powered;
 };
 
 #endif

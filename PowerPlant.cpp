@@ -161,12 +161,14 @@ void PowerPlant::stockRT(string type, int num)
 	{
 		if (checkIfNeeded("coal") && checkSpace("coal", num)) {
 			coal_stocked += num;
+			//market->rtPurchase("coal", num);
 		}
 	}
 	else if (type == "oil")
 	{
 		if (checkIfNeeded("oil") && checkSpace("oil", num)) {
 			oil_stocked += num;
+			//market->rtPurchase("oil", num);
 		}
 	}
 
@@ -174,18 +176,20 @@ void PowerPlant::stockRT(string type, int num)
 	{
 		if (checkIfNeeded("garbage") && checkSpace("garbage", num)) {
 			garbage_stocked += num;
+			// market->rtPurchase("garbage", num);
 		}
 	}
 	else if (type == "uranium")
 	{
 		if (checkIfNeeded("uranium") && checkSpace("uranium", num)) {
 			uranium_stocked += num;
+			// market->rtPurchase("uranium", num);
 		}
 	}
 
 
 }
-int PowerPlant::getRTStocked(string type, int num)
+int PowerPlant::getRTStocked(string type)
 {
 	if (type == "coal")
 	{
@@ -228,37 +232,54 @@ int PowerPlant::getRTNeeded(string type, int num)
 	}
 	return 0;
 }
-
+int PowerPlant::get_numCitiesPowered_ACTIVE()
+{
+	return numCitiesPowered_ACTIVE;
+}
 void PowerPlant::powerCity(string type)
 {
+	if (green)
+	{
+		cout << "Powered city with GREEN power plant." << endl;
+	}
+	else
+	{
+		if (type == "coal")
+		{
+			if (checkIfNeeded("coal") && checkIfEnoughStock("coal"))
+			{
+				coal_stocked -= coal_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("coal", coal_needed);
+			}
+		}
+		else if (type == "oil")
+		{
+			if (checkIfNeeded("oil") && checkIfEnoughStock("oil"))
+			{
+				oil_stocked -= oil_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("oil", oil_needed);
+			}
+		}
 
-	if (type == "coal")
-	{
-		if (checkIfNeeded("coal") && checkIfEnoughStock("coal"))
+		else if (type == "garbage")
 		{
-			coal_stocked -= coal_needed;
+			if (checkIfNeeded("garbage") && checkIfEnoughStock("garbage"))
+			{
+				garbage_stocked -= garbage_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("garbage", garbage_needed);
+			}
 		}
-	}
-	else if (type == "oil")
-	{
-		if (checkIfNeeded("oil") && checkIfEnoughStock("oil"))
+		else if (type == "uranium")
 		{
-			oil_stocked -= oil_needed;
-		}
-	}
-
-	else if (type == "garbage")
-	{
-		if (checkIfNeeded("garbage") && checkIfEnoughStock("garbage"))
-		{
-			garbage_stocked -= garbage_needed;
-		}
-	}
-	else if (type == "uranium")
-	{
-		if (checkIfNeeded("uranium") && checkIfEnoughStock("uranium"))
-		{
-			uranium_stocked -= uranium_needed;
+			if (checkIfNeeded("uranium") && checkIfEnoughStock("uranium"))
+			{
+				uranium_stocked -= uranium_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("uranium", uranium_needed);
+			}
 		}
 	}
 }

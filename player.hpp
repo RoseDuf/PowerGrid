@@ -23,14 +23,15 @@ private:
 	//vector<ResourceToken> resources;
 	int playerOrder;
 
+	int numCitiesOwned = 0;
+	int numPPOwned = 0;
 
 public:
     
 	Player();
 	Player(string name, string color);
 	Player(string name, string color, vector<PowerPlant> 
-		powerPlant, Elektro wallet, vector<City> citiesOwned, 
-		/*vector<ResourceToken> resources,*/ int playerOrder);
+		powerPlant, Elektro wallet, vector<City> citiesOwned, int playerOrder);
 	~Player(); 
 	Player(const Player &p2); //copy constructor
     
@@ -52,8 +53,8 @@ public:
 	vector<PowerPlant> getPowerPlant();
 	void setPowerPlant(vector<PowerPlant> pp);
 
-	//vector<Elektro> getElektros();
-	//vector<ResourceToken> getResources();
+	int getNumCitiesOwned();
+	int getNumPPOwned();
 
 	void addCity(City city);
 	vector<City> getCitiesOwned();
@@ -62,8 +63,21 @@ public:
 	int getplayerOrder();
 	void setplayerOrder(int playerOrder);
 
+	void addPowerPlant(PowerPlant p);
+
+	void powerCity(City city, PowerPlant powerplant, string type);
+	int getCitiesPowered();
+	//setting powered back to false as we are starting another round in the game
+	void setCitiesPowered();
+	int getTotalCoal();
+	int getTotalOil();
+	int getTotalGarbage();
+	int getTotalUranium();
+
+	void toString();
+
 	//to sort player's by the number of cities owned (to determine order)
-	static bool compByCities(const Player* a, const Player* b){
+	static bool compByCities(const Player* a, const Player* b) {
 		return b->citiesOwned.size() < a->citiesOwned.size();
 	}
 	static bool compByOrder(const Player* a, const Player* b) {
@@ -72,9 +86,4 @@ public:
 	static bool reverseOrder(const Player* a, const Player* b) {
 		return b->playerOrder < a->playerOrder;
 	}
-
-	void addPowerPlant(PowerPlant p);
-	//void addElektro(Elektro e);
-	//void removeElektro(int quantity, int billValue);
-	void toString();
 };

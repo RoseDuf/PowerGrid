@@ -21,13 +21,11 @@ Player::Player(string name, string color) {
 }
 
 Player::Player(string name, string color, vector<PowerPlant>
-	powerPlant, Elektro wallet, vector<City> cities,
-	/*vector<ResourceToken> resources,*/ int playerOrder) {
+	powerPlant, Elektro wallet, vector<City> cities, int playerOrder) {
 	this->name = name;
 	this->color = color;
 	this->wallet = wallet;
 	this->citiesOwned = cities;
-	//this->resources = resources;
 	this->playerOrder = playerOrder;
 }
 
@@ -66,10 +64,6 @@ void Player::addPowerPlant(PowerPlant p) {
 	powerPlants.push_back(p);
 }
 
-//vector<ResourceToken> Player::getResources() {
-//	return resources;
-//}
-
 vector<City> Player::getCitiesOwned() {
 	return citiesOwned;
 }
@@ -106,10 +100,67 @@ void Player::setplayerOrder(int t) {
 	playerOrder = t;
 }
 
-//void Player::removeElektro(int quantity, int billValue) {
-//elektros.push_back(Elektro(quantity, billValue));
-//elektros.erase
-//}
+int Player::getNumCitiesOwned() {
+	return numCitiesOwned;
+}
+
+int Player::getNumPPOwned() {
+	return numPPOwned;
+}
+
+void Player::powerCity(City city, PowerPlant powerplant, string type) {
+	city.setPoweredState(true);
+	powerplant.powerCity(type);
+}
+
+int Player::getCitiesPowered() {
+	int temp = 0;
+	for (int i = 0; i < citiesOwned.size(); i++)
+	{
+		if (citiesOwned[i].getPoweredState()) temp++;
+	}
+	return temp;
+}
+//setting powered back to false as we are starting another round in the game
+void Player::setCitiesPowered() {
+	for (int i = 0; i < citiesOwned.size(); i++)
+	{
+		citiesOwned[i].setPoweredState(false);
+	}
+}
+
+int  Player::getTotalCoal() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i].getRTStocked("coal");
+	}
+	return temp;
+}
+int  Player::getTotalOil() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i].getRTStocked("oil");
+	}
+	return temp;
+}
+int  Player::getTotalGarbage() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i].getRTStocked("garbage");
+	}
+	return temp;
+}
+int  Player::getTotalUranium() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i].getRTStocked("uranium");
+	}
+	return temp;
+}
 
 void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
