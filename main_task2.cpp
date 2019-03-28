@@ -135,6 +135,12 @@ static void deleteDeck(vector<GameCard*> &_deck) {
 	}
 }
 
+static void sortMarket(vector<GameCard*> &_powerPlantMarket)
+{
+	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
+
+}
+
 static GameCard* drawCard(vector<GameCard*> &deck) {
 	GameCard *temp = deck.at(0);
 	deck.erase(deck.begin());
@@ -187,12 +193,6 @@ static void DeterminePlayerOrder(vector<Player*> &players, int round) {
 		}
 		cout << endl;
 	}
-}
-
-static void sortMarket(vector<GameCard*> &_powerPlantMarket)
-{
-	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
-
 }
 
 // Returns true if s is a number else false 
