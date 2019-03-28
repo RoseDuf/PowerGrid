@@ -325,9 +325,6 @@ int main() {
 					//display Resource Market
 					market.display();
 
-					string pause;
-					cout << "Enter any character to continue..." << endl;
-					cin >> pause;
 					cout << endl;
 
 					//make this better in future by creating an exception that catches this...
@@ -383,8 +380,8 @@ int main() {
 							bool inPowerPlant = false;
 
 							//check if resources match ones on Player's powerplants
-							for (int i = 0; i < players[i]->getPowerPlant().size(); i++) {
-								inPowerPlant = players[i]->getPowerPlant()[i].checkIfNeeded(resource);
+							for (int x = 0; i < players[i]->getPowerPlant().size(); x++) {
+								inPowerPlant = players[i]->getPowerPlant()[x].checkIfNeeded(resource);
 								if (inPowerPlant) {
 									isMatch = true;
 									break;
@@ -431,14 +428,14 @@ int main() {
 							int tempPrice = market.getPrice(resource);
 							int totalSpent = 0;
 
-							cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
-							cout << "Number of $1 Elektro bills to use: " << endl;
-							cin >> bill1;
-							cout << "Number of $10 Elektro bills to use: " << endl;
-							cin >> bill10;
-							cout << "Number of $50 Elektro bills to use: " << endl;
-							cin >> bill50;
-							totalSpent = bill1 + bill10 + bill50;
+							bill50 = (tempPrice - tempPrice % 50) / 50;
+							tempPrice -= bill50 * 50;
+							bill10 = (tempPrice - tempPrice % 10) / 10;
+							tempPrice -= bill10 * 10;
+							bill1 = tempPrice;
+
+							cout << "That will cost you " << bill50 << " $50 Elektro bills, " << bill10 << " $10 Elektro bills, and " << bill1 << " $1 Elektro bills." << endl;
+							players[i]->spendElektros(bill1, bill10, bill50);
 
 							//while loop to ensure Player pays correct amount for resource
 							/*while (totalSpent != market.getPrice(resource)) {
@@ -468,6 +465,7 @@ int main() {
 							//remove amount of elektros from Player object
 							players[i]->spendElektros(bill1, bill10, bill50);
 
+							cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
 
 							//display Player's PowerPlants
 							for (int i = 0; i < players[i]->getPowerPlant().size(); i++) {
@@ -477,7 +475,7 @@ int main() {
 							//prompt player to select which powerplant to add resource to
 							bool notValid = true;
 							int selectPlant = 0;
-							cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
+							cout << "\nPlease enter the card number of the PowerPlant you want to add the " << resource << " to: " << endl;
 							cin >> selectPlant;
 
 							//check if a valid card number
