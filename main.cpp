@@ -569,15 +569,20 @@ int main() {
 		//if (phase == 3) {
 
 			//player loop
+
+		cout << "**********Now it is time to buy Cities!*********" << endl;
+		cout << endl;
 		DeterminePlayerOrder(players, phase);
 
 		//call method to reverse player order ***Use std::sort***
 		//sort(players.begin(), players.end(), Player::reverseOrder);
+		
 
 		for (int i = 0; i < players.size(); i++) {
 
 
-			cout << "Your turn " << players[i]->getName() << "!" << endl;
+			cout << "\nYour turn " << players[i]->getName() << "!" << endl;
+			cout << endl;
 			//for (int i = 0; i < playerOrder.size(); i++) {
 			//cout << "Your turn " + playerOrder[i]->getName() << endl;
 
@@ -592,7 +597,7 @@ int main() {
 				string chosenCity;
 
 				if (checkCity.size() == 0) {
-					cout << "You have 0 cities so far! Choose a city anywhere on the available map: " << endl;
+					cout << "\nYou have 0 cities so far! Choose a city anywhere on the available map: " << endl;
 					cin >> chosenCity;
 
 
@@ -677,24 +682,31 @@ int main() {
 				else {
 					// prompt player for city name
 					int numCities = checkCity.size();
-					cout << "You have" << numCities << "cities so far! Choose a city to build on that is adjacent to one of your cities: " << endl;
+
+					cout << "\nList of available Cities: " << endl;
+					graph.printAvailableCities();
+
+					cout << "\nYou have " << numCities << " cities so far! Choose a city to build on that is adjacent to one of your cities: " << endl;
 					cin >> chosenCity;
+
+
 
 
 					//check all conditions in the previous code (**later make this its own method in Game.h**)
 					//check if chosenCity is part of the available map
-					bool validCity = false;
+					bool invalidCity = true;
 
 					//check if in valid part of region
-					while (validCity != true) {
+					while (invalidCity) {
 						graph.SearchCity(chosenCity);
-						validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//if validCity is true will the while loop break immediately?
-						if (validCity = true) {
+						invalidCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//if validCity is true will the while loop break immediately?
+						if (!invalidCity) {
 							break;
 						}
 						else {
 							cout << "This city is not in an available region of the map. Please choose another city: " << endl;
 							cin >> chosenCity;
+							invalidCity = true;
 						}
 					}		//validCity while loop
 
