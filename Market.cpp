@@ -114,25 +114,49 @@ int Market::getPrice(string type)
 
 bool Market::checkSupply(string type, int number)
 {
+
+	bool isEmpty = false;
 	if (type == "coal")
 	{
-		return number <= coal_supply ? true : false;
+		if (number <= coal_supply) {
+			isEmpty = false;
+		}
+		else {
+			isEmpty = true;
+			}
+		
 	}
 	else if (type == "oil")
 	{
-		return number <= oil_supply ? true : false;
+		if (number <= oil_supply) {
+			isEmpty = false;
+		}
+		else {
+			isEmpty = true;
+		}
 	}
 
 	else if (type == "garbage")
 	{
-		return number <= garbage_supply ? true : false;
-	}
-	else if (type == "uranium")
-	{
-		return number <= uranium_supply ? true : false;
+		if (number <= garbage_supply) {
+			isEmpty = false;
+		}
+		else {
+			isEmpty = true;
+		}
 	}
 
-	return 0;
+	else if (type == "uranium")
+	{
+		if (number <= uranium_supply) {
+			isEmpty = false;
+		}
+		else {
+			isEmpty = true;
+		}
+	}
+
+	return isEmpty;
 }
 
 
@@ -225,5 +249,52 @@ bool Market::checkMarket(string type, int number)
 	}
 
 	return 0;
+
+
+	
+	/*
+	bool hasSome = true;
+	if (type == "coal")
+	{
+		if (number <= coal_market) {
+			hasSome = true;
+		}
+		else {
+			hasSome = false;;
+		}
+
+	}
+	else if (type == "oil")
+	{
+		if (number <= oil_market) {
+			hasSome = true;
+		}
+		else {
+			hasSome = false;
+		}
+	}
+
+	else if (type == "garbage")
+	{
+		if (number <= garbage_market) {
+			hasSome = true;
+		}
+		else {
+			hasSome = false;
+		}
+	}
+
+	else if (type == "uranium")
+	{
+		if (number <= uranium_market) {
+			hasSome = true;
+		}
+		else {
+			hasSome = false;
+		}
+	}
+
+	return hasSome;*/
 }
+
 
