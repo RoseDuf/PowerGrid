@@ -8,7 +8,7 @@
 //#include "Elektro.hpp"
 //#include "Market.hpp"
 //#include "HelperFunctions.hpp"
-//
+////
 //using namespace std;
 //using namespace HelperFunctions;
 //
