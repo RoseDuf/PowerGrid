@@ -115,7 +115,27 @@ int Market::getPrice(string type)
 bool Market::checkSupply(string type, int number)
 {
 
-	bool isEmpty = false;
+	if (type == "coal")
+	{
+		return number <= coal_supply ? true : false;
+	}
+	else if (type == "oil")
+	{
+		return number <= oil_supply ? true : false;
+	}
+
+	else if (type == "garbage")
+	{
+		return number <= garbage_supply ? true : false;
+	}
+	else if (type == "uranium")
+	{
+		return number <= uranium_supply ? true : false;
+	}
+
+	return 0;
+
+	/*bool isEmpty = false;
 	if (type == "coal")
 	{
 		if (number <= coal_supply) {
@@ -156,9 +176,8 @@ bool Market::checkSupply(string type, int number)
 		}
 	}
 
-	return isEmpty;
+	return isEmpty; */
 }
-
 
 
 void Market::rtPurchase(string type, int number)
