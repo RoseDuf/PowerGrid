@@ -154,21 +154,18 @@ bool PowerPlant::checkIfEnoughStock(string type)
 	return temp;
 }
 
-bool PowerPlant::stockRT(string type, int num)
+void PowerPlant::stockRT(string type, int num)
 {
-	bool isValid = false;
 	if (type == "coal")
 	{
 		if (checkIfNeeded("coal") && checkSpace("coal", num)) {
 			coal_stocked += num;
-			isValid = true;
 		}
 	}
 	else if (type == "oil")
 	{
 		if (checkIfNeeded("oil") && checkSpace("oil", num)) {
 			oil_stocked += num;
-			isValid = true;
 		}
 	}
 
@@ -176,13 +173,42 @@ bool PowerPlant::stockRT(string type, int num)
 	{
 		if (checkIfNeeded("garbage") && checkSpace("garbage", num)) {
 			garbage_stocked += num;
-			isValid = true;
 		}
 	}
 	else if (type == "uranium")
 	{
 		if (checkIfNeeded("uranium") && checkSpace("uranium", num)) {
 			uranium_stocked += num;
+		}
+	}
+
+}
+//method checks space and resource needed but does not stock
+bool PowerPlant::checkRT(string type, int num) {
+	bool isValid = false;
+
+	if (type == "coal")
+	{
+		if (checkIfNeeded("coal") && checkSpace("coal", num)) {
+			isValid = true;
+		}
+	}
+	else if (type == "oil")
+	{
+		if (checkIfNeeded("oil") && checkSpace("oil", num)) {
+			isValid = true;
+		}
+	}
+
+	else if (type == "garbage")
+	{
+		if (checkIfNeeded("garbage") && checkSpace("garbage", num)) {
+			isValid = true;
+		}
+	}
+	else if (type == "uranium")
+	{
+		if (checkIfNeeded("uranium") && checkSpace("uranium", num)) {
 			isValid = true;
 		}
 	}

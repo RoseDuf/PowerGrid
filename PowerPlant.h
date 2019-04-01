@@ -20,7 +20,10 @@ public:
 	void setCitiesPowered(int _number);
 
 	//stocks a resource onto the power plant card
-	bool stockRT(string type, int num);
+	void stockRT(string type, int num);
+
+	//does both checkIfNeeded and checkSpace but does not stock
+	bool checkRT(string type, int num);
 
 	//gets the number of a resource type stocked on power plant card
 	int getRTStocked(string type);

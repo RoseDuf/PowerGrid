@@ -390,11 +390,13 @@ int main() {
 						inPowerPlant = powerPlantsTEMP[x].stockRT(resource, 1);
 						if (inPowerPlant) {
 							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " can be powered with this resource." << endl;
+							cout << endl;
 							isMatch = true;
 							break;
 							}
 						else {
 							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " cannot be powered with this resource." << endl;
+							cout << endl;
 						}
 					}
 
@@ -454,6 +456,14 @@ int main() {
 
 					
 					cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
+					cout << endl;
+					cout << "PowerPlants Owned: " << endl;
+
+
+					//display just the card number of the powerplants you own
+					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
+						cout << "PowerPlant number: " << powerPlantsTEMP[z].getCardNumber() << endl;
+					}
 
 					
 					//prompt player to select which powerplant to add resource to
@@ -462,10 +472,6 @@ int main() {
 					cout << "\nPlease enter the card number of the PowerPlant you want to add the " << resource << " to: " << endl;
 					cin >> selectPlant;
 
-					//display just the card number of the powerplants you own
-					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
-						powerPlantsTEMP[z].toString();
-					}
 
 
 					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE*****
