@@ -374,7 +374,7 @@ int GraphBuilder::CostFromOneCityToAnother(string city1, string city2) {
 	}
 
 	if (check == true) {
-		cout << "Cost from city " << city1 << " to adjacent city " << city2 << ": ";
+		cout << "\nCost from city " << city1 << " to adjacent city " << city2 << ": ";
 		cout << root->cost << endl;
 		return root->cost;
 	}
