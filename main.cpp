@@ -264,7 +264,7 @@ int main() {
 
 	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Berlin");
 	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Frankfurt-O");
-	graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
+//	graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
 	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
@@ -860,15 +860,32 @@ int main() {
 
 				bool validCity = graph.findCityByName(chosenCity);	//bool updates player and map and checks if city is available
 
+				/*
+				//CHECK IF PLAYER ALREADY OWNS CITY
+				for (int o = 0; i < chosenCity.size(); o++) {
+					string tempCity = checkCity[o].getCityName();
+					if (chosenCity == tempCity) {
+						cout << "You already own this city. ";
+						validCity = false;
+					}
+					else {
+						continue;
+					}
+				}
+
+				*/
+
+
 				//check if in valid part of region
 				while (!validCity) {
 
-					cout << "This city is not in an available region of the map. Please choose another city: " << endl;
+					cout << "This city is not available. Please choose another city: " << endl;
 
 					cin >> chosenCity;
 
 					graph.SearchCity(chosenCity);
 					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
+
 
 				}
 
@@ -876,6 +893,9 @@ int main() {
 				cout << "\nYou found a city that is available!" << endl;
 				cout << "\nNow lets check some more conditions..." << endl;
 				cout << endl;
+
+
+				
 
 
 
@@ -976,6 +996,19 @@ int main() {
 
 				cityBought = false;
 
+				//check for phase
+				switch (step) {			//step = 1 in demo round 
+				case 1:
+					cityPrice = 10;
+					break;
+				case 2:
+					cityPrice = 15;
+					break;
+				case 3:
+					cityPrice = 20;
+					break;
+				}
+
 				
 				//check players wallet based on city prices, if they have less than city price
 				if (cityPrice >= players[i]->getTotalWallet()) {
@@ -990,19 +1023,7 @@ int main() {
 
 
 
-				//check for phase
-				switch (step) {			//step = 1 in demo round 
-				case 1:
-					cityPrice = 10;
-					break;
-				case 2:
-					cityPrice = 15;
-					break;
-				case 3:
-					cityPrice = 20;
-					break;
-				}
-
+			
 
 
 				if (cityBought) {
@@ -1066,6 +1087,12 @@ int main() {
 
 			} //end of else statement: player has more than one city...
 
+
+			cout << "\nEnter any character to see your dashboard..." << endl;
+			cin >> pause;
+			g1.dashboard(players[i]);
+
+
 		} //stillBuilding while loop
 
 
@@ -1074,6 +1101,15 @@ int main() {
 	}  //player loop
 	
 	
+
+
+
+
+
+
+
+
+
 
 	//keep console open
 	cin.get();
