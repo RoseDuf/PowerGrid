@@ -382,10 +382,12 @@ int main() {
 					cout << "You chose " << resource << "." << endl;
 					cout << endl;
 
+
+					//BUG:::: if you type in the same resource twice (if its empty the first time, it will still go through)
 					//check resource supply from Market
-					bool marketEmpty = market.checkSupply(resource, 1);
-					while (marketEmpty) {
-						cout << "The market is all out of " << resource << endl;
+					bool hasSome = market.checkMarket(resource, 1);
+					while (!hasSome) {
+						cout << "The market is all out of " << resource << "." << endl;
 						cout << "Please choose another resource: " << endl;
 						cin >> resource;
 
@@ -413,10 +415,7 @@ int main() {
 							}
 						}
 
-
-						marketEmpty = market.checkSupply(resource, 1);
-
-
+						hasSome = market.checkMarket(resource, 1);
 					}
 
 
@@ -512,7 +511,7 @@ int main() {
 
 					bool wrongNum = true;
 					int indexPlant = 0;
-					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE***** also it aborts here //vector subscript out of range??
+					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE***** 
 					for (int y = 0; y < powerPlantsTEMP.size(); y++) {
 						if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
 							indexPlant = y;
