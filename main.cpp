@@ -306,7 +306,7 @@ int main() {
 
 	//call method to reverse player order ***Use std::sort***
 
-/*
+
 	for (int i = 0; i < players.size(); i++) {
 
 		cout << "\n***********************************************************" << endl; 
@@ -608,7 +608,7 @@ int main() {
 	//if (phase == 3) {
 
 		//player loop
-*/
+
 
 	cout << "**********Now it is time to buy Cities!*********" << endl;
 	cout << endl;
