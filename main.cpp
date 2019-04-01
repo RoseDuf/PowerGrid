@@ -320,12 +320,12 @@ int main() {
 
 		bool stillBuying = true;
 
+		vector <PowerPlant> powerPlantsTEMP;
+		powerPlantsTEMP = players[i]->getPowerPlant();
+
 		while (stillBuying) {
 
-			vector <PowerPlant> powerPlantsTEMP;
-			powerPlantsTEMP = players[i]->getPowerPlant();
-
-
+	
 			cout << "\nEnter any character to see the market..." << endl;
 			cin >> pause;
 
@@ -379,15 +379,53 @@ int main() {
 					}
 
 
-
 					cout << "You chose " << resource << "." << endl;
 					cout << endl;
+
+					//check resource supply from Market
+					bool marketEmpty = market.checkSupply(resource, 1);
+					while (marketEmpty) {
+						cout << "The market is all out of " << resource << endl;
+						cout << "Please choose another resource: " << endl;
+						cin >> resource;
+
+						while (notValidSource) {
+							if (resource == "coal") {
+								notValidSource = false;
+								break;
+							}
+							else if (resource == "oil") {
+								notValidSource = false;
+								break;
+							}
+							else if (resource == "garbage") {
+								notValidSource = false;
+								break;
+							}
+							else if (resource == "uranium") {
+								notValidSource = false;
+								break;
+							}
+							else {
+								notValidSource = true;
+								cout << "That is an invalid resource. Please choose another resource: " << endl;
+								cin >> resource;
+							}
+						}
+
+
+						marketEmpty = market.checkSupply(resource, 1);
+
+
+					}
+
+
 
 					bool inPowerPlant = false;
 
 					//check if resources match ones on Player's powerplants
 					for (int x = 0; x < powerPlantsTEMP.size(); x++) {
-						inPowerPlant = powerPlantsTEMP[x].stockRT(resource, 1);
+						inPowerPlant = powerPlantsTEMP[x].checkRT(resource, 1);
 						if (inPowerPlant) {
 							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " can be powered with this resource." << endl;
 							cout << endl;
@@ -461,7 +499,7 @@ int main() {
 
 
 					//display just the card number of the powerplants you own
-					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
+					for (int z = 0; z < powerPlantsTEMP.size(); z++) {
 						cout << "PowerPlant number: " << powerPlantsTEMP[z].getCardNumber() << endl;
 					}
 
@@ -472,29 +510,31 @@ int main() {
 					cout << "\nPlease enter the card number of the PowerPlant you want to add the " << resource << " to: " << endl;
 					cin >> selectPlant;
 
-
-
-					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE*****
-					int y = 0;
-					for (y = 0; y < players[i]->getPowerPlant().size(); y++) {
+					bool wrongNum = true;
+					int indexPlant = 0;
+					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE***** also it aborts here //vector subscript out of range??
+					for (int y = 0; y < powerPlantsTEMP.size(); y++) {
 						if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
-							notValid = false;
+							indexPlant = y;
+							wrongNum = false;
 							break;
 						}
 						else {
+							wrongNum = true;
 							continue;
 						}
 					}
 
-					while (notValid) {
+
+					while (wrongNum) {
 						cout << "Sorry that is not the card number of a PowerPlant you own. Try another card number. " << endl;
 						cout << "\nPlease enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
 						cin >> selectPlant;
 
 						//check if a valid card number ****Might cause error****
-						for (y = 0; y < players[i]->getPowerPlant().size(); y++) {
-							if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
-								notValid = false;
+						for (int k = 0; k <powerPlantsTEMP.size(); k++) {
+							if (selectPlant == powerPlantsTEMP[k].getCardNumber()) {
+								wrongNum = false;
 								break;
 							}
 							else {
@@ -504,20 +544,22 @@ int main() {
 
 					}
 
+					//selectPlant is card number not index
 
-					//add resource to player's appropriate powerplant **** THIS GONNA ERROR***
-					powerPlantsTEMP[y].stockRT(resource, 1);
+					//add resource to player's appropriate powerplant
+					powerPlantsTEMP[indexPlant].stockRT(resource, 1);
+
+
 					cout << "\nResource has been added to the PowerPlant... " << endl;
 
 					//display Player's PowerPlants
-					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
+					for (int z = 0; z < powerPlantsTEMP.size(); z++) {
 						powerPlantsTEMP[z].toString();
 					}
 
-					//remove resource from Market
+					//remove from market
 					market.rtPurchase(resource, 1);
 
-					//while loop to check if match
 
 					char yesno;
 					cout << "\nWould you like to buy another resource? (Y/N)" << endl;
