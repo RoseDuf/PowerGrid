@@ -309,8 +309,9 @@ int main() {
 
 	for (int i = 0; i < players.size(); i++) {
 
-
-		cout << "Your turn " + players[i]->getName() + "!" << endl;
+		cout << "\n***********************************************************" << endl; 
+		cout << "\n***********************************************************" << endl;
+		cout << "\nYour turn " + players[i]->getName() + "!" << endl;
 		cout << "\nEnter any character to see your dashboard..." << endl;
 		cin >> pause;
 		g1.dashboard(players[i]);
@@ -324,6 +325,9 @@ int main() {
 			vector <PowerPlant> powerPlantsTEMP;
 			powerPlantsTEMP = players[i]->getPowerPlant();
 
+
+			cout << "\nEnter any character to see the market..." << endl;
+			cin >> pause;
 
 			//display Resource Market
 			market.display();

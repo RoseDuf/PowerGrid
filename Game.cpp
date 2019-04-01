@@ -51,12 +51,12 @@ void Game::dashboard(Player* p) {
 		cout << "You have "<< p->getCitiesOwned().size() << " cities." << endl;
 		cout << endl;
 
-	for (int i = 0; i < p->getCitiesOwned().size(); i++) {
-		p->getCitiesOwned()[i].getCityName();
-		cout << endl;
-	}
+		vector<City> tempCity = p->getCitiesOwned();
+		for (int i = 0; i < tempCity.size(); i++) {
+			cout << tempCity[i].getCityName() << endl;
+		}
 
-
+	cout << endl;
 	cout << "\nElektros:\n" << endl;
 	p->walletToString();
 	cout << endl;
