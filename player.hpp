@@ -17,7 +17,7 @@ class Player {
 private:
     string name;
 	string color;
-	vector<PowerPlant> powerPlants;
+	vector<PowerPlant*> powerPlants;
     
    	//vector<Elektro> elektros;
    	Elektro wallet;
@@ -34,7 +34,7 @@ public:
     
 	Player();
 	Player(string name, string color);
-	Player(string name, string color, vector<PowerPlant> 
+	Player(string name, string color, vector<PowerPlant*> 
 		powerPlant, Elektro wallet, vector<City> citiesOwned, int playerOrder);
 	~Player(); 
 	Player(const Player &p2); //copy constructor
@@ -54,8 +54,8 @@ public:
 	string getColor();
 	void setColor(string color);
 
-	vector<PowerPlant> getPowerPlant();
-	void setPowerPlant(vector<PowerPlant> pp);
+	vector<PowerPlant*> getPowerPlant();
+	void setPowerPlant(vector<PowerPlant*> pp);
 
 	int getNumCitiesOwned();
 	int getNumPPOwned();
@@ -70,9 +70,9 @@ public:
 	int getplayerOrder();
 	void setplayerOrder(int playerOrder);
 
-	void addPowerPlant(PowerPlant p);
+	void addPowerPlant(PowerPlant* p);
 
-	void powerCity(City city, PowerPlant powerplant, string type);
+	void powerCity(City city, PowerPlant* powerplant, string type);
 	int getCitiesPowered();
 	//setting powered back to false as we are starting another round in the game
 	void setCitiesPowered();

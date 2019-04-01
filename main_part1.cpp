@@ -8,7 +8,7 @@
  //  player
  //  Driver class for Player object
  //
-
+/*
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -203,9 +203,9 @@ static void sortMarket(vector<GameCard*> &_powerPlantMarket) {
      else if(mapChoice == 4) {
          mapFilename = "missing_edge(s).map";
      }
-     /*else {
-         throw no map exception or something like that
-     }//*/
+     //else {
+        // throw no map exception or something like that
+     //}
      
      MapData mapData = PowerGridIO::getMapData(mapFilename);
      std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
@@ -271,3 +271,4 @@ static void sortMarket(vector<GameCard*> &_powerPlantMarket) {
      
      return 0;
  }
+ */
