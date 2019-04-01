@@ -75,6 +75,7 @@ public:
 	void addConnectedCitiestoVector();
 	void printGraph();
 	void printAvailableCities();
+	bool findCityByName(string name);
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
@@ -94,7 +95,6 @@ public:
 	*/
 
 	//additional functions
-	City findCityByName(string name);
 	void removeRegions(string color);
 	bool add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
