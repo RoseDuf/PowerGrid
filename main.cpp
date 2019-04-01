@@ -756,7 +756,7 @@ int main() {
 				//check if chosenCity is part of the available map
 				graph.SearchCity(chosenCity);		//displays info about a city
 
-				bool validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//bool updates player and map and checks if city is available
+				bool validCity = graph.findCityByName(chosenCity);	//bool updates player and map and checks if city is available
 
 				//check if in valid part of region
 				while (!validCity) {
@@ -856,6 +856,10 @@ int main() {
 				while (!isAdjacent) {		//*******This needs to loop back to incorporate earlier questions
 					cout << "\nThe city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
 					cin >> chosenCity;
+
+					graph.SearchCity(chosenCity);		//displays info about a city
+					cout << endl;
+
 					for (int m = 0; m < checkCity.size(); m++) {
 						isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[m].getCityName());
 						if (isAdjacent) {
@@ -868,7 +872,20 @@ int main() {
 					}
 				}
 
-				cityBought = true;
+				cityBought = false;
+
+				
+				//check players wallet based on city prices, if they have less than city price
+				if (cityPrice >= players[i]->getTotalWallet()) {
+					cout << "You have " << players[i]->getTotalWallet() << "Eletros." << endl;
+					cout << "Sorry that is not enough Elektros to buy a building for this city. Your turn is over." << endl;
+					stillBuilding = false;
+				}
+				else {
+					cityBought = true;
+				}
+
+
 
 
 				//check for phase
@@ -884,16 +901,44 @@ int main() {
 					break;
 				}
 
-			
 
 
 				if (cityBought) {
-					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
+					graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
 					int total = 0;
-					cout << "\nThe connection between the two cities costs " << price << endl;
 					cout << "The cost of the city is " << cityPrice << "." << endl;
+					cout << endl;
+					cout << "You have " << players[i]->getTotalWallet() << " Elektros." << endl;
 					cout << "The total cost is " << (price + cityPrice) << "." << endl;
+
+
+					cout << "You will pay " << (price + cityPrice) << " Elektros for " << chosenCity << "." << endl;
+
+					//bill variables
+					int bill1 = 0;
+					int bill10 = 0;
+					int bill50 = 0;
+					int tempPrice = (price + cityPrice);
+					int totalSpent = 0;
+
+
+					//this code below works
+					bill50 = (tempPrice - tempPrice % 50) / 50;
+					tempPrice -= bill50 * 50;
+					bill10 = (tempPrice - tempPrice % 10) / 10;
+					tempPrice -= bill10 * 10;
+					bill1 = tempPrice;
+
+					cout << "That will cost you " << bill50 << " x $50 Elektro bills, " << bill10 << " x $10 Elektro bills, and " << bill1 << " x $1 Elektro bills." << endl;
+					players[i]->spendElektros(bill1, bill10, bill50);
+
+
+					cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
+					cout << endl;
+
+
 					cout << "You have bought " << chosenCity << "." << endl;
+					cout << endl;
 
 				}
 
