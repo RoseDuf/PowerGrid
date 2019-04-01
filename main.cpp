@@ -786,8 +786,8 @@ int main() {
 					}
 						//validCity while loop*/
 
-				cout << "You found a city that is available!" << endl;
-				cout << "Now lets check some more conditions..." << endl;
+				cout << "\nYou found a city that is available!" << endl;
+				cout << "\nNow lets check some more conditions..." << endl;
 				cout << endl;
 				//cout << "How many players in Halle"<< endl;
 				//cout << graph.HowManyPlayersAreInCity(chosenCity);
@@ -795,11 +795,13 @@ int main() {
 				bool emptyCity = false;
 
 
+				//THIS IS WRONG
 				while (emptyCity != true) {
 
 					//check for phase
 					switch (step) {
 					case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
+
 						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
 						cin >> chosenCity;
 						validCity = false;
