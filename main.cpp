@@ -288,16 +288,16 @@ int main() {
 
 	//Game loop !!!!
 	bool gameIsNotFinished = true;
-	int phase = 2;
+	//int phase = 2;
 	string pause;
 
 
 	//-------------------TASK 3 --- BUYING RESOURCES -------------------------------------------- //
+	int phase = 1;
 
-	phase = 1;
 	DeterminePlayerOrder(players, phase);
-	phase = 2;
 
+	phase = 2;
 	//while (gameIsNotFinished) {
 
 		//if (phase == 2) {
@@ -755,6 +755,7 @@ int main() {
 				//check all conditions in the previous code (**later make this its own method in Game.h**)
 				//check if chosenCity is part of the available map
 				graph.SearchCity(chosenCity);		//displays info about a city
+
 				bool validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//bool updates player and map and checks if city is available
 
 				//check if in valid part of region
@@ -765,41 +766,29 @@ int main() {
 					cin >> chosenCity;
 
 					graph.SearchCity(chosenCity);
-					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);
+					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 				}
 
 
-				/*
-				//check if in valid part of region
-				while (!validCity) {
-					graph.SearchCity(chosenCity);
-					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity); //if validCity is true will the while loop break immediately?
-					if (validCity == true) {
-						break;
-						validCity = true;
-					}
-					else {
-						cout << "This city is not in an available region of the map. Please choose another city: " << endl;
-						cin >> chosenCity;
-						validCity = false;
-					}
-						//validCity while loop*/
-
 				cout << "\nYou found a city that is available!" << endl;
 				cout << "\nNow lets check some more conditions..." << endl;
 				cout << endl;
-				//cout << "How many players in Halle"<< endl;
-				//cout << graph.HowManyPlayersAreInCity(chosenCity);
+				cout << "How many players in Konstanz"<< endl;
+				cout << graph.HowManyPlayersAreInCity(chosenCity);
+				cout << "What are their names? " << endl;
+				graph.playerNameInCity(chosenCity);
+
+
+
 					//check if the city is already filled with other players
 				bool emptyCity = false;
 
-
-				//THIS IS WRONG
-				while (emptyCity != true) {
+				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
+			/*	while (!emptyCity) {
 
 					//check for phase
-					switch (step) {
+					switch (step) {			//step = 1 in demo round ******* ITS COUNTING ITSELF IN TERMS OF PLAYER ALREADY ON CITY ********
 					case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
 
 						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
@@ -834,7 +823,7 @@ int main() {
 					}
 
 				}
-				//emptyCity while loop
+				//emptyCity while loop*/
 
 
 			//returns bool to see if chosen city is adjacent to the cities in checkCity
@@ -848,23 +837,46 @@ int main() {
 				}
 			}*/
 				bool cityBought = false;
+				bool isAdjacent = false;
 				int price = 0;
-				while (!graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
-					cout << "The city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
-					cin >> chosenCity;
-					for (int i = 0; i < numCities; i++) {
-						if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName()) == true) {
-							cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
-							price = graph.CostFromOneCityToAnother(checkCity[i].getCityName(), chosenCity);
+				string tempCity;
 
-							cityBought = true;
+
+				isAdjacent = graph.IsCityAdjacentToOtherCity("Berlin", "Konstanz");
+				cout << isAdjacent;
+
+				//checks if chosen city is adjacent to Player's cities
+				for (int m = 0; m < checkCity.size(); m++) {
+					tempCity = checkCity[m].getCityName();
+					isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, tempCity);			///THIS THROWS ERROR
+						if (isAdjacent) {
+							price = graph.CostFromOneCityToAnother(chosenCity, tempCity);
 							break;
 						}
 						else {
 							continue;
 						}
-					}
 				}
+
+					while (!isAdjacent) {
+						cout << "The city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
+						cin >> chosenCity;
+						for (int m = 0; m < checkCity.size(); m++) {
+							isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[m].getCityName());
+							if (isAdjacent) {
+								price = graph.CostFromOneCityToAnother(chosenCity, checkCity[m].getCityName());
+								break;
+							}
+							else {
+								continue;
+							}
+						}
+					}
+				
+					cityBought = true;
+
+				
+
 
 				if (cityBought) {
 					int total = 0;
