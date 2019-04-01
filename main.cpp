@@ -382,8 +382,6 @@ int main() {
 					cout << "You chose " << resource << "." << endl;
 					cout << endl;
 
-
-					//BUG:::: if you type in the same resource twice (if its empty the first time, it will still go through)
 					//check resource supply from Market
 					bool hasSome = market.checkMarket(resource, 1);
 					while (!hasSome) {
@@ -511,7 +509,10 @@ int main() {
 
 					bool wrongNum = true;
 					int indexPlant = 0;
-					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE***** 
+
+					//***BUG: YOU CAN ADD RESOURCE TO ONE OF YOUR POWERPLANTS THAT DOESNT TAKE THAT RESOURCE HERE*****
+
+					//check if a valid card number 
 					for (int y = 0; y < powerPlantsTEMP.size(); y++) {
 						if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
 							indexPlant = y;
@@ -523,6 +524,10 @@ int main() {
 							continue;
 						}
 					}
+
+
+					//CHECK HERE IF THAT POWERPLANT CAN TAKE THAT RESOURCE
+
 
 
 					while (wrongNum) {
