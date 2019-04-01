@@ -345,6 +345,27 @@ int GraphBuilder::CostFromOneCityToAnother(string city1, string city2) {
 
 }
 
+
+void GraphBuilder::playerNameInCity(string city3) {		//tentative add -- don't hate me Rose
+
+	for (int i = 0; i < totalVertices; i++) {
+
+		if (graph->arr[i].city.getCityName() == city3) {
+			if (graph->arr[i].player.size() == 0) {
+				cout << "Nobody owns this." << endl;
+			}
+			else {
+				for (int j = 0; j < graph->arr[i].player.size(); j++) {
+					cout << "Owned By: " << graph->arr[i].player[j].getName() << endl;
+				}
+
+			}
+		}
+
+	}
+}
+
+
 //prints out information within a node of the map
 void GraphBuilder::SearchCity(string cityName) {
 	cout << endl;

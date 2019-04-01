@@ -106,6 +106,9 @@ public:
 	//void add_ResourcesToCity(ResourceToken rt, string name);
 	//void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(string city1, string city2);
+
+	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
+
 	bool test_SizeOfMap_and_FileMap();
 	bool test_Duplicate_Edges();
 	bool test_MissingEdges();
