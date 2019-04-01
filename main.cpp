@@ -389,15 +389,19 @@ int main() {
 					for (int x = 0; x < powerPlantsTEMP.size(); x++) {
 						inPowerPlant = powerPlantsTEMP[x].stockRT(resource, 1);
 						if (inPowerPlant) {
+							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " can be powered with this resource." << endl;
 							isMatch = true;
 							break;
 							}
+						else {
+							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " cannot be powered with this resource." << endl;
+						}
 					}
 
 					//stockRT() instead it also checks space available in powerplant*****
 					char yn;
 					if (inPowerPlant == false) {
-						cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
+					cout << "You cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
 					cout << "\nWould you like to try to buy another resource?(Y/N)" << endl;
 					cin >> yn;
 
@@ -459,6 +463,9 @@ int main() {
 					cin >> selectPlant;
 
 					//display just the card number of the powerplants you own
+					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
+						powerPlantsTEMP[z].toString();
+					}
 
 
 					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE*****
@@ -475,7 +482,7 @@ int main() {
 
 					while (notValid) {
 						cout << "Sorry that is not the card number of a PowerPlant you own. Try another card number. " << endl;
-						cout << "Please enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
+						cout << "\nPlease enter the card number of the PowerPlant you want to add the " + resource + " to: " << endl;
 						cin >> selectPlant;
 
 						//check if a valid card number ****Might cause error****
