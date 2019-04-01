@@ -276,12 +276,14 @@ vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player * pl) {
 	return citiesOwned;
 }
 
+/*
 //error handler to check if a vertex is connected to another
 bool GraphBuilder::IsCityAdjacentToOtherCity(string city1, string city2) {
 	AdjListNode * root = NULL;
 	for (int v1 = 0; v1 < totalVertices; v1++) {
 		if (graph->arr[v1].city.getCityName() == city1) {
 			root = graph->arr[v1].head;
+			//break;		//dont hate me rose i added this
 		}
 	}
 
@@ -294,6 +296,42 @@ bool GraphBuilder::IsCityAdjacentToOtherCity(string city1, string city2) {
 			root = root->next;
 		if (root == NULL)
 			check = false;
+	}
+
+	//use smart pointers
+	root = NULL;
+
+	if (check == true) {
+		cout << "City " << city1 << " is adjacent to city " << city2 << endl;
+		return true;
+	}
+	else {
+		cout << "City " << city1 << " is NOT adjacent to city " << city2 << endl;
+		return false;
+	}
+}*/
+
+
+//error handler to check if a vertex is connected to another
+bool GraphBuilder::IsCityAdjacentToOtherCity(string city1, string city2) {
+	AdjListNode * root = NULL;
+	for (int v1 = 0; v1 < totalVertices; v1++) {
+		if (graph->arr[v1].city.getCityName() == city1) {
+			root = graph->arr[v1].head;
+		}
+	}
+
+	bool check = false;
+
+	while (check == false) {
+		if (root == NULL) {
+			check = false;
+			break;
+		}
+		if (root->city.getCityName() == city2)
+			check = true;
+		else
+			root = root->next;
 	}
 
 	//use smart pointers
