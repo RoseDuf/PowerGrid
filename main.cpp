@@ -387,36 +387,37 @@ int main() {
 
 					//check if resources match ones on Player's powerplants
 					for (int x = 0; x < powerPlantsTEMP.size(); x++) {
-						inPowerPlant = powerPlantsTEMP[x].checkIfNeeded(resource);
+						inPowerPlant = powerPlantsTEMP[x].stockRT(resource, 1);
 						if (inPowerPlant) {
 							isMatch = true;
 							break;
-						}
+							}
 					}
 
 					//stockRT() instead it also checks space available in powerplant*****
 					char yn;
 					if (inPowerPlant == false) {
 						cout << "Sorry you cannot buy this resource because you do not have a corresponding resource in your PowerPlants." << endl;
-						cout << "\nWould you like to try to buy another resource?(Y/N)" << endl;
+					cout << "\nWould you like to try to buy another resource?(Y/N)" << endl;
+					cin >> yn;
+
+					while (yn != 'Y' && yn != 'N') {
+						cout << "This input is not valid. Please type in Y (for Yes) or N (for No): " << endl;
 						cin >> yn;
+					}
 
-						while (yn != 'Y' && yn != 'N') {
-							cout << "This input is not valid. Please type in Y (for Yes) or N (for No): " << endl;
-							cin >> yn;
-						}
-
-						if (yn == 'Y') {
-							continue;
-						}
-						if (yn == 'N') {
-							cout << "\nYour turn is over." << endl;
-							cout << endl;
-							stillBuying = false;
-							goto breakhere;
-						}
+					if (yn == 'Y') {
+						continue;
+					}
+					if (yn == 'N') {
+						cout << "\nYour turn is over." << endl;
+						cout << endl;
+						stillBuying = false;
+						goto breakhere;
 					}
 				}
+				}
+				
 
 				//check if player can afford resource
 				if (market.getPrice(resource) >= players[i]->getTotalWallet()) {
@@ -447,48 +448,18 @@ int main() {
 					cout << "That will cost you " << bill50 << " x $50 Elektro bills, " << bill10 << " x $10 Elektro bills, and " << bill1 << " x $1 Elektro bills." << endl;
 					players[i]->spendElektros(bill1, bill10, bill50);
 
-
-
-					//while loop to ensure Player pays correct amount for resource
-					/*while (totalSpent != market.getPrice(resource)) {
-						cout << "Sorry that total does not equal the price of the resource." << endl;
-						cout << "\nEnter how you would like to pay. You must pay the exact amount using the Elektro bills you own." << endl;
-						cout << "Number of $1 Elektro bills to use: " << endl;
-						cin >> bill1;
-						cout << "Number of $10 Elektro bills to use: " << endl;
-						cin >> bill10;
-						cout << "Number of $50 Elektro bills to use: " << endl;
-						cin >> bill50;
-						totalSpent = bill1 + bill10 + bill50;
-
-					}*/
-
-					//profit variable
-					/*bill50 = ( tempPrice - tempPrice % 50) / 50;
-					tempPrice -= bill5050;
-					bill10 = (tempPrice - tempPrice % 10) / 10;
-					tempPrice -= bill1010;
-					bill1 = tempPrice;
-					players[i]->collectElektro(bill1, bill10, bill50);
-					*/
-
-					//****Use isabelle's method from Discord --- its automatic!!****
-
-					//remove amount of elektros from Player object
-
-
+					
 					cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
 
-					//display Player's PowerPlants
-					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
-						powerPlantsTEMP[z].toString();
-					}
-
+					
 					//prompt player to select which powerplant to add resource to
 					bool notValid = true;
 					int selectPlant = 0;
 					cout << "\nPlease enter the card number of the PowerPlant you want to add the " << resource << " to: " << endl;
 					cin >> selectPlant;
+
+					//display just the card number of the powerplants you own
+
 
 					//check if a valid card number ***BUG: YOU CAN ADD TO WRONG POWERPLANT HERE*****
 					int y = 0;
@@ -524,6 +495,11 @@ int main() {
 					//add resource to player's appropriate powerplant **** THIS GONNA ERROR***
 					powerPlantsTEMP[y].stockRT(resource, 1);
 					cout << "\nResource has been added to the PowerPlant... " << endl;
+
+					//display Player's PowerPlants
+					for (int z = 0; z < players[i]->getPowerPlant().size(); z++) {
+						powerPlantsTEMP[z].toString();
+					}
 
 					//remove resource from Market
 					market.rtPurchase(resource, 1);

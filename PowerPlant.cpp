@@ -64,7 +64,8 @@ bool PowerPlant::checkIfNeeded(string type)
 		if (uranium_needed == 0) temp = false;
 	}
 
-	if (temp == false)//cout << "This power plant can't be powered with this resource." << endl;
+	if (temp == false)
+		cout << "This power plant can't be powered with this resource." << endl;
 	return temp;
 }
 
@@ -153,18 +154,21 @@ bool PowerPlant::checkIfEnoughStock(string type)
 	return temp;
 }
 
-void PowerPlant::stockRT(string type, int num)
+bool PowerPlant::stockRT(string type, int num)
 {
+	bool isValid = false;
 	if (type == "coal")
 	{
 		if (checkIfNeeded("coal") && checkSpace("coal", num)) {
 			coal_stocked += num;
+			isValid = true;
 		}
 	}
 	else if (type == "oil")
 	{
 		if (checkIfNeeded("oil") && checkSpace("oil", num)) {
 			oil_stocked += num;
+			isValid = true;
 		}
 	}
 
@@ -172,15 +176,18 @@ void PowerPlant::stockRT(string type, int num)
 	{
 		if (checkIfNeeded("garbage") && checkSpace("garbage", num)) {
 			garbage_stocked += num;
+			isValid = true;
 		}
 	}
 	else if (type == "uranium")
 	{
 		if (checkIfNeeded("uranium") && checkSpace("uranium", num)) {
 			uranium_stocked += num;
+			isValid = true;
 		}
 	}
 
+	return isValid;
 
 }
 
