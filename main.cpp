@@ -658,82 +658,184 @@ int main() {
 
 				//check if chosenCity is part of the available map
 
+				//check all conditions in the previous code (**later make this its own method in Game.h**)
+				//check if chosenCity is part of the available map
 				graph.SearchCity(chosenCity);		//displays info about a city
-				bool validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//bool updates player and map and checks if city is available
 
-				//check if in valid part of region
-				while (validCity != true) {
+				bool validCity = graph.findCityByName(chosenCity);	//bool updates player and map and checks if city is available
+
+																	//check if in valid part of region
+				while (!validCity) {
+
 					cout << "This city is not in an available region of the map. Please choose another city: " << endl;
+
 					cin >> chosenCity;
 
 					graph.SearchCity(chosenCity);
-					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);
+					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 				}
 
 
+				cout << "\nYou found a city that is available!" << endl;
+				cout << "\nNow lets check some more conditions..." << endl;
+				cout << endl;
 
 
 
 				//check if the city is already filled with other players
 				bool emptyCity = false;
-				cityPrice = 0;
 
-				while (emptyCity != true) {
+				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
+				/*	while (!emptyCity) {
 
-					//check for phase
-					switch (step) {
-					case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-						cout << "Sorry, another player already has a building on this city. Please choose another city: ";
-						cin >> chosenCity;
-						validCity = false;
-					}
-							else {
-								validCity = true;
-							}
-							cityPrice = 10;
-							break;
-					case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-						cout << "Sorry, another player already has a building on this city. Please choose another city: ";
-						cin >> chosenCity;
-						validCity = false;
-					}
-							 else {
-								 validCity = true;
-							 }
-							 cityPrice = 15;
-							 break;
-					case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-						cout << "Sorry, another player already has a building on this city. Please choose another city: ";
-						cin >> chosenCity;
-						validCity = false;
-					}
-							else {
-								validCity = true;
-							}
-							cityPrice = 20;
-							break;
-					}
+				//check for phase
+				switch (step) {			//step = 1 in demo round ******* ITS COUNTING ITSELF IN TERMS OF PLAYER ALREADY ON CITY ********
+				case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
+
+				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
+				cin >> chosenCity;
+				validCity = false;
+				}
+				else {
+				validCity = true;
+				}
+				cityPrice = 10;
+				break;
+				case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
+				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
+				cin >> chosenCity;
+				validCity = false;
+				}
+				else {
+				validCity = true;
+				}
+				cityPrice = 15;
+				break;
+				case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
+				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
+				cin >> chosenCity;
+				validCity = false;
+				}
+				else {
+				validCity = true;
+				}
+				cityPrice = 20;
+				break;
+				}
+
+				}
+				//emptyCity while loop*/
 
 
-				}	//emptyCity while loop
+				//returns bool to see if chosen city is adjacent to the cities in checkCity
+				/*for (int i = 0; i < numCities; i++) {
+				if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
+				cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
+				break;
+				}
+				else {
+				continue;
+				}
+				}*/
+				bool cityBought = false;
+				bool isAdjacent = false;
+				int price = 0;
+				string tempCity;
 
-				cout << "You have selected " << chosenCity << ". This city is available to buy." << endl;
-				cout << "\nCalculating price..." << endl;
-				cout << chosenCity << " costs " << cityPrice << " Elektros." << endl;
+
+
+				cityBought = false;
 
 
 				//check players wallet based on city prices, if they have less than city price
 				if (cityPrice >= players[i]->getTotalWallet()) {
-					cout << "Sorry you do not have enough Elektros to a building for this city. Your turn is over." << endl;
+					cout << "You have " << players[i]->getTotalWallet() << "Eletros." << endl;
+					cout << "Sorry that is not enough Elektros to buy a building for this city. Your turn is over." << endl;
 					stillBuilding = false;
 				}
 				else {
-					cout << "You bought a house in " << chosenCity << endl;
-					graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);	//**this function adds city to player's city vector?
+					cityBought = true;
 				}
 
-			}	//end of if checkCities.size() == 0
+
+
+
+				//check for phase
+				switch (step) {			//step = 1 in demo round 
+				case 1:
+					cityPrice = 10;
+					break;
+				case 2:
+					cityPrice = 15;
+					break;
+				case 3:
+					cityPrice = 20;
+					break;
+				}
+
+
+
+				if (cityBought) {
+					graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
+					int total = 0;
+					cout << "The cost of the city is " << cityPrice << "." << endl;
+					cout << endl;
+					cout << "You have " << players[i]->getTotalWallet() << " Elektros." << endl;
+					cout << "The total cost is " << (price + cityPrice) << "." << endl;
+
+
+					cout << "You will pay " << (price + cityPrice) << " Elektros for " << chosenCity << "." << endl;
+
+					//bill variables
+					int bill1 = 0;
+					int bill10 = 0;
+					int bill50 = 0;
+					int tempPrice = (price + cityPrice);
+					int totalSpent = 0;
+
+
+					//this code below works
+					bill50 = (tempPrice - tempPrice % 50) / 50;
+					tempPrice -= bill50 * 50;
+					bill10 = (tempPrice - tempPrice % 10) / 10;
+					tempPrice -= bill10 * 10;
+					bill1 = tempPrice;
+
+					cout << "That will cost you " << bill50 << " x $50 Elektro bills, " << bill10 << " x $10 Elektro bills, and " << bill1 << " x $1 Elektro bills." << endl;
+					players[i]->spendElektros(bill1, bill10, bill50);
+
+
+					cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
+					cout << endl;
+
+
+					cout << "You have bought " << chosenCity << "." << endl;
+					cout << endl;
+
+				}
+
+
+
+				char yesno;
+				cout << "Would you like to buy another City? (Y/N)" << endl;
+				cin >> yesno;
+
+				while (yesno != 'Y' && yesno != 'N') {
+					cout << "That is an invalid response. Please try again (Y/N): " << endl;
+					cin >> yesno;
+				}
+
+				if (yesno == 'Y') {
+					continue;
+				}
+				else {
+					cout << "Your turn is over. It is " << players[i + 1]->getName() << "'s turn next!" << endl;
+					stillBuilding = false;
+					goto endhere;
+				}
+
+			} //end of else statement: player has more than one city...
 
 
 			//IF PLAYER HAS MORE THAN ONE CITY....
