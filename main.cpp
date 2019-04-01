@@ -739,7 +739,7 @@ int main() {
 			//IF PLAYER HAS MORE THAN ONE CITY....
 			else {
 				// prompt player for city name
-				
+
 
 				cout << "\nEnter any character to show list of cities on your map..." << endl;
 				cin >> pause;
@@ -766,7 +766,7 @@ int main() {
 					cin >> chosenCity;
 
 					graph.SearchCity(chosenCity);
-					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
+					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 				}
 
@@ -774,14 +774,10 @@ int main() {
 				cout << "\nYou found a city that is available!" << endl;
 				cout << "\nNow lets check some more conditions..." << endl;
 				cout << endl;
-				cout << "How many players in Konstanz"<< endl;
-				cout << graph.HowManyPlayersAreInCity(chosenCity);
-				cout << "What are their names? " << endl;
-				graph.playerNameInCity(chosenCity);
 
 
 
-					//check if the city is already filled with other players
+				//check if the city is already filled with other players
 				bool emptyCity = false;
 
 				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
@@ -826,75 +822,83 @@ int main() {
 				//emptyCity while loop*/
 
 
-			//returns bool to see if chosen city is adjacent to the cities in checkCity
-			/*for (int i = 0; i < numCities; i++) {
-				if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
-					cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
-					break;
-				}
-				else {
-					continue;
-				}
-			}*/
+				//returns bool to see if chosen city is adjacent to the cities in checkCity
+				/*for (int i = 0; i < numCities; i++) {
+					if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
+						cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
+						break;
+					}
+					else {
+						continue;
+					}
+				}*/
 				bool cityBought = false;
 				bool isAdjacent = false;
 				int price = 0;
 				string tempCity;
 
 
-				isAdjacent = graph.IsCityAdjacentToOtherCity("Berlin", "Konstanz");
-				cout << isAdjacent;
-
 				//checks if chosen city is adjacent to Player's cities
 				for (int m = 0; m < checkCity.size(); m++) {
 					tempCity = checkCity[m].getCityName();
 					isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, tempCity);			///THIS THROWS ERROR
+					if (isAdjacent) {
+						price = graph.CostFromOneCityToAnother(chosenCity, tempCity);
+						break;
+					}
+					else {
+						continue;
+					}
+				}
+
+
+
+				while (!isAdjacent) {		//*******This needs to loop back to incorporate earlier questions
+					cout << "\nThe city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
+					cin >> chosenCity;
+					for (int m = 0; m < checkCity.size(); m++) {
+						isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[m].getCityName());
 						if (isAdjacent) {
-							price = graph.CostFromOneCityToAnother(chosenCity, tempCity);
+							price = graph.CostFromOneCityToAnother(chosenCity, checkCity[m].getCityName());
 							break;
 						}
 						else {
 							continue;
 						}
+					}
 				}
 
-					while (!isAdjacent) {
-						cout << "The city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
-						cin >> chosenCity;
-						for (int m = 0; m < checkCity.size(); m++) {
-							isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[m].getCityName());
-							if (isAdjacent) {
-								price = graph.CostFromOneCityToAnother(chosenCity, checkCity[m].getCityName());
-								break;
-							}
-							else {
-								continue;
-							}
-						}
-					}
-				
-					cityBought = true;
+				cityBought = true;
 
-				
+
+				//check for phase
+				switch (step) {			//step = 1 in demo round 
+				case 1:
+					cityPrice = 10;
+					break;
+				case 2:
+					cityPrice = 15;
+					break;
+				case 3:
+					cityPrice = 20;
+					break;
+				}
+
+			
 
 
 				if (cityBought) {
+					validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
 					int total = 0;
-					cout << "The connection between the two cities costs " << price << endl;
-					cout << "The cost of the city is " << cityPrice << endl;
-					cout << "The total cost is " << total << endl;
-					cout << "You have bought " << chosenCity << endl;
+					cout << "\nThe connection between the two cities costs " << price << endl;
+					cout << "The cost of the city is " << cityPrice << "." << endl;
+					cout << "The total cost is " << (price + cityPrice) << "." << endl;
+					cout << "You have bought " << chosenCity << "." << endl;
 
 				}
 
 
-				//check costs of city plus edges
-
-				//citiesOned is > 0
-
-
-
-
+			
 				char yesno;
 				cout << "Would you like to buy another City? (Y/N)" << endl;
 				cin >> yesno;
