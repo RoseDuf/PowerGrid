@@ -616,20 +616,23 @@ bool GraphBuilder::areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts
 }
 
 bool GraphBuilder::eachRegionHasSevenCities() {
-	int counter = 0;
+    std::vector<City> cities = std::get<0>(mapData); // the field of the same name is not being used and it?s in std::get<0>(mapData) anyways, so I commented that field out
 
-	for (int i = 0; i < cities.size(); i++) {
-		for (int j = 0; i < cities.size(); j++) {
-			cities.at(j).getCityColor();
-			counter++;
-		}
-		if (counter != 7) {
-			return false;
-		}
-		counter = 0;
-	}
+    int counter = 0;
 
-	return true;
+    for (int i = 0; i < ALL_REGION_COLORS.size(); i++) {
+       for (int j = 0; j < cities.size(); j++) {
+            if( cities.at(j).getCityColor() == ALL_REGION_COLORS.at(i) ) {
+                counter++;
+            }
+        }
+        if (counter != 7) {
+            return false;
+        }
+        counter = 0;
+    }
+
+    return true;
 }
 
 /* ----------------------------------------------------------------------------------------------------------
