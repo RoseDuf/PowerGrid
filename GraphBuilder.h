@@ -119,7 +119,7 @@ private:
 	std::string file;
 	MapData mapData;
 	std::vector<EdgeTriplet> edges;
-	std::vector<City> cities;
+	//std::vector<City> cities; // I don't think this is needed; it's provided by std::get<0>(mapData) anyways (and mapData is a field in GraphBuilder).
 	vector<vector<int>> connected;
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
