@@ -635,6 +635,10 @@ bool GraphBuilder::eachRegionHasSevenCities() {
     return true;
 }
 
+bool GraphBuilder::isValidGraph() {
+    return !hasDuplicateEdge() && !hasMissingEdge() && eachRegionHasSevenCities();
+}
+
 /* ----------------------------------------------------------------------------------------------------------
 Dijkstra Search algorithm source code taken and modified from:
 https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/

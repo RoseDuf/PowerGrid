@@ -111,7 +111,7 @@ public:
 	void buildMap();
 
 	bool eachRegionHasSevenCities();
-
+    bool isValidGraph();
 	//variables needed for the graph building
 private:
 	int totalVertices;
