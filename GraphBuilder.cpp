@@ -513,7 +513,7 @@ void GraphBuilder::buildMap() {
 	// careful not to add any dupilcate edges that we already defined
 }
 
-/*void GraphBuilder::populateAllRegionColors() {
+void GraphBuilder::populateAllRegionColors() {
 
 	std::vector<AdjacentRegionsTriplet> tempArts = std::get<2>(mapData);
 	std::set<std::string> tempAllRegionColors;
@@ -529,7 +529,7 @@ void GraphBuilder::buildMap() {
 	}
 
 	ALL_REGION_COLORS.assign(tempAllRegionColors.begin(), tempAllRegionColors.end());
-}*/
+}
 
 vector<AdjacentRegionsTriplet> GraphBuilder::getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols) {
 	std::set<AdjacentRegionsTriplet> tempArts; // use a set to easily remove duplicates

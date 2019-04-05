@@ -124,8 +124,8 @@ private:
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
 	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
-	//void populateAllRegionColors();
-	//std::vector<std::string> ALL_REGION_COLORS;
+	void populateAllRegionColors();
+	std::vector<std::string> ALL_REGION_COLORS;
 };
 
 #endif
