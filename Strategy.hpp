@@ -1,8 +1,19 @@
 #ifndef STRATEGY_HPP_
 #define STRATEGY_HPP_
 
+#include <vector>
+#include <tuple>
+#include "Market.hpp"
+#include "player.hpp"
+
+
+typedef std::tuple< Market*,std::vector<Player*> > AIStrategyData;
+
 class Strategy {
-    // TODO
+    private:
+        AIStrategyData backgroundInformation;
+    public:
+        Strategy(AIStrategyData backgroundInformation);
 };
 
 #endif

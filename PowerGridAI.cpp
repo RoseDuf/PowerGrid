@@ -1,7 +1,6 @@
 #include "PowerGridAI.hpp"
 
-PowerGridAI::PowerGridAI(Strategy strategy) {
-}
+PowerGridAI::PowerGridAI(Strategy* strategy) : strategy(strategy) {}
 
 void PowerGridAI::executePowerPlantBiddingStrategy() {
 }

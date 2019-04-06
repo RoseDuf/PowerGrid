@@ -6,9 +6,10 @@
 class PowerGridAI {
     private:
         Strategy* strategy;
+        AIStrategyData backgroundInformation;
     
     public:
-        PowerGridAI(Strategy strategy);
+        PowerGridAI(Strategy* strategy);
         void executePowerPlantBiddingStrategy();
         void executeResourceBuyingStrategy();
         void executeCityBuildingStrategy();

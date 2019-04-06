@@ -1,3 +1,3 @@
 #include "Strategy.hpp"
 
-// TODO
+Strategy::Strategy(AIStrategyData backgroundInformation) : backgroundInformation(backgroundInformation) {}
