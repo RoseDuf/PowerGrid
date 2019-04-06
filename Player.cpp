@@ -22,9 +22,10 @@ Player::Player(string name, string color) {
 }
 
 Player::Player(string name, string color, vector<PowerPlant*>
-	powerPlant, Elektro wallet, vector<City> cities, int playerOrder) {
+	powerPlants, Elektro wallet, vector<City> cities, int playerOrder) {
 	this->name = name;
 	this->color = color;
+    this->powerPlants = powerPlants;
 	this->wallet = wallet;
 	this->citiesOwned = cities;
 	this->playerOrder = playerOrder;
