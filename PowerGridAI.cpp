@@ -2,13 +2,16 @@
 
 PowerGridAI::PowerGridAI(Strategy* strategy) : strategy(strategy) {}
 
-void PowerGridAI::executePowerPlantBiddingStrategy() {
+BiddingChoice PowerGridAI::executePowerPlantBiddingStrategy() {
+    return strategy->getBiddingChoice();
 }
 
-void PowerGridAI::executeResourceBuyingStrategy() {
+ResourcePurchaseChoice PowerGridAI::executeResourceBuyingStrategy() {
+    return strategy->getResourcePurchaseChoice();
 }
 
-void PowerGridAI::executeCityBuildingStrategy() {
+std::vector<int> PowerGridAI::executeCityBuildingStrategy() {
+    return strategy->getCityBuildingChoice();
 }
 
 PowerGridAI::~PowerGridAI() {
