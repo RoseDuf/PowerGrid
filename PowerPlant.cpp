@@ -1,4 +1,4 @@
-#include "PowerPlant.h"
+#include "PowerPlant.hpp"
 
 PowerPlant::PowerPlant()
 {

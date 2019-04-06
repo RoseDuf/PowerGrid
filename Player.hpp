@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "PowerPlant.h"
+#include "PowerPlant.hpp"
 #include "Elektro.hpp"
 #include "City.h"
 //#include "ResourceToken.hpp"
