@@ -1,7 +1,7 @@
 #ifndef POWERGRIDAI_HPP_
 #define POWERGRIDAI_HPP_
 
-#include "Strategy.hpp";
+#include "Strategy.hpp"
 
 class PowerGridAI {
     private:
