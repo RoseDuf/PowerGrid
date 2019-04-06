@@ -6,7 +6,6 @@
 class PowerGridAI {
     private:
         Strategy* strategy;
-        AIStrategyData backgroundInformation;
     
     public:
         PowerGridAI(Strategy* strategy);
