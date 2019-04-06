@@ -54,7 +54,7 @@ public:
 	string getColor();
 	void setColor(string color);
 
-	vector<PowerPlant*> getPowerPlant();
+	vector<PowerPlant*> getPowerPlants();
 	void setPowerPlant(vector<PowerPlant*> pp);
 
 	int getNumCitiesOwned();

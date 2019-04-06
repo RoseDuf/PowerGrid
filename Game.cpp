@@ -36,12 +36,12 @@ void Game::dashboard(Player* p) {
 	//Display list of player's powerplants
 	//***need to reformat powerplant toString so that it looks better in dashboard***
 	//NEEDS DEBUGGING
-	if (p->getPowerPlant().size() == 0) {
+	if (p->getPowerPlants().size() == 0) {
 		cout << "You have 0 powerplants." << endl;
 	}
 
-	for (int i = 0; i < p->getPowerPlant().size(); i++) {
-		p->getPowerPlant()[i]->toString();
+	for (int i = 0; i < p->getPowerPlants().size(); i++) {
+		p->getPowerPlants()[i]->toString();
 		cout << endl;
 	}
 	
@@ -69,7 +69,7 @@ void Game::dashboard(Player* p) {
 	int player_oil = 0;
 	int player_garbage = 0;
 	int player_uranium = 0;
-	vector <PowerPlant *> c = p->getPowerPlant();
+	vector <PowerPlant *> c = p->getPowerPlants();
 
 	for (int i = 0; i < c.size(); i++) {
 		player_coal += c[i]->getRTStocked("oil");
