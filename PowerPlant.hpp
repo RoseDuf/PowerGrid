@@ -1,5 +1,5 @@
-#ifndef POWERPLANT_H_
-#define POWERPLANT_H_
+#ifndef POWERPLANT_HPP_
+#define POWERPLANT_HPP_
 
 #include "GameCard.h"
 #include <vector>
