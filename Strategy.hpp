@@ -4,7 +4,7 @@
 #include <vector>
 #include <tuple>
 #include "Market.hpp"
-#include "player.hpp"
+#include "Player.hpp"
 
 
 typedef std::tuple< Market*,std::vector<Player*> > AIStrategyData;

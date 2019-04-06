@@ -6,7 +6,7 @@ Graph implementation code using adjencyList
 #define GRAPHBUILDER_HPP_
 
 #include "City.h"
-#include "player.hpp"
+#include "Player.hpp"
 #include "GameState.hpp"
 #include "PowerGridIO.hpp"
 

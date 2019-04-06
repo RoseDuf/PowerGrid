@@ -5,7 +5,7 @@
 #include "GraphBuilder.h"
 #include "PowerGridIO.hpp"
 #include "City.h"
-#include "player.hpp"
+#include "Player.hpp"
 #include <limits.h>
 #include <algorithm>
 #include <set>

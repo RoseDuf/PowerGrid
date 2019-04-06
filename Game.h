@@ -1,6 +1,6 @@
 #pragma once
 
-#include "player.hpp"
+#include "Player.hpp"
 //#include "GameState.hpp"
 #include <vector>
 #include <cstdlib>

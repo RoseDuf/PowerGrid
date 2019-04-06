@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "City.h"
-#include "player.hpp"
+#include "Player.hpp"
 #include <tuple>
 
 typedef std::tuple<City, City, int> EdgeTriplet;

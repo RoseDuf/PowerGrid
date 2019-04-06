@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <vector>
-#include "player.hpp"
+#include "Player.hpp"
 using namespace std;
 
 Player::Player() {
