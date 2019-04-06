@@ -5,7 +5,7 @@
 
 class PowerGridAI {
     private:
-        Strategy* stategy;
+        Strategy* strategy;
     
     public:
         PowerGridAI(Strategy strategy);

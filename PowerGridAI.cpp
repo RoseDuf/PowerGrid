@@ -13,4 +13,5 @@ void PowerGridAI::executeCityBuildingStrategy() {
 }
 
 PowerGridAI::~PowerGridAI() {
+    delete strategy;
 }
