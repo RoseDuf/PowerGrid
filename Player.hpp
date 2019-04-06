@@ -80,6 +80,8 @@ public:
 	int getTotalOil();
 	int getTotalGarbage();
 	int getTotalUranium();
+    void removePowerPlant(PowerPlant* powerPlant);
+    void removePowerPlant(int powerPlantCardNumber);
 
 	void toString();
 

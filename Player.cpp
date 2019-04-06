@@ -185,3 +185,15 @@ void Player::toString() {
 		cout << citiesOwned[i].getCityName() << endl;
 	}
 }
+
+void Player::removePowerPlant(PowerPlant* powerPlant) {
+    removePowerPlant( powerPlant->getCardNumber() );
+}
+
+void Player::removePowerPlant(int powerPlantCardNumber) {
+    for(int i = 0; i < this->powerPlants.size(); i++) {
+        if( this->powerPlants.at(i)->getCardNumber() == powerPlantCardNumber ) {
+            this->powerPlants.erase( this->powerPlants.begin()+i );
+        }
+    }
+}
