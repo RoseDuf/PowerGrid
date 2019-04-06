@@ -193,6 +193,7 @@ void Player::removePowerPlant(PowerPlant* powerPlant) {
 void Player::removePowerPlant(int powerPlantCardNumber) {
     for(int i = 0; i < this->powerPlants.size(); i++) {
         if( this->powerPlants.at(i)->getCardNumber() == powerPlantCardNumber ) {
+            delete this->powerPlants.at(i);
             this->powerPlants.erase( this->powerPlants.begin()+i );
         }
     }

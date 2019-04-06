@@ -12,7 +12,7 @@ public:
 	PowerPlant();
 
 	PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_needed, int _oil_needed, int _garbage_needed, int _uranium_needed);
-	~PowerPlant();
+	virtual ~PowerPlant();
 
 	int getCardNumber();
 	void setCardNumber(int _cardNumber);
