@@ -284,6 +284,9 @@ void PowerPlant::powerCity(string type)
 	}
 }
 
+bool PowerPlant::isGreen() {
+    return this->green;
+}
 
 void PowerPlant::toString()
 {

@@ -40,6 +40,7 @@ public:
 
 	//check if enough tokens are stocked to power the city
 	bool checkIfEnoughStock(string type);
+    bool isGreen();
 	virtual void toString() override;
 
 	int get_numCitiesPowered_ACTIVE();
