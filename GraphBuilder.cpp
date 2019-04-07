@@ -639,6 +639,19 @@ bool GraphBuilder::isValidGraph() {
     return !hasDuplicateEdge() && !hasMissingEdge() && eachRegionHasSevenCities();
 }
 
+std::vector<City> GraphBuilder::getAvailableCities() {
+    
+    std::vector<City> availableCities;
+    
+    for(int i = 0; i < std::get<0>(mapData).size(); i++) {        
+        for(int j = 0; j < graph->arr.size(); j++) {
+            if( std::get<0>(mapData).at(i).getCityNumber() != graph->arr.at(j).city.getCityNumber() ) {
+                availableCities.push_back( std::get<0>(mapData).at(i) );
+            }
+        }
+    }
+}
+
 /* ----------------------------------------------------------------------------------------------------------
 Dijkstra Search algorithm source code taken and modified from:
 https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/

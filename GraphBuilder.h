@@ -112,6 +112,7 @@ public:
 
 	bool eachRegionHasSevenCities();
     bool isValidGraph();
+    std::vector<City> getAvailableCities();
 	//variables needed for the graph building
 private:
 	int totalVertices;
