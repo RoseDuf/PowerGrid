@@ -648,7 +648,7 @@ std::vector<City> GraphBuilder::getAvailableCities() {
     
     int counter = 0;
     
-    for(int i = 0; i < std::get<0>(mapData).size(); i++) {        
+    for(int i = 0; i < std::get<0>(mapData).size(); i++) {
         for(int j = 0; j < graph->arr.size(); j++) {
             if( !equalsIgnoreCase(trim(std::get<0>(mapData).at(i).getCityName()), trim(graph->arr.at(j).city.getCityName())) ) {
                 counter++;
