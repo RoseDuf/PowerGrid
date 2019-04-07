@@ -657,6 +657,7 @@ std::vector<City> GraphBuilder::getAvailableCities() {
         if( counter == graph->arr.size() ) { // if ith City in std::get<0>(mapData) was not matched with any of the cities in the graph
             availableCities.push_back( std::get<0>(mapData).at(i) );
         }
+        counter = 0;
     }
     
     return availableCities;
