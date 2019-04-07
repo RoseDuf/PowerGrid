@@ -9,7 +9,10 @@
 #include <limits.h>
 #include <algorithm>
 #include <set>
+#include "HelperFunctions.hpp"
+
 using namespace std;
+using namespace HelperFunctions;
 
 /*
 GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
@@ -647,7 +650,7 @@ std::vector<City> GraphBuilder::getAvailableCities() {
     
     for(int i = 0; i < std::get<0>(mapData).size(); i++) {        
         for(int j = 0; j < graph->arr.size(); j++) {
-            if( std::get<0>(mapData).at(i).getCityNumber() != graph->arr.at(j).city.getCityNumber() ) {
+            if( !equalsIgnoreCase(std::get<0>(mapData).at(i).getCityName(), graph->arr.at(j).city.getCityName()) ) {
                 counter++;
             }
         }
