@@ -46,8 +46,6 @@ public:
 
 	int get_numCitiesPowered_ACTIVE();
     
-    static std::map<int, PowerPlant*> powerPlantMarket; // is sorted in ascending order of power plant card numbers
-    
     static void addToPowerPlantMarket(PowerPlant* powerPlantToAdd); // adds power plant card in the correct location
     static PowerPlant peekIthPowerPlantInMarket(int i); // looks at, but doesn't modify anything
     static PowerPlant peekIthPowerPlantInPresentMarket(int i); // looks at, but doesn't modify anything
@@ -55,7 +53,7 @@ public:
     static void removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove);
     
 private:
-
+    static std::map<int, PowerPlant*> powerPlantMarket; // is sorted in ascending order of power plant card numbers
 	int numCitiesPowered_ACTIVE = 0;
 	int cardNumber;
 	int numCitiesPowered;
