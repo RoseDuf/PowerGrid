@@ -1,8 +1,32 @@
 
 #include <string>
 #include "HelperFunctions.hpp"
+#include "Elektro.hpp"
 
 namespace HelperFunctions {
+    
+    Elektro integerToElektro(int elektroAmount) {
+        int amountOfOnes = 0;
+        int amountOfTens = 0;
+        int amountOfFifties = 0;
+        
+        while(elektroAmount >= 50) {
+            amountOfFifties++;
+            elektroAmount-=50;
+        }
+        
+        while(elektroAmount >= 10) {
+            amountOfTens++;
+            elektroAmount-=10;
+        }
+        
+        while(elektroAmount >= 1) {
+            amountOfOnes++;
+            elektroAmount--;
+        }
+        
+        return Elektro(amountOfOnes, amountOfTens, amountOfFifties);
+    }
     
     std::string reverseStr(std::string str) {
         
