@@ -22,6 +22,8 @@ public:
 
     virtual void toString();
     
+    static void shuffleDeck();
+    
 private:
     static std::list<GameCard*> deck;
 

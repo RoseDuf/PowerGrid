@@ -1,7 +1,14 @@
 
 #include "GameCard.h"
+#include <random>
+#include <algorithm>
 
 std::list<GameCard*> GameCard::deck;
+
+void GameCard::shuffleDeck() {
+    srand(time(0));
+    random_shuffle( deck.begin(),deck.end() );
+}
 
 GameCard::GameCard()
 {
