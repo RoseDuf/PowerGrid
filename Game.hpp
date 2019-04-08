@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_HPP_
+#define GAME_HPP_
 
 #include "Player.hpp"
 //#include "GameState.hpp"
@@ -7,7 +8,6 @@
 #include <iostream>
 
 using namespace std;
-
 
 class Game {
 
@@ -33,3 +33,5 @@ public:
 
 
 };
+
+#endif
