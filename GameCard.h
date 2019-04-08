@@ -24,7 +24,7 @@ public:
     
     static void shuffleDeck();
     
-    static GameCard* takeTopGameCard();
+    static GameCard* takeTopOfDeck();
     
 private:
     static std::list<GameCard*> deck;

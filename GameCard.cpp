@@ -10,13 +10,15 @@ void GameCard::shuffleDeck() {
     random_shuffle( deck.begin(),deck.end() );
 }
 
-GameCard* GameCard::takeTopGameCard() {
+GameCard* GameCard::takeTopOfDeck() {
     GameCard* cardToReturn = *(deck.end());
     
     deck.remove( *(deck.end()) );
     
     return cardToReturn;
 }
+
+
 
 GameCard::GameCard()
 {
