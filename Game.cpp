@@ -20,10 +20,10 @@ Game::Game(vector <Player*> players)
 }
 
 
-void Game::reversePlayerOrder(vector <Player*> players) {
+/*void Game::reversePlayerOrder(vector <Player*> players) {
 	//reverse player order here -- rearrange vector
 	int playerTurn = 0;
-}
+}*/
 
 void Game::dashboard(Player* p) {
 	//cout resources from powerplants, cities, etc

@@ -18,7 +18,7 @@ public:
 	Game(vector <Player*> players);
 
 	//Task 3
-	void reversePlayerOrder(vector<Player*> players);
+	//void reversePlayerOrder(vector<Player*> players);
 	void buyingResources();
 	void buildingCities();
 	void dashboard(Player* p);
