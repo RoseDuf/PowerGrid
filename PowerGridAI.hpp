@@ -9,7 +9,7 @@ class PowerGridAI {
     
     public:
         PowerGridAI(Strategy* strategy);
-        PowerPlant* executePowerPlantBiddingStrategy(Player* player);
+        BiddingChoice executePowerPlantBiddingStrategy(Player* player);
         ResourcePurchaseChoice executeResourceBuyingStrategy();
         std::vector<int> executeCityBuildingStrategy();
         void changeStrategy(Strategy* strategy);

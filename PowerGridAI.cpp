@@ -2,7 +2,7 @@
 
 PowerGridAI::PowerGridAI(Strategy* strategy) : strategy(strategy) {}
 
-PowerPlant* PowerGridAI::executePowerPlantBiddingStrategy(Player* player) {
+BiddingChoice PowerGridAI::executePowerPlantBiddingStrategy(Player* player) {
     return strategy->getBiddingChoice(player);
 }
 
