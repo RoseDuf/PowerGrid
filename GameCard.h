@@ -16,6 +16,8 @@ public:
 	void setIdentifier(string _identifier);
 
     virtual void toString();
+    
+    static std::vector<GameCard*> deck;
 
 protected:
 	string identifier;
