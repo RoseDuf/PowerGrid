@@ -322,7 +322,7 @@ void PowerPlant::toString()
 
 void PowerPlant::removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove) {
     for(auto it = powerPlantMarket.begin(); it != powerPlantMarket.end(); it++) {
-        if( it->second->getCardNumber() == powerPlantToRemove->getCardNumber() ) {
+        if( it->first == powerPlantToRemove->getCardNumber() ) {
             
             powerPlantMarket.erase(it); // don't also delete it (as in the C++ delete keyword which frees memory) because the power plant card may still be needed in a context other than the power plant market
         }
