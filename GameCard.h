@@ -26,6 +26,8 @@ public:
     
     static GameCard* takeTopOfDeck();
     
+    static void putOnBottomOfDeck(GameCard* card);
+    
 private:
     static std::list<GameCard*> deck;
 

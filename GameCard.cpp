@@ -18,7 +18,9 @@ GameCard* GameCard::takeTopOfDeck() {
     return cardToReturn;
 }
 
-
+void GameCard::putOnBottomOfDeck(GameCard* card) {
+    deck.insert(deck.begin(), card);
+}
 
 GameCard::GameCard()
 {
