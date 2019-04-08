@@ -1,4 +1,7 @@
+
 #include "GameCard.h"
+
+static std::vector<GameCard*> deck();
 
 GameCard::GameCard()
 {

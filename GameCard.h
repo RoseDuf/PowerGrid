@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <list>
+
 using namespace std;
 
 class GameCard
@@ -20,7 +22,8 @@ public:
 
     virtual void toString();
     
-    static std::vector<GameCard*> deck;
+private:
+    static std::list<GameCard*> deck;
 
 protected:
 	string identifier;
