@@ -3,6 +3,7 @@
 
 #include "GameCard.h"
 #include <vector>
+#include <map>
 //#include "Market.hpp"
 
 class PowerPlant :
@@ -45,8 +46,13 @@ public:
 
 	int get_numCitiesPowered_ACTIVE();
     
-    static vector<PowerPlant*> futureMarket;
-    static vector<PowerPlant*> presentMarket;
+    static std::map<int, PowerPlant*> powerPlantMarket; // is sorted in ascending order of power plant card numbers
+    
+    static void addToPowerPlantMarket(PowerPlant* powerPlantToAdd); // adds power plant card in the correct location
+    static PowerPlant peekIthPowerPlantInMarket(int i); // looks at, but doesn't modify anything
+    static PowerPlant peekIthPowerPlantInPresentMarket(int i); // looks at, but doesn't modify anything
+    static PowerPlant peekIthPowerPlantInFutureMarket(int i); // looks at, but doesn't modify anything
+    static void removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove);
     
 private:
 

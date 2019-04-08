@@ -1,5 +1,7 @@
 #include "PowerPlant.hpp"
 
+std::map<int, PowerPlant*> PowerPlant::powerPlantMarket;
+
 PowerPlant::PowerPlant()
 {
 }
@@ -316,4 +318,67 @@ void PowerPlant::toString()
 		cout << "Uranium: " << uranium_stocked << endl;
 	}
 
+}
+
+void PowerPlant::removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove) {
+    for(auto it = powerPlantMarket.begin(); it != powerPlantMarket.end(); it++) {
+        if( it->second->getCardNumber() == powerPlantToRemove->getCardNumber() ) {
+            
+            powerPlantMarket.erase(it); // don't also delete it (as in the C++ delete keyword which frees memory) because the power plant card may still be needed in a context other than the power plant market
+        }
+    }
+}
+
+void PowerPlant::addToPowerPlantMarket(PowerPlant* powerPlantToAdd) {
+    powerPlantMarket.insert( std::make_pair(powerPlantToAdd->getCardNumber(), powerPlantToAdd) );
+}
+
+
+PowerPlant PowerPlant::peekIthPowerPlantInMarket(int i) {
+    if(i > 7) {
+        // throw some exception // TODO
+    }
+    else {
+        auto it = powerPlantMarket.begin();
+        for(int a = 0; a < powerPlantMarket.size(); a++) {
+            if(a == i) {
+                return *(it->second);
+            }
+            it++;
+        }
+    }
+    // throw some exception // TODO
+}
+
+PowerPlant PowerPlant::peekIthPowerPlantInPresentMarket(int i) {
+    if(i > 3) {
+        // throw some exception // TODO
+    }
+    else {
+        auto it = powerPlantMarket.begin();
+        for(int a = 0; a < powerPlantMarket.size(); a++) {
+            if(a == i) {
+                return *(it->second);
+            }
+            it++;
+        }
+    }
+    // throw some exception // TODO
+}
+
+PowerPlant PowerPlant::peekIthPowerPlantInFutureMarket(int i) {
+    if(i > 3) {
+        // throw some exception // TODO
+    }
+    else {
+        i = i + 4;
+        auto it = powerPlantMarket.begin();
+        for(int a = 4; a < powerPlantMarket.size(); a++) {
+            if(a == i) {
+                return *(it->second);
+            }
+            it++;
+        }
+    }
+    // throw some exception // TODO
 }
