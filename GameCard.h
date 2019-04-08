@@ -1,4 +1,7 @@
-#pragma once
+
+#ifndef GAMECARD_HPP_
+#define GAMECARD_HPP_
+
 #include <string>
 #include <iostream>
 #include <vector>
@@ -23,3 +26,4 @@ protected:
 	string identifier;
 };
 
+#endif
