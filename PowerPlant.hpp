@@ -44,6 +44,10 @@ public:
 	virtual void toString() override;
 
 	int get_numCitiesPowered_ACTIVE();
+    
+    static vector<PowerPlant*> futureMarket;
+    static vector<PowerPlant*> presentMarket;
+    
 private:
 
 	int numCitiesPowered_ACTIVE = 0;
