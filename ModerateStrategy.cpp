@@ -10,7 +10,7 @@ int ModerateStrategy::getBidAmount(Player* player, int biddedPowerPlantIndex, in
     srand(time(0));
     int zeroOrOne = rand() % 2;
     
-    if( zeroOrOne == 0 ) { // ~50% chance
+    if( zeroOrOne == 0 && player->getTotalWallet() >= highestBidSoFar+1) { // ~50% chance
         amountToBid = highestBidSoFar + 1;
     }
     
