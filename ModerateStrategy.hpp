@@ -5,7 +5,9 @@
 #include "Strategy.hpp"
 
 class ModerateStrategy : public Strategy {
-    ModerateStrategy(AIStrategyData backgroundInformation);
+    public:
+        ModerateStrategy(AIStrategyData backgroundInformation);
+        virtual int getBidAmount(Player* player, int biddedPowerPlantIndex, int highestBigSoFar); // amounts less than 3 means the AI is passing on the bid / not bidding
 };
 
 #endif
