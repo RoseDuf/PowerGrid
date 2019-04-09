@@ -11,26 +11,11 @@
 #include <set>
 using namespace std;
 
-/*
-GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
-totalVertices = tv;
-graph = createGraph(totalVertices, std::get<0>(mapData));
-edges = std::get<1>(mapData);
-//totalVertices = tv;
-//graph = createGraph(totalVertices, gameState.getCities());
-//edges = gameState.getEdgeTriplets();
-}
-*/
-
 GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	totalVertices = tv;
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
-	/*totalVertices = tv;
-	gameState = PowerGridIO::loadGame(file);
-	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();*/
 	buildMap();
 }
 
