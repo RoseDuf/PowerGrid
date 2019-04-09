@@ -7,7 +7,7 @@
 class ModerateStrategy : public Strategy {
     public:
         ModerateStrategy(AIStrategyData backgroundInformation);
-        virtual int getBidAmount(Player* player, int biddedPowerPlantIndex, int highestBigSoFar); // amounts less than 3 means the AI is passing on the bid / not bidding
+        virtual int getBidAmount(const Player* player, int biddedPowerPlantIndex, int highestBigSoFar); // amounts less than 3 means the AI is passing on the bid / not bidding
 };
 
 #endif

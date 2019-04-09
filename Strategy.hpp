@@ -18,7 +18,7 @@ class Strategy {
         AIStrategyData backgroundInformation;
     public:
         Strategy(AIStrategyData backgroundInformation);
-        virtual int getBidAmount(Player* player, int biddedPowerPlantIndex, int highestBigSoFar) = 0; // amounts less than 3 means the AI is passing on the bid / not bidding
+        virtual int getBidAmount(const Player* player, int biddedPowerPlantIndex, int highestBigSoFar) = 0; // amounts less than 3 means the AI is passing on the bid / not bidding
         virtual ResourcePurchaseChoice getResourcePurchaseChoice() = 0;
         virtual std::vector<int> getCityBuildingChoice() = 0; // returns a vector of city numbers (a.k.a. map vertice numbers)
         virtual ~Strategy();

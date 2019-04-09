@@ -3,7 +3,7 @@
 
 EnvironmentalistStrategy::EnvironmentalistStrategy(AIStrategyData backgroundInformation) : Strategy(backgroundInformation) {}
 
-int EnvironmentalistStrategy::getBidAmount(Player* player, int biddedPowerPlantIndex, int highestBidSoFar) {
+int EnvironmentalistStrategy::getBidAmount(const Player* player, int biddedPowerPlantIndex, int highestBidSoFar) {
     //This line should probably be elsewhere.: PowerPlant::initializePowerPlantMarket(); Maybe in main function?
     
     int amountToBid = 0;

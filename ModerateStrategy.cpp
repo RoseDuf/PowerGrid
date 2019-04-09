@@ -2,7 +2,7 @@
 
 ModerateStrategy::ModerateStrategy(AIStrategyData backgroundInformation) : Strategy(backgroundInformation) {}
 
-int ModerateStrategy::getBidAmount(Player* player, int biddedPowerPlantIndex, int highestBidSoFar) {
+int ModerateStrategy::getBidAmount(const Player* player, int biddedPowerPlantIndex, int highestBidSoFar) {
     //This line should probably be elsewhere.: PowerPlant::initializePowerPlantMarket(); Maybe in main function?
     
     int amountToBid = -1;
