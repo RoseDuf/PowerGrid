@@ -2,12 +2,12 @@
 
 PowerGridAI::PowerGridAI(Strategy* strategy) : strategy(strategy) {}
 
-BiddingChoice PowerGridAI::executePowerPlantBiddingStrategy(Player* player, Elektro highestBidSoFar) {
-    return strategy->getBiddingChoice(player, highestBidSoFar);
+int PowerGridAI::executePowerPlantBiddingStrategy(Player* player, int biddedPowerPlantIndex, Elektro highestBidSoFar) {
+    return executePowerPlantBiddingStrategy(player, biddedPowerPlantIndex, highestBidSoFar.getTotalBalance());
 }
 
-BiddingChoice PowerGridAI::executePowerPlantBiddingStrategy(Player* player, int highestBidSoFar) {
-    return strategy->getBiddingChoice(player, highestBidSoFar);
+int PowerGridAI::executePowerPlantBiddingStrategy(Player* player, int biddedPowerPlantIndex, int highestBidSoFar) {
+    return strategy->getBidAmount(player, biddedPowerPlantIndex, highestBidSoFar);
 }
 
 ResourcePurchaseChoice PowerGridAI::executeResourceBuyingStrategy() {
