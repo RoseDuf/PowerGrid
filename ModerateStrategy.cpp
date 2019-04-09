@@ -5,6 +5,10 @@ ModerateStrategy::ModerateStrategy(AIStrategyData backgroundInformation) : Strat
 int ModerateStrategy::getBidAmount(const Player* player, int biddedPowerPlantIndex, int highestBidSoFar) {
     //This line should probably be elsewhere.: PowerPlant::initializePowerPlantMarket(); Maybe in main function?
     
+    if( PowerPlant::peekIthPowerPlantInFutureMarket(biddedPowerPlantIndex).getCardNumber() < highestBidSoFar ) {
+        // throw some exception // TODO
+    }
+    
     int amountToBid = -1;
     
     srand(time(0));
