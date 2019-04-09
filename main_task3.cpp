@@ -231,7 +231,6 @@
 //
 //	//Initiate Graph and Build Map
 //	GraphBuilder graph = GraphBuilder(42, "germany.map");
-//	graph.buildMap();
 //	Game g1 = Game();
 //
 //	//TASK 2 (Rose)
@@ -282,11 +281,11 @@
 //	PowerPlant *p38 = new PowerPlant(40, 6, 0, 2, 0, 0);
 //	PowerPlant *p39 = new PowerPlant(42, 6, 2, 0, 0, 0);
 //
-//	players[0]->addPowerPlant(*p1);
-//	players[1]->addPowerPlant(*p29);
-//	players[1]->addPowerPlant(*p35);
-//	players[2]->addPowerPlant(*p36);
-//	players[3]->addPowerPlant(*p37);
+//	players[0]->addPowerPlant(p1);
+//	players[1]->addPowerPlant(p29);
+//	players[1]->addPowerPlant(p35);
+//	players[2]->addPowerPlant(p36);
+//	players[3]->addPowerPlant(p37);
 //
 //
 //

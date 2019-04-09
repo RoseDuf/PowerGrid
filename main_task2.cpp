@@ -327,7 +327,7 @@
 //				players[k]->spendElektros(bill1, bill10, bill50); //update wallet
 //				cout << "Your new balance: " << endl;
 //				players[k]->walletToString();
-//				players[k]->addPowerPlant(*powerplant); //update owned powerplants
+//				players[k]->addPowerPlant(powerplant); //update owned powerplants
 //			}
 //		}
 //

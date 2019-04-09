@@ -108,12 +108,12 @@ public:
 	bool test_SizeOfMap_and_FileMap();
 	bool hasDuplicateEdge();
 	bool hasMissingEdge();
-	void buildMap();
 
 	bool eachRegionHasSevenCities();
 
 	//variables needed for the graph building
 private:
+	void buildMap();
 	int totalVertices;
 	Graph * graph;
 	std::string file;
