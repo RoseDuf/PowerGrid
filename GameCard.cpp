@@ -3,7 +3,7 @@
 #include <random>
 #include <algorithm>
 
-std::list<GameCard*> GameCard::deck;
+std::vector<GameCard*> GameCard::deck;
 
 void GameCard::shuffleDeck() {
     srand(time(0));
@@ -13,7 +13,7 @@ void GameCard::shuffleDeck() {
 GameCard* GameCard::takeTopOfDeck() {
     GameCard* cardToReturn = *(deck.end());
     
-    deck.remove( *(deck.end()) );
+    deck.erase( deck.end() );
     
     return cardToReturn;
 }

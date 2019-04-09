@@ -29,7 +29,7 @@ public:
     static void putOnBottomOfDeck(GameCard* card);
     
 private:
-    static std::list<GameCard*> deck;
+    static std::vector<GameCard*> deck;
 
 protected:
 	string identifier;
