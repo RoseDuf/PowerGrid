@@ -82,7 +82,7 @@
 //	graph.printGraph();
 //	graph.printAvailableCities();
 //
-//	graph.IsCityAdjacentToOtherCity("Flensburg", "Kiel");
+//	graph.IsCityAdjacentToOtherCity("Berlin", "Konstanz");
 //
 //	graph.CostFromOneCityToAnother("Flensburg", "Kiel");
 //	cout << endl;

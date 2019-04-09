@@ -240,21 +240,6 @@
 //	static vector<GameCard*> powerPlantMarket;
 //	static int step = 1; //should be step
 //
-//
-//	Market market = Market();
-//
-//	makingDeck(deck, powerPlantMarket);
-//	//print(powerPlantMarket);
-//	//bureaucracy(deck, powerPlantMarket, market);
-//	//print(powerPlantMarket);
-//	sortMarket(powerPlantMarket);
-//	//print(powerPlantMarket);
-//	// print(powerPlantMarket);
-//	//shuffle(deck);
-//	//print(deck);
-//	//cout << deck.size() << endl;
-//
-//
 //	vector<Player*> players;
 //
 //	players.push_back(new Player("Nicole", "Red"));
@@ -268,6 +253,25 @@
 //	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
 //	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
 //	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
+//
+//	Market market = Market(players);
+//	market.display();
+//	cout << "First one" << endl;
+//
+//
+//	makingDeck(deck, powerPlantMarket);
+//	//print(powerPlantMarket);
+//	//bureaucracy(deck, powerPlantMarket, market);
+//	//print(powerPlantMarket);
+//	sortMarket(powerPlantMarket);
+//	//print(powerPlantMarket);
+//	// print(powerPlantMarket);
+//	//shuffle(deck);
+//	//print(deck);
+//	//cout << deck.size() << endl;
+//
+//
+//	
 //
 //	//set sample powerplants to players
 //	PowerPlant *p1 = new PowerPlant(3, 1, 0, 2, 0, 0);

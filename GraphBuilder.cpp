@@ -132,10 +132,10 @@ void GraphBuilder::printGraph() {
 
 		AdjListNode * root = graph->arr[i].head;
 
-		if (root != NULL) {
-			if (root->city.isAvailable())
+		
+			if (graph->arr[i].city.isAvailable())
 				cout << "City " << i << " is available." << endl;
-			else if (!root->city.isAvailable())
+			else if (!graph->arr[i].city.isAvailable())
 				cout << "City " << i << " is NOT available." << endl;
 
 			//loop over each node in list
@@ -148,7 +148,7 @@ void GraphBuilder::printGraph() {
 
 				root = root->next;
 			}
-		}
+		
 		cout << endl;
 
 		//delete every root pointer created
