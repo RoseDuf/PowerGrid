@@ -5,7 +5,8 @@
 #include "Strategy.hpp"
 
 class AggressiveStrategy : public Strategy {
-    AggressiveStrategy(AIStrategyData backgroundInformation);
+    public:
+        AggressiveStrategy(AIStrategyData backgroundInformation);
 };
 
 #endif
