@@ -3,6 +3,8 @@
 #include <random>
 #include <algorithm>
 
+using namespace std;
+
 std::vector<GameCard*> GameCard::deck;
 
 void GameCard::shuffleDeck() {

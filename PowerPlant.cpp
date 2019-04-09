@@ -1,5 +1,7 @@
 #include "PowerPlant.hpp"
 
+using namespace std;
+
 std::map<int, PowerPlant*> PowerPlant::powerPlantMarket;
 
 PowerPlant::PowerPlant()

@@ -1,5 +1,7 @@
 #include "SummaryCard.h"
 
+using namespace std;
+
 SummaryCard::SummaryCard()
 {
 }

@@ -7,18 +7,16 @@
 #include <vector>
 #include <list>
 
-using namespace std;
-
 class GameCard
 {
 public:
 	GameCard();
-	GameCard(string _identifier);
+	GameCard(std::string _identifier);
 	~GameCard();
 
     //what type of game card
-	string getIdentifier();
-	void setIdentifier(string _identifier);
+	std::string getIdentifier();
+	void setIdentifier(std::string _identifier);
 
     virtual void toString();
     
@@ -32,7 +30,7 @@ private:
     static std::vector<GameCard*> deck;
 
 protected:
-	string identifier;
+	std::string identifier;
 };
 
 #endif
