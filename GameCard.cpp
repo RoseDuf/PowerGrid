@@ -6,8 +6,10 @@
 std::vector<GameCard*> GameCard::deck;
 
 void GameCard::shuffleDeck() {
-    srand(time(0));
-    random_shuffle( deck.begin(),deck.end() );
+    std::random_device rd;
+    std::mt19937 g( rd() );
+    
+    std::shuffle( deck.begin(),deck.end(), g );
 }
 
 GameCard* GameCard::takeTopOfDeck() {
