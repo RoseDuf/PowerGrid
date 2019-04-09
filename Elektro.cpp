@@ -71,7 +71,7 @@ void Elektro::spendElektros(int _bill1, int _bill10, int _bill50)
 	bills[2].second -= _bill50;
 }
 
-int Elektro::getTotalBalance()
+int Elektro::getTotalBalance() const
 {
 	int sum = 0;
 	for (int i = 0; i < bills.size(); i++)

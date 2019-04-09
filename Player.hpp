@@ -45,7 +45,7 @@ public:
 	//just prints the waller content
    	void walletToString();
 	//returns how much the players has
-    int getTotalWallet();
+    int getTotalWallet() const;
 	void setTotalWallet(Elektro w);
 
 	string getName();

@@ -25,7 +25,7 @@ public:
     void spendElektros(int _bill1, int _bill10, int _bill50);
 	
     //returns total value of money for this elektro object
-    int getTotalBalance();
+    int getTotalBalance() const;
     
     
     void toString();

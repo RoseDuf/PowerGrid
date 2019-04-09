@@ -89,7 +89,7 @@ void Player::spendElektros(int _bill1, int _bill10, int _bill50)
 void  Player::walletToString() {
 	wallet.toString();
 }
-int  Player::getTotalWallet() {
+int  Player::getTotalWallet() const {
 	return wallet.getTotalBalance();
 }
 void Player::setTotalWallet(Elektro w) {
