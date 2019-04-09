@@ -14,7 +14,7 @@ typedef std::tuple< Market*,std::vector<Player*> > AIStrategyData;
 typedef std::tuple<Market*, int, int, int, int> ResourcePurchaseChoice; // the ints correspond to the CHANGE from total (positive value means amount added to total, negative means amount taken away from total) in Market (0 means no change)
 
 class Strategy {
-    private:
+    protected:
         AIStrategyData backgroundInformation;
     public:
         Strategy(AIStrategyData backgroundInformation);
