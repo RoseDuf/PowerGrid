@@ -281,7 +281,8 @@ namespace PowerGridIO {
             
             
             for(int i = 0; i < powerPlants.size(); i++) {
-                generatedPlayer.addPowerPlant( powerPlants.at(i) );
+				//CHANGE
+                generatedPlayer.addPowerPlant( &powerPlants[i] );
             }
             
             return generatedPlayer;

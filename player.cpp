@@ -21,7 +21,7 @@ Player::Player(string name, string color) {
 	houses = 22;
 }
 
-Player::Player(string name, string color, vector<PowerPlant>
+Player::Player(string name, string color, vector<PowerPlant*>
 	powerPlant, Elektro wallet, vector<City> cities, int playerOrder) {
 	this->name = name;
 	this->color = color;
@@ -56,13 +56,13 @@ void Player::setColor(string c) {
 	color = c;
 }
 
-vector<PowerPlant> Player::getPowerPlant() {
+vector<PowerPlant*> Player::getPowerPlant() {
 	return powerPlants;
 }
-void Player::setPowerPlant(vector<PowerPlant> pp) {
+void Player::setPowerPlant(vector<PowerPlant*> pp) {
 	powerPlants = pp;
 }
-void Player::addPowerPlant(PowerPlant p) {
+void Player::addPowerPlant(PowerPlant* p) {
 	powerPlants.push_back(p);
 }
 
@@ -117,9 +117,9 @@ int Player::getNumPPOwned() {
 	return numPPOwned;
 }
 
-void Player::powerCity(City city, PowerPlant powerplant, string type) {
+void Player::powerCity(City city, PowerPlant* powerplant, string type) {
 	city.setPoweredState(true);
-	powerplant.powerCity(type);
+	powerplant->powerCity(type);
 }
 
 int Player::getCitiesPowered() {
@@ -142,7 +142,7 @@ int  Player::getTotalCoal() {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
-		temp += powerPlants[i].getRTStocked("coal");
+		temp += powerPlants[i]->getRTStocked("coal");
 	}
 	return temp;
 }
@@ -150,7 +150,7 @@ int  Player::getTotalOil() {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
-		temp += powerPlants[i].getRTStocked("oil");
+		temp += powerPlants[i]->getRTStocked("oil");
 	}
 	return temp;
 }
@@ -158,7 +158,7 @@ int  Player::getTotalGarbage() {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
-		temp += powerPlants[i].getRTStocked("garbage");
+		temp += powerPlants[i]->getRTStocked("garbage");
 	}
 	return temp;
 }
@@ -166,7 +166,7 @@ int  Player::getTotalUranium() {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
-		temp += powerPlants[i].getRTStocked("uranium");
+		temp += powerPlants[i]->getRTStocked("uranium");
 	}
 	return temp;
 }
@@ -175,7 +175,7 @@ void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
 	for (int i = 0; i < powerPlants.size(); i++) {
-		powerPlants[i].toString();
+		powerPlants[i]->toString();
 	}
 	cout << "\nAmount of Elektro: " << endl;
 	wallet.toString();
