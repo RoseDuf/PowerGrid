@@ -7,7 +7,6 @@ BiddingChoice Strategy::getBiddingChoice(Player* player, int biddedPowerPlantInd
     //This line should probably be elsewhere.: PowerPlant::initializePowerPlantMarket();
     
     bool isBidding = false;
-    
     int amountToBid = 0;
     
     if( PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex).isGreen() && player->getTotalWallet() >= highestBidSoFar+1 ) {
