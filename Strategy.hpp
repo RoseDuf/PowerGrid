@@ -19,7 +19,6 @@ class Strategy {
         AIStrategyData backgroundInformation;
     public:
         Strategy(AIStrategyData backgroundInformation);
-        virtual BiddingChoice getBiddingChoice(Player* player, int biddedPowerPlantIndex, Elektro highestBigSoFar) = 0;
         virtual BiddingChoice getBiddingChoice(Player* player, int biddedPowerPlantIndex, int highestBigSoFar) = 0;
         virtual ResourcePurchaseChoice getResourcePurchaseChoice() = 0;
         virtual std::vector<int> getCityBuildingChoice() = 0; // returns a vector of city numbers (a.k.a. map vertice numbers)
