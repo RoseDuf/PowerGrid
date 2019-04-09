@@ -50,6 +50,8 @@ public:
     static PowerPlant peekIthPowerPlantInMarket(int i); // looks at, but doesn't modify anything
     static PowerPlant peekIthPowerPlantInPresentMarket(int i); // looks at, but doesn't modify anything
     static PowerPlant peekIthPowerPlantInFutureMarket(int i); // looks at, but doesn't modify anything
+    static std::vector<PowerPlant> peekPresentPowerPlantMarket();
+    static std::vector<PowerPlant> peekFuturePowerPlantMarket();
     static void removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove);
     static int getPowerPlantMarketSize();
     static bool isPowerPlantMarketEmpty();

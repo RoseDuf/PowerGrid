@@ -387,6 +387,36 @@ PowerPlant PowerPlant::peekIthPowerPlantInFutureMarket(int i) {
     // throw some exception // TODO
 }
 
+std::vector<PowerPlant> PowerPlant::peekPresentPowerPlantMarket() {
+    const int PRESENT_MARKET_SIZE = 4;
+    std::vector<PowerPlant> presentMarket;
+    auto it = powerPlantMarket.begin();
+    for(int a = 0; a < PRESENT_MARKET_SIZE; a++) {
+        presentMarket.push_back( *(it->second) );
+        it++;
+    }
+    
+    return presentMarket;
+}
+std::vector<PowerPlant> PowerPlant::peekFuturePowerPlantMarket() {
+    const int PRESENT_MARKET_SIZE = 4;
+    const int FUTURE_MARKET_SIZE = 4;
+    std::vector<PowerPlant> futureMarket;
+    
+    auto it = powerPlantMarket.begin();
+    
+    for(int a = 0; a < PRESENT_MARKET_SIZE; a++) {
+        it++;
+    }
+    
+    for(int a = PRESENT_MARKET_SIZE; a < PRESENT_MARKET_SIZE+FUTURE_MARKET_SIZE; a++) {
+        futureMarket.push_back( *(it->second) );
+        it++;
+    }
+    
+    return futureMarket;
+}
+
 int PowerPlant::getPowerPlantMarketSize() {
     return powerPlantMarket.size();
 }
