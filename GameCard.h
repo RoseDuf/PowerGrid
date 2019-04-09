@@ -24,13 +24,15 @@ public:
     
     static GameCard* takeTopOfDeck();
     
-    static void putOnBottomOfDeck(GameCard* card);
+    static void putOnBottomOfDeck(GameCard* card); 
     
 private:
+    static bool deckInitialized;
     static std::vector<GameCard*> deck;
 
 protected:
 	std::string identifier;
+    static void initializeDeck();
 };
 
 #endif

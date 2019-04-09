@@ -51,8 +51,12 @@ public:
     static PowerPlant peekIthPowerPlantInPresentMarket(int i); // looks at, but doesn't modify anything
     static PowerPlant peekIthPowerPlantInFutureMarket(int i); // looks at, but doesn't modify anything
     static void removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove);
+    static int getPowerPlantMarketSize();
+    static bool isPowerPlantMarketEmpty();
+    static void initializePowerPlantMarket();
     
 private:
+    static bool powerPlantInitialized;
     static std::map<int, PowerPlant*> powerPlantMarket; // is sorted in ascending order of power plant card numbers
 	int numCitiesPowered_ACTIVE = 0;
 	int cardNumber;

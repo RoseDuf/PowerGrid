@@ -1,8 +1,10 @@
 #include "PowerPlant.hpp"
+#include "GameCard.h"
 
 using namespace std;
 
 std::map<int, PowerPlant*> PowerPlant::powerPlantMarket;
+bool PowerPlant::powerPlantInitialized = false;
 
 PowerPlant::PowerPlant()
 {
@@ -383,4 +385,32 @@ PowerPlant PowerPlant::peekIthPowerPlantInFutureMarket(int i) {
         }
     }
     // throw some exception // TODO
+}
+
+int PowerPlant::getPowerPlantMarketSize() {
+    return powerPlantMarket.size();
+}
+
+bool PowerPlant::isPowerPlantMarketEmpty() {
+    return powerPlantMarket.size() == 0;
+}
+
+void PowerPlant::initializePowerPlantMarket() {
+    
+    if( powerPlantInitialized == false ) {
+        GameCard::initializeDeck();
+    
+        const int AMOUNT_OF_POWERPLANT_MARKET_SLOTS = 8;
+        
+        for(int i = 0; i < AMOUNT_OF_POWERPLANT_MARKET_SLOTS; i++) {
+            GameCard* gameCardToAdd = GameCard::takeTopOfDeck();
+            PowerPlant* powerPlantToAdd = static_cast<PowerPlant*>(gameCardToAdd); // the initial GameCard*s are all PowerPlant*s
+            addToPowerPlantMarket(powerPlantToAdd);
+        }
+        
+        powerPlantInitialized = true;
+    }
+    else {
+        // throw some kind of not initialized power plant market exception or something
+    }
 }
