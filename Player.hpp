@@ -57,7 +57,7 @@ public:
 	vector<PowerPlant*> getPowerPlants();
 	void setPowerPlant(vector<PowerPlant*> pp);
 
-	int getNumCitiesOwned();
+	int getNumCitiesOwned() const;
 	int getNumPPOwned();
 
 	void addCity(City city);

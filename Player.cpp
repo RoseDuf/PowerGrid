@@ -110,7 +110,7 @@ void Player::setHouses(int h) {
 	houses = h;
 }
 
-int Player::getNumCitiesOwned() {
+int Player::getNumCitiesOwned() const {
 	return numCitiesOwned;
 }
 
