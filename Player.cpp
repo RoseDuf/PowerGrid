@@ -114,7 +114,7 @@ int Player::getNumCitiesOwned() const {
 	return numCitiesOwned;
 }
 
-int Player::getNumPPOwned() {
+int Player::getNumPPOwned() const {
 	return numPPOwned;
 }
 
