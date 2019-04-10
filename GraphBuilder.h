@@ -74,6 +74,8 @@ public:
 	void addConnectedCitiestoVector();
 	void printGraph();
 	void printAvailableCities();
+	bool findCityByNameBool(string name);
+	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
@@ -108,12 +110,12 @@ public:
 	bool test_SizeOfMap_and_FileMap();
 	bool hasDuplicateEdge();
 	bool hasMissingEdge();
-	void buildMap();
 
 	bool eachRegionHasSevenCities();
 
 	//variables needed for the graph building
 private:
+	void buildMap();
 	int totalVertices;
 	Graph * graph;
 	std::string file;

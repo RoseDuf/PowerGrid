@@ -11,26 +11,11 @@
 #include <set>
 using namespace std;
 
-/*
-GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
-totalVertices = tv;
-graph = createGraph(totalVertices, std::get<0>(mapData));
-edges = std::get<1>(mapData);
-//totalVertices = tv;
-//graph = createGraph(totalVertices, gameState.getCities());
-//edges = gameState.getEdgeTriplets();
-}
-*/
-
 GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	totalVertices = tv;
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
-	/*totalVertices = tv;
-	gameState = PowerGridIO::loadGame(file);
-	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();*/
 	buildMap();
 }
 
@@ -109,6 +94,29 @@ void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
 	graph->arr[std::get<1>(edges).getCityNumber()].head = nptr;
 }
 
+
+void GraphBuilder::playerNameInCity(string city3) {		//tentative add -- don't hate me Rose
+
+	for (int i = 0; i < totalVertices; i++) {
+
+		if (graph->arr[i].city.getCityName() == city3) {
+			if (graph->arr[i].player.size() == 0) {
+				cout << "Nobody owns this." << endl;
+			}
+			else {
+				for (int j = 0; j < graph->arr[i].player.size(); j++) {
+					cout << "Owned By: " << graph->arr[i].player[j].getName() << endl;
+				}
+
+			}
+		}
+
+	}
+}
+
+
+
+
 void GraphBuilder::addConnectedCitiestoVector() {
 	for (int i = 0; i<graph->v; i++) {
 		AdjListNode * root = graph->arr[i].head;
@@ -132,10 +140,10 @@ void GraphBuilder::printGraph() {
 
 		AdjListNode * root = graph->arr[i].head;
 
-		if (root != NULL) {
-			if (root->city.isAvailable())
+		
+			if (graph->arr[i].city.isAvailable())
 				cout << "City " << i << " is available." << endl;
-			else if (!root->city.isAvailable())
+			else if (!graph->arr[i].city.isAvailable())
 				cout << "City " << i << " is NOT available." << endl;
 
 			//loop over each node in list
@@ -148,7 +156,7 @@ void GraphBuilder::printGraph() {
 
 				root = root->next;
 			}
-		}
+		
 		cout << endl;
 
 		//delete every root pointer created
@@ -192,6 +200,26 @@ void GraphBuilder::removeRegions(string color) {
 
 }
 
+bool GraphBuilder::findCityByNameBool(string name) {
+	bool isValid;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.isAvailable()) {
+			if (graph->arr[i].city.getCityName() == name) {
+				isValid = true;
+				break;
+			}
+			else {
+				isValid = false;
+			}
+		}
+		else {
+			continue;
+		}
+	}
+
+	return isValid;
+
+}
 //might not need this function... Leaving it commented out just in case. Who knows ?\_("/)_/?
 City GraphBuilder::findCityByName(string name) {
 	City city;

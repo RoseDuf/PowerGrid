@@ -371,10 +371,10 @@ void Market::rtPurchase(string type, int number)
 		cout << "Invalid type." << endl;
 
 	}
-
-	//updating the state of supplies to make sure we are working with the right numbers
-	//updateSupply();
 }
+
+
+
 
 bool Market::checkMarket(string type, int number)
 {
