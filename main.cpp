@@ -241,8 +241,8 @@ int main() {
 	static vector<GameCard*> powerPlantMarket;
 	static int step = 1; //should be step
 
-
-	Market market = Market();
+	vector<Player*> players;
+	Market market = Market(players);
 
 	makingDeck(deck, powerPlantMarket);
 	//print(powerPlantMarket);
@@ -256,7 +256,7 @@ int main() {
 	//cout << deck.size() << endl;
 
 
-	vector<Player*> players;
+
 
 	players.push_back(new Player("Nicole", "Red"));
 	players.push_back(new Player("Voldermort", "Green"));
