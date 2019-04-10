@@ -12,6 +12,7 @@
 #include "GraphBuilder.h"
 #include "Elektro.hpp"
 #include "Market.hpp"
+#include "Game.h"
 #include "HelperFunctions.hpp"
 
 using namespace std;
@@ -178,11 +179,11 @@ static int checkProfit(int _num)
 	return 0;
 }
 
-static void DeterminePlayerOrder(vector<Player*> &players, int round) {
+static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 
 	vector<int> playerOrder;
 
-	if (round == 1) {
+	if (phase == 1) {
 		for (int i = 0; i < players.size(); i++) {
 			playerOrder.push_back(i);
 		}
@@ -456,6 +457,7 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 
 int main() {
 
+	//============================== Assignment 2, task 1, ================================================
 	// Select the number of players in the game
 	std::cout << "How many players? (2-6):";
 	int amountOfPlayers = 0;
@@ -775,55 +777,61 @@ int main() {
 	std::cout << "The map is valid." << std::endl;
 
 	//============================== Assignment 2, task 2, ================================================
+	string pause;
 	static vector<GameCard*> deck;
 	static vector<GameCard*> powerPlantMarket;
 
 	Market market = Market();
 
+	Game g1 = Game();
+
 	makingDeck(deck, powerPlantMarket);
-	//shuffle(deck);
-	//print(deck);
 	sortMarket(powerPlantMarket);
-	print(powerPlantMarket);
-
-	
-
-	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Berlin");
-	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Frankfurt-O");
-	graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
-
+	cout << "Enter anything to continue..." << endl;
+	cin >> pause;
 
 	//Game loop !!!!
-	bool gameIsNotFinished = false;
-	int round = 1;
-	string pause;
+	bool gameIsFinished = false;
+	int phase = 1;
+	static int step = 1; //should be step
+	
+	cout << "/////////////////////////////////////////////////////////////////////////" << endl;
+//START OF GAME LOOP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	cout << "GAME HAS STARTED" << endl;
+	while (gameIsFinished == false) {
 
-	while (gameIsNotFinished == false) {
+		while (phase >= 1) {
 
-		while (round >= 1) {
-
-			//task 2 - phase 1
-			DeterminePlayerOrder(players, round);
-
-			round += 1;
-			DeterminePlayerOrder(players, round);
+			//step 1
+			DeterminePlayerOrder(players, phase);
 
 			cout << "Enter anything to continue..." << endl;
 			cin >> pause;
 
-			//task 2 - phase 2
+			//step 2
 			EnterAuctioningPhase(powerPlantMarket, players);
 
 			cout << "Enter anything to continue..." << endl;
 			cin >> pause;
 
-			round = 0;
+			//step 3
+			
+
+
+
+			phase += 1;
+
+			for (int i = 0; i < players.size(); i++) {
+				if (players[i]->getCitiesOwned().size() == 17)
+					phase = 0; // end of game
+				//GOTTA HANDLE WINNING CONDITIONS!
+			}
 		}
-		gameIsNotFinished = true;
-	}
+		gameIsFinished = true;
+	} //END OF GAME LOOP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 	deleteDeck(deck);
 
 
