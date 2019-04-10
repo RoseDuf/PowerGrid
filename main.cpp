@@ -662,7 +662,7 @@ int main() {
 
 				//check all conditions in the previous code (**later make this its own method in Game.h**)
 				//check if chosenCity is part of the available map
-				graph.SearchCity(chosenCity);		//displays info about a city
+				graph.searchCity(chosenCity);		//displays info about a city
 
 				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
@@ -673,7 +673,7 @@ int main() {
 
 					cin >> chosenCity;
 
-					graph.SearchCity(chosenCity);
+					graph.searchCity(chosenCity);
 					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 				}
@@ -855,7 +855,7 @@ int main() {
 
 				//check all conditions in the previous code (**later make this its own method in Game.h**)
 				//check if chosenCity is part of the available map
-				graph.SearchCity(chosenCity);		//displays info about a city
+				graph.searchCity(chosenCity);		//displays info about a city
 
 				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
@@ -881,7 +881,7 @@ int main() {
 
 					cin >> chosenCity;
 
-					graph.SearchCity(chosenCity);
+					graph.searchCity(chosenCity);
 					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 
@@ -974,7 +974,7 @@ int main() {
 					cout << "\nThe city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
 					cin >> chosenCity;
 
-					graph.SearchCity(chosenCity);		//displays info about a city
+					graph.searchCity(chosenCity);		//displays info about a city
 					cout << endl;
 
 					for (int m = 0; m < checkCity.size(); m++) {

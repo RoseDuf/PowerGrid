@@ -355,7 +355,7 @@ int GraphBuilder::CostFromOneCityToAnother(string city1, string city2) {
 }
 
 //prints out information within a node of the map
-void GraphBuilder::SearchCity(string cityName) {
+void GraphBuilder::searchCity(string cityName) {
 	cout << endl;
 	cout << "Searching for a city in the map..." << endl;
 	for (int i = 0; i < totalVertices; i++) {
