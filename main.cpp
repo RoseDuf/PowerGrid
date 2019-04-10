@@ -1,5 +1,5 @@
 //main for task 3
-
+/*
 #include <vector>
 #include <string>
 #include <iostream>
@@ -162,9 +162,7 @@ static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 			players.at(i)->setplayerOrder(i);
 		}
 
-		/*for (int i = 0; i < players.size(); i++) {
-			players.at(i)->setplayerOrder(playerOrder[i]);
-		}*/
+		
 		for (int i = 0; i < players.size(); i++) {
 			cout << "Player: " << players.at(i)->getName() << endl;
 		}
@@ -656,7 +654,7 @@ int main() {
 				cin >> chosenCity;
 
 
-				//**TO-DO check is chosenCity is even a valid German city name
+				//TO-DO check is chosenCity is even a valid German city name
 
 				//check if chosenCity is part of the available map
 
@@ -688,58 +686,7 @@ int main() {
 				//check if the city is already filled with other players
 				bool emptyCity = false;
 
-				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
-				/*	while (!emptyCity) {
-
-				//check for phase
-				switch (step) {			//step = 1 in demo round ******* ITS COUNTING ITSELF IN TERMS OF PLAYER ALREADY ON CITY ********
-				case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-
-				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
-				cin >> chosenCity;
-				validCity = false;
-				}
-				else {
-				validCity = true;
-				}
-				cityPrice = 10;
-				break;
-				case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
-				cin >> chosenCity;
-				validCity = false;
-				}
-				else {
-				validCity = true;
-				}
-				cityPrice = 15;
-				break;
-				case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
-				cin >> chosenCity;
-				validCity = false;
-				}
-				else {
-				validCity = true;
-				}
-				cityPrice = 20;
-				break;
-				}
-
-				}
-				//emptyCity while loop*/
-
-
-				//returns bool to see if chosen city is adjacent to the cities in checkCity
-				/*for (int i = 0; i < numCities; i++) {
-				if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
-				cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
-				break;
-				}
-				else {
-				continue;
-				}
-				}*/
+				
 				bool cityBought = false;
 				bool isAdjacent = false;
 				int price = 0;
@@ -862,20 +809,6 @@ int main() {
 
 				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
-				/*
-				//CHECK IF PLAYER ALREADY OWNS CITY
-				for (int o = 0; i < chosenCity.size(); o++) {
-					string tempCity = checkCity[o].getCityName();
-					if (chosenCity == tempCity) {
-						cout << "You already own this city. ";
-						validCity = false;
-					}
-					else {
-						continue;
-					}
-				}
-
-				*/
 
 
 				//check if in valid part of region
@@ -904,58 +837,6 @@ int main() {
 				//check if the city is already filled with other players
 				bool emptyCity = false;
 
-				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
-			/*	while (!emptyCity) {
-
-					//check for phase
-					switch (step) {			//step = 1 in demo round ******* ITS COUNTING ITSELF IN TERMS OF PLAYER ALREADY ON CITY ********
-					case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-
-						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
-						cin >> chosenCity;
-						validCity = false;
-					}
-							else {
-								validCity = true;
-							}
-							cityPrice = 10;
-							break;
-					case 2:  if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
-						cin >> chosenCity;
-						validCity = false;
-					}
-							 else {
-								 validCity = true;
-							 }
-							 cityPrice = 15;
-							 break;
-					case 3: if (graph.HowManyPlayersAreInCity(chosenCity) == 2) {
-						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
-						cin >> chosenCity;
-						validCity = false;
-					}
-							else {
-								validCity = true;
-							}
-							cityPrice = 20;
-							break;
-					}
-
-				}
-				//emptyCity while loop*/
-
-
-				//returns bool to see if chosen city is adjacent to the cities in checkCity
-				/*for (int i = 0; i < numCities; i++) {
-					if (graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[i].getCityName())) {
-						cout << chosenCity << " is adjacent to your city " << checkCity[i].getCityName() << "." << endl;
-						break;
-					}
-					else {
-						continue;
-					}
-				}*/
 				bool cityBought = false;
 				bool isAdjacent = false;
 				int price = 0;
@@ -1120,7 +1001,7 @@ int main() {
 }
 
 
-
+*/
 
 		//}	// phase 3 if conditional statement
 
