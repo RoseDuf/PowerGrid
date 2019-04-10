@@ -6,9 +6,10 @@
 #include "Market.hpp"
 #include "Player.hpp"
 #include "Elektro.hpp"
+#include "GraphBuilder.h"
 
 // Typedef data received by Strategy
-typedef std::tuple< Market*,std::vector<Player*> > AIStrategyData;
+typedef std::tuple< Market*,std::vector<Player*>, GraphBuilder* > AIStrategyData;
 
 // Typedef data returned by Strategy
 typedef std::tuple<int,PowerPlant,PowerPlant> BiddingDetails; // tuple<bidAmount, PowerPlant powerPlantBeingBiddedOn, PowerPlant powerPlantOfPassedPlayerBeingReplaced>
