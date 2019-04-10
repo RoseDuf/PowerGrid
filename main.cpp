@@ -6,8 +6,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include <random>
-#include "Game.h"
-#include "player.hpp"
+#include "Game.hpp"
+#include "Player.hpp"
 #include "GraphBuilder.h"
 #include "City.h"
 #include "Elektro.hpp"
@@ -323,7 +323,7 @@ int main() {
 		bool stillBuying = true;
 
 		vector <PowerPlant*> powerPlantsTEMP;
-		powerPlantsTEMP = players[i]->getPowerPlant();
+		powerPlantsTEMP = players[i]->getPowerPlants();
 
 		while (stillBuying) {
 
@@ -690,11 +690,9 @@ int main() {
 
 				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
 				/*	while (!emptyCity) {
-
 				//check for phase
 				switch (step) {			//step = 1 in demo round ******* ITS COUNTING ITSELF IN TERMS OF PLAYER ALREADY ON CITY ********
 				case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-
 				cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
 				cin >> chosenCity;
 				validCity = false;
@@ -725,7 +723,6 @@ int main() {
 				cityPrice = 20;
 				break;
 				}
-
 				}
 				//emptyCity while loop*/
 
@@ -874,7 +871,6 @@ int main() {
 						continue;
 					}
 				}
-
 				*/
 
 
@@ -906,11 +902,9 @@ int main() {
 
 				//THIS IS WRONG --IT IS COUNTING ITSELF BECAUSE OF THE ADD_CITYTOPLAYER etc.... method 
 			/*	while (!emptyCity) {
-
 					//check for phase
 					switch (step) {			//step = 1 in demo round ******* ITS COUNTING ITSELF IN TERMS OF PLAYER ALREADY ON CITY ********
 					case 1: if (graph.HowManyPlayersAreInCity(chosenCity) == 1) {
-
 						cout << "\nSorry, another player already has a building on this city. Please choose another city: ";
 						cin >> chosenCity;
 						validCity = false;
@@ -941,7 +935,6 @@ int main() {
 							cityPrice = 20;
 							break;
 					}
-
 				}
 				//emptyCity while loop*/
 
@@ -1291,4 +1284,3 @@ int main() {
 //	
 //	return 0;
 //}
-

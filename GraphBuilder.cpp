@@ -5,17 +5,35 @@
 #include "GraphBuilder.h"
 #include "PowerGridIO.hpp"
 #include "City.h"
-#include "player.hpp"
+#include "Player.hpp"
 #include <limits.h>
 #include <algorithm>
 #include <set>
+#include "HelperFunctions.hpp"
+
 using namespace std;
+using namespace HelperFunctions;
+
+/*
+GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
+totalVertices = tv;
+graph = createGraph(totalVertices, std::get<0>(mapData));
+edges = std::get<1>(mapData);
+//totalVertices = tv;
+//graph = createGraph(totalVertices, gameState.getCities());
+//edges = gameState.getEdgeTriplets();
+}
+*/
 
 GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	totalVertices = tv;
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
+	/*totalVertices = tv;
+	gameState = PowerGridIO::loadGame(file);
+	graph = createGraph(totalVertices, gameState.getCities());
+	edges = gameState.getEdgeTriplets();*/
 	buildMap();
 }
 
@@ -94,29 +112,6 @@ void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
 	graph->arr[std::get<1>(edges).getCityNumber()].head = nptr;
 }
 
-
-void GraphBuilder::playerNameInCity(string city3) {		//tentative add -- don't hate me Rose
-
-	for (int i = 0; i < totalVertices; i++) {
-
-		if (graph->arr[i].city.getCityName() == city3) {
-			if (graph->arr[i].player.size() == 0) {
-				cout << "Nobody owns this." << endl;
-			}
-			else {
-				for (int j = 0; j < graph->arr[i].player.size(); j++) {
-					cout << "Owned By: " << graph->arr[i].player[j].getName() << endl;
-				}
-
-			}
-		}
-
-	}
-}
-
-
-
-
 void GraphBuilder::addConnectedCitiestoVector() {
 	for (int i = 0; i<graph->v; i++) {
 		AdjListNode * root = graph->arr[i].head;
@@ -140,10 +135,10 @@ void GraphBuilder::printGraph() {
 
 		AdjListNode * root = graph->arr[i].head;
 
-		
-			if (graph->arr[i].city.isAvailable())
+		if (root != NULL) {
+			if (root->city.isAvailable())
 				cout << "City " << i << " is available." << endl;
-			else if (!graph->arr[i].city.isAvailable())
+			else if (!root->city.isAvailable())
 				cout << "City " << i << " is NOT available." << endl;
 
 			//loop over each node in list
@@ -156,7 +151,7 @@ void GraphBuilder::printGraph() {
 
 				root = root->next;
 			}
-		
+		}
 		cout << endl;
 
 		//delete every root pointer created
@@ -200,27 +195,7 @@ void GraphBuilder::removeRegions(string color) {
 
 }
 
-bool GraphBuilder::findCityByNameBool(string name) {
-	bool isValid;
-	for (int i = 0; i < totalVertices; i++) {
-		if (graph->arr[i].city.isAvailable()) {
-			if (graph->arr[i].city.getCityName() == name) {
-				isValid = true;
-				break;
-			}
-			else {
-				isValid = false;
-			}
-		}
-		else {
-			continue;
-		}
-	}
-
-	return isValid;
-
-}
-//might not need this function... Leaving it commented out just in case. Who knows ?\_("/)_/?
+/*//might not need this function... Leaving it commented out just in case. Who knows ?\_("/)_/?
 City GraphBuilder::findCityByName(string name) {
 	City city;
 	for (int i = 0; i < totalVertices; i++) {
@@ -229,7 +204,7 @@ City GraphBuilder::findCityByName(string name) {
 		}
 	}
 	cout << "No city of this name found in the map..." << endl;
-}
+}*/
 
 //function to add players to "cities"(aka Nodes) in the physical map
 //and updates Player info at the same time
@@ -541,7 +516,7 @@ void GraphBuilder::buildMap() {
 	// careful not to add any dupilcate edges that we already defined
 }
 
-/*void GraphBuilder::populateAllRegionColors() {
+void GraphBuilder::populateAllRegionColors() {
 
 	std::vector<AdjacentRegionsTriplet> tempArts = std::get<2>(mapData);
 	std::set<std::string> tempAllRegionColors;
@@ -557,7 +532,7 @@ void GraphBuilder::buildMap() {
 	}
 
 	ALL_REGION_COLORS.assign(tempAllRegionColors.begin(), tempAllRegionColors.end());
-}*/
+}
 
 vector<AdjacentRegionsTriplet> GraphBuilder::getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols) {
 	std::set<AdjacentRegionsTriplet> tempArts; // use a set to easily remove duplicates
@@ -644,20 +619,69 @@ bool GraphBuilder::areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts
 }
 
 bool GraphBuilder::eachRegionHasSevenCities() {
-	int counter = 0;
+    std::vector<City> cities = std::get<0>(mapData); // the field of the same name is not being used and it?s in std::get<0>(mapData) anyways, so I commented that field out
 
-	for (int i = 0; i < cities.size(); i++) {
-		for (int j = 0; i < cities.size(); j++) {
-			cities.at(j).getCityColor();
-			counter++;
+    int counter = 0;
+
+    for (int i = 0; i < ALL_REGION_COLORS.size(); i++) {
+       for (int j = 0; j < cities.size(); j++) {
+            if( cities.at(j).getCityColor() == ALL_REGION_COLORS.at(i) ) {
+                counter++;
+            }
+        }
+        if (counter != 7) {
+            return false;
+        }
+        counter = 0;
+    }
+
+    return true;
+}
+
+bool GraphBuilder::isValidGraph() {
+    return !hasDuplicateEdge() && !hasMissingEdge() && eachRegionHasSevenCities();
+}
+
+std::vector<City> GraphBuilder::getAvailableCities() {
+    
+    std::vector<City> availableCities;
+    
+    int counter = 0;
+    
+    for(int i = 0; i < std::get<0>(mapData).size(); i++) {
+        for(int j = 0; j < graph->arr.size(); j++) {
+            if( !equalsIgnoreCase(trim(std::get<0>(mapData).at(i).getCityName()), trim(graph->arr.at(j).city.getCityName())) ) {
+                counter++;
+            }
+        }
+        if( counter == graph->arr.size() ) { // if ith City in std::get<0>(mapData) was not matched with any of the cities in the graph
+            availableCities.push_back( std::get<0>(mapData).at(i) );
+        }
+        counter = 0;
+    }
+    
+    return availableCities;
+}
+
+bool GraphBuilder::findCityByNameBool(string name) {
+	bool isValid;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.isAvailable()) {
+			if (graph->arr[i].city.getCityName() == name) {
+				isValid = true;
+				break;
+			}
+			else {
+				isValid = false;
+			}
 		}
-		if (counter != 7) {
-			return false;
+		else {
+			continue;
 		}
-		counter = 0;
 	}
 
-	return true;
+	return isValid;
+
 }
 
 /* ----------------------------------------------------------------------------------------------------------

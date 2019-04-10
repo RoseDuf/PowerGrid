@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "player.hpp"
+#include "Player.hpp"
 #include <vector>
 using namespace std;
 

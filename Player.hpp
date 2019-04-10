@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "PowerPlant.h"
+#include "PowerPlant.hpp"
 #include "Elektro.hpp"
 #include "City.h"
 //#include "ResourceToken.hpp"
@@ -45,7 +45,7 @@ public:
 	//just prints the waller content
    	void walletToString();
 	//returns how much the players has
-    int getTotalWallet();
+    int getTotalWallet() const;
 	void setTotalWallet(Elektro w);
 
 	string getName();
@@ -54,11 +54,11 @@ public:
 	string getColor();
 	void setColor(string color);
 
-	vector<PowerPlant*> getPowerPlant();
+	vector<PowerPlant*> getPowerPlants() const;
 	void setPowerPlant(vector<PowerPlant*> pp);
 
-	int getNumCitiesOwned();
-	int getNumPPOwned();
+	int getNumCitiesOwned() const;
+	int getNumPPOwned() const;
 
 	void addCity(City city);
 	vector<City> getCitiesOwned();
@@ -80,6 +80,8 @@ public:
 	int getTotalOil();
 	int getTotalGarbage();
 	int getTotalUranium();
+    void removePowerPlant(PowerPlant* powerPlant);
+    void removePowerPlant(int powerPlantCardNumber);
 
 	void addPowerPlant(PowerPlant p);
 	//void addElektro(Elektro e);

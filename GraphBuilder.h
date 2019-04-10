@@ -6,7 +6,7 @@ Graph implementation code using adjencyList
 #define GRAPHBUILDER_HPP_
 
 #include "City.h"
-#include "player.hpp"
+#include "Player.hpp"
 #include "GameState.hpp"
 #include "PowerGridIO.hpp"
 
@@ -74,8 +74,6 @@ public:
 	void addConnectedCitiestoVector();
 	void printGraph();
 	void printAvailableCities();
-	bool findCityByNameBool(string name);
-	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
@@ -95,7 +93,8 @@ public:
 	*/
 
 	//additional functions
-	City findCityByName(string name);
+	//City findCityByName(string name);
+    bool findCityByNameBool(string name);
 	void removeRegions(string color);
 	bool add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
@@ -110,24 +109,25 @@ public:
 	bool test_SizeOfMap_and_FileMap();
 	bool hasDuplicateEdge();
 	bool hasMissingEdge();
+	void buildMap();
 
 	bool eachRegionHasSevenCities();
-
+    bool isValidGraph();
+    std::vector<City> getAvailableCities();
 	//variables needed for the graph building
 private:
-	void buildMap();
 	int totalVertices;
 	Graph * graph;
 	std::string file;
 	MapData mapData;
 	std::vector<EdgeTriplet> edges;
-	std::vector<City> cities;
+	//std::vector<City> cities; // I don't think this is needed; it's provided by std::get<0>(mapData) anyways (and mapData is a field in GraphBuilder).
 	vector<vector<int>> connected;
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
 	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
-	//void populateAllRegionColors();
-	//std::vector<std::string> ALL_REGION_COLORS;
+	void populateAllRegionColors();
+	std::vector<std::string> ALL_REGION_COLORS;
 };
 
 #endif

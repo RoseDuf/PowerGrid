@@ -2,7 +2,11 @@
 #ifndef HELPERFUNCTIONS_HPP_
 #define HELPERFUNCTIONS_HPP_
 
+#include "Elektro.hpp"
+
 namespace HelperFunctions {
+    
+    Elektro integerToElektro(int elektroAmount);
     
     bool containsSubstring(std::string str, std::string subStr);
     

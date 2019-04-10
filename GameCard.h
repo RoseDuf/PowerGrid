@@ -1,23 +1,38 @@
-#pragma once
+
+#ifndef GAMECARD_HPP_
+#define GAMECARD_HPP_
+
 #include <string>
 #include <iostream>
 #include <vector>
-using namespace std;
+#include <list>
 
 class GameCard
 {
 public:
 	GameCard();
-	GameCard(string _identifier);
+	GameCard(std::string _identifier);
 	~GameCard();
 
     //what type of game card
-	string getIdentifier();
-	void setIdentifier(string _identifier);
+	std::string getIdentifier();
+	void setIdentifier(std::string _identifier);
 
-	 virtual void toString();
+    virtual void toString();
+    
+    static void shuffleDeck();
+    
+    static GameCard* takeTopOfDeck();
+    
+    static void putOnBottomOfDeck(GameCard* card); 
+    
+private:
+    static bool deckInitialized;
+    static std::vector<GameCard*> deck;
 
 protected:
-	string identifier;
+	std::string identifier;
+    static void initializeDeck();
 };
 
+#endif

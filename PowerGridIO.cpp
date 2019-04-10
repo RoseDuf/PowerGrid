@@ -13,7 +13,7 @@
 
 #include "Elektro.hpp"
 
-#include "PowerPlant.h"
+#include "PowerPlant.hpp"
 
 using namespace HelperFunctions;
 using namespace std;

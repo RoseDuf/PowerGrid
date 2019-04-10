@@ -1,4 +1,10 @@
-#include "PowerPlant.h"
+#include "PowerPlant.hpp"
+#include "GameCard.h"
+
+using namespace std;
+
+std::map<int, PowerPlant*> PowerPlant::powerPlantMarket;
+bool PowerPlant::powerPlantInitialized = false;
 
 PowerPlant::PowerPlant()
 {
@@ -317,6 +323,9 @@ void PowerPlant::powerCity(string type)
 	}
 }
 
+bool PowerPlant::isGreen() {
+    return this->green;
+}
 
 void PowerPlant::toString()
 {
@@ -346,4 +355,125 @@ void PowerPlant::toString()
 		cout << "Uranium: " << uranium_stocked << endl;
 	}
 
+}
+
+void PowerPlant::removeFromPowerPlantMarket(PowerPlant* powerPlantToRemove) {
+    for(auto it = powerPlantMarket.begin(); it != powerPlantMarket.end(); it++) {
+        if( it->first == powerPlantToRemove->getCardNumber() ) {
+            
+            powerPlantMarket.erase(it); // don't also delete it (as in the C++ delete keyword which frees memory) because the power plant card may still be needed in a context other than the power plant market
+        }
+    }
+}
+
+void PowerPlant::addToPowerPlantMarket(PowerPlant* powerPlantToAdd) {
+    powerPlantMarket.insert( std::make_pair(powerPlantToAdd->getCardNumber(), powerPlantToAdd) );
+}
+
+
+PowerPlant PowerPlant::peekIthPowerPlantInMarket(int i) {
+    if(i > 7) {
+        // throw some exception // TODO
+    }
+    else {
+        auto it = powerPlantMarket.begin();
+        for(int a = 0; a < powerPlantMarket.size(); a++) {
+            if(a == i) {
+                return *(it->second);
+            }
+            it++;
+        }
+    }
+    // throw some exception // TODO
+}
+
+PowerPlant PowerPlant::peekIthPowerPlantInPresentMarket(int i) {
+    if(i > 3) {
+        // throw some exception // TODO
+    }
+    else {
+        auto it = powerPlantMarket.begin();
+        for(int a = 0; a < powerPlantMarket.size(); a++) {
+            if(a == i) {
+                return *(it->second);
+            }
+            it++;
+        }
+    }
+    // throw some exception // TODO
+}
+
+PowerPlant PowerPlant::peekIthPowerPlantInFutureMarket(int i) {
+    if(i > 3) {
+        // throw some exception // TODO
+    }
+    else {
+        i = i + 4;
+        auto it = powerPlantMarket.begin();
+        for(int a = 4; a < powerPlantMarket.size(); a++) {
+            if(a == i) {
+                return *(it->second);
+            }
+            it++;
+        }
+    }
+    // throw some exception // TODO
+}
+
+std::vector<PowerPlant> PowerPlant::peekPresentPowerPlantMarket() {
+    const int PRESENT_MARKET_SIZE = 4;
+    std::vector<PowerPlant> presentMarket;
+    auto it = powerPlantMarket.begin();
+    for(int a = 0; a < PRESENT_MARKET_SIZE; a++) {
+        presentMarket.push_back( *(it->second) );
+        it++;
+    }
+    
+    return presentMarket;
+}
+std::vector<PowerPlant> PowerPlant::peekFuturePowerPlantMarket() {
+    const int PRESENT_MARKET_SIZE = 4;
+    const int FUTURE_MARKET_SIZE = 4;
+    std::vector<PowerPlant> futureMarket;
+    
+    auto it = powerPlantMarket.begin();
+    
+    for(int a = 0; a < PRESENT_MARKET_SIZE; a++) {
+        it++;
+    }
+    
+    for(int a = PRESENT_MARKET_SIZE; a < PRESENT_MARKET_SIZE+FUTURE_MARKET_SIZE; a++) {
+        futureMarket.push_back( *(it->second) );
+        it++;
+    }
+    
+    return futureMarket;
+}
+
+int PowerPlant::getPowerPlantMarketSize() {
+    return powerPlantMarket.size();
+}
+
+bool PowerPlant::isPowerPlantMarketEmpty() {
+    return powerPlantMarket.size() == 0;
+}
+
+void PowerPlant::initializePowerPlantMarket() {
+    
+    if( powerPlantInitialized == false ) {
+        GameCard::initializeDeck();
+    
+        const int AMOUNT_OF_POWERPLANT_MARKET_SLOTS = 8;
+        
+        for(int i = 0; i < AMOUNT_OF_POWERPLANT_MARKET_SLOTS; i++) {
+            GameCard* gameCardToAdd = GameCard::takeTopOfDeck();
+            PowerPlant* powerPlantToAdd = static_cast<PowerPlant*>(gameCardToAdd); // the initial GameCard*s are all PowerPlant*s
+            addToPowerPlantMarket(powerPlantToAdd);
+        }
+        
+        powerPlantInitialized = true;
+    }
+    else {
+        // throw some kind of not initialized power plant market exception or something
+    }
 }

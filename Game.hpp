@@ -1,13 +1,13 @@
-#pragma once
+#ifndef GAME_HPP_
+#define GAME_HPP_
 
-#include "player.hpp"
+#include "Player.hpp"
 //#include "GameState.hpp"
 #include <vector>
 #include <cstdlib>
 #include <iostream>
 
 using namespace std;
-
 
 class Game {
 
@@ -18,7 +18,7 @@ public:
 	Game(vector <Player*> players);
 
 	//Task 3
-	void reversePlayerOrder(vector<Player*> players);
+	//void reversePlayerOrder(vector<Player*> players);
 	void buyingResources();
 	void buildingCities();
 	void dashboard(Player* p);
@@ -33,3 +33,5 @@ public:
 
 
 };
+
+#endif

@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <vector>
-#include "player.hpp"
+#include "Player.hpp"
 using namespace std;
 
 Player::Player() {
@@ -22,9 +22,10 @@ Player::Player(string name, string color) {
 }
 
 Player::Player(string name, string color, vector<PowerPlant*>
-	powerPlant, Elektro wallet, vector<City> cities, int playerOrder) {
+	powerPlants, Elektro wallet, vector<City> cities, int playerOrder) {
 	this->name = name;
 	this->color = color;
+    this->powerPlants = powerPlants;
 	this->wallet = wallet;
 	this->citiesOwned = cities;
 	this->playerOrder = playerOrder;
@@ -56,7 +57,7 @@ void Player::setColor(string c) {
 	color = c;
 }
 
-vector<PowerPlant*> Player::getPowerPlant() {
+vector<PowerPlant*> Player::getPowerPlants() const {
 	return powerPlants;
 }
 void Player::setPowerPlant(vector<PowerPlant*> pp) {
@@ -92,7 +93,7 @@ void Player::spendElektros(int _bill1, int _bill10, int _bill50)
 void  Player::walletToString() {
 	wallet.toString();
 }
-int  Player::getTotalWallet() {
+int  Player::getTotalWallet() const {
 	return wallet.getTotalBalance();
 }
 void Player::setTotalWallet(Elektro w) {
@@ -113,11 +114,11 @@ void Player::setHouses(int h) {
 	houses = h;
 }
 
-int Player::getNumCitiesOwned() {
+int Player::getNumCitiesOwned() const {
 	return numCitiesOwned;
 }
 
-int Player::getNumPPOwned() {
+int Player::getNumPPOwned() const {
 	return numPPOwned;
 }
 
@@ -187,4 +188,17 @@ void Player::toString() {
 	for (int i = 0; i < citiesOwned.size(); i++) {
 		cout << citiesOwned[i].getCityName() << endl;
 	}
+}
+
+void Player::removePowerPlant(PowerPlant* powerPlant) {
+    removePowerPlant( powerPlant->getCardNumber() );
+}
+
+void Player::removePowerPlant(int powerPlantCardNumber) {
+    for(int i = 0; i < this->powerPlants.size(); i++) {
+        if( this->powerPlants.at(i)->getCardNumber() == powerPlantCardNumber ) {
+            delete this->powerPlants.at(i);
+            this->powerPlants.erase( this->powerPlants.begin()+i );
+        }
+    }
 }
