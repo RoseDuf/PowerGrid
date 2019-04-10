@@ -684,6 +684,10 @@ bool GraphBuilder::findCityByNameBool(string name) {
 
 }
 
+std::vector<std::string> GraphBuilder::getAllRegionColors() const {
+    return ALL_REGION_COLORS;
+}
+
 /* ----------------------------------------------------------------------------------------------------------
 Dijkstra Search algorithm source code taken and modified from:
 https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
