@@ -57,7 +57,7 @@ void Player::setColor(string c) {
 	color = c;
 }
 
-vector<PowerPlant*> Player::getPowerPlants() {
+vector<PowerPlant*> Player::getPowerPlants() const {
 	return powerPlants;
 }
 void Player::setPowerPlant(vector<PowerPlant*> pp) {

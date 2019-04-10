@@ -54,7 +54,7 @@ public:
 	string getColor();
 	void setColor(string color);
 
-	vector<PowerPlant*> getPowerPlants();
+	vector<PowerPlant*> getPowerPlants() const;
 	void setPowerPlant(vector<PowerPlant*> pp);
 
 	int getNumCitiesOwned() const;
