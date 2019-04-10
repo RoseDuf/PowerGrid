@@ -39,7 +39,8 @@ public:
 	void setUpMap();
 	void phase1_determinePlayerOrder();
 	void phase2_auction();
-	void phase3_buyingResources();
+	void phase3__1_buyingResources();
+	void phase3_2_buyingCities();
 	void phase4_building();
 	void phase5_bureaucracy();
 
@@ -50,9 +51,12 @@ private:
 //	GraphBuilder graph;
 	vector<GameCard*> deck;
 	vector<GameCard*> powerPlantMarket;
+	int step = 1;
+	/*
 	bool step1 = true;
 	bool step2 = false;
 	bool step3 = false;
+	*/
 	vector<Player*> players;
 	Market ppMarket = Market(players);
 
