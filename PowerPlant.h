@@ -23,6 +23,7 @@ public:
 	//stocks a resource onto the power plant card
 	void stockRT(string type, int num);
 
+	bool checkRT(string type, int num);
 	//gets the number of a resource type stocked on power plant card
 	int getRTStocked(string type);
 

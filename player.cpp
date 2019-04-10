@@ -66,6 +66,10 @@ void Player::addPowerPlant(PowerPlant* p) {
 	powerPlants.push_back(p);
 }
 
+//vector<ResourceToken> Player::getResources() {
+//	return resources;
+//}
+
 vector<City> Player::getCitiesOwned() {
 	return citiesOwned;
 }

@@ -13,9 +13,9 @@
 using namespace std;
 
 class Player {
-    
+
 private:
-    string name;
+	string name;
 	string color;
 	vector<PowerPlant*> powerPlants;
     
@@ -31,7 +31,7 @@ private:
 	int houses;
 
 public:
-    
+
 	Player();
 	Player(string name, string color);
 	Player(string name, string color, vector<PowerPlant*> 
@@ -81,6 +81,9 @@ public:
 	int getTotalGarbage();
 	int getTotalUranium();
 
+	void addPowerPlant(PowerPlant p);
+	//void addElektro(Elektro e);
+	//void removeElektro(int quantity, int billValue);
 	void toString();
 
 	//to sort player's by the number of cities owned (to determine order)
