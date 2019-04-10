@@ -74,7 +74,7 @@ public:
 	void addConnectedCitiestoVector();
 	void printGraph();
 	void printAvailableCities();
-	bool findCityByName(string name);
+	bool findCityByNameBool(string name);
 	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);

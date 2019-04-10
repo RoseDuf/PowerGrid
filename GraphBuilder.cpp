@@ -200,6 +200,26 @@ void GraphBuilder::removeRegions(string color) {
 
 }
 
+bool GraphBuilder::findCityByNameBool(string name) {
+	bool isValid;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.isAvailable()) {
+			if (graph->arr[i].city.getCityName() == name) {
+				isValid = true;
+				break;
+			}
+			else {
+				isValid = false;
+			}
+		}
+		else {
+			continue;
+		}
+	}
+
+	return isValid;
+
+}
 //might not need this function... Leaving it commented out just in case. Who knows ?\_("/)_/?
 City GraphBuilder::findCityByName(string name) {
 	City city;

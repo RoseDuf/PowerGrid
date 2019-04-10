@@ -232,7 +232,7 @@ int main() {
 
 	//Initiate Graph and Build Map
 	GraphBuilder graph = GraphBuilder(42, "germany.map");
-	graph.buildMap();
+//	graph.buildMap();
 	Game g1 = Game();
 
 	//TASK 2 (Rose)
@@ -321,7 +321,7 @@ int main() {
 
 		bool stillBuying = true;
 
-		vector <PowerPlant> powerPlantsTEMP;
+		vector <PowerPlant*> powerPlantsTEMP;
 		powerPlantsTEMP = players[i]->getPowerPlant();
 
 		while (stillBuying) {
@@ -423,15 +423,15 @@ int main() {
 
 					//check if resources match ones on Player's powerplants
 					for (int x = 0; x < powerPlantsTEMP.size(); x++) {
-						inPowerPlant = powerPlantsTEMP[x].checkRT(resource, 1);
+						inPowerPlant = powerPlantsTEMP[x]->checkRT(resource, 1);
 						if (inPowerPlant) {
-							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " can be powered with this resource." << endl;
+							cout << "Power plant " << powerPlantsTEMP[x]->getCardNumber() << " can be powered with this resource." << endl;
 							cout << endl;
 							isMatch = true;
 							break;
 							}
 						else {
-							cout << "Power plant " << powerPlantsTEMP[x].getCardNumber() << " cannot be powered with this resource." << endl;
+							cout << "Power plant " << powerPlantsTEMP[x]->getCardNumber() << " cannot be powered with this resource." << endl;
 							cout << endl;
 						}
 					}
@@ -498,7 +498,7 @@ int main() {
 
 					//display just the card number of the powerplants you own
 					for (int z = 0; z < powerPlantsTEMP.size(); z++) {
-						cout << "PowerPlant number: " << powerPlantsTEMP[z].getCardNumber() << endl;
+						cout << "PowerPlant number: " << powerPlantsTEMP[z]->getCardNumber() << endl;
 					}
 
 					
@@ -515,7 +515,7 @@ int main() {
 
 					//check if a valid card number 
 					for (int y = 0; y < powerPlantsTEMP.size(); y++) {
-						if (selectPlant == powerPlantsTEMP[y].getCardNumber()) {
+						if (selectPlant == powerPlantsTEMP[y]->getCardNumber()) {
 							indexPlant = y;
 							wrongNum = false;
 							break;
@@ -538,7 +538,7 @@ int main() {
 
 						//check if a valid card number ****Might cause error****
 						for (int k = 0; k <powerPlantsTEMP.size(); k++) {
-							if (selectPlant == powerPlantsTEMP[k].getCardNumber()) {
+							if (selectPlant == powerPlantsTEMP[k]->getCardNumber()) {
 								wrongNum = false;
 								break;
 							}
@@ -552,14 +552,14 @@ int main() {
 					//selectPlant is card number not index
 
 					//add resource to player's appropriate powerplant
-					powerPlantsTEMP[indexPlant].stockRT(resource, 1);
+					powerPlantsTEMP[indexPlant]->stockRT(resource, 1);
 
 
 					cout << "\nResource has been added to the PowerPlant... " << endl;
 
 					//display Player's PowerPlants
 					for (int z = 0; z < powerPlantsTEMP.size(); z++) {
-						powerPlantsTEMP[z].toString();
+						powerPlantsTEMP[z]->toString();
 					}
 
 					//remove from market
@@ -663,7 +663,7 @@ int main() {
 				//check if chosenCity is part of the available map
 				graph.SearchCity(chosenCity);		//displays info about a city
 
-				bool validCity = graph.findCityByName(chosenCity);	//bool updates player and map and checks if city is available
+				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
 																	//check if in valid part of region
 				while (!validCity) {
@@ -859,7 +859,7 @@ int main() {
 				//check if chosenCity is part of the available map
 				graph.SearchCity(chosenCity);		//displays info about a city
 
-				bool validCity = graph.findCityByName(chosenCity);	//bool updates player and map and checks if city is available
+				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
 				/*
 				//CHECK IF PLAYER ALREADY OWNS CITY

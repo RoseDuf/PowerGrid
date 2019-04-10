@@ -55,7 +55,7 @@ public:
 	void display();
 	void updateSupply();
 	void addToSupply(string type, int number);
-	void display();
+//	void display();
 	void toString();
 };
 #endif /* Market_hpp */
