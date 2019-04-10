@@ -9,7 +9,7 @@ class City {
 
 public:
 
-	City();
+    City();
 	City(int cityno, std::string cn, std::string cc);
 	City(int cityNumber, std::string cityName, std::string cityColor, bool a);
 	~City();
@@ -22,6 +22,9 @@ public:
 	bool isAvailable();
 	void setAvailable(bool available);
 
+	void setPoweredState(bool set);
+	bool getPoweredState();
+
 	//to sort Cities by their number
 	static bool compare(const City a, const City b) {
 		return a.cityNumber < b.cityNumber;
@@ -33,6 +36,7 @@ private:
 	std::string cityColor;
 	bool available;
 
+	bool powered;
 };
 
 #endif

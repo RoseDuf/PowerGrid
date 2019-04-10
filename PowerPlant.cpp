@@ -8,7 +8,9 @@ PowerPlant::PowerPlant(int _cardNumber, int _numOfCitiesPowered, int _coal_neede
 {
 	cardNumber = _cardNumber;
 	numCitiesPowered = _numOfCitiesPowered;
-	coal_needed = _coal_needed;
+	coal_needed =
+
+		coal_needed = _coal_needed;
 	oil_needed = _oil_needed;
 	garbage_needed = _garbage_needed;
 	uranium_needed = _uranium_needed;
@@ -64,8 +66,7 @@ bool PowerPlant::checkIfNeeded(string type)
 		if (uranium_needed == 0) temp = false;
 	}
 
-	//if (temp == false)
-		//cout << "This power plant can't be powered with this resource." << endl;
+	if (temp == false)cout << "This power plant can't be powered with this resource." << endl;
 	return temp;
 }
 
@@ -75,7 +76,7 @@ bool PowerPlant::checkSpace(string type, int num)
 	int needed = 0;
 	if (type == "coal")
 	{
-		if (num > coal_needed * 2)
+		if (num>coal_needed * 2)
 		{
 			needed = coal_needed * 2;
 			temp = false;
@@ -83,7 +84,7 @@ bool PowerPlant::checkSpace(string type, int num)
 	}
 	else if (type == "oil")
 	{
-		if (num > oil_needed * 2)
+		if (num>oil_needed * 2)
 		{
 			needed = oil_needed * 2;
 			temp = false;
@@ -92,7 +93,7 @@ bool PowerPlant::checkSpace(string type, int num)
 
 	else if (type == "garbage")
 	{
-		if (num > garbage_needed * 2)
+		if (num>garbage_needed * 2)
 		{
 			needed = garbage_needed * 2;
 			temp = false;
@@ -100,7 +101,7 @@ bool PowerPlant::checkSpace(string type, int num)
 	}
 	else if (type == "uranium")
 	{
-		if (num > uranium_needed * 2)
+		if (num>uranium_needed * 2)
 		{
 			needed = uranium_needed * 2;
 			temp = false;
@@ -160,12 +161,14 @@ void PowerPlant::stockRT(string type, int num)
 	{
 		if (checkIfNeeded("coal") && checkSpace("coal", num)) {
 			coal_stocked += num;
+			//market->rtPurchase("coal", num);
 		}
 	}
 	else if (type == "oil")
 	{
 		if (checkIfNeeded("oil") && checkSpace("oil", num)) {
 			oil_stocked += num;
+			//market->rtPurchase("oil", num);
 		}
 	}
 
@@ -173,6 +176,7 @@ void PowerPlant::stockRT(string type, int num)
 	{
 		if (checkIfNeeded("garbage") && checkSpace("garbage", num)) {
 			garbage_stocked += num;
+			// market->rtPurchase("garbage", num);
 		}
 	}
 	else if (type == "uranium")
@@ -240,7 +244,7 @@ int PowerPlant::getRTStocked(string type)
 	return 0;
 }
 
-int PowerPlant::getRTNeeded(string type, int num)
+int PowerPlant::getRTNeeded(string type)
 {
 	if (type == "coal")
 	{
@@ -261,37 +265,54 @@ int PowerPlant::getRTNeeded(string type, int num)
 	}
 	return 0;
 }
-
+int PowerPlant::get_numCitiesPowered_ACTIVE()
+{
+	return numCitiesPowered_ACTIVE;
+}
 void PowerPlant::powerCity(string type)
 {
+	if (green)
+	{
+		cout << "Powered city with GREEN power plant." << endl;
+	}
+	else
+	{
+		if (type == "coal")
+		{
+			if (checkIfNeeded("coal") && checkIfEnoughStock("coal"))
+			{
+				coal_stocked -= coal_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("coal", coal_needed);
+			}
+		}
+		else if (type == "oil")
+		{
+			if (checkIfNeeded("oil") && checkIfEnoughStock("oil"))
+			{
+				oil_stocked -= oil_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("oil", oil_needed);
+			}
+		}
 
-	if (type == "coal")
-	{
-		if (checkIfNeeded("coal") && checkIfEnoughStock("coal"))
+		else if (type == "garbage")
 		{
-			coal_stocked -= coal_needed;
+			if (checkIfNeeded("garbage") && checkIfEnoughStock("garbage"))
+			{
+				garbage_stocked -= garbage_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("garbage", garbage_needed);
+			}
 		}
-	}
-	else if (type == "oil")
-	{
-		if (checkIfNeeded("oil") && checkIfEnoughStock("oil"))
+		else if (type == "uranium")
 		{
-			oil_stocked -= oil_needed;
-		}
-	}
-
-	else if (type == "garbage")
-	{
-		if (checkIfNeeded("garbage") && checkIfEnoughStock("garbage"))
-		{
-			garbage_stocked -= garbage_needed;
-		}
-	}
-	else if (type == "uranium")
-	{
-		if (checkIfNeeded("uranium") && checkIfEnoughStock("uranium"))
-		{
-			uranium_stocked -= uranium_needed;
+			if (checkIfNeeded("uranium") && checkIfEnoughStock("uranium"))
+			{
+				uranium_stocked -= uranium_needed;
+				numCitiesPowered_ACTIVE += numCitiesPowered;
+				//market->addToSupply("uranium", uranium_needed);
+			}
 		}
 	}
 }

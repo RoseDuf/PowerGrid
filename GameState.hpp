@@ -13,11 +13,11 @@ typedef std::tuple< std::vector<City>, std::vector<EdgeTriplet>, std::vector<Adj
 class GameState {
 private:
 	int turnOfPlayer;
-	std::vector<City> cities;
+    std::vector<City> cities;
 	std::vector<EdgeTriplet> edgeTriplets;
-	std::vector<AdjacentRegionsTriplet> adjacentRegionsTriplets;
+    std::vector<AdjacentRegionsTriplet> adjacentRegionsTriplets;
 	std::vector<Player> players;
-
+	
 public:
 	std::vector<City> getCities();
 	void addCity(City cityToAdd);
@@ -35,14 +35,14 @@ public:
 	void setPlayers(std::vector<Player> players);
 	void addPlayers(std::vector<Player> playersToAdd);
 	void addPlayer(Player playerToAdd);
-
-	std::vector<AdjacentRegionsTriplet> getAdjacentRegionsTriplets();
+    
+    std::vector<AdjacentRegionsTriplet> getAdjacentRegionsTriplets();
 	void setAdjacentRegionsTriplets(std::vector<AdjacentRegionsTriplet> AdjacentRegionsTriplets);
 	void addAdjacentRegionsTriplets(std::vector<AdjacentRegionsTriplet> additionalAdjacentRegionsTriplets);
 	void addAdjacentRegionsTriplet(AdjacentRegionsTriplet additionalAdjacentRegionsTriplet);
-
-	MapData getMapData();
-	void setMapData(MapData mapData);
+    
+    MapData getMapData();
+    void setMapData(MapData mapData);
 };
 
 #endif

@@ -11,3 +11,6 @@ XmlDocumentNode* XmlDocumentTree::getRootNode() {
     return rootNode;
 }
 
+XmlDocumentTree::~XmlDocumentTree() {
+    delete rootNode;
+}

@@ -2,13 +2,13 @@
 Graph implementation code using adjencyList
 */
 
+#ifndef GRAPHBUILDER_HPP_
+#define GRAPHBUILDER_HPP_
+
 #include "City.h"
 #include "player.hpp"
 #include "GameState.hpp"
 #include "PowerGridIO.hpp"
-
-#ifndef GRAPHBUILDER_HPP_
-#define GRAPHBUILDER_HPP_
 
 class GraphBuilder {
 	//nested classes needed to make the adjency list
@@ -49,7 +49,6 @@ public:
 	int v;
 	int dist;
 	};
-
 	// Structure to represent a min heap
 	struct MinHeap
 	{
@@ -76,6 +75,7 @@ public:
 	void printGraph();
 	void printAvailableCities();
 	bool findCityByName(string name);
+	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
@@ -95,6 +95,7 @@ public:
 	*/
 
 	//additional functions
+	City findCityByName(string name);
 	void removeRegions(string color);
 	bool add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
@@ -106,16 +107,15 @@ public:
 	//void add_ResourcesToCity(ResourceToken rt, string name);
 	//void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(string city1, string city2);
-
-	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
-
 	bool test_SizeOfMap_and_FileMap();
-	bool test_Duplicate_Edges();
-	bool test_MissingEdges();
-	void buildMap();
+	bool hasDuplicateEdge();
+	bool hasMissingEdge();
+
+	bool eachRegionHasSevenCities();
 
 	//variables needed for the graph building
 private:
+	void buildMap();
 	int totalVertices;
 	Graph * graph;
 	std::string file;
@@ -126,6 +126,8 @@ private:
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
 	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);
+	//void populateAllRegionColors();
+	//std::vector<std::string> ALL_REGION_COLORS;
 };
 
 #endif

@@ -1,27 +1,16 @@
-
 #ifndef Market_hpp
 #define Market_hpp
+
 
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include "player.hpp"
+#include <vector>
 using namespace std;
 
 class Market
 {
-public:
-
-	Market();
-	//setting up market
-	//Market(int coal, int oil, int garbage, int uranium);
-	~Market();
-	void restockMarket(int step);
-	void rtPurchase(string type, int number);
-	void display();
-	bool checkMarket(string type, int number);
-	bool checkSupply(string type, int number);
-	int getPrice(string type);
-	
 
 private:
 
@@ -48,5 +37,25 @@ private:
 	int oil_supply = 0;
 	int garbage_supply = 0;
 	int uranium_supply = 0;
+
+	vector<Player*> players;
+public:
+
+	Market(vector<Player*> &_players);
+	Market();
+	//setting up maket
+	// Market(int coal, int oil, int garbage, int uranium, vector<Player*> &_players);
+	~Market();
+
+	void restockMarket(int step);
+	void rtPurchase(string type, int number);
+	bool checkMarket(string type, int number);
+	bool checkSupply(string type, int number);
+	int getPrice(string type);
+	void display();
+	void updateSupply();
+	void addToSupply(string type, int number);
+	void display();
+	void toString();
 };
 #endif /* Market_hpp */

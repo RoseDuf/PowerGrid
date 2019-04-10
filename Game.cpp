@@ -41,7 +41,7 @@ void Game::dashboard(Player* p) {
 	}
 
 	for (int i = 0; i < p->getPowerPlant().size(); i++) {
-		p->getPowerPlant()[i].toString();
+		p->getPowerPlant()[i]->toString();
 		cout << endl;
 	}
 	
@@ -51,12 +51,12 @@ void Game::dashboard(Player* p) {
 		cout << "You have "<< p->getCitiesOwned().size() << " cities." << endl;
 		cout << endl;
 
-		vector<City> tempCity = p->getCitiesOwned();
-		for (int i = 0; i < tempCity.size(); i++) {
-			cout << tempCity[i].getCityName() << endl;
-		}
+	for (int i = 0; i < p->getCitiesOwned().size(); i++) {
+		p->getCitiesOwned()[i].getCityName();
+		cout << endl;
+	}
 
-	cout << endl;
+
 	cout << "\nElektros:\n" << endl;
 	p->walletToString();
 	cout << endl;
@@ -69,12 +69,18 @@ void Game::dashboard(Player* p) {
 	int player_oil = 0;
 	int player_garbage = 0;
 	int player_uranium = 0;
+	vector <PowerPlant *> c = p->getPowerPlant();
 
-	for (int i = 0; i < p->getPowerPlant().size(); i++) {
-		player_coal += p->getPowerPlant()[i].getRTStocked("coal");
+	for (int i = 0; i < c.size(); i++) {
+		player_coal += c[i]->getRTStocked("oil");
+		player_oil += c[i]->getRTStocked("oil");
+		player_garbage += c[i]->getRTStocked("garbage");
+		player_uranium += c[i]->getRTStocked("uranium");
+		/*
 		player_oil += p->getPowerPlant()[i].getRTStocked("oil");
 		player_garbage += p->getPowerPlant()[i].getRTStocked("garbage");
 		player_uranium += p->getPowerPlant()[i].getRTStocked("uranium");
+		*/
 	}
 
 	cout << "Amount of Coal Owned: " << player_coal << endl;

@@ -6,11 +6,11 @@
 #include "GameState.hpp"
 
 namespace PowerGridIO {
-
-	MapData getMapData(std::string mapFilename);
-	GameState loadGame(std::string saveFilename);
-
-	void saveGame(GameState gameState);
+    
+    MapData getMapData(std::string mapFilename);
+    GameState loadGame(std::string saveFilename);
+    
+    void saveGame(GameState gameState);
 }
 
 #endif

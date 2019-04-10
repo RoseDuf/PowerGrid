@@ -18,23 +18,23 @@ Player::Player(string name, string color) {
 	this->name = name;
 	this->color = color;
 	wallet = Elektro(10, 4, 0);
+	houses = 22;
 }
 
-Player::Player(string name, string color, vector<PowerPlant>
-	powerPlant, Elektro wallet, vector<City> cities,
-	/*vector<ResourceToken> resources,*/ int playerOrder) {
+Player::Player(string name, string color, vector<PowerPlant*>
+	powerPlant, Elektro wallet, vector<City> cities, int playerOrder) {
 	this->name = name;
 	this->color = color;
 	this->wallet = wallet;
 	this->citiesOwned = cities;
-	//this->resources = resources;
 	this->playerOrder = playerOrder;
+	houses = 22;
 }
 
 Player::~Player() {}
 
 Player::Player(const Player &p2) {
-	name = p2.name;
+	name = p2.name; 
 	color = p2.color;
 	wallet = p2.wallet;
 	citiesOwned = p2.citiesOwned;
@@ -56,13 +56,13 @@ void Player::setColor(string c) {
 	color = c;
 }
 
-vector<PowerPlant> Player::getPowerPlant() {
+vector<PowerPlant*> Player::getPowerPlant() {
 	return powerPlants;
 }
-void Player::setPowerPlant(vector<PowerPlant> pp) {
+void Player::setPowerPlant(vector<PowerPlant*> pp) {
 	powerPlants = pp;
 }
-void Player::addPowerPlant(PowerPlant p) {
+void Player::addPowerPlant(PowerPlant* p) {
 	powerPlants.push_back(p);
 }
 
@@ -106,15 +106,81 @@ void Player::setplayerOrder(int t) {
 	playerOrder = t;
 }
 
-//void Player::removeElektro(int quantity, int billValue) {
-//elektros.push_back(Elektro(quantity, billValue));
-//elektros.erase
-//}
+int Player::getRemainingHouses() {
+	return houses - citiesOwned.size();
+}
+void Player::setHouses(int h) {
+	houses = h;
+}
+
+int Player::getNumCitiesOwned() {
+	return numCitiesOwned;
+}
+
+int Player::getNumPPOwned() {
+	return numPPOwned;
+}
+
+void Player::powerCity(City city, PowerPlant* powerplant, string type) {
+	city.setPoweredState(true);
+	powerplant->powerCity(type);
+}
+
+int Player::getCitiesPowered() {
+	int temp = 0;
+	for (int i = 0; i < citiesOwned.size(); i++)
+	{
+		if (citiesOwned[i].getPoweredState()) temp++;
+	}
+	return temp;
+}
+//setting powered back to false as we are starting another round in the game
+void Player::setCitiesPowered() {
+	for (int i = 0; i < citiesOwned.size(); i++)
+	{
+		citiesOwned[i].setPoweredState(false);
+	}
+}
+
+int  Player::getTotalCoal() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTStocked("coal");
+	}
+	return temp;
+}
+int  Player::getTotalOil() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTStocked("oil");
+	}
+	return temp;
+}
+int  Player::getTotalGarbage() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTStocked("garbage");
+	}
+	return temp;
+}
+int  Player::getTotalUranium() {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTStocked("uranium");
+	}
+	return temp;
+}
 
 void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
-
+	for (int i = 0; i < powerPlants.size(); i++) {
+		powerPlants[i]->toString();
+	}
 	cout << "\nAmount of Elektro: " << endl;
 	wallet.toString();
 	cout << "\nNumber of Cities owned: " << citiesOwned.size() << "\nCity names: " << endl;
@@ -122,12 +188,3 @@ void Player::toString() {
 		cout << citiesOwned[i].getCityName() << endl;
 	}
 }
-
-//void Player::Pass(PowerPlant p) {
-//	cout << name << " has chosen to Pass (P) on powerplant " << p.getCardNumber << endl;
-//	cout << endl;
-//}
-
-//void Player::Auction(GameCard * p) {
-//
-//}
