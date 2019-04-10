@@ -9,29 +9,18 @@ int AggressiveStrategy::getBidAmount(const Player* player, int biddedPowerPlantI
         // throw some exception // TODO
     }
     
-    std::vector<PowerPlant> presentPowerPlantMarket = PowerPlant::peekPresentPowerPlantMarket();
-    
-    if( biddedPowerPlantIndex < presentPowerPlantMarket.size()-1 ) { // if the bidded index is NOT the largest in present power plant market
+    if( biddedPowerPlantIndex < 0) { // if no power plant was chosen to be bid on
+        std::vector<PowerPlant> presentPowerPlantMarket = PowerPlant::peekPresentPowerPlantMarket();
         
-        for(int i = biddedPowerPlantIndex; i < presentPowerPlantMarket.size()-1; i++) { // presentPowerPlantMarket is sorted in ascending order
-                
-            if( presentPowerPlantMarket.at(i+1).getCardNumber() <= player->getTotalWallet()) {
-                return -1;
-            }
-            else {
-                
-                if( player->getTotalWallet() >= highestBidSoFar+1 ) {
-                    return highestBidSoFar+1;
-                }
+        for(int i = presentPowerPlantMarket.size()-1; i >= 0; i--) {
+            if( player->getTotalWallet() >= presentPowerPlantMarket.at(i).getCardNumber() ) {
+                return presentPowerPlantMarket.at(i).getCardNumber();
             }
         }
     }
-    else { // if the bidded index IS the largest in present power plant market
-        if( player->getTotalWallet() >= highestBidSoFar+1 ) {
-            return highestBidSoFar+1;
-        }
-        else {
-            return -1;
-        }
+    else { // if a power plant WAS chosen to be bid on
+        return highestBidSoFar+1;
     }
+        
+    return -1; // if nothing else was returned, return -1, which means that no bid was made
 }
