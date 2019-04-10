@@ -17,6 +17,9 @@ int main()
 
 
 	Game test;
+	test.deckSetup();
+	test.setUpPlayers();
+	test.setUpMap();
 	test.phase1_determinePlayerOrder();
 	test.phase2_auction();
 

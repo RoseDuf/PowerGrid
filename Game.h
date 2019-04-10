@@ -34,6 +34,9 @@ public:
 
 	//void phase1_determinePlayerOrder(vector<Player*> &players, int round);
 	//void phase2_auction(vector<GameCard*> &ppMarket, vector<Player*> &players);
+	void deckSetup();
+	void setUpPlayers();
+	void setUpMap();
 	void phase1_determinePlayerOrder();
 	void phase2_auction();
 	void phase3_buyingResources();
@@ -53,6 +56,9 @@ private:
 	vector<Player*> players;
 	Market ppMarket = Market(players);
 
+	bool AI = false;
+	int amountOfPlayers = 0;
+	int amountOfRegionsToChoose = 0;
 	//methods needed for phase 2: auction
 	string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player * pl);
 	vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector<Player*> &players);
@@ -61,6 +67,14 @@ private:
 	bool isNumber(string s);
 	int round=1;
 
+	//methods needd for phase 3: buying resources
+
+	//methods needed for phase 4: bureaucracy
+	int checkProfit(int _num);
+
+
+
+	//TO SORT****
 	//game setup methods needed
 	void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket);
 	void shuffle(vector<GameCard*> &_deck);
