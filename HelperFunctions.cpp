@@ -6,6 +6,32 @@
 
 namespace HelperFunctions {
     
+    int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers) {
+        
+        switch(amountOfPlayers) {
+            case 2: {
+                return 10;
+            }
+            case 3: {
+                return 7;
+            }
+            case 4: {
+                return 7;
+            }
+            case 5: {
+                return 7;
+            }
+            case 6: {
+                return 6;
+            }
+            default: {
+                // throw some exception
+            }
+        }
+        
+        return -1;
+    }
+    
     Elektro integerToElektro(int elektroAmount) {
         int amountOfOnes = 0;
         int amountOfTens = 0;

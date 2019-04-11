@@ -4,35 +4,12 @@
 
 #include <vector>
 #include "Elektro.hpp"
+#include "Player.hpp"
 
 
 namespace HelperFunctions {
     
-    int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers) {
-        
-        switch(amountOfPlayers) {
-            case 2: {
-                return 10;
-            }
-            case 3: {
-                return 7;
-            }
-            case 4: {
-                return 7;
-            }
-            case 5: {
-                return 7;
-            }
-            case 6: {
-                return 6;
-            }
-            default: {
-                // throw some exception
-            }
-        }
-        
-        return -1;
-    }
+    int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers);
     
     Elektro integerToElektro(int elektroAmount);
     
