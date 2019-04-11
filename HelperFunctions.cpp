@@ -6,6 +6,19 @@
 
 namespace HelperFunctions {
     
+    bool hasStepTwoBeenTriggered(std::vector<const Player*> players) {
+        
+        int stepTwoAmount = howManyCitiesCorrespondToStepTwoTriggering( players.size() );
+        
+        for(int i = 0; i < players.size(); i++) {
+            if( players.at(i)->getNumCitiesOwned() >= stepTwoAmount ) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     int howManyMoreCitiesUntilStepTwoIsTriggered(const Player* player, int amountOfPlayers) {
         return howManyCitiesCorrespondToStepTwoTriggering(amountOfPlayers) - player->getNumCitiesOwned();
     }
