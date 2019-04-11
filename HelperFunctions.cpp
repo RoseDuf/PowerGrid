@@ -6,6 +6,10 @@
 
 namespace HelperFunctions {
     
+    int howManyMoreCitiesUntilStepTwoIsTriggered(const Player* player, int amountOfPlayers) {
+        return howManyCitiesCorrespondToStepTwoTriggering(amountOfPlayers) - player->getNumCitiesOwned();
+    }
+    
     int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers) {
         
         switch(amountOfPlayers) {
