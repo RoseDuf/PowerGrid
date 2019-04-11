@@ -202,3 +202,13 @@ void Player::removePowerPlant(int powerPlantCardNumber) {
         }
     }
 }
+
+int Player::getCurrentTotalMaximumCityPoweringPotential() const {
+    
+    int currentTotalMaximumCityPoweringPotential = 0;
+    for(int i = 0; i < this->powerPlants.size(); i++) {
+        currentTotalMaximumCityPoweringPotential += powerPlants.at(i)->getCitiesPowered();
+    }
+    
+    return currentTotalMaximumCityPoweringPotential;
+}

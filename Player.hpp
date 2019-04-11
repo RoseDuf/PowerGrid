@@ -80,6 +80,7 @@ public:
 	int getTotalOil() const;
 	int getTotalGarbage() const;
 	int getTotalUranium() const;
+    int getCurrentTotalMaximumCityPoweringPotential() const;
     void removePowerPlant(PowerPlant* powerPlant);
     void removePowerPlant(int powerPlantCardNumber);
 
