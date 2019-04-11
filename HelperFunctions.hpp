@@ -22,7 +22,7 @@ namespace HelperFunctions {
     
     bool equalsIgnoreCase(std::string str1, std::string str2);
     
-    template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
+    template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2);
 }
 
 #endif
