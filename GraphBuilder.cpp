@@ -642,7 +642,7 @@ bool GraphBuilder::isValidGraph() {
     return !hasDuplicateEdge() && !hasMissingEdge() && eachRegionHasSevenCities();
 }
 
-std::vector<City> GraphBuilder::getAvailableCities() {
+std::vector<City> GraphBuilder::getOccupiableCities() {
     
     std::vector<City> availableCities;
     

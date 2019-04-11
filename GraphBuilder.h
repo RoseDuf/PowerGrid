@@ -113,7 +113,7 @@ public:
 
 	bool eachRegionHasSevenCities();
     bool isValidGraph();
-    std::vector<City> getAvailableCities();
+    std::vector<City> getOccupiableCities();
     std::vector<std::string> getAllRegionColors() const;
 	//variables needed for the graph building
 private:
