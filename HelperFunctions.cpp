@@ -5,8 +5,8 @@
 
 namespace HelperFunctions {
     
-    template<typename A, typename B, typename C> std::vector<C> combineVectors(std::vector<A> v1, std::vector<B> v2) {
-        std::vector<C> combination;
+    template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
+        std::vector<T> combination;
         for(int i = 0; i < v1.size(); i++) {
             combination.push_back( v1.at(i) );
         }
