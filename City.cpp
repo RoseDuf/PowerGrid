@@ -25,7 +25,7 @@ City::City(int cityno, string cn, string cc, bool a) {
 
 City::~City() {}
 
-int City::getCityNumber() {
+int City::getCityNumber() const {
 	return cityNumber;
 }
 
@@ -33,7 +33,7 @@ void City::setCityNumber(int cityno) {
 	cityNumber = cityno;
 }
 
-string City::getCityName() {
+string City::getCityName() const {
 	return cityName;
 }
 
@@ -61,6 +61,6 @@ void City::setPoweredState(bool set) {
 	powered = set;
 }
 
-bool City::getPoweredState() {
+bool City::getPoweredState() const {
 	return powered;
 }

@@ -48,10 +48,10 @@ public:
     int getTotalWallet() const;
 	void setTotalWallet(Elektro w);
 
-	string getName();
+	string getName() const;
 	void setName(string name);
 
-	string getColor();
+	string getColor() const;
 	void setColor(string color);
 
 	vector<PowerPlant*> getPowerPlants() const;
@@ -64,22 +64,22 @@ public:
 	vector<City> getCitiesOwned() const;
 	void setCitiesOwned(vector<City> c);
 
-	int getRemainingHouses();
+	int getRemainingHouses() const;
 	void setHouses(int houses);
 
-	int getplayerOrder();
+	int getplayerOrder() const;
 	void setplayerOrder(int playerOrder);
 
 	void addPowerPlant(PowerPlant* p);
 
 	void powerCity(City city, PowerPlant* powerplant, string type);
-	int getCitiesPowered();
+	int getCitiesPowered() const;
 	//setting powered back to false as we are starting another round in the game
 	void setCitiesPowered();
-	int getTotalCoal();
-	int getTotalOil();
-	int getTotalGarbage();
-	int getTotalUranium();
+	int getTotalCoal() const;
+	int getTotalOil() const;
+	int getTotalGarbage() const;
+	int getTotalUranium() const;
     void removePowerPlant(PowerPlant* powerPlant);
     void removePowerPlant(int powerPlantCardNumber);
 

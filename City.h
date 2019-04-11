@@ -13,17 +13,17 @@ public:
 	City(int cityno, std::string cn, std::string cc);
 	City(int cityNumber, std::string cityName, std::string cityColor, bool a);
 	~City();
-	std::string getCityName();
+	std::string getCityName() const;
 	void setCityName(std::string cityName);
 	std::string getCityColor();
 	void setCityColor(std::string cityColor);
-	int getCityNumber();
+	int getCityNumber() const;
 	void setCityNumber(int cityNumber);
 	bool isAvailable();
 	void setAvailable(bool available);
 
 	void setPoweredState(bool set);
-	bool getPoweredState();
+	bool getPoweredState() const;
 
 	//to sort Cities by their number
 	static bool compare(const City a, const City b) {

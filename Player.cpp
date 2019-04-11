@@ -43,14 +43,14 @@ Player::Player(const Player &p2) {
 	playerOrder = p2.playerOrder;
 }
 
-string Player::getName() {
+string Player::getName() const {
 	return name;
 }
 void Player::setName(string n) {
 	name = n;
 }
 
-string Player::getColor() {
+string Player::getColor() const {
 	return color;
 }
 void Player::setColor(string c) {
@@ -100,14 +100,14 @@ void Player::setTotalWallet(Elektro w) {
 	wallet = w;
 }
 
-int Player::getplayerOrder() {
+int Player::getplayerOrder() const {
 	return playerOrder;
 }
 void Player::setplayerOrder(int t) {
 	playerOrder = t;
 }
 
-int Player::getRemainingHouses() {
+int Player::getRemainingHouses() const {
 	return houses - citiesOwned.size();
 }
 void Player::setHouses(int h) {
@@ -127,7 +127,7 @@ void Player::powerCity(City city, PowerPlant* powerplant, string type) {
 	powerplant->powerCity(type);
 }
 
-int Player::getCitiesPowered() {
+int Player::getCitiesPowered() const {
 	int temp = 0;
 	for (int i = 0; i < citiesOwned.size(); i++)
 	{
@@ -143,7 +143,7 @@ void Player::setCitiesPowered() {
 	}
 }
 
-int  Player::getTotalCoal() {
+int  Player::getTotalCoal() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
@@ -151,7 +151,7 @@ int  Player::getTotalCoal() {
 	}
 	return temp;
 }
-int  Player::getTotalOil() {
+int  Player::getTotalOil() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
@@ -159,7 +159,7 @@ int  Player::getTotalOil() {
 	}
 	return temp;
 }
-int  Player::getTotalGarbage() {
+int  Player::getTotalGarbage() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
@@ -167,7 +167,7 @@ int  Player::getTotalGarbage() {
 	}
 	return temp;
 }
-int  Player::getTotalUranium() {
+int  Player::getTotalUranium() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
