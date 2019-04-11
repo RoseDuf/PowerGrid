@@ -11,6 +11,11 @@
 #include <set>
 using namespace std;
 
+GraphBuilder::GraphBuilder()
+{
+
+}
+
 GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	totalVertices = tv;
 	mapData = PowerGridIO::getMapData(mapFilename);

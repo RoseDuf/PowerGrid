@@ -39,8 +39,7 @@ public:
 	void setUpMap();
 	void phase1_determinePlayerOrder();
 	void phase2_auction();
-	void phase3__1_buyingResources();
-	void phase3_2_buyingCities();
+	void phase3_buyingResources();
 	void phase4_building();
 	void phase5_bureaucracy();
 
@@ -48,17 +47,28 @@ public:
 
 private:
 	//private attributes
-//	GraphBuilder graph;
+	GraphBuilder * graph;
 	vector<GameCard*> deck;
 	vector<GameCard*> powerPlantMarket;
 	int step = 1;
+
+	int numCitiesPowered = 0;
+	//number of type bills
+	int bill1 = 0;
+	int bill10 = 0;
+	int bill50 = 0;
+	//profit the players gets when powering a certain number of cities
+	int profit = 0;
+
+	//user input
+	string choice;
 	/*
 	bool step1 = true;
 	bool step2 = false;
 	bool step3 = false;
 	*/
 	vector<Player*> players;
-	Market ppMarket = Market(players);
+	Market * market = new Market(players);
 
 	bool AI = false;
 	int amountOfPlayers = 0;

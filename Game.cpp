@@ -701,19 +701,20 @@ void Game::setUpMap()
 		}
 	}
 	int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
-	GraphBuilder graph = GraphBuilder(amountOfVertices, mapFilename);
+	//GraphBuilder graph = GraphBuilder(amountOfVertices, mapFilename);
+	graph = new GraphBuilder(amountOfVertices, mapFilename);
 
-	std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+	std::cout << "are chosen regions connected?: " << graph->areChosenRegionsConnected(chosenRegCols) << std::endl;
 	std::cout << std::endl;
-	std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
+	std::cout << "do all regions have exactly 7 cities?:" << graph->eachRegionHasSevenCities() << std::endl;
 	std::cout << std::endl;
-	std::cout << "does map have duplicate edge(s)?:" << graph.hasDuplicateEdge() << std::endl;
+	std::cout << "does map have duplicate edge(s)?:" << graph->hasDuplicateEdge() << std::endl;
 	std::cout << std::endl;
-	std::cout << "does map have missing edge(s)?:" << graph.hasMissingEdge() << std::endl;
+	std::cout << "does map have missing edge(s)?:" << graph->hasMissingEdge() << std::endl;
 
 	std::cout << std::endl;
 
-	while (graph.hasDuplicateEdge() || graph.hasMissingEdge()) {
+	while (graph->hasDuplicateEdge() || graph->hasMissingEdge()) {
 		std::cout << "ERROR: The map is invalid." << std::endl;
 		cout << endl;
 		std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
@@ -756,15 +757,15 @@ void Game::setUpMap()
 		}
 
 		int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
-		graph = GraphBuilder(amountOfVertices, mapFilename);
+		graph = new GraphBuilder(amountOfVertices, mapFilename);
 
-		std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+		std::cout << "are chosen regions connected?: " << graph->areChosenRegionsConnected(chosenRegCols) << std::endl;
 		std::cout << std::endl;
-		std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
+		std::cout << "do all regions have exactly 7 cities?:" << graph->eachRegionHasSevenCities() << std::endl;
 		std::cout << std::endl;
-		std::cout << "does map have duplicate edge(s)?:" << graph.hasDuplicateEdge() << std::endl;
+		std::cout << "does map have duplicate edge(s)?:" << graph->hasDuplicateEdge() << std::endl;
 		std::cout << std::endl;
-		std::cout << "does map have missing edge(s)?:" << graph.hasMissingEdge() << std::endl;
+		std::cout << "does map have missing edge(s)?:" << graph->hasMissingEdge() << std::endl;
 
 		std::cout << std::endl;
 	}
@@ -776,8 +777,10 @@ void Game::phase1_determinePlayerOrder()
 {
 	vector<int> playerOrder;
 
-	if (round == 1) {
-		for (int i = 0; i < players.size(); i++) {
+	if (round == 1) 
+	{
+		for (int i = 0; i < players.size(); i++) 
+		{
 			playerOrder.push_back(i);
 		}
 
@@ -789,31 +792,35 @@ void Game::phase1_determinePlayerOrder()
 		cout << "Initial player order: " << endl;
 		cout << endl;
 
-		for (int i = 0; i < players.size(); i++) {
+		for (int i = 0; i < players.size(); i++) 
+		{
 			players.at(i)->setplayerOrder(playerOrder[i]);
 		}
 
 		//sort the order of the vertex
 		std::sort(players.begin(), players.end(), Player::compByOrder);
-		for (int i = 0; i < players.size(); i++) {
+		for (int i = 0; i < players.size(); i++) 
+		{
 			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
 		}
 
 		cout << endl;
 	}
-
-	else {
+	else
+	{
 		cout << "Current player order: " << endl;
 		cout << endl;
 
 		//sort players by the number of cities they have (for the rest of the game)
 		std::sort(players.begin(), players.end(), Player::compByCities);
 
-		for (int i = 0; i < players.size(); i++) {
+		for (int i = 0; i < players.size(); i++) 
+		{
 			players.at(i)->setplayerOrder(i);
 		}
 
-		for (int i = 0; i < players.size(); i++) {
+		for (int i = 0; i < players.size(); i++)
+		{
 			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
 		}
 		cout << endl;
@@ -822,6 +829,7 @@ void Game::phase1_determinePlayerOrder()
 
 void Game::phase2_auction()
 {
+	phase1_determinePlayerOrder();
 	string pause;
 	bool phase2_finished = false;;
 
@@ -850,8 +858,9 @@ void Game::phase2_auction()
 	}
 }
 
-void Game::phase3__1_buyingResources()
+void Game::phase3_buyingResources()
 {
+	phase1_determinePlayerOrder();
 	//-------------------TASK 3 --- BUYING RESOURCES -------------------------------------------- //
 	int phase = 1;
 	string pause;
@@ -878,7 +887,7 @@ void Game::phase3__1_buyingResources()
 			cin >> pause;
 
 			//display Resource Market
-			ppMarket.display();
+			market->display();
 
 
 			//make this better in future by creating an exception that catches this...
@@ -931,7 +940,7 @@ void Game::phase3__1_buyingResources()
 					cout << endl;
 
 					//check resource supply from Market
-					bool hasSome = ppMarket.checkMarket(resource, 1);
+					bool hasSome = market->checkMarket(resource, 1);
 					while (!hasSome) {
 						cout << "The market is all out of " << resource << "." << endl;
 						cout << "Please choose another resource: " << endl;
@@ -961,7 +970,7 @@ void Game::phase3__1_buyingResources()
 							}
 						}
 
-						hasSome = ppMarket.checkMarket(resource, 1);
+						hasSome = market->checkMarket(resource, 1);
 					}
 
 
@@ -1009,7 +1018,7 @@ void Game::phase3__1_buyingResources()
 
 
 				//check if player can afford resource
-				if (ppMarket.getPrice(resource) >= players[i]->getTotalWallet()) {
+				if (market->getPrice(resource) >= players[i]->getTotalWallet()) {
 					cout << "Sorry you do not have enough Elektros to buy the resource. Your turn is over." << endl;
 					stillBuying = false;
 					break;
@@ -1017,13 +1026,13 @@ void Game::phase3__1_buyingResources()
 
 				else {
 					//check ResourceMarket price for resource
-					cout << "You will pay " << ppMarket.getPrice(resource) << " Elektros for " << resource << "." << endl;
+					cout << "You will pay " << market->getPrice(resource) << " Elektros for " << resource << "." << endl;
 
 					//bill variables
 					int bill1 = 0;
 					int bill10 = 0;
 					int bill50 = 0;
-					int tempPrice = ppMarket.getPrice(resource);
+					int tempPrice = market->getPrice(resource);
 					int totalSpent = 0;
 
 
@@ -1110,7 +1119,7 @@ void Game::phase3__1_buyingResources()
 					}
 
 					//remove from market
-					ppMarket.rtPurchase(resource, 1);
+					market->rtPurchase(resource, 1);
 
 
 					char yesno;
@@ -1126,7 +1135,8 @@ void Game::phase3__1_buyingResources()
 						continue;
 					}
 					else {
-						cout << "\nYour turn is over. It is " + players[i + 1]->getName() + "'s turn next!" << endl;
+						cout << "\nYour turn is over. " << endl;
+						//It is " + players[i + 1]->getName() + "'s turn next!" << endl;
 						cout << endl;
 						stillBuying = false;
 						break;
@@ -1160,11 +1170,10 @@ void Game::phase3__1_buyingResources()
 
 }
 
-void Game::phase3_2_buyingCities()
+void Game::phase4_building()
 {
+	phase1_determinePlayerOrder();
 	string pause;
-
-
 	cout << "**********Now it is time to buy Cities!*********" << endl;
 	cout << endl;
 
@@ -1202,7 +1211,7 @@ void Game::phase3_2_buyingCities()
 
 
 				cout << "\nList of available Cities: " << endl;
-				graph.printAvailableCities();
+				graph->printAvailableCities();
 
 				cout << "\nChoose a city anywhere on the available map: " << endl;
 
@@ -1215,9 +1224,9 @@ void Game::phase3_2_buyingCities()
 
 				//check all conditions in the previous code (**later make this its own method in Game.h**)
 				//check if chosenCity is part of the available map
-				graph.SearchCity(chosenCity);		//displays info about a city
+				graph->SearchCity(chosenCity);		//displays info about a city
 
-				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
+				bool validCity = graph->findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
 																		//check if in valid part of region
 				while (!validCity) {
@@ -1226,7 +1235,7 @@ void Game::phase3_2_buyingCities()
 
 					cin >> chosenCity;
 
-					graph.SearchCity(chosenCity);
+					graph->SearchCity(chosenCity);
 					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 				}
@@ -1281,7 +1290,7 @@ void Game::phase3_2_buyingCities()
 
 
 				if (cityBought) {
-					graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
+					graph->add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
 					int total = 0;
 					cout << "The cost of the city is " << cityPrice << "." << endl;
 					cout << endl;
@@ -1334,7 +1343,8 @@ void Game::phase3_2_buyingCities()
 					continue;
 				}
 				else {
-					cout << "Your turn is over. It is " << players[i + 1]->getName() << "'s turn next!" << endl;
+					cout << "Your turn is over." << endl;
+					//<< players[i + 1]->getName() << "'s turn next!" << endl;
 					stillBuilding = false;
 					goto endhere;
 				}
@@ -1352,7 +1362,7 @@ void Game::phase3_2_buyingCities()
 
 
 				cout << "\nList of available Cities: " << endl;
-				graph.printAvailableCities();
+				graph->printAvailableCities();
 
 				cout << "\nChoose a city to build on that is adjacent to one of your cities: " << endl;
 
@@ -1360,9 +1370,9 @@ void Game::phase3_2_buyingCities()
 
 				//check all conditions in the previous code (**later make this its own method in Game.h**)
 				//check if chosenCity is part of the available map
-				graph.SearchCity(chosenCity);		//displays info about a city
+				graph->SearchCity(chosenCity);		//displays info about a city
 
-				bool validCity = graph.findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
+				bool validCity = graph->findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
 
 
@@ -1373,7 +1383,7 @@ void Game::phase3_2_buyingCities()
 
 					cin >> chosenCity;
 
-					graph.SearchCity(chosenCity);
+					graph->SearchCity(chosenCity);
 					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
 
 
@@ -1401,9 +1411,9 @@ void Game::phase3_2_buyingCities()
 				//checks if chosen city is adjacent to Player's cities
 				for (int m = 0; m < checkCity.size(); m++) {
 					tempCity = checkCity[m].getCityName();
-					isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, tempCity);			///THIS THROWS ERROR
+					isAdjacent = graph->IsCityAdjacentToOtherCity(chosenCity, tempCity);			///THIS THROWS ERROR
 					if (isAdjacent) {
-						price = graph.CostFromOneCityToAnother(chosenCity, tempCity);
+						price = graph->CostFromOneCityToAnother(chosenCity, tempCity);
 						break;
 					}
 					else {
@@ -1417,13 +1427,13 @@ void Game::phase3_2_buyingCities()
 					cout << "\nThe city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
 					cin >> chosenCity;
 
-					graph.SearchCity(chosenCity);		//displays info about a city
+					graph->SearchCity(chosenCity);		//displays info about a city
 					cout << endl;
 
 					for (int m = 0; m < checkCity.size(); m++) {
-						isAdjacent = graph.IsCityAdjacentToOtherCity(chosenCity, checkCity[m].getCityName());
+						isAdjacent = graph->IsCityAdjacentToOtherCity(chosenCity, checkCity[m].getCityName());
 						if (isAdjacent) {
-							price = graph.CostFromOneCityToAnother(chosenCity, checkCity[m].getCityName());
+							price = graph->CostFromOneCityToAnother(chosenCity, checkCity[m].getCityName());
 							break;
 						}
 						else {
@@ -1465,7 +1475,7 @@ void Game::phase3_2_buyingCities()
 
 
 				if (cityBought) {
-					graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
+					graph->add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
 					int total = 0;
 					cout << "The cost of the city is " << cityPrice << "." << endl;
 					cout << endl;
@@ -1518,7 +1528,9 @@ void Game::phase3_2_buyingCities()
 					continue;
 				}
 				else {
-					cout << "Your turn is over. It is " << players[i + 1]->getName() << "'s turn next!" << endl;
+					cout << "Your turn is over. " << endl;
+						
+						//It is " << players[i + 1]->getName() << "'s turn next!" << endl;
 					stillBuilding = false;
 					goto endhere;
 				}
@@ -1538,13 +1550,123 @@ void Game::phase3_2_buyingCities()
 	endhere:continue;
 	}  //player loop
 }
-void Game::phase4_building()
-{
 
-}
 void Game::phase5_bureaucracy()
 {
+	phase1_determinePlayerOrder();
 
+	//iterating through players
+	for (int i = 0; i < players.size(); i++) {
+
+		vector<PowerPlant*> powerPlantsTEMP;
+		std::cout << "Your turn " + players[i]->getName() + "!" << endl;
+		players[i]->toString();
+
+		powerPlantsTEMP = players[i]->getPowerPlant();
+
+		//iterating through powerplants
+		cout << "size of power plant vector" << players[i]->getPowerPlant().size() << endl;
+		for (int i = 0; i < powerPlantsTEMP.size(); i++)
+		{
+			std::cout << "================" << endl;
+			std::cout << "Iterating through owned power plants" << endl;
+			std::cout << "================" << endl;
+			powerPlantsTEMP[i]->toString();
+
+			std::cout << "Would you like to power " << powerPlantsTEMP[i]->getCitiesPowered() << " with this powerplant? yes or no" << endl;
+
+			cin >> choice;
+			bool valid = false;
+			if (choice == "yes")
+			{
+				std::cout << "With which resource?" << endl;
+				while (!valid)
+				{
+					cin >> choice;
+					if (choice == "coal" || choice == "oil" || choice == "garbage" || choice == "uranium")
+					{
+						if (powerPlantsTEMP[i]->checkIfEnoughStock(choice) && powerPlantsTEMP[i]->checkIfNeeded(choice))
+						{
+							powerPlantsTEMP[i]->powerCity(choice);
+							market->addToSupply(choice, powerPlantsTEMP[i]->getRTNeeded(choice));
+
+
+							market->toString();
+							valid = true;
+						}
+						else
+						{
+							//std::cout << "Not enough in stock!! OR This resource isn't needed for this powerplant" << endl;
+							std::cout << "Enter a valid input please." << endl;
+							valid = false;
+						}
+
+
+
+					}
+					else
+					{
+						std::cout << "Enter a valid input please." << endl;
+						valid = false;
+					}
+				}
+
+
+			}
+			else
+			{
+				std::cout << "Next Power Plant: " << endl;
+				std::cout << endl;
+				std::cout << endl;
+			}
+
+			numCitiesPowered += powerPlantsTEMP[i]->get_numCitiesPowered_ACTIVE();
+			//can only power the number of cities they own MAX, otherwise waisted energy
+
+			vector<City> temp = players[i]->getCitiesOwned();
+
+			if (numCitiesPowered > temp.size())
+			{
+				numCitiesPowered = temp.size();
+			}
+		}
+
+
+		std::cout << "By powering " << numCitiesPowered << " cities, you earn: " << checkProfit(numCitiesPowered) << endl;
+
+		profit = checkProfit(numCitiesPowered);
+		std::cout << "================" << endl;
+		std::cout << "Initial Wallet: " << endl;
+		std::cout << "================" << endl;
+		players[i]->walletToString();
+		bill50 = (profit - profit % 50) / 50;
+		profit -= bill50 * 50;
+		bill10 = (profit - profit % 10) / 10;
+		profit -= bill10 * 10;
+		bill1 = profit;
+		players[i]->collectElektro(bill1, bill10, bill50);
+
+		std::cout << "================" << endl;
+		std::cout << "Updated Wallet: " << endl;
+		std::cout << "================" << endl;
+
+		players[i]->walletToString();
+
+		players[i]->toString();
+	}
+
+	int step = 1;
+	//removing most expensive Power plant from the market and placing it under the draw deck
+	GameCard *MostExpensive = powerPlantMarket.at(powerPlantMarket.size() - 1);
+	powerPlantMarket.pop_back();
+	deck.push_back(MostExpensive);
+
+	//drawing new card from deck and adding it the power plant market
+	GameCard *newCard = deck.at(0);
+	deck.erase(deck.begin());
+	powerPlantMarket.push_back(newCard);
+	//placing the cards in ascending order of price
+	sortMarket(powerPlantMarket);
 }
 
 void Game::dashboard(Player* p) {

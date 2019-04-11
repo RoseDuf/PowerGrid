@@ -64,6 +64,7 @@ public:
 	//building class functions
 	//GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
+	GraphBuilder();
 	~GraphBuilder();
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
