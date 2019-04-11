@@ -50,7 +50,7 @@ BiddingDetails AggressiveStrategy::getBiddingDetails(const Player* player, int b
     return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) ); // if nothing else was returned, return -1, which means that no bid was made (the 2nd parameter's PowerPlant is irrelevant and could be any PowerPlant)
 }
 
-std::vector<int> AggressiveStrategy::getCityBuildingChoice() { // returns a vector of city numbers (a.k.a. map vertice numbers) // TODO
+std::vector<int> AggressiveStrategy::getCityBuildingChoice(int gameStep) { // returns a vector of city numbers (a.k.a. map vertice numbers) // TODO
     std::vector<int> citiesToBuildIn;
     
     return citiesToBuildIn;
