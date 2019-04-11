@@ -482,23 +482,23 @@ void Game::setNumCitiesSTEP2(int numPlayers)
 {
 	if (numPlayers == 2)
 	{
-		numCitiesWIN = 10;
+		numCitiesSTEP2 = 10;
 	}
 	else if (numPlayers == 3)
 	{
-		numCitiesWIN = 7;
+		numCitiesSTEP2 = 7;
 	}
 	else if (numPlayers == 4)
 	{
-		numCitiesWIN = 7;
+		numCitiesSTEP2 = 7;
 	}
 	else if (numPlayers == 5)
 	{
-		numCitiesWIN = 7;
+		numCitiesSTEP2 = 7;
 	}
 	else if (numPlayers == 6)
 	{
-		numCitiesWIN = 6;
+		numCitiesSTEP2 = 6;
 	}
 }
 int Game::getNumCitiesSTEP2()
