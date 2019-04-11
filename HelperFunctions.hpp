@@ -8,6 +8,32 @@
 
 namespace HelperFunctions {
     
+    int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers) {
+        
+        switch(amountOfPlayers) {
+            case 2: {
+                return 10;
+            }
+            case 3: {
+                return 7;
+            }
+            case 4: {
+                return 7;
+            }
+            case 5: {
+                return 7;
+            }
+            case 6: {
+                return 6;
+            }
+            default: {
+                // throw some exception
+            }
+        }
+        
+        return -1;
+    }
+    
     Elektro integerToElektro(int elektroAmount);
     
     bool containsSubstring(std::string str, std::string subStr);
@@ -23,6 +49,8 @@ namespace HelperFunctions {
     std::string toUpperCase(std::string str);
     
     bool equalsIgnoreCase(std::string str1, std::string str2);
+    
+    int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers);
     
     template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
         std::vector<T> combination;
