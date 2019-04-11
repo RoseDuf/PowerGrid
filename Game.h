@@ -53,6 +53,11 @@ private:
 	void setNumCitiesWIN(int numPlayers);
 	int getNumCitiesWIN();
 	int numCitiesWIN = 0;
+	
+	int numCitiesSTEP2 = 0;
+	void setNumCitiesSTEP2(int numPlayers);
+	int getNumCitiesSTEP2();
+
 	//private attributes
 	GraphBuilder * graph;
 	vector<GameCard*> deck;

@@ -477,6 +477,35 @@ int Game::getNumCitiesWIN()
 	return numCitiesWIN;
 }
 
+//STEP 2 CONDITION
+void Game::setNumCitiesSTEP2(int numPlayers)
+{
+	if (numPlayers == 2)
+	{
+		numCitiesWIN = 10;
+	}
+	else if (numPlayers == 3)
+	{
+		numCitiesWIN = 7;
+	}
+	else if (numPlayers == 4)
+	{
+		numCitiesWIN = 7;
+	}
+	else if (numPlayers == 5)
+	{
+		numCitiesWIN = 7;
+	}
+	else if (numPlayers == 6)
+	{
+		numCitiesWIN = 6;
+	}
+}
+int Game::getNumCitiesSTEP2()
+{
+	return numCitiesSTEP2;
+}
+
 //METHODS FOR MAIN GAME LOOPS OF THE GAME
 //
 //
@@ -1366,6 +1395,12 @@ void Game::phase4_building()
 
 					cout << "You have bought " << chosenCity << "." << endl;
 					cout << endl;
+
+					//checking if entering step 2
+					if (players[i]->getCitiesOwned().size() >= numCitiesSTEP2)
+					{
+						step = 2;
+					}
 
 					//CHECKING IF WIN *******************************************
 					if (players[i]->getCitiesOwned().size() >= numCitiesWIN)
