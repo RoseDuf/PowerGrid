@@ -20,6 +20,12 @@ int main()
 
 	Stats *stats = new Stats(game);
 	game->play();
+	//TO DO :
+	/*
+	delete the pointers
+	implement the destructor of game to delete the powerplant pointers, players...
+	
+	*/
 
 	return 0;
 }
