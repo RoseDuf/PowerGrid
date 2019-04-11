@@ -18,6 +18,10 @@ std::vector<int> PowerGridAI::executeCityBuildingStrategy() {
     return strategy->getCityBuildingChoice();
 }
 
+std::string PowerGridAI::executeRegionChoosingStrategy(std::vector<std::string> alreadyChosenRegions) {
+    return strategy->chooseOneRegion(alreadyChosenRegions);
+}
+
 PowerGridAI::~PowerGridAI() {
     delete strategy;
 }
