@@ -60,3 +60,9 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
     
     return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) );
 }
+
+std::vector<int> ModerateStrategy::getCityBuildingChoice() { // returns a vector of city numbers (a.k.a. map vertice numbers) // TODO
+    std::vector<int> citiesToBuildIn;
+    
+    return citiesToBuildIn;
+}
