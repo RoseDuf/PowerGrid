@@ -61,7 +61,7 @@ public:
 	int getNumPPOwned() const;
 
 	void addCity(City city);
-	vector<City> getCitiesOwned();
+	vector<City> getCitiesOwned() const;
 	void setCitiesOwned(vector<City> c);
 
 	int getRemainingHouses();

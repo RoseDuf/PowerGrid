@@ -71,7 +71,7 @@ void Player::addPowerPlant(PowerPlant* p) {
 //	return resources;
 //}
 
-vector<City> Player::getCitiesOwned() {
+vector<City> Player::getCitiesOwned() const {
 	return citiesOwned;
 }
 void Player::setCitiesOwned(vector<City> c) {
