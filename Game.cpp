@@ -448,6 +448,34 @@ int Game::checkProfit(int _num)
 	return 0;
 }
 
+//WIN CONDITION
+void Game::setNumCitiesWIN(int numPlayers)
+{
+	if (numPlayers == 2)
+	{
+		numCitiesWIN = 21;
+	}
+	else if (numPlayers == 3)
+	{
+		numCitiesWIN = 17;
+	}
+	else if (numPlayers == 4)
+	{
+		numCitiesWIN = 17;
+	}
+	else if (numPlayers == 5)
+	{
+		numCitiesWIN = 15;
+	}
+	else if (numPlayers == 6)
+	{
+		numCitiesWIN = 14;
+	}
+}
+int Game::getNumCitiesWIN()
+{
+	return numCitiesWIN;
+}
 
 //METHODS FOR MAIN GAME LOOPS OF THE GAME
 //
@@ -663,7 +691,8 @@ void Game::setUpPlayers()
 
 	std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
 
-
+	//setting win condition
+	setNumCitiesWIN(amountOfPlayers);
 }
 
 void Game::setUpMap()
@@ -878,8 +907,8 @@ void Game::phase3_buyingResources()
 	string pause;
 	for (int i = 0; i < players.size(); i++) {
 
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
+		cout << "------------------------------" << endl;
+
 		cout << "\nYour turn " + players[i]->getName() + "!" << endl;
 		cout << "\nEnter any character to see your dashboard..." << endl;
 		cin >> pause;
@@ -1338,6 +1367,12 @@ void Game::phase4_building()
 					cout << "You have bought " << chosenCity << "." << endl;
 					cout << endl;
 
+					//CHECKING IF WIN *******************************************
+					if (players[i]->getCitiesOwned().size() >= numCitiesWIN)
+					{
+						win = true;
+						players[i]->setWin(true);
+					}
 				}
 
 
@@ -1567,9 +1602,6 @@ void Game::phase5_bureaucracy()
 {
 	string pause;
 
-	std::cout << "================================" << endl;
-	std::cout << "BUREAUCRACY PHASE" << endl;
-	std::cout << "================================" << endl;
 
 	phase1_determinePlayerOrder();
 
@@ -1766,9 +1798,9 @@ void Game::phase5_bureaucracy()
 void Game::dashboard(Player* p) {
 	//cout resources from powerplants, cities, etc
 
-	cout << "\n***********************************************************" << endl;
+	cout << "\n--------------------------" << endl;
 	cout << p->getName() + "'s Dashboard: " << endl;
-	cout << "***********************************************************" << endl;
+	cout << "\n--------------------------" << endl;
 	cout << "PowerPlants:";
 	
 	//Display list of player's powerplants
@@ -1825,9 +1857,116 @@ void Game::dashboard(Player* p) {
 	cout << "Amount of Oil Owned: " << player_oil << endl;
 	cout << "Amount of Garbage Owned: " << player_garbage << endl;
 	cout << "Amount of Uranium Owned: " << player_uranium << endl;
-	cout << "***********************************************************" << endl;
+	cout << "\n--------------------------" << endl;
 
 
 
 }
 
+void Game::play()
+{
+	cout << "\n***********************************************************" << endl;
+	cout << "\n***********************************************************" << endl;
+	cout << "WELCOME TO POWERGRID ! LET'S SET UP THE GAME." << endl;
+	cout << "\n***********************************************************" << endl;
+	cout << "\n***********************************************************" << endl;
+
+	cout << endl;
+	cout << "------------------------------" << endl;
+	cout << "Setting up the deck..." << endl;
+	deckSetup();
+
+	cout << endl;
+	cout << "------------------------------" << endl;
+	cout << "Setting up the players..." << endl;
+	setUpPlayers();
+
+	cout << endl;
+	cout << "------------------------------" << endl;
+	cout << "Setting up the map..." << endl;
+	setUpMap();
+	int roundNum = 1;
+
+	string pause;
+
+	while (!win)
+	{
+		cout << "\nEnter any character to continue to ROUND " << roundNum << "..." << endl;
+		cin >> pause;
+
+		cout << endl;
+		cout << "------------------------------ ------------------------------ ------------------------------" << endl;
+		cout << " ------------------------------ ROUND " << roundNum << " ------------------------------" << endl;
+		cout << "------------------------------ ------------------------------ ------------------------------" << endl;
+		cout << endl;
+
+		cout << "\nEnter any character to continue to PHASE 1..." << endl;
+		cin >> pause;
+
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "PHASE 1 : DETERMINE PLAYER ORDER" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+
+		phase1_determinePlayerOrder();
+
+		cout << "\nEnter any character to continue to PHASE 2..." << endl;
+		cin >> pause;
+
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "PHASE 2 : AUCTION" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		
+		phase2_auction();
+		
+		cout << "\nEnter any character to continue to PHASE 3..." << endl;
+		cin >> pause;
+
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "PHASE 3 : BUYING RESOURCES" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		
+		phase3_buyingResources();
+
+		cout << "\nEnter any character to continue to PHASE 4..." << endl;
+		cin >> pause;
+
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "PHASE 4 : BUILDING" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+
+		//method where we are checking for win conditions, set up according to number of players and looks if a player owns a specific number of cities
+		phase4_building();
+
+		cout << "\nEnter any character to continue to PHASE 5..." << endl;
+		cin >> pause;
+
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "PHASE 5 : BUREAUCRACY" << endl;
+		cout << "\n***********************************************************" << endl;
+		cout << "\n***********************************************************" << endl;
+
+		phase5_bureaucracy();
+
+
+		//printing the winner
+		for (int i = 0; i < players.size(); i++)
+		{
+			if (players[i]->getWin())
+			{
+				cout << " PLAYER " << players[i]->getName() << " HAS WON THE GAME !!!!!!!" << endl;
+				break;
+			}
+		}
+
+		roundNum++;
+	}
+}

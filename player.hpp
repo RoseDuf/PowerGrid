@@ -29,7 +29,7 @@ private:
 	int numPPOwned = 0;
 
 	int houses;
-
+	int hasWon = false;
 public:
 
 	Player();
@@ -39,7 +39,8 @@ public:
 	~Player(); 
 	Player(const Player &p2); //copy constructor
     
-    
+	void setWin(bool t);
+	bool getWin();
   	void collectElektro(int _bill1, int _bill10, int _bill50);
     void spendElektros(int _bill1, int _bill10, int _bill50);
 	//just prints the waller content

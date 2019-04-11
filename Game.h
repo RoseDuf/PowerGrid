@@ -30,6 +30,9 @@ public:
 	void buyingResources();
 	void buildingCities();
 	*/
+
+	void play();
+	
 	void dashboard(Player* p);
 
 	//void phase1_determinePlayerOrder(vector<Player*> &players, int round);
@@ -46,6 +49,10 @@ public:
 
 
 private:
+	bool win = false;
+	void setNumCitiesWIN(int numPlayers);
+	int getNumCitiesWIN();
+	int numCitiesWIN = 0;
 	//private attributes
 	GraphBuilder * graph;
 	vector<GameCard*> deck;

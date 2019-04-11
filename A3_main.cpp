@@ -15,15 +15,8 @@ using namespace HelperFunctions;
 int main()
 {
 	
-	Game test;
-	test.deckSetup();
-	test.setUpPlayers();
-	test.setUpMap();
-	test.phase1_determinePlayerOrder();
-	test.phase2_auction();
-	test.phase3_buyingResources();
-	test.phase4_building();
-	test.phase5_bureaucracy();
+	Game game;
+	game.play();
 
 
 	return 0;
