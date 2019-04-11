@@ -20,7 +20,10 @@ class Strategy {
         AIStrategyData backgroundInformation;
     public:
         Strategy(AIStrategyData backgroundInformation);
-        virtual BiddingDetails getBiddingDetails(const Player* player, int biddedPowerPlantIndex, int highestBigSoFar) = 0; // amounts less than 3 means the AI is passing on the bid / not bidding
+        
+        // biddedPowerPlantIndex < 0 && highestBidSoFar < 3 means no bid was yet made. BiddingDetails(int amountBidded (where values less than 3 mean no bid), PowerPlant bidded on, PowerPlant to replace) (if power plant that's bidded == power plant that's to replace, that means no power plant is being replaced)
+        virtual BiddingDetails getBiddingDetails(const Player* player, int biddedPowerPlantIndex, int highestBigSoFar) = 0;
+        
         virtual std::string chooseOneRegion(std::vector<std::string> alreadyChosenRegions);
         //LATER?:virtual std::string chooseRemainingRegions(std::vector<std::string> alreadyChosenRegions);
         virtual ResourcePurchaseChoice getResourcePurchaseChoice() = 0;
