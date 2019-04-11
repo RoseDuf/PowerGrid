@@ -217,8 +217,8 @@ bool GraphBuilder::add_CityToPlayer_and_PlayerToMap(Player * pl, string name) {
 		if ((graph->arr[i].city.getCityName() == name) && (graph->arr[i].city.isAvailable())) {
 
 			c = graph->arr[i].city; //find the desired city by its name
-			if (graph->arr[i].player.size() < 4) {
-				graph->arr[i].player.push_back(*pl); //add Player to the physical map
+			if (graph->arr[i].players.size() < 4) {
+				graph->arr[i].players.push_back(*pl); //add Player to the physical map
 				pl->addCity(c);	//add/update new City object to Player "cities" attribute 
 				return true;
 			}
@@ -245,7 +245,7 @@ void GraphBuilder::AddPlayerToMap(Player * pl) {
 	for (int i = 0; i < citiesOwned.size(); i++) {
 		for (int j = 0; j < graph->arr.size(); j++) {
 			if (graph->arr[j].city.getCityNumber() == citiesOwned[i].getCityNumber() /*&& (graph->arr[j].city.isAvailable())*/) { //we would have to assume that the cities a player owns are all available
-				graph->arr[j].player.push_back(*pl); //add player to Nodes/Cities on the map
+				graph->arr[j].players.push_back(*pl); //add player to Nodes/Cities on the map
 			}
 		}
 	}
@@ -256,8 +256,8 @@ int  GraphBuilder::HowManyPlayersAreInCity(string cityName) {
 	cout << "Searching for a city in the map..." << endl;
 	for (int i = 0; i < totalVertices; i++) {
 		if (graph->arr[i].city.getCityName() == cityName) {
-			cout << "There are " << graph->arr[i].player.size() << " players already in this city." << endl;
-			return graph->arr[i].player.size();
+			cout << "There are " << graph->arr[i].players.size() << " players already in this city." << endl;
+			return graph->arr[i].players.size();
 		}
 	}
 }
@@ -268,8 +268,8 @@ vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player * pl) {
 	vector<City> citiesOwned;
 
 	for (int i = 0; i < totalVertices; i++) {
-		for (int j = 0; j < graph->arr[i].player.size(); j++) {
-			if (graph->arr[i].player[j].getName() == pl->getName()) {
+		for (int j = 0; j < graph->arr[i].players.size(); j++) {
+			if (graph->arr[i].players[j].getName() == pl->getName()) {
 				citiesOwned.push_back(graph->arr[i].city);
 			}
 		}
@@ -367,12 +367,12 @@ void GraphBuilder::searchCity(string cityName) {
 			cout << "City Color: " << graph->arr[i].city.getCityColor() << endl;
 			std::cout << std::boolalpha;
 			cout << "City Availability: " << graph->arr[i].city.isAvailable() << endl;
-			if (graph->arr[i].player.size() == 0) {
+			if (graph->arr[i].players.size() == 0) {
 				cout << "Owned By: No One" << endl;
 			}
 			else {
-				for (int j = 0; j < graph->arr[i].player.size(); j++) {
-					cout << "Owned By: " << graph->arr[i].player[j].getName() << ", " << graph->arr[i].player[j].getColor() << endl;
+				for (int j = 0; j < graph->arr[i].players.size(); j++) {
+					cout << "Owned By: " << graph->arr[i].players[j].getName() << ", " << graph->arr[i].players[j].getColor() << endl;
 				}
 			}
 

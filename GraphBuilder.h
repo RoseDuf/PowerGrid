@@ -25,7 +25,7 @@ public:
 
 	struct CityList {
 		City city;
-		vector<Player> player;
+		vector<Player> players;
 		vector<PowerPlant> powerplants;
 		//vector<ResourceToken> resources;
 		vector<Elektro> elektros;
