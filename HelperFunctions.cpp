@@ -2,18 +2,9 @@
 #include <string>
 #include "HelperFunctions.hpp"
 #include "Elektro.hpp"
+#include <vector>
 
 namespace HelperFunctions {
-    
-    template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
-        std::vector<T> combination;
-        for(int i = 0; i < v1.size(); i++) {
-            combination.push_back( v1.at(i) );
-        }
-        for(int i = 0; i < v2.size(); i++) {
-            combination.push_back( v2.at(i) );
-        }
-    }
     
     Elektro integerToElektro(int elektroAmount) {
         int amountOfOnes = 0;
