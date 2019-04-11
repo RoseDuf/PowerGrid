@@ -36,10 +36,10 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
             int zeroOrOne = rand() % 2;
             
             if( zeroOrOne == 0) { // ~50% chance
-                if( smallestNumberedPowerPlantOwned < 51 ) { // if pp IS already owned (by passed player)
+                if( player->getNumPPOwned() == 3 ) { // if 3 pps ARE already owned (by passed player)
                     return BiddingDetails( PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex).getCardNumber(), PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex),PowerPlant::peekIthPowerPlantInPresentMarket(indexOfSmallestNumberedPowerPlantOwned) );
                 }
-                else { // if pp is NOT already owned (by passed player)
+                else { // if 3 pps are NOT already owned (by passed player)
                     return BiddingDetails( PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex).getCardNumber(), PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex),PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex) );
                 }
             }
@@ -49,10 +49,10 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
         srand(time(0));
         int zeroOrOne = rand() % 2;
         if( zeroOrOne == 0 && player->getTotalWallet() >= highestBidSoFar+1) { // ~50% chance
-            if( smallestNumberedPowerPlantOwned < 51 ) { // if pp IS already owned (by passed player)
+            if( player->getNumPPOwned() == 3 ) { // if 3 pps ARE already owned (by passed player)
                 return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex),*ppsOwned.at(indexOfSmallestNumberedPowerPlantOwned) );
             }
-            else { // if pp is NOT already owned (by passed player)
+            else { // if 3 pps are NOT already owned (by passed player)
                 return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex),PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex) );
             }
         }

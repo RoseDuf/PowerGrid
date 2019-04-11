@@ -28,10 +28,10 @@ BiddingDetails AggressiveStrategy::getBiddingDetails(const Player* player, int b
         
         for(int i = presentPowerPlantMarket.size()-1; i >= 0; i--) {
             if( player->getTotalWallet() >= presentPowerPlantMarket.at(i).getCardNumber() ) {
-                if( smallestNumberedPowerPlantOwned < 51 ) { // if pp IS already owned (by passed player)
+                if( player->getNumPPOwned() == 3 ) { // if 3 pps ARE already owned (by passed player)
                     return BiddingDetails( presentPowerPlantMarket.at(i).getCardNumber(),presentPowerPlantMarket.at(i),*ppsOwned.at(smallestNumberedPowerPlantOwned) ); // int bid amount, PowerPlant powerPlantBeingBiddedOn
                 }
-                else { // if pp is NOT already owned (by passed player)
+                else { // if 3 pps are NOT already owned (by passed player)
                     return BiddingDetails( presentPowerPlantMarket.at(i).getCardNumber(),presentPowerPlantMarket.at(i),presentPowerPlantMarket.at(i) ); // int bid amount, PowerPlant powerPlantBeingBiddedOn
                 }
             }
@@ -39,10 +39,10 @@ BiddingDetails AggressiveStrategy::getBiddingDetails(const Player* player, int b
     }
     else { // if a power plant WAS chosen to be bid on
         //return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex) );
-        if( smallestNumberedPowerPlantOwned < 51 ) { // if pp IS already owned (by passed player)
+        if( player->getNumPPOwned() == 3 ) { // if 3 pps ARE already owned (by passed player)
             return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInFutureMarket(biddedPowerPlantIndex),*ppsOwned.at(smallestNumberedPowerPlantOwned) ); // int bid amount, PowerPlant powerPlantBeingBiddedOn
         }
-        else { // if pp is NOT already owned (by passed player)
+        else { // if 3 pps are NOT already owned (by passed player)
             return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInFutureMarket(biddedPowerPlantIndex),PowerPlant::peekIthPowerPlantInFutureMarket(biddedPowerPlantIndex) ); // int bid amount, PowerPlant powerPlantBeingBiddedOn
         }
     }
