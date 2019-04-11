@@ -21,6 +21,8 @@ namespace HelperFunctions {
     std::string toUpperCase(std::string str);
     
     bool equalsIgnoreCase(std::string str1, std::string str2);
+    
+    template<typename A, typename B, typename C> std::vector<C> combineVectors(std::vector<A> v1, std::vector<B> v2);
 }
 
 #endif

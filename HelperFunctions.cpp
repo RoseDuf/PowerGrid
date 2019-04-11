@@ -5,6 +5,16 @@
 
 namespace HelperFunctions {
     
+    template<typename A, typename B, typename C> std::vector<C> combineVectors(std::vector<A> v1, std::vector<B> v2) {
+        std::vector<C> combination;
+        for(int i = 0; i < v1.size(); i++) {
+            combination.push_back( v1.at(i) );
+        }
+        for(int i = 0; i < v2.size(); i++) {
+            combination.push_back( v2.at(i) );
+        }
+    }
+    
     Elektro integerToElektro(int elektroAmount) {
         int amountOfOnes = 0;
         int amountOfTens = 0;
