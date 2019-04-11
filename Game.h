@@ -97,7 +97,7 @@ private:
 	void deleteDeck(vector<GameCard*> &_deck);
 	void sortMarket(vector<GameCard*> &_powerPlantMarket);
 	
-
+	void sortMarket_2(vector<PowerPlant*> &_powerPlantMarket);
 	
 
 

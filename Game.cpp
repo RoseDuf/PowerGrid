@@ -14,30 +14,7 @@ Game::Game()
 
 	cout << "Welcome to PowerGrid!" << endl;
 	cout << endl;
-	//Initiate Graph and Build Map
 	
-	
-
-	//seems like the power plant market isn't sorted??
-	//print(powerPlantMarket);
-
-	/** FOR TESTING
-
-	GraphBuilder graph = GraphBuilder(42, "germany.map");
-
-
-	players.push_back(new Player("Nicole", "Red"));
-	players.push_back(new Player("Voldermort", "Green"));
-	players.push_back(new Player("Pikachu", "Blue"));
-	players.push_back(new Player("Smith", "Purple"));
-
-	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Berlin");
-	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Frankfurt-O");
-	graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
-	*/
 }
 
 //METHODS FOR DECK
@@ -118,6 +95,7 @@ void Game::makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMa
 	_powerPlantMarket.push_back(p5);
 	_powerPlantMarket.push_back(p6);
 	_powerPlantMarket.push_back(p7);
+	_powerPlantMarket.push_back(p8);
 
 
 	//making the rest of the deck, ready to shuffle
@@ -171,6 +149,11 @@ void Game::shuffle(vector<GameCard*> &_deck) {
 
 GameCard* Game::drawCard(vector<GameCard*> &deck) {
 	GameCard *temp = deck.at(0);
+	if (temp->getIdentifier() == "s3")
+	{
+		//ENTERING STEP 3
+		step = 3;
+	}
 	deck.erase(deck.begin());
 	return temp;
 }
@@ -181,6 +164,7 @@ void Game::sortMarket(vector<GameCard*> &_powerPlantMarket) {
 	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
 
 }
+
 
 //METHODS FOR PHASE 2 : AUCTION
 //
@@ -325,9 +309,12 @@ string Game::Auction(PowerPlant * &powerplant, vector<Player*> &players, Player 
 }
 
 vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector<Player*> &players) {
-	vector<PowerPlant*> powerPlantMarket; //copy 
+	vector<PowerPlant*> powerPlantMarket_; //copy 
+	
+	
+	
 	for (int i = 0; i < ppMarket.size(); i++) {
-		powerPlantMarket.push_back(static_cast<PowerPlant*>(ppMarket[i]));
+		powerPlantMarket_.push_back(static_cast<PowerPlant*>(ppMarket[i]));
 	}
 
 	//task 2 - phase 2
@@ -335,8 +322,14 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 	string input;
 
 	for (int i = 0; i < players.size(); i++) {
-		for (int j = 0; j < powerPlantMarket.size(); j++) {
-			powerPlantMarket[j]->toString();
+
+		//sorting market and placing it in copy :: THERE WILL BE A PROBLEM WHEN THE STEP3 CARD IS DRAWN FROM THE DECK ***
+		
+		
+
+
+		for (int j = 0; j < powerPlantMarket_.size(); j++) {
+			powerPlantMarket_[j]->toString();
 		}
 		cout << endl;
 		cout << players[i]->getName() << ", would you like to Pass or Auction a powerplant?" << endl;
@@ -349,8 +342,8 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 		bool isCardInVector = false;
 		int targetpp;
 		if (isNumber(input)) { //check if input is a number
-			for (int k = 0; k < powerPlantMarket.size(); k++) { //check if powerplant number is available
-				if (std::stoi(input) == powerPlantMarket[k]->getCardNumber()) {
+			for (int k = 0; k < powerPlantMarket_.size(); k++) { //check if powerplant number is available
+				if (std::stoi(input) == powerPlantMarket_[k]->getCardNumber()) {
 					targetpp = k;
 					isCardInVector = true;
 					break;
@@ -366,8 +359,8 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 			cin >> input;
 			cout << endl;
 			if (isNumber(input)) { //check if input is a number
-				for (int k = 0; k <= powerPlantMarket.size(); k++) { //check if powerplant number is available
-					if (std::stoi(input) == powerPlantMarket[k]->getCardNumber()) {
+				for (int k = 0; k <= powerPlantMarket_.size(); k++) { //check if powerplant number is available
+					if (std::stoi(input) == powerPlantMarket_[k]->getCardNumber()) {
 						targetpp = k;
 						isCardInVector = true;
 						break;
@@ -382,15 +375,15 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 			Pass(players[i]);
 		}
 		if (isCardInVector) {
-			cout << players[i]->getName() << " has chosen to Auction (A) for powerplant: " << powerPlantMarket[targetpp]->getCardNumber() << endl;
+			cout << players[i]->getName() << " has chosen to Auction (A) for powerplant: " << powerPlantMarket_[targetpp]->getCardNumber() << endl;
 			//ENTER AUCTION!!!!
-			removePP = Auction(powerPlantMarket[targetpp], players, players[i]);
+			removePP = Auction(powerPlantMarket_[targetpp], players, players[i]);
 			cout << endl;
 
 			//remove the bought powerplant from the market
-			for (int m = 0; m < powerPlantMarket.size(); m++) {
-				if (removePP == powerPlantMarket[m]->getIdentifier()) {
-					powerPlantMarket.erase(powerPlantMarket.begin() + m);
+			for (int m = 0; m < powerPlantMarket_.size(); m++) {
+				if (removePP == powerPlantMarket_[m]->getIdentifier()) {
+					powerPlantMarket_.erase(powerPlantMarket_.begin() + m);
 				}
 			}
 			for (int m = 0; m < ppMarket.size(); m++) {
@@ -398,8 +391,26 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 					ppMarket.erase(ppMarket.begin() + m);
 				}
 			}
+
+			GameCard *temp = deck.at(0);
+			if (temp->getIdentifier() == "s3")
+			{
+				//ENTERING STEP 3
+				step = 3;
+			}
+
+			//THIS ISN'T ADDING A CART TO THE MARKET< PROBLEM TO BE FIXED.
+			powerPlantMarket.push_back(temp);
+			ppMarket.push_back(temp);
+			//supposed to place it somewhere on the market
+			deck.erase(deck.begin());
+		
+
+			
+
 		}
 	}
+
 	//display the posessions of each player
 	for (int i = 0; i < players.size(); i++) {
 		players[i]->toString();
@@ -409,10 +420,8 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 	return ppMarket;
 }
 
-//METHODS FOR PHASE 3: BUYING RESOURCES
 
 //METHODS FOR PHASE 4: BUREAUCRACY
-
 int Game::checkProfit(int _num)
 {
 	if (_num == 0) return 10;
@@ -441,7 +450,9 @@ int Game::checkProfit(int _num)
 
 
 //METHODS FOR MAIN GAME LOOPS OF THE GAME
-
+//
+//
+//
 void Game::deckSetup()
 {
 	makingDeck(deck, powerPlantMarket);
@@ -847,6 +858,7 @@ void Game::phase2_auction()
 			cin >> pause;
 
 			//task 2 - phase 2
+			sortMarket(powerPlantMarket);
 			EnterAuctioningPhase(powerPlantMarket, players);
 
 			cout << "Enter anything to continue..." << endl;
@@ -1084,7 +1096,7 @@ void Game::phase3_buyingResources()
 
 
 					//CHECK HERE IF THAT POWERPLANT CAN TAKE THAT RESOURCE
-
+					//// ***** the resource that isn't valid to that power plant is still added
 
 
 					while (wrongNum) {
@@ -1553,85 +1565,142 @@ void Game::phase4_building()
 
 void Game::phase5_bureaucracy()
 {
+	string pause;
+
+	std::cout << "================================" << endl;
+	std::cout << "BUREAUCRACY PHASE" << endl;
+	std::cout << "================================" << endl;
+
 	phase1_determinePlayerOrder();
+
 
 	//iterating through players
 	for (int i = 0; i < players.size(); i++) {
 
+		cout << "\nEnter any character to continue..." << endl;
+		cin >> pause;
 		vector<PowerPlant*> powerPlantsTEMP;
 		std::cout << "Your turn " + players[i]->getName() + "!" << endl;
-		players[i]->toString();
+		std::cout << endl;
 
+		if(players[i]->getCitiesOwned().size()!=0)
+		{
+			std::cout << "You own " << players[i]->getCitiesOwned().size() << (players[i]->getCitiesOwned().size() >= 2 ? " cities." : " city.") << endl;
+		}
+
+		
 		powerPlantsTEMP = players[i]->getPowerPlant();
 
-		//iterating through powerplants
-		cout << "size of power plant vector" << players[i]->getPowerPlant().size() << endl;
-		for (int i = 0; i < powerPlantsTEMP.size(); i++)
+		if (players[i]->getPowerPlant().size() != 0)
 		{
-			std::cout << "================" << endl;
-			std::cout << "Iterating through owned power plants" << endl;
-			std::cout << "================" << endl;
-			powerPlantsTEMP[i]->toString();
+			std::cout << "You own " << players[i]->getPowerPlant().size() << (players[i]->getPowerPlant().size() >= 2 ? " power plants." : " power plant.") << endl;
+		}
+		//iterating through powerplants
+		if (players[i]->getCitiesOwned().size() == 0) 
+		{
+			std::cout << "You do not own any cities and therefore cannot use any power plants. " << endl;
+			cout << "\nEnter any character to continue..." << endl;
+			cin >> pause;
 
-			std::cout << "Would you like to power " << powerPlantsTEMP[i]->getCitiesPowered() << " with this powerplant? yes or no" << endl;
+		}
+		else if (players[i]->getPowerPlant().size() == 0)
+		{
+			std::cout << "You do not own any power plants and therefore cannot power any cities. " << endl;
+			cout << "\nEnter any character to continue..." << endl;
+			cin >> pause;
 
-			cin >> choice;
-			bool valid = false;
-			if (choice == "yes")
+		}
+		else
+		{
+			
+			for (int i = 0; i < powerPlantsTEMP.size(); i++)
 			{
-				std::cout << "With which resource?" << endl;
-				while (!valid)
+				std::cout << "================" << endl;
+				std::cout << "Iterating through your power plants" << endl;
+				std::cout << "================" << endl;
+				powerPlantsTEMP[i]->toString();
+
+				std::cout << "Would you like to power " << powerPlantsTEMP[i]->getCitiesPowered() 
+				<< (powerPlantsTEMP[i]->getCitiesPowered() >= 2 ? " cities" : " city") << " with this powerplant? yes or no" << endl;
+
+				cin >> choice;
+				bool valid = false;
+				bool inputValid = false;
+
+			//NEED TO CHECK INPUT
+				while (!inputValid)
 				{
-					cin >> choice;
-					if (choice == "coal" || choice == "oil" || choice == "garbage" || choice == "uranium")
+
+
+					if (choice == "yes")
 					{
-						if (powerPlantsTEMP[i]->checkIfEnoughStock(choice) && powerPlantsTEMP[i]->checkIfNeeded(choice))
+						std::cout << "With which resource?" << endl;
+						while (!valid)
 						{
-							powerPlantsTEMP[i]->powerCity(choice);
-							market->addToSupply(choice, powerPlantsTEMP[i]->getRTNeeded(choice));
+							cin >> choice;
+							if (choice == "coal" || choice == "oil" || choice == "garbage" || choice == "uranium")
+							{
+								if (powerPlantsTEMP[i]->checkIfEnoughStock(choice) && powerPlantsTEMP[i]->checkIfNeeded(choice))
+								{
+									powerPlantsTEMP[i]->powerCity(choice);
+									market->addToSupply(choice, powerPlantsTEMP[i]->getRTNeeded(choice));
 
 
-							market->toString();
-							valid = true;
+									//market->toString();
+									valid = true;
+								}
+								else if (!powerPlantsTEMP[i]->checkIfEnoughStock(choice))
+								{
+									std::cout << "You do not have enough " << choice << " stocked to use this power plant." << endl;
+									std::cout << "Proceeding to next power plant." << endl;
+									valid = true;
+								}
+								else
+								{
+									//std::cout << "Not enough in stock!! OR This resource isn't needed for this powerplant" << endl;
+									std::cout << "Please enter valid input." << endl;
+									valid = false;
+								}
+
+
+
+							}
+							else
+							{
+								std::cout << "Enter a valid input please." << endl;
+								valid = false;
+							}
 						}
-						else
-						{
-							//std::cout << "Not enough in stock!! OR This resource isn't needed for this powerplant" << endl;
-							std::cout << "Enter a valid input please." << endl;
-							valid = false;
-						}
 
-
-
+						inputValid = true;
+					}
+					else if (choice == "no")
+					{
+						std::cout << "Next Power Plant: " << endl;
+						std::cout << endl;
+						std::cout << endl;
+						inputValid = true;
 					}
 					else
 					{
-						std::cout << "Enter a valid input please." << endl;
-						valid = false;
+						inputValid = false;
 					}
 				}
+				numCitiesPowered += powerPlantsTEMP[i]->get_numCitiesPowered_ACTIVE();
+				//can only power the number of cities they own MAX, otherwise waisted energy
 
+				vector<City> temp = players[i]->getCitiesOwned();
 
+				if (numCitiesPowered > temp.size())
+				{
+					std::cout << "You are trying to power " << numCitiesPowered << " cities with your power plants while you only own " << temp.size() << endl;
+					std::cout << "You are wasting energy." << endl;
+					numCitiesPowered = temp.size();
+					
+				}
 			}
-			else
-			{
-				std::cout << "Next Power Plant: " << endl;
-				std::cout << endl;
-				std::cout << endl;
-			}
 
-			numCitiesPowered += powerPlantsTEMP[i]->get_numCitiesPowered_ACTIVE();
-			//can only power the number of cities they own MAX, otherwise waisted energy
-
-			vector<City> temp = players[i]->getCitiesOwned();
-
-			if (numCitiesPowered > temp.size())
-			{
-				numCitiesPowered = temp.size();
-			}
 		}
-
-
 		std::cout << "By powering " << numCitiesPowered << " cities, you earn: " << checkProfit(numCitiesPowered) << endl;
 
 		profit = checkProfit(numCitiesPowered);
@@ -1645,6 +1714,7 @@ void Game::phase5_bureaucracy()
 		profit -= bill10 * 10;
 		bill1 = profit;
 		players[i]->collectElektro(bill1, bill10, bill50);
+		std::cout << endl;
 
 		std::cout << "================" << endl;
 		std::cout << "Updated Wallet: " << endl;
@@ -1652,10 +1722,9 @@ void Game::phase5_bureaucracy()
 
 		players[i]->walletToString();
 
-		players[i]->toString();
+		//players[i]->toString();
 	}
 
-	int step = 1;
 	//removing most expensive Power plant from the market and placing it under the draw deck
 	GameCard *MostExpensive = powerPlantMarket.at(powerPlantMarket.size() - 1);
 	powerPlantMarket.pop_back();
@@ -1663,10 +1732,35 @@ void Game::phase5_bureaucracy()
 
 	//drawing new card from deck and adding it the power plant market
 	GameCard *newCard = deck.at(0);
+
+	if (newCard->getIdentifier() == "s3")
+	{
+		step = 3;
+	}
 	deck.erase(deck.begin());
 	powerPlantMarket.push_back(newCard);
 	//placing the cards in ascending order of price
 	sortMarket(powerPlantMarket);
+
+	//market changes according to step in the game
+	//Do we need to implement this?
+	if (step == 1)
+	{
+
+	}
+	else if (step == 2)
+	{
+
+	}
+	else if (step == 3)
+	{
+
+	}
+
+	//restock market
+	market->restockMarket(step);
+
+
 }
 
 void Game::dashboard(Player* p) {
