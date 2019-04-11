@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <random>
 #include "Game.h"
-
+#include "Stats.h"
 
 using namespace std;
 using namespace HelperFunctions;
@@ -15,9 +15,11 @@ using namespace HelperFunctions;
 int main()
 {
 	
-	Game game;
-	game.play();
+	Game *game = new Game();
+	
 
+	Stats *stats = new Stats(game);
+	game->play();
 
 	return 0;
 }

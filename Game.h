@@ -12,12 +12,14 @@
 #include "Game.h"
 #include "HelperFunctions.hpp"
 
+#include "Subject.h"
 using namespace std;
 using namespace HelperFunctions;
 using namespace std;
 
 
-class Game {
+class Game : public Subject
+{
 
 public:
 	

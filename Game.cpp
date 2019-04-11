@@ -1945,7 +1945,7 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 
 		phase1_determinePlayerOrder();
-
+		Notify();
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
 
@@ -1956,7 +1956,7 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 		
 		phase2_auction();
-		
+		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
 
@@ -1967,7 +1967,7 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 		
 		phase3_buyingResources();
-
+		Notify();
 		cout << "\nEnter any character to continue to PHASE 4..." << endl;
 		cin >> pause;
 
@@ -1979,7 +1979,7 @@ void Game::play()
 
 		//method where we are checking for win conditions, set up according to number of players and looks if a player owns a specific number of cities
 		phase4_building();
-
+		Notify();
 		cout << "\nEnter any character to continue to PHASE 5..." << endl;
 		cin >> pause;
 
@@ -1990,7 +1990,7 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 
 		phase5_bureaucracy();
-
+		Notify();
 
 		//printing the winner
 		for (int i = 0; i < players.size(); i++)
@@ -1998,6 +1998,7 @@ void Game::play()
 			if (players[i]->getWin())
 			{
 				cout << " PLAYER " << players[i]->getName() << " HAS WON THE GAME !!!!!!!" << endl;
+				Notify();
 				break;
 			}
 		}
