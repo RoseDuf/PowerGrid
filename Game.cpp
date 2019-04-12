@@ -896,38 +896,6 @@ void Game::phase1_determinePlayerOrder()
 	}
 }
 
-void Game::phase2_auction()
-{
-	phase1_determinePlayerOrder();
-	string pause;
-	bool phase2_finished = false;;
-
-	while (phase2_finished == false) {
-
-		while (round >= 1) {
-
-			//task 2 - phase 1
-			phase1_determinePlayerOrder();
-
-			round += 1;
-			phase1_determinePlayerOrder();
-
-			cout << "Enter anything to continue..." << endl;
-			cin >> pause;
-
-			//task 2 - phase 2
-			sortMarket(powerPlantMarket);
-			EnterAuctioningPhase(powerPlantMarket, players);
-
-			cout << "Enter anything to continue..." << endl;
-			cin >> pause;
-
-			round = 0;
-		}
-		phase2_finished = true;
-	}
-}
-
 void Game::phase3_buyingResources()
 {
 	phase1_determinePlayerOrder();
@@ -1955,7 +1923,7 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 		cout << "\n***********************************************************" << endl;
 		
-		phase2_auction();
+		EnterAuctioningPhase(powerPlantMarket, players);
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
