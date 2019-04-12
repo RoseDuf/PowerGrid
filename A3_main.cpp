@@ -7,6 +7,7 @@
 #include <random>
 #include "Game.h"
 #include "Stats.h"
+#include "Info.h"
 
 using namespace std;
 using namespace HelperFunctions;
@@ -19,6 +20,7 @@ int main()
 	
 
 	Stats *stats = new Stats(game);
+	Info *info = new Info(game);
 	game->play();
 	//TO DO :
 	/*

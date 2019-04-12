@@ -87,6 +87,7 @@ private:
 	vector<Player*> players;
 	Market * market = new Market(players);
 
+
 	bool AI = false;
 	int amountOfPlayers = 0;
 	int amountOfRegionsToChoose = 0;
