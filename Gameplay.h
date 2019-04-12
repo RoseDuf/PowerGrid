@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include "player.hpp"
 #include "GraphBuilder.h"
 
@@ -27,8 +28,8 @@ class Gameplay {
 
 private:
 	string gameName;
-	vector<Player> players;	//players
-	GraphBuilder * graph;		//build map inside graphbuilder
+	vector<Player*> players;	//players
+	//GraphBuilder * graph;		//build map inside graphbuilder
 	//string mapName;
 	string phase;		//examples of phases are 'Buying Resources' 'Buying Cities' etc
 
@@ -37,18 +38,18 @@ public:
 
 	//getters
 	int getGameNum() {}
-	vector<Player> getPlayers(){return players; }
+	vector<Player*> getPlayers(){return players; }
 	//string getMap() { return graph->getMapName(); }	//maybe i need a graph too?
 	string getPhase() { return phase; }
 
 
 
 	//setters
-	void setPlayers(const vector<Player>& players) {}
+	void setPlayers(const vector<Player*>& players) {}
 	//void setMap() {}	//void setupmap() in Game.h
 	void setPhase() {}
 
-	void show() {
+	/*void show() {
 		cout << "Game name: " << gameName << endl
 			<< "Name of Players : " << endl;
 			for (int i = 0; i < players.size(); i++) {
@@ -56,7 +57,25 @@ public:
 			} 
 
 			cout << endl;
+	}*/
+
+
+	//example of how we could save the game
+	void printToFile() {
+		ofstream myfile;
+		myfile.open("tempGameSave.save");
+		myfile << gameName << endl;
+		myfile << "The players in this game are: " << endl;
+		for (int i = 0; i < players.size(); i++) {
+			myfile << "Name: " << players[i]->getName();
+			myfile << "Color: " <<  players[i]->getColor();
+			myfile << endl;
+		}
+
+		myfile << "The phase is " << phase;
+		myfile.close();
 	}
+
 
 
 };

@@ -183,6 +183,9 @@ int  Player::getTotalUranium() {
 	return temp;
 }
 
+
+
+
 void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;

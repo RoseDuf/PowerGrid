@@ -86,6 +86,7 @@ public:
 	//void addElektro(Elektro e);
 	//void removeElektro(int quantity, int billValue);
 	void toString();
+	
 
 	//to sort player's by the number of cities owned (to determine order)
 	static bool compByCities(const Player* a, const Player* b) {

@@ -1922,7 +1922,13 @@ void Game::play()
 		phase1_determinePlayerOrder();
 
 		//save gameplay at this point
-		director.createGameplay(players, phase);
+		string tempString = "Determine Player Order";
+		director.createGameplay(players, tempString);
+
+
+		//printToFile
+
+
 
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
