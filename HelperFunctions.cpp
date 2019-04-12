@@ -6,6 +6,21 @@
 
 namespace HelperFunctions {
     
+    int determineCostOfPurchasingCity(int amountOfPlayersAlreadyOccupyingCity) { // assumes valid input
+        
+        if( amountOfPlayersAlreadyOccupyingCity == 0 ) {
+            return 10;
+        }
+        else if( amountOfPlayersAlreadyOccupyingCity == 1 ) {
+            return 15;
+        }
+        else if( amountOfPlayersAlreadyOccupyingCity == 2 ) {
+            return 20;
+        }
+        
+        return -1;
+    }
+    
     bool hasStepTwoBeenTriggered(std::vector<const Player*> players) {
         
         int stepTwoAmount = howManyCitiesCorrespondToStepTwoTriggering( players.size() );
