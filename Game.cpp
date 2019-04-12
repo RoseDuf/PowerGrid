@@ -7,6 +7,10 @@
 #include <iostream>
 #include "Market.hpp"
 
+#include "GameplayDirector.h"
+#include "PowerGridBuilder.h"
+#include "Gameplay.h"
+
 using namespace std;
 
 Game::Game()
@@ -1862,6 +1866,9 @@ void Game::dashboard(Player* p) {
 
 void Game::play()
 {
+	GameplayDirector director;
+	PowerGridBuilder powergrid;
+
 	cout << "\n***********************************************************" << endl;
 	cout << "\n***********************************************************" << endl;
 	cout << "WELCOME TO POWERGRID ! LET'S SET UP THE GAME." << endl;
@@ -1903,6 +1910,14 @@ void Game::play()
 		Notify2();
 
 		phase1_determinePlayerOrder();
+
+		//save gameplay at this point
+		string tempString = "Determine Player Order";
+		//Gameplay* g = director.createGameplay(players, tempString);
+		//g->printToFile();
+
+
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
@@ -1916,13 +1931,25 @@ void Game::play()
 		Notify2();
 		
 		EnterAuctioningPhase(powerPlantMarket, players);
- 		Notify();
+		//save gameplay at this point
+		 tempString = "Auctioning Phase";
+		// g = director.createGameplay(players, tempString);
+		//g->printToFile();
+
+		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
 
 		Notify2();
 		
 		phase3_buyingResources();
+
+		//save gameplay at this point
+		 tempString = "Buying Resources";
+		// g = director.createGameplay(players, tempString);
+		//g->printToFile();
+
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 4..." << endl;
 		cin >> pause;
@@ -1931,6 +1958,12 @@ void Game::play()
 
 		//method where we are checking for win conditions, set up according to number of players and looks if a player owns a specific number of cities
 		phase4_building();
+
+		//save gameplay at this point
+		 tempString = "Building";
+		// g = director.createGameplay(players, tempString);
+		//g->printToFile();
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 5..." << endl;
 		cin >> pause;
@@ -1938,6 +1971,12 @@ void Game::play()
 		Notify2();
 
 		phase5_bureaucracy();
+
+		//save gameplay at this point
+		tempString = "Bureaucracy";
+		 //g = director.createGameplay(players, tempString);
+		//g->printToFile();
+
 		Notify();
 
 		//printing the winner
