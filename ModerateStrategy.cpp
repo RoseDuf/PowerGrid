@@ -1,4 +1,8 @@
 #include "ModerateStrategy.hpp"
+#include "HelperFunctions.hpp"
+#include "AggressiveStrategy.hpp"
+
+using namespace HelperFunctions;
 
 ModerateStrategy::ModerateStrategy(AIStrategyData backgroundInformation) : Strategy(backgroundInformation) {}
 
@@ -23,42 +27,18 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
         }
     }
     
-    
     std::vector<PowerPlant> presentMarket = PowerPlant::peekPresentPowerPlantMarket();
     
-    int ppIndex = -1;
-    if(biddedPowerPlantIndex < 0) { // if no power plant was bid on
-        srand(time(0));
-        ppIndex = rand() % presentMarket.size();
-        
-        if( biddedPowerPlantIndex && player->getTotalWallet() >= presentMarket.at(ppIndex).getCardNumber() && presentMarket.at(ppIndex).getCardNumber() > smallestNumberedPowerPlantOwned ) {
-            srand(time(0));
-            int zeroOrOne = rand() % 2;
-            
-            if( zeroOrOne == 0) { // ~50% chance
-                if( player->getNumPPOwned() == 3 ) { // if 3 pps ARE already owned (by passed player)
-                    return BiddingDetails( PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex).getCardNumber(), PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex),PowerPlant::peekIthPowerPlantInPresentMarket(indexOfSmallestNumberedPowerPlantOwned) );
-                }
-                else { // if 3 pps are NOT already owned (by passed player)
-                    return BiddingDetails( PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex).getCardNumber(), PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex),PowerPlant::peekIthPowerPlantInPresentMarket(ppIndex) );
-                }
-            }
-        }
-    }
-    else { // if a pp WAS bid on already
-        srand(time(0));
-        int zeroOrOne = rand() % 2;
-        if( zeroOrOne == 0 && player->getTotalWallet() >= highestBidSoFar+1) { // ~50% chance
-            if( player->getNumPPOwned() == 3 ) { // if 3 pps ARE already owned (by passed player)
-                return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex),*ppsOwned.at(indexOfSmallestNumberedPowerPlantOwned) );
-            }
-            else { // if 3 pps are NOT already owned (by passed player)
-                return BiddingDetails( highestBidSoFar+1,PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex),PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex) );
-            }
-        }
-    }
+    std::vector<Player*> players = std::get<1>(backgroundInformation);
+    int averageElektroAmount = determineAverageElektroAmountOfPlayers(players);
     
-    return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) );
+    if( player->getTotalCoalStockable() == player->getTotalCoalStocked() && player->getTotalGarbageStockable() == player->getTotalGarbageStocked() && player->getTotalOilStockable() == player->getTotalOilStocked() && player->getTotalUraniumStockable() == player->getTotalUraniumStocked() && player->getTotalWallet() < averageElektroAmount ) { // if this player has enough resources to fully power pps and has less than avg player's elektros, then gets aggressive for buying best pp possible
+        AggressiveStrategy aggressiveStrategy(backgroundInformation);
+        aggressiveStrategy.getBiddingDetails(player, biddedPowerPlantIndex, highestBidSoFar);
+    }
+    else { // otherwise, pass
+        return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) );
+    }
 }
 
 std::vector<City> ModerateStrategy::getCityBuildingChoice(const Player* player, int gameStep) {
