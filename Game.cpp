@@ -7,6 +7,10 @@
 #include <iostream>
 #include "Market.hpp"
 
+#include "GameplayDirector.h"
+#include "PowerGridBuilder.h"
+#include "Gameplay.h"
+
 using namespace std;
 
 Game::Game()
@@ -1868,6 +1872,9 @@ void Game::dashboard(Player* p) {
 
 void Game::play()
 {
+	GameplayDirector director;
+
+
 	cout << "\n***********************************************************" << endl;
 	cout << "\n***********************************************************" << endl;
 	cout << "WELCOME TO POWERGRID ! LET'S SET UP THE GAME." << endl;
@@ -1913,6 +1920,10 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 
 		phase1_determinePlayerOrder();
+
+		//save gameplay at this point
+		director.createGameplay(players, phase);
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
