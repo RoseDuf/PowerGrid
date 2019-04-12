@@ -49,6 +49,9 @@ public:
 	void phase5_bureaucracy();
 
 
+	vector<Player*> * getPlayers();
+
+	GraphBuilder* getGraph();
 
 private:
 	bool win = false;

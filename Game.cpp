@@ -17,6 +17,15 @@ Game::Game()
 	
 }
 
+vector<Player*> * Game::getPlayers()
+{
+	return &players;
+}
+
+GraphBuilder* Game::getGraph()
+{
+	return graph;
+}
 //METHODS FOR DECK
 void Game::print(vector<GameCard*> &_deck) {
 	for (int i = 0; i < _deck.size(); i++)
