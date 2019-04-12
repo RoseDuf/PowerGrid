@@ -42,7 +42,61 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
 }
 
 std::vector<City> ModerateStrategy::getCityBuildingChoice(const Player* player, int gameStep) {
+    
+    std::vector<Player*> players = std::get<1>(backgroundInformation);
+    
     std::vector<City> citiesToBuildIn;
+    
+    GraphBuilder* graph = std::get<2>(backgroundInformation);
+    
+    std::vector< std::pair<City,int> > stillOccupiablePairs = graph->getStillOccupiableCitiesAndOccupationAmounts(gameStep);
+    std::vector<City> co = player->getCitiesOwned();
+    
+    std::map<int,int> costsAndStillOccupiablePairsIndices;
+    
+    for(int i = 0; i < stillOccupiablePairs.size(); i++) {
+        for(int j = 0; j < co.size(); j++) {
+            if( stillOccupiablePairs.at(i).first.getCityName() != co.at(j).getCityName() ) {
+                int currentCityCost = determineCostOfPurchasingCity(stillOccupiablePairs.at(i).second);
+                int currentPathCost = graph->CostFromOneCityToAnother(stillOccupiablePairs.at(i).first.getCityName(),co.at(j).getCityName());
+                int currentPathPlusCityCost =  currentCityCost + currentPathCost;
+                costsAndStillOccupiablePairsIndices.insert( std::make_pair(currentPathPlusCityCost, i) );
+            }
+        }
+    }
+        
+    if(gameStep == 1) {
+        // avoid triggering step 2 (as assignment 3 instructions state)
+        int costsAccumulatedSoFar = 0;
+        int citiesBeingPurchasedSoFar = 0;
+        for(auto it = costsAndStillOccupiablePairsIndices.begin(); it != costsAndStillOccupiablePairsIndices.end(); it++) {
+            costsAccumulatedSoFar += it->first;
+            citiesBeingPurchasedSoFar++;
+            
+            if( player->getTotalWallet() >= costsAccumulatedSoFar && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar < howManyCitiesCorrespondToStepTwoTriggering(players.size()) ) {
+                citiesToBuildIn.push_back( stillOccupiablePairs.at(it->second).first );
+            }
+            else {
+                break;
+            }
+        }
+    }
+    else {
+        // chase the average number of cities built
+        int costsAccumulatedSoFar = 0;
+        int citiesBeingPurchasedSoFar = 0;
+        for(auto it = costsAndStillOccupiablePairsIndices.begin(); it != costsAndStillOccupiablePairsIndices.end(); it++) {
+            costsAccumulatedSoFar += it->first;
+            citiesBeingPurchasedSoFar++;
+            
+            if( player->getTotalWallet() >= costsAccumulatedSoFar && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar <= determineAverageAmountOfCitiesOwnedByPlayers(players) ) {
+                citiesToBuildIn.push_back( stillOccupiablePairs.at(it->second).first );
+            }
+            else {
+                break;
+            }
+        }
+    }
     
     return citiesToBuildIn;
 }
