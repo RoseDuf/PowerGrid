@@ -7,6 +7,17 @@
 
 namespace HelperFunctions {
     
+    int determineAverageElektroAmountOfPlayers(std::vector<Player*> players) {
+        
+        int sumOfAllPlayersEarnings = 0;
+        
+        for(int i = 0; i < players.size(); i++) {
+            sumOfAllPlayersEarnings += players.at(i)->getTotalWallet();
+        }
+        
+        return sumOfAllPlayersEarnings/players.size();
+    }
+    
     int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<Player*> players) {
         
         int leastAmountOfCitiesOwned = INT_MAX;
