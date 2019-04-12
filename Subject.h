@@ -1,5 +1,5 @@
 #pragma once
-
+//code sourced from examples in lab classes
 #include "Observer.h"
 #include <list>
 #include <iostream>

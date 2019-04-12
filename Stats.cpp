@@ -1,5 +1,6 @@
 #include "Stats.h"
-
+//SOURCE:
+//writing to file code modified from : http://www.cplusplus.com/doc/tutorial/files/
 
 Stats::Stats()
 {

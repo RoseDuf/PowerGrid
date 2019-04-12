@@ -1,5 +1,5 @@
 #include "Subject.h"
-
+//code sourced from examples in lab classes
 #include "Observer.h"
 
 Subject::Subject()
