@@ -1923,8 +1923,8 @@ void Game::play()
 
 		//save gameplay at this point
 		string tempString = "Determine Player Order";
-		Gameplay* g = director.createGameplay(players, tempString);
-		g->printToFile();
+		//Gameplay* g = director.createGameplay(players, tempString);
+		//g->printToFile();
 
 
 
@@ -1941,8 +1941,8 @@ void Game::play()
 		EnterAuctioningPhase(powerPlantMarket, players);
 		//save gameplay at this point
 		 tempString = "Auctioning Phase";
-		 g = director.createGameplay(players, tempString);
-		g->printToFile();
+		// g = director.createGameplay(players, tempString);
+		//g->printToFile();
 
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
@@ -1958,8 +1958,8 @@ void Game::play()
 
 		//save gameplay at this point
 		 tempString = "Buying Resources";
-		 g = director.createGameplay(players, tempString);
-		g->printToFile();
+		// g = director.createGameplay(players, tempString);
+		//g->printToFile();
 
 
 		Notify();
@@ -1977,8 +1977,8 @@ void Game::play()
 
 		//save gameplay at this point
 		 tempString = "Building";
-		 g = director.createGameplay(players, tempString);
-		g->printToFile();
+		// g = director.createGameplay(players, tempString);
+		//g->printToFile();
 
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 5..." << endl;
@@ -1994,8 +1994,8 @@ void Game::play()
 
 		//save gameplay at this point
 		tempString = "Bureaucracy";
-		 g = director.createGameplay(players, tempString);
-		g->printToFile();
+		 //g = director.createGameplay(players, tempString);
+		//g->printToFile();
 
 		Notify();
 
