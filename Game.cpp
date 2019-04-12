@@ -10,6 +10,12 @@
 #include "GameplayDirector.h"
 #include "PowerGridBuilder.h"
 #include "Gameplay.h"
+#include "PowerGridAI.hpp"
+
+#include "Strategy.hpp"
+#include "AggressiveStrategy.hpp"
+#include "ModerateStrategy.hpp"
+#include "EnvironmentalistStrategy.hpp"
 
 using namespace std;
 
@@ -740,6 +746,27 @@ void Game::setUpPlayers()
 void Game::setUpMap()
 {
 
+    std::cout << "Choose AI type." << std::endl;
+    std::cout << "1) Aggressive AI" << std::endl;
+    std::cout << "2) Moderate AI" << std::endl;
+    std::cout << "3) Environmentalist AI." << std::endl;
+    int aiType = 0;
+    std::cin >> aiType;
+    
+    //typedef std::tuple< Market,std::vector<Player*>, GraphBuilder* > AIStrategyData;
+    AIStrategyData aiData = AIStrategyData(*market, players, graph);
+    Strategy* strategyChoice;
+    
+    if( aiType == 1 ) {
+        strategyChoice = new AggressiveStrategy(aiData);
+    }
+    else if( aiType == 2 ) {
+        strategyChoice = new ModerateStrategy(aiData);
+    }
+    else if( aiType == 3 ) {
+        strategyChoice = new EnvironmentalistStrategy(aiData);
+    }
+    
 	// Select a map
 	std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
 	std::cout << "1) Germany map" << std::endl;
@@ -771,7 +798,9 @@ void Game::setUpMap()
 	vector<string> chosenRegCols;
 
 	if (AI == true) {
-		//powerGridAI.executeRegionColorChoice(std::vector<std::string> alreadyChosenColors) or something like that
+        PowerGridAI powerGridAI( strategyChoice );
+        std::vector<std::string> alreadyChosenColors;
+		chosenRegCols.push_back( powerGridAI.executeRegionChoosingStrategy(alreadyChosenColors) );
 	}
 	else {
 		for (int i = 0; i < amountOfRegionsToChoose; i++) {
