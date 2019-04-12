@@ -84,7 +84,10 @@ BiddingDetails EnvironmentalistStrategy::getBiddingDetails(const Player* player,
     return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) ); // if nothing else was returned, return -1, which means that no bid was made (the 2nd parameter's PowerPlant is irrelevant and could be any PowerPlant)
 }
 
-std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* player, int gameStep) {    
+std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* player, int gameStep) {
+    
+    std::vector<Player*> players = std::get<1>(backgroundInformation);
+    
     std::vector<City> citiesToBuildIn;
     
     GraphBuilder* graph = std::get<2>(backgroundInformation);
@@ -112,7 +115,12 @@ std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* 
         citiesBeingPurchasedSoFar++;
         
         if( player->getTotalWallet() >= costsAccumulatedSoFar && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar <= player->getCurrentTotalMaximumCityPoweringPotential() ) {
-            citiesToBuildIn.push_back( stillOccupiablePairs.at(it->second).first );
+            if( PowerPlant::peekIthPowerPlantInPresentMarket(3).isGreen() && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar >= determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(players) ) { // tries to ensure that this AI player will bid last in next power plant bidding session (as desired in assignment 3's instructions) (by having the least amount of cities owned, but only by 1 city ideally)
+                break;
+            }
+            else {
+                citiesToBuildIn.push_back( stillOccupiablePairs.at(it->second).first );
+            }
         }
         else {
             break;
