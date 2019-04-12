@@ -1,5 +1,8 @@
 #include "EnvironmentalistStrategy.hpp"
 #include "PowerPlant.hpp"
+#include "HelperFunctions.hpp"
+
+using namespace HelperFunctions;
 
 EnvironmentalistStrategy::EnvironmentalistStrategy(AIStrategyData backgroundInformation) : Strategy(backgroundInformation) {}
 
@@ -81,8 +84,40 @@ BiddingDetails EnvironmentalistStrategy::getBiddingDetails(const Player* player,
     return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) ); // if nothing else was returned, return -1, which means that no bid was made (the 2nd parameter's PowerPlant is irrelevant and could be any PowerPlant)
 }
 
-std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* player, int gameStep) {
+std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* player, int gameStep) {    
     std::vector<City> citiesToBuildIn;
+    
+    GraphBuilder* graph = std::get<2>(backgroundInformation);
+    
+    std::vector< std::pair<City,int> > stillOccupiablePairs = graph->getStillOccupiableCitiesAndOccupationAmounts(gameStep);
+    std::vector<City> co = player->getCitiesOwned();
+    
+    std::map<int,int> costsAndStillOccupiablePairsIndices;
+    
+    for(int i = 0; i < stillOccupiablePairs.size(); i++) {
+        for(int j = 0; j < co.size(); j++) {
+            if( stillOccupiablePairs.at(i).first.getCityName() != co.at(j).getCityName() ) {
+                int currentCityCost = determineCostOfPurchasingCity(stillOccupiablePairs.at(i).second);
+                int currentPathCost = graph->CostFromOneCityToAnother(stillOccupiablePairs.at(i).first.getCityName(),co.at(j).getCityName());
+                int currentPathPlusCityCost =  currentCityCost + currentPathCost;
+                costsAndStillOccupiablePairsIndices.insert( std::make_pair(currentPathPlusCityCost, i) );
+            }
+        }
+    }
+    
+    int costsAccumulatedSoFar = 0;
+    int citiesBeingPurchasedSoFar = 0;
+    for(auto it = costsAndStillOccupiablePairsIndices.begin(); it != costsAndStillOccupiablePairsIndices.end(); it++) {
+        costsAccumulatedSoFar += it->first;
+        citiesBeingPurchasedSoFar++;
+        
+        if( player->getTotalWallet() >= costsAccumulatedSoFar && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar <= player->getCurrentTotalMaximumCityPoweringPotential() ) {
+            citiesToBuildIn.push_back( stillOccupiablePairs.at(it->second).first );
+        }
+        else {
+            break;
+        }
+    }
     
     return citiesToBuildIn;
 }
