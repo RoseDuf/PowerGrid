@@ -186,37 +186,53 @@ int  Player::getTotalUraniumStocked() const {
 	return temp;
 }
 
-int  Player::getTotalCoalStockable() const {
+int  Player::getTotalCoalNeeded() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
 		temp += powerPlants[i]->getRTNeeded("coal");
 	}
-	return 2*temp;
+	return temp;
 }
-int  Player::getTotalOilStockable() const {
+int  Player::getTotalOilNeeded() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
 		temp += powerPlants[i]->getRTNeeded("oil");
 	}
-	return 2*temp;
+	return temp;
 }
-int  Player::getTotalGarbageStockable() const {
+int  Player::getTotalGarbageNeeded() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
 		temp += powerPlants[i]->getRTNeeded("garbage");
 	}
-	return 2*temp;
+	return temp;
 }
-int  Player::getTotalUraniumStockable() const {
+int  Player::getTotalUraniumNeeded() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
 		temp += powerPlants[i]->getRTNeeded("uranium");
 	}
-	return 2*temp;
+	return temp;
+}
+
+int  Player::getTotalCoalStockable() const {
+    return 2*getTotalCoalNeeded();
+}
+
+int  Player::getTotalOilStockable() const {
+    return 2*getTotalOilNeeded();
+}
+
+int  Player::getTotalGarbageStockable() const {
+    return 2*getTotalGarbageNeeded();
+}
+
+int  Player::getTotalUraniumStockable() const {
+    return 2*getTotalUraniumNeeded();
 }
 
 void Player::toString() {

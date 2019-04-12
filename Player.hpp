@@ -81,10 +81,17 @@ public:
 	int getTotalOilStocked() const;
 	int getTotalGarbageStocked() const;
 	int getTotalUraniumStocked() const;
+    
     int getTotalCoalStockable() const;
 	int getTotalOilStockable() const;
 	int getTotalGarbageStockable() const;
 	int getTotalUraniumStockable() const;
+    
+    int getTotalCoalNeeded() const;
+	int getTotalOilNeeded() const;
+	int getTotalGarbageNeeded() const;
+	int getTotalUraniumNeeded() const;
+    
     int getCurrentTotalMaximumCityPoweringPotential() const;
     void removePowerPlant(PowerPlant* powerPlant);
     void removePowerPlant(int powerPlantCardNumber);
