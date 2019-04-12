@@ -8,7 +8,7 @@ class AggressiveStrategy : public Strategy {
     public:
         AggressiveStrategy(AIStrategyData backgroundInformation);
         virtual BiddingDetails getBiddingDetails(const Player* player, int biddedPowerPlantIndex, int highestBigSoFar);
-        virtual std::vector<City> getCityBuildingChoice(const Player* player, int gameStep) = 0; // returns a vector of city numbers (a.k.a. map vertice numbers)
+        virtual std::vector<City> getCityBuildingChoice(const Player* player, int gameStep) = 0;
 };
 
 #endif
