@@ -1,3 +1,62 @@
+#include <vector>
+#include <string>
+#include <iostream>
+#include <cstdlib>
+#include <algorithm>
+#include <random>
+#include "Game.h"
+#include "player.hpp"
+#include "GraphBuilder.h"
+#include "City.h"
+#include "Elektro.hpp"
+#include "Market.hpp"
+#include "HelperFunctions.hpp"
+#include "GameplayDirector.h"
+#include "PowerGridBuilder.h"
+#include "Gameplay.h"
+
+
+using namespace std;
+using namespace HelperFunctions;
+
+
+//display Builder Pattern
+
+
+int main() {
+
+	GameplayDirector dir;
+	PowerGridBuilder game;
+
+	Gameplay *powergrid = dir.createGameplay(&game);
+
+	powergrid->show();
+
+	delete powergrid;
+
+	return 0;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //main for task 3
 /*
 

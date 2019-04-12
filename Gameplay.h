@@ -30,7 +30,8 @@ private:
 	string gameName;
 	vector<Player*> players;	//players
 	GraphBuilder * graph;		//build map inside graphbuilder
-	string phase;
+	string mapName;
+	string phase;		//examples of phases are 'Buying Resources' 'Buying Cities' etc
 
 public:
 	Gameplay(string name): gameName{ name } {}
@@ -38,7 +39,7 @@ public:
 	//getters
 	int getGameNum() {}
 	vector<Player*> getPlayers(){return players; }
-	GraphBuilder* getMap() { return graph.getMapName(); }
+	string getMap() { return graph->getMapName(); }	//maybe i need a graph too?
 	string getPhase() { return phase; }
 
 
@@ -52,10 +53,10 @@ public:
 		cout << "Game name" << gameName << endl
 			<< "Name of Players : " << endl;
 			for (int i = 0; i < players.size(); i++) {
-				players[i].getName();
+				cout << players[i]->getName();
 			} 
 
-			cout << "Number of cards in Deck: " << graph->getFileName() << endl << endl;
+			cout << "Name of Map: " << graph->getMapName() << endl << endl;
 	}
 
 

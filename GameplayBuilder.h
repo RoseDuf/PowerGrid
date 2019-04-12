@@ -26,9 +26,9 @@ public:
 
 	//creating pure virtual functions
 	virtual void createGameplay() = 0;
-	virtual void buildPlayers() = 0;
-	virtual void buildMap() = 0;
-	virtual void buildPhase() = 0;
+	virtual void buildPlayers(const vector<Player>& players) = 0;
+	virtual void buildMap(string map) = 0;
+	virtual void buildPhase(string phase) = 0;
 
 
 	//virtual ~GameplayBuilder(){}

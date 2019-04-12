@@ -2,8 +2,4 @@
 
 
 
-Gameplay::Gameplay(string name) {
-
-
-
-};
+Gameplay::Gameplay(string name) {};
