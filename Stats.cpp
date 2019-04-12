@@ -1,7 +1,5 @@
 #include "Stats.h"
 
-#include <fstream>
-#include <iostream>
 
 Stats::Stats()
 {
@@ -11,6 +9,7 @@ Stats::Stats(Game* game)
 {
 	_subject = game;
 	_subject->Attach(this);
+
 }
 Stats::~Stats()
 {
@@ -25,7 +24,7 @@ void Stats::Update()
 void Stats::display()
 {
 	cout << "--------------------------------------------------------------------------DISPLAYING AFTER BEING NOTIFIED" << endl;
-	ofstream gameStats;
+	
 	gameStats.open("STATS.txt");
 	gameStats << "----------------------------------------" << endl;
 	gameStats << "USEFUL STATS" << endl;
@@ -36,20 +35,33 @@ void Stats::display()
 
 
 	vector<Player*>  temp = *_subject->getPlayers();
+	//GraphBuilder tempGraph = *_subject->getGraph();
 
 	gameStats << "-----------------" << endl;
 	gameStats << "NUMBER OF PLAYERS" << endl;
 	//number of players in the game
 	gameStats << temp.size();
 
+	gameStats << endl;
+	gameStats << endl;
+
+	gameStats << "-----------------" << endl;
+	gameStats << "PLAYER COLOR" << endl;
+	//Player color
+
+	for (int i = 0; i < temp.size(); i++)
+	{
+		gameStats << temp[i]->getName() << " is " << temp[i]->getColor() << endl;
+	}
+
+	gameStats << endl;
 	gameStats << "-----------------" << endl;
 	gameStats << "NUMBER OF CITIES" << endl;
 	//Player number of cities
 
 	for (int i = 0; i < temp.size() ; i++)
 	{
-		//gameStats << "Player " << (i + 1) << endl;
-		gameStats << temp[i]->getName() << endl;
+		gameStats << temp[i]->getName() ;
 		
 		for (int j = 0; j < temp[i]->getCitiesOwned().size(); j++)
 		{
@@ -60,32 +72,33 @@ void Stats::display()
 		
 
 	}
-	/*
+	gameStats << endl;
 	gameStats << "-----------------" << endl;
-	gameStats << "NAME OF CITIES" << endl;
-	//cities owned , by name
+	gameStats << "LOCATION OF PLAYERS" << endl;
+
 	for (int i = 0; i < temp.size(); i++)
 	{
-		//gameStats << "Player " << (i + 1) << endl;
-		gameStats << temp[i]->getName() << endl;
+		gameStats << temp[i]->getName() << " : ";
+		//gameStats << temp[i]->getName();
 
 		for (int j = 0; j < temp[i]->getCitiesOwned().size(); j++)
 		{
-			gameStats << temp[i]->getCitiesOwned()[i].getCityName();
+			gameStats << temp[i]->getCitiesOwned()[j].getCityName() << " ";
 		}
 
 		gameStats << endl;
 
 
 	}
-	*/
+	gameStats << endl;
 	gameStats << "-----------------" << endl;
 	gameStats << "NUMBER OF POWERPLANTS" << endl;
+
 	//Players number of powerplants
 	for (int i = 0; i < temp.size(); i++)
 	{
 		//gameStats << "Player " << (i + 1) << endl;
-		gameStats << temp[i]->getName() << endl;
+		gameStats << temp[i]->getName();
 
 		for (int j = 0; j < temp[i]->getPowerPlant().size(); j++)
 		{
@@ -96,7 +109,7 @@ void Stats::display()
 
 
 	}
-
+	gameStats << endl;
 	gameStats << "-----------------" << endl;
 	gameStats << "NUMBER OF RESOURCE TOKENS PER TYPE" << endl;
 	//Player number of each token type
@@ -137,7 +150,45 @@ void Stats::display()
 		gameStats << endl;
 
 	}
+	gameStats << endl;
+	gameStats << "-----------------" << endl;
+	gameStats << "TOTAL WALLET" << endl;
 
+	//Players number of powerplants
+	for (int i = 0; i < temp.size(); i++)
+	{
+		//gameStats << "Player " << (i + 1) << endl;
+		gameStats << temp[i]->getName() << " : " << temp[i]->getTotalWallet();
+
+		
+
+		gameStats << endl;
+
+
+	}
+	gameStats << endl;
+	gameStats << "-----------------" << endl;
+	gameStats << "WINNER" << endl;
+
+	bool stillPlaying = true;
+	for (int i = 0; i < temp.size(); i++)
+	{
+		if (temp[i]->getWin())
+		{
+			gameStats << temp[i]->getName() << " is the winner!!!";
+			stillPlaying = false;
+		}
+		
+
+		
+
+
+	}
+	gameStats << endl;
+	if (stillPlaying)
+	{
+		gameStats << "They are still playing, no one has won yet.";
+	}
 
 	gameStats.close();
 

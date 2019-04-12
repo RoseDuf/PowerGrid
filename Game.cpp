@@ -1786,21 +1786,6 @@ void Game::phase5_bureaucracy()
 	//placing the cards in ascending order of price
 	sortMarket(powerPlantMarket);
 
-	//market changes according to step in the game
-	//Do we need to implement this?
-	if (step == 1)
-	{
-
-	}
-	else if (step == 2)
-	{
-
-	}
-	else if (step == 3)
-	{
-
-	}
-
 	//restock market
 	market->restockMarket(step);
 
@@ -1925,7 +1910,7 @@ void Game::play()
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
-
+		
 		cout << "\n***********************************************************" << endl;
 		cout << "\n***********************************************************" << endl;
 		cout << "PHASE 2 : AUCTION" << endl;
@@ -1933,7 +1918,7 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 		
 		EnterAuctioningPhase(powerPlantMarket, players);
-		Notify();
+ 		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
 

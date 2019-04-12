@@ -1,6 +1,9 @@
 #pragma once
 #include "Observer.h"
 #include "Game.h"
+
+#include <fstream>
+#include <iostream>
 class Stats : public Observer
 {
 public:
@@ -12,5 +15,6 @@ public:
 	void display();
 private:
 	Game *_subject;
+	ofstream gameStats;
 };
 
