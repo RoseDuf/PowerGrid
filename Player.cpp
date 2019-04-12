@@ -145,7 +145,7 @@ void Player::setCitiesPowered() {
 	}
 }
 
-int  Player::getTotalCoal() const {
+int  Player::getTotalCoalStocked() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
@@ -153,7 +153,7 @@ int  Player::getTotalCoal() const {
 	}
 	return temp;
 }
-int  Player::getTotalOil() const {
+int  Player::getTotalOilStocked() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
@@ -161,7 +161,7 @@ int  Player::getTotalOil() const {
 	}
 	return temp;
 }
-int  Player::getTotalGarbage() const {
+int  Player::getTotalGarbageStocked() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
@@ -169,7 +169,7 @@ int  Player::getTotalGarbage() const {
 	}
 	return temp;
 }
-int  Player::getTotalUranium() const {
+int  Player::getTotalUraniumStocked() const {
 	int temp = 0;
 	for (int i = 0; i < powerPlants.size(); i++)
 	{
