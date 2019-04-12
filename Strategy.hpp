@@ -13,7 +13,7 @@ typedef std::tuple< Market*,std::vector<Player*>, GraphBuilder* > AIStrategyData
 
 // Typedef data returned by Strategy
 typedef std::tuple<int,PowerPlant,PowerPlant> BiddingDetails; // tuple<bidAmount, PowerPlant powerPlantBeingBiddedOn, PowerPlant powerPlantOfPassedPlayerBeingReplaced>
-typedef std::tuple<Market*, int, int, int, int> ResourcePurchaseChoice; // the ints correspond to the CHANGE from total (positive value means amount added to total, negative means amount taken away from total) in Market (0 means no change)
+typedef std::tuple<int, int, int, int> ResourcePurchaseChoice; // the ints correspond to the CHANGE from total (positive value means amount added to total, negative means amount taken away from total) in Market (0 means no change)
 
 class Strategy {
     protected:
