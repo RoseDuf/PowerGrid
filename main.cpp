@@ -1,5 +1,40 @@
-//main for task 3
+/*#include <vector>
+#include <string>
+#include <iostream>
+#include <cstdlib>
+#include <algorithm>
+#include <random>
+#include "Game.h"
+#include "player.hpp"
+#include "GraphBuilder.h"
+#include "City.h"
+#include "Elektro.hpp"
+#include "Market.hpp"
+#include "HelperFunctions.hpp"
+#include "GameplayDirector.h"
+#include "PowerGridBuilder.h"
+#include "Gameplay.h"
+
+
+using namespace std;
+using namespace HelperFunctions;
+
+
+//display Builder Pattern
+
+
+int main() {
+
+	GameplayDirector director;
+
+	//save the game at the end of each phase (needs player vector, map, and phase)
+	director.createGameplay(players, map, phase);
+
+}
+
 /*
+//main for task 3
+
 
 
 #include <vector>
@@ -227,6 +262,28 @@ static void Pass(Player * pl) {
 
 
 int main() {
+
+
+	GameplayDirector dir;
+	PowerGridBuilder game;
+	vector<Player> players; //these will be created during game
+
+
+
+
+	string map;				//these will be created during game
+	string phase;			//this will be created during game
+
+
+	Gameplay *powergrid = dir.createGameplay(players, map, phase);
+
+	powergrid->show();
+
+	delete powergrid;
+
+
+
+
 
 	//========================================TASK 1===================================================
 
@@ -1003,7 +1060,7 @@ int main() {
 }
 
 
-*/
+
 
 		//}	// phase 3 if conditional statement
 

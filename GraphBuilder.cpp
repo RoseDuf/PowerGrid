@@ -52,6 +52,12 @@ GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int cityno, string city
 	return nptr;
 }
 
+
+string GraphBuilder::getMapName() {
+	return file;
+
+}
+
 //function to create a graph of v vertices
 GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> cities) {
 

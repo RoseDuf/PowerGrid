@@ -23,6 +23,12 @@ class Game : public Subject
 
 public:
 	
+	//Game needs
+		//DeckBuilder (does that include powerplants?)
+		//PlayerBuilder
+		//MapBuilder
+		//GraphBuilder
+
 
 	Game();
 	//Game(vector <Player*> players);
