@@ -5,6 +5,7 @@
 #include <vector>
 #include "Elektro.hpp"
 #include "Player.hpp"
+#include "Market.hpp"
 
 
 namespace HelperFunctions {
@@ -44,6 +45,10 @@ namespace HelperFunctions {
     bool areDifferentPlayers(const Player* player1, const Player* player2);
     
     int determineAverageAmountOfCitiesOwnedByPlayers(std::vector<Player*> players);
+    
+    std::string determineCheapestResource(Market market, std::string resource1, std::string resource2); // if prices are same, the first resource passed as a parameter is returned
+    
+    std::string determineCheapestResource(Market market, std::string resource1, std::string resource2, std::string resource3, std::string resource4); // if prices are same, the first resource passed as a parameter is returned
     
     template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
         std::vector<T> combination;

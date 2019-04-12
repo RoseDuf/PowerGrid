@@ -4,6 +4,7 @@
 #include "Elektro.hpp"
 #include <vector>
 #include <climits>
+#include "Market.hpp"
 
 namespace HelperFunctions {
     
@@ -14,6 +15,22 @@ namespace HelperFunctions {
         else {
             return secondInteger;
         }
+    }
+    
+    std::string determineCheapestResource(Market market, std::string resource1, std::string resource2) {
+        if( market.getPrice(resource1) <= market.getPrice(resource2) ) {
+            return resource1;
+        }
+        else {
+            return resource2;
+        }
+    }
+    
+    std::string determineCheapestResource(Market market, std::string resource1, std::string resource2, std::string resource3, std::string resource4) {
+        std::string cheapestOfOneAndTwo = determineCheapestResource(market, resource1, resource2);
+        std::string cheapestOfThreeAndFour = determineCheapestResource(market, resource3, resource4);
+        
+        return determineCheapestResource(market, cheapestOfOneAndTwo, cheapestOfThreeAndFour);
     }
     
     bool areDifferentPlayers(const Player* player1, const Player* player2) {
