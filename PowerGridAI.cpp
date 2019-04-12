@@ -10,8 +10,8 @@ BiddingDetails PowerGridAI::executePowerPlantBiddingStrategy(Player* player, int
     return strategy->getBiddingDetails(player, biddedPowerPlantIndex, highestBidSoFar);
 }
 
-ResourcePurchaseChoice PowerGridAI::executeResourceBuyingStrategy() {
-    return strategy->getResourcePurchaseChoice();
+ResourcePurchaseChoice PowerGridAI::executeResourceBuyingStrategy(const Player* player) {
+    return strategy->getResourcePurchaseChoice(player);
 }
 
 std::vector<City> PowerGridAI::executeCityBuildingStrategy(const Player* player, int gameStep) {

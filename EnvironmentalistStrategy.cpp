@@ -129,3 +129,7 @@ std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* 
     
     return citiesToBuildIn;
 }
+
+ResourcePurchaseChoice EnvironmentalistStrategy::getResourcePurchaseChoice(const Player* player) {
+    return ResourcePurchaseChoice(0,0,0,0); // TODO
+}

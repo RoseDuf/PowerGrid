@@ -100,3 +100,7 @@ std::vector<City> ModerateStrategy::getCityBuildingChoice(const Player* player, 
     
     return citiesToBuildIn;
 }
+
+ResourcePurchaseChoice ModerateStrategy::getResourcePurchaseChoice(const Player* player) {
+    return ResourcePurchaseChoice(0,0,0,0); // TODO
+}
