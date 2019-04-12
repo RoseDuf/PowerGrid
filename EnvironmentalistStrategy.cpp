@@ -81,7 +81,7 @@ BiddingDetails EnvironmentalistStrategy::getBiddingDetails(const Player* player,
     return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) ); // if nothing else was returned, return -1, which means that no bid was made (the 2nd parameter's PowerPlant is irrelevant and could be any PowerPlant)
 }
 
-std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice() {
+std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* player, int gameStep) {
     std::vector<City> citiesToBuildIn;
     
     return citiesToBuildIn;

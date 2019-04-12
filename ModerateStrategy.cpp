@@ -61,7 +61,7 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
     return BiddingDetails( -1,PowerPlant::peekIthPowerPlantInPresentMarket(0),PowerPlant::peekIthPowerPlantInPresentMarket(0) );
 }
 
-std::vector<City> ModerateStrategy::getCityBuildingChoice(int gameStep) {
+std::vector<City> ModerateStrategy::getCityBuildingChoice(const Player* player, int gameStep) {
     std::vector<City> citiesToBuildIn;
     
     return citiesToBuildIn;

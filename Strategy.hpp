@@ -27,7 +27,7 @@ class Strategy {
         virtual std::string chooseOneRegion(std::vector<std::string> alreadyChosenRegions);
         //LATER?:virtual std::string chooseRemainingRegions(std::vector<std::string> alreadyChosenRegions);
         virtual ResourcePurchaseChoice getResourcePurchaseChoice() = 0;
-        virtual std::vector<City> getCityBuildingChoice(int gameStep) = 0; // returns a vector of city numbers (a.k.a. map vertice numbers)
+        virtual std::vector<City> getCityBuildingChoice(const Player* player, int gameStep) = 0; // returns a vector of city numbers (a.k.a. map vertice numbers)
         virtual ~Strategy();
 };
 
