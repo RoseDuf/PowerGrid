@@ -9,10 +9,20 @@
 class PowerGridBuilder : public GameplayBuilder {
 
 
-	void createGameplay(vector<Player*>& players, string phase) override { g1 = new Gameplay("PowerGrid");}
-	void buildPlayers( vector<Player*>& players) override {g1->setPlayers(players); } //set actual players here
+	virtual void createGameplay(vector<Player*>& players, string phase) override { 
+		
+		g1 = new Gameplay("PowerGrid");}
+
+
+	virtual void buildPlayers( vector<Player*>& players) override {
+		g1->setPlayers(players);
+	
+	} //set actual players here
 	//void buildMap(string file) override { g1->setMap(); } //set actual map here
-	void buildPhase(string phase) override { g1->setPhase(); }//set actual phase here
+	virtual void buildPhase(string phase) override { 
+		
+		g1->setPhase(); 
+	}//set actual phase here
 
 
 

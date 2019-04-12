@@ -1873,7 +1873,7 @@ void Game::dashboard(Player* p) {
 void Game::play()
 {
 	GameplayDirector director;
-
+	PowerGridBuilder powergrid;
 
 	cout << "\n***********************************************************" << endl;
 	cout << "\n***********************************************************" << endl;
@@ -1923,10 +1923,8 @@ void Game::play()
 
 		//save gameplay at this point
 		string tempString = "Determine Player Order";
-		director.createGameplay(players, tempString);
-
-
-		//printToFile
+		Gameplay* g = director.createGameplay(players, tempString);
+		g->printToFile();
 
 
 
@@ -1941,6 +1939,11 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 		
 		EnterAuctioningPhase(powerPlantMarket, players);
+		//save gameplay at this point
+		 tempString = "Auctioning Phase";
+		 g = director.createGameplay(players, tempString);
+		g->printToFile();
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
@@ -1952,6 +1955,13 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 		
 		phase3_buyingResources();
+
+		//save gameplay at this point
+		 tempString = "Buying Resources";
+		 g = director.createGameplay(players, tempString);
+		g->printToFile();
+
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 4..." << endl;
 		cin >> pause;
@@ -1964,6 +1974,12 @@ void Game::play()
 
 		//method where we are checking for win conditions, set up according to number of players and looks if a player owns a specific number of cities
 		phase4_building();
+
+		//save gameplay at this point
+		 tempString = "Building";
+		 g = director.createGameplay(players, tempString);
+		g->printToFile();
+
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 5..." << endl;
 		cin >> pause;
@@ -1975,6 +1991,12 @@ void Game::play()
 		cout << "\n***********************************************************" << endl;
 
 		phase5_bureaucracy();
+
+		//save gameplay at this point
+		tempString = "Bureaucracy";
+		 g = director.createGameplay(players, tempString);
+		g->printToFile();
+
 		Notify();
 
 		//printing the winner
