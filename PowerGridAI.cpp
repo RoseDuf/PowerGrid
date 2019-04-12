@@ -14,8 +14,8 @@ ResourcePurchaseChoice PowerGridAI::executeResourceBuyingStrategy() {
     return strategy->getResourcePurchaseChoice();
 }
 
-std::vector<int> PowerGridAI::executeCityBuildingStrategy() {
-    return strategy->getCityBuildingChoice();
+std::vector<City> PowerGridAI::executeCityBuildingStrategy(int gameStep) {
+    return strategy->getCityBuildingChoice(gameStep);
 }
 
 std::string PowerGridAI::executeRegionChoosingStrategy(std::vector<std::string> alreadyChosenRegions) {

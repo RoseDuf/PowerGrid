@@ -13,7 +13,7 @@ class PowerGridAI {
         BiddingDetails executePowerPlantBiddingStrategy(Player* player, int biddedPowerPlantIndex, int highestBidSoFar);
         ResourcePurchaseChoice executeResourceBuyingStrategy();
         std::string executeRegionChoosingStrategy(std::vector<std::string> alreadyChosenRegions);
-        std::vector<int> executeCityBuildingStrategy();
+        std::vector<City> executeCityBuildingStrategy(int gameStep);
 
         void changeStrategy(Strategy* strategy);
         ~PowerGridAI();
