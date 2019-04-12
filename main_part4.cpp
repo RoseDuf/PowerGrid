@@ -9,6 +9,7 @@
 #include "Elektro.hpp"
 #include "Market.hpp"
 #include "HelperFunctions.hpp"
+
 using namespace std;
 using namespace HelperFunctions;
 static void shuffle(vector<GameCard*> &_deck)

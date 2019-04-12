@@ -64,6 +64,7 @@ public:
 	//building class functions
 	//GraphBuilder(int totalVertices);
 	GraphBuilder(int totalVertices, std::string file);
+	GraphBuilder();
 	~GraphBuilder();
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
@@ -74,6 +75,10 @@ public:
 	void addConnectedCitiestoVector();
 	void printGraph();
 	void printAvailableCities();
+	bool findCityByNameBool(string name);
+	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
+	string getMapName();
+
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
@@ -93,12 +98,13 @@ public:
 	*/
 
 	//additional functions
-	//City findCityByName(string name);
-    bool findCityByNameBool(string name);
+	City findCityByName(string name);
 	void removeRegions(string color);
 	bool add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
 	int HowManyPlayersAreInCity(string cityName);
+	vector<Player> PlayersInCIty(string cityName);
+	string PrintOwnedCities();
 	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(string city1, string city2);
 	void searchCity(string cityName);
@@ -109,20 +115,21 @@ public:
 	bool test_SizeOfMap_and_FileMap();
 	bool hasDuplicateEdge();
 	bool hasMissingEdge();
-	void buildMap();
 
 	bool eachRegionHasSevenCities();
     bool isValidGraph();
     std::vector< std::pair<City,int> > getStillOccupiableCitiesAndOccupationAmounts(int gameStep);
     std::vector<std::string> getAllRegionColors() const;
+
 	//variables needed for the graph building
 private:
+	void buildMap();
 	int totalVertices;
 	Graph * graph;
 	std::string file;
 	MapData mapData;
 	std::vector<EdgeTriplet> edges;
-	//std::vector<City> cities; // I don't think this is needed; it's provided by std::get<0>(mapData) anyways (and mapData is a field in GraphBuilder).
+	std::vector<City> cities;
 	vector<vector<int>> connected;
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);

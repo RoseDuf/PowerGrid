@@ -701,6 +701,54 @@ std::vector<std::string> GraphBuilder::getAllRegionColors() const {
     return ALL_REGION_COLORS;
 }
 
+void GraphBuilder::playerNameInCity(string city3) {		//tentative add -- don't hate me Rose
+
+	for (int i = 0; i < totalVertices; i++) {
+
+		if (graph->arr[i].city.getCityName() == city3) {
+			if (graph->arr[i].players.size() == 0) {
+				cout << "Nobody owns this." << endl;
+			}
+			else {
+				for (int j = 0; j < graph->arr[i].players.size(); j++) {
+					cout << "Owned By: " << graph->arr[i].players[j].getName() << endl;
+				}
+
+			}
+		}
+
+	}
+}
+
+//returns a string of players inside cities
+string  GraphBuilder::PrintOwnedCities() {
+	string stringc;
+	string stringp;
+	string result;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].players.size() == 0) {
+			//print nothing;
+		}
+		else {
+			stringc = graph->arr[i].city.getCityName() + ":";
+			for (int j = 0; j < graph->arr[i].players.size(); j++) {
+				stringp += " " + graph->arr[i].players[j].getName();
+			}
+			result = stringc + stringp;
+			return result;
+		}
+	}
+}
+
+//returns the players in a city
+vector<Player>  GraphBuilder::PlayersInCIty(string cityName) {
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == cityName) {
+			return graph->arr[i].players;
+		}
+	}
+}
+
 /* ----------------------------------------------------------------------------------------------------------
 Dijkstra Search algorithm source code taken and modified from:
 https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/

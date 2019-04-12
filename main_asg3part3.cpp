@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include "PowerGridIO.hpp"
 #include "GraphBuilder.h"
@@ -12,4 +12,4 @@ int main() {
     std::cout << g.isValidGraph() << std::endl;
     return 0;
 }
-
+*/

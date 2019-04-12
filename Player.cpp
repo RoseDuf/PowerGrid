@@ -43,6 +43,14 @@ Player::Player(const Player &p2) {
 	playerOrder = p2.playerOrder;
 }
 
+void Player::setWin(bool t)
+{
+	hasWon = t;
+}
+bool Player::getWin()
+{
+	return hasWon;
+}
 string Player::getName() const {
 	return name;
 }

@@ -12,12 +12,13 @@
 #include "GraphBuilder.h"
 #include "Elektro.hpp"
 #include "Market.hpp"
+#include "Game.h"
 #include "HelperFunctions.hpp"
 
 using namespace std;
 using namespace HelperFunctions;
 
-static void shuffle(vector<GameCard*> &_deck){
+static void shuffle(vector<GameCard*> &_deck) {
 	random_shuffle(_deck.begin(), _deck.end());
 }
 
@@ -128,14 +129,16 @@ static void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantM
 	_deck.insert(_deck.begin(), p11);
 }
 
-static void print(vector<GameCard*> &_deck) {
+static void print(vector<GameCard*> &_deck)
+{
 	for (int i = 0; i < _deck.size(); i++)
 	{
 		_deck[i]->toString();
 	}
 }
 
-static void deleteDeck(vector<GameCard*> &_deck) {
+static void deleteDeck(vector<GameCard*> &_deck)
+{
 	for (int i = 0; i < _deck.size(); i++)
 	{
 
@@ -145,22 +148,42 @@ static void deleteDeck(vector<GameCard*> &_deck) {
 
 }
 
-static void sortMarket(vector<GameCard*> &_powerPlantMarket) {
+static void sortMarket(vector<GameCard*> &_powerPlantMarket)
+{
 	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
 
 }
-
-static GameCard* drawCard(vector<GameCard*> &deck) {
-	GameCard *temp = deck.at(0);
-	deck.erase(deck.begin());
-	return temp;
+static int checkProfit(int _num)
+{
+	if (_num == 0) return 10;
+	else if (_num == 1) return 22;
+	else if (_num == 2) return 33;
+	else if (_num == 3) return 44;
+	else if (_num == 4) return 54;
+	else if (_num == 5) return 64;
+	else if (_num == 6) return 73;
+	else if (_num == 7) return 82;
+	else if (_num == 8) return 90;
+	else if (_num == 9) return 98;
+	else if (_num == 10) return 105;
+	else if (_num == 11) return 112;
+	else if (_num == 12) return 118;
+	else if (_num == 13) return 124;
+	else if (_num == 14) return 129;
+	else if (_num == 15) return 134;
+	else if (_num == 16) return 138;
+	else if (_num == 17) return 142;
+	else if (_num == 18) return 145;
+	else if (_num == 19) return 148;
+	else if (_num == 20) return 150;
+	return 0;
 }
 
-static void DeterminePlayerOrder(vector<Player*> &players, int round) {
+static void DeterminePlayerOrder(vector<Player*> &players, int phase) {
 
 	vector<int> playerOrder;
 
-	if (round == 1) {
+	if (phase == 1) {
 		for (int i = 0; i < players.size(); i++) {
 			playerOrder.push_back(i);
 		}
@@ -172,7 +195,7 @@ static void DeterminePlayerOrder(vector<Player*> &players, int round) {
 
 		cout << "Initial player order: " << endl;
 		cout << endl;
-		
+
 		for (int i = 0; i < players.size(); i++) {
 			players.at(i)->setplayerOrder(playerOrder[i]);
 		}
@@ -182,7 +205,7 @@ static void DeterminePlayerOrder(vector<Player*> &players, int round) {
 		for (int i = 0; i < players.size(); i++) {
 			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
 		}
-		
+
 		cout << endl;
 	}
 
@@ -267,7 +290,7 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 					}
 					else {
 						//handles the bug that when everybody passes, the last player automatically wins the bid (bad)
-						if (player[0]->getName() == players[players.size()-1]->getName()) { 
+						if (player[0]->getName() == players[players.size() - 1]->getName()) {
 							i -= 1;
 							lastBid = false;
 						}
@@ -337,7 +360,7 @@ static string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player
 		//remove powerplant from vector
 		return powerplant->getIdentifier();
 	}
-	else if (player.size() == 0){ //Manage the possibility that every one passes
+	else if (player.size() == 0) { //Manage the possibility that every one passes
 		string pause;
 		cout << "... No one bid? Why did you guys enter the auction in the first place? Oh well..." << endl;
 		cout << "Enter anything to continue..." << endl;
@@ -433,65 +456,382 @@ static vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vecto
 }
 
 int main() {
+
+	//============================== Assignment 2, task 1, ================================================
+	// Select the number of players in the game
+	std::cout << "How many players? (2-6):";
+	int amountOfPlayers = 0;
+	string playerName = "";
+	string color = "";
+	string aiorhuman = "";
+	bool AI = false;
+
+	vector<string> colors;
+		colors.push_back("Red");
+		colors.push_back("Blue");
+		colors.push_back("Black");
+		colors.push_back("Purple");
+		colors.push_back("Green");
+		int colorsSize = colors.size();
+
+	static vector<Player*> players;
+
+	std::cin >> amountOfPlayers;
+
+	int amountOfRegionsToChoose = 0;
+
+	cout << "Humans or AI? (type in either Humans or AI)" << endl;
+	cin >> aiorhuman;
+	while (aiorhuman != "AI" && aiorhuman != "Humans") {
+		cout << "We asked for Humans or AI... (type in either Humans or AI)" << endl;
+		cin >> aiorhuman;
+	}
+	if (aiorhuman == "AI") {
+		AI = true;
+	}
+	else if (aiorhuman == "Humans") {
+		AI = false;
+	}
+
+	if (amountOfPlayers == 2) {
+		amountOfRegionsToChoose = 3;
+		if (AI == true) {
+			players.push_back(new Player("Nicole", "Red"));
+			players.push_back(new Player("Voldermort", "Green"));
+		}
+		else {
+			for (int i = 0; i < 2; i++) {
+				cout << "Enter your name: ";
+				cin >> playerName;
+				cout << "Enter your color choice: ";
+				cin >> color;
+				for (int j = 0; j < colors.size(); j++) {
+					if (color == colors[j]) {
+						colors.erase(colors.begin() + j);
+					}
+				}
+				while (colorsSize == colors.size()) {
+					cout << "Enter another color choice: ";
+					cin >> color;
+					for (int j = 0; j < colors.size(); j++) {
+						if (color == colors[j]) {
+							colors.erase(colors.begin() + j);
+						}
+					}
+				}
+				players.push_back(new Player(playerName, color));
+				colorsSize = colors.size();
+			}
+		}
+	}
+	else if (amountOfPlayers == 3) {
+		amountOfRegionsToChoose = 3;
+		if (AI == true) {
+			players.push_back(new Player("Nicole", "Red"));
+			players.push_back(new Player("Voldermort", "Green"));
+			players.push_back(new Player("Pikachu", "Blue"));
+		}
+		else {
+			for (int i = 0; i < 3; i++) {
+				cout << "Enter your name: ";
+				cin >> playerName;
+				cout << "Enter your color choice: ";
+				cin >> color;
+				for (int j = 0; j < colors.size(); j++) {
+					if (color == colors[j]) {
+						colors.erase(colors.begin() + j);
+					}
+				}
+				while (colorsSize == colors.size()) {
+					cout << "Enter another color choice: ";
+					cin >> color;
+					for (int j = 0; j < colors.size(); j++) {
+						if (color == colors[j]) {
+							colors.erase(colors.begin() + j);
+						}
+					}
+				}
+				players.push_back(new Player(playerName, color));
+				colorsSize = colors.size();
+			}
+		}
+	}
+	else if (amountOfPlayers == 4) {
+		amountOfRegionsToChoose = 4;
+		if (AI == true) {
+			players.push_back(new Player("Nicole", "Red"));
+			players.push_back(new Player("Voldermort", "Green"));
+			players.push_back(new Player("Pikachu", "Blue"));
+			players.push_back(new Player("Smith", "Purple"));
+		}
+		else {
+			for (int i = 0; i < 4; i++) {
+				cout << "Enter your name: ";
+				cin >> playerName;
+				cout << "Enter your color choice: ";
+				cin >> color;
+				for (int j = 0; j < colors.size(); j++) {
+					if (color == colors[j]) {
+						colors.erase(colors.begin() + j);
+					}
+				}
+				while (colorsSize == colors.size()) {
+					cout << "Enter another color choice: ";
+					cin >> color;
+					for (int j = 0; j < colors.size(); j++) {
+						if (color == colors[j]) {
+							colors.erase(colors.begin() + j);
+						}
+					}
+				}
+				players.push_back(new Player(playerName, color));
+				colorsSize = colors.size();
+			}
+		}
+	}
+	else if (amountOfPlayers == 5) {
+		amountOfRegionsToChoose = 5;
+		if (AI == true) {
+			players.push_back(new Player("Nicole", "Red"));
+			players.push_back(new Player("Voldermort", "Green"));
+			players.push_back(new Player("Pikachu", "Blue"));
+			players.push_back(new Player("Smith", "Purple"));
+			players.push_back(new Player("Roger", "Black"));
+		}
+		else {
+			for (int i = 0; i < 5; i++) {
+				cout << "Enter your name: ";
+				cin >> playerName;
+				cout << "Enter your color choice: ";
+				cin >> color;
+				for (int j = 0; j < colors.size(); j++) {
+					if (color == colors[j]) {
+						colors.erase(colors.begin() + j);
+					}
+				}
+				while (colorsSize == colors.size()) {
+					cout << "Enter another color choice: ";
+					cin >> color;
+					for (int j = 0; j < colors.size(); j++) {
+						if (color == colors[j]) {
+							colors.erase(colors.begin() + j);
+						}
+					}
+				}
+				players.push_back(new Player(playerName, color));
+				colorsSize = colors.size();
+			}
+		}
+	}
+	else if (amountOfPlayers == 6) {
+		amountOfRegionsToChoose = 5;
+		if (AI == true) {
+			players.push_back(new Player("Nicole", "Red"));
+			players.push_back(new Player("Voldermort", "Green"));
+			players.push_back(new Player("Pikachu", "Blue"));
+			players.push_back(new Player("Smith", "Purple"));
+			players.push_back(new Player("Roger", "Black"));
+			players.push_back(new Player("Dustyn", "Yellow"));
+		}
+		else {
+			for (int i = 0; i < 6; i++) {
+				cout << "Enter your name: ";
+				cin >> playerName;
+				cout << "Enter your color choice: ";
+				cin >> color;
+				for (int j = 0; j < colors.size(); j++) {
+					if (color == colors[j]) {
+						colors.erase(colors.begin() + j);
+					}
+				}
+				while (colorsSize == colors.size()) {
+					cout << "Enter another color choice: ";
+					cin >> color;
+					for (int j = 0; j < colors.size(); j++) {
+						if (color == colors[j]) {
+							colors.erase(colors.begin() + j);
+						}
+					}
+				}
+				players.push_back(new Player(playerName, color));
+				colorsSize = colors.size();
+			}
+		}
+	}
+
+	std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
+
+												 // Select a map
+	std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
+	std::cout << "1) Germany map" << std::endl;
+	std::cout << "2) USA map" << std::endl;
+	std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
+	std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
+
+	int mapChoice;
+
+	std::cin >> mapChoice;
+
+	std::string mapFilename;
+	if (mapChoice == 1) {
+		mapFilename = "germany.map";
+	}
+	else if (mapChoice == 2) {
+		mapFilename = "usa.map"; // TODO
+	}
+	else if (mapChoice == 3) {
+		mapFilename = "duplicate_edge(s).map";
+	}
+	else if (mapChoice == 4) {
+		mapFilename = "missing_edge(s).map";
+	}
+	//else {
+	// throw no map exception or something like that
+	//}
+
+	MapData mapData = PowerGridIO::getMapData(mapFilename);
+	std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
+	vector<string> chosenRegCols;
+
+	if (AI == true) {
+		//powerGridAI.executeRegionColorChoice(std::vector<std::string> alreadyChosenColors) or something like that
+	}
+	else {
+		for (int i = 0; i < amountOfRegionsToChoose; i++) {
+
+			std::cout << "Choose region color " << (i + 1) << ":";
+			std::string currentRegionColorChoice = "";
+			std::cin >> currentRegionColorChoice;
+			chosenRegCols.push_back(currentRegionColorChoice);
+		}
+	}
+	int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
+	GraphBuilder graph = GraphBuilder(amountOfVertices, mapFilename);
+
+	std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+	std::cout << std::endl;
+	std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
+	std::cout << std::endl;
+	std::cout << "does map have duplicate edge(s)?:" << graph.hasDuplicateEdge() << std::endl;
+	std::cout << std::endl;
+	std::cout << "does map have missing edge(s)?:" << graph.hasMissingEdge() << std::endl;
+
+	std::cout << std::endl;
+
+	while (graph.hasDuplicateEdge() || graph.hasMissingEdge()) {
+		std::cout << "ERROR: The map is invalid." << std::endl;
+		cout << endl;
+		std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
+		std::cout << "1) Germany map" << std::endl;
+		std::cout << "2) USA map" << std::endl;
+		std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
+		std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
+
+		int mapChoice;
+
+		std::cin >> mapChoice;
+
+		std::string mapFilename;
+		if (mapChoice == 1) {
+			mapFilename = "germany.map";
+		}
+		else if (mapChoice == 2) {
+			mapFilename = "usa.map"; // TODO
+		}
+		else if (mapChoice == 3) {
+			mapFilename = "duplicate_edge(s).map";
+		}
+		else if (mapChoice == 4) {
+			mapFilename = "missing_edge(s).map";
+		}
+		//else {
+		// throw no map exception or something like that
+		//}
+
+		MapData mapData = PowerGridIO::getMapData(mapFilename);
+		std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
+		vector<string> chosenRegCols;
+
+		for (int i = 0; i < amountOfRegionsToChoose; i++) {
+
+			std::cout << "Choose region color " << (i + 1) << ":";
+			std::string currentRegionColorChoice = "";
+			std::cin >> currentRegionColorChoice;
+			chosenRegCols.push_back(currentRegionColorChoice);
+		}
+
+		int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
+		graph = GraphBuilder(amountOfVertices, mapFilename);
+
+		std::cout << "are chosen regions connected?: " << graph.areChosenRegionsConnected(chosenRegCols) << std::endl;
+		std::cout << std::endl;
+		std::cout << "do all regions have exactly 7 cities?:" << graph.eachRegionHasSevenCities() << std::endl;
+		std::cout << std::endl;
+		std::cout << "does map have duplicate edge(s)?:" << graph.hasDuplicateEdge() << std::endl;
+		std::cout << std::endl;
+		std::cout << "does map have missing edge(s)?:" << graph.hasMissingEdge() << std::endl;
+
+		std::cout << std::endl;
+	}
 	
-	//Initiate Graph and Build Map
-	GraphBuilder graph = GraphBuilder(42, "germany.map");
-	
+	std::cout << "The map is valid." << std::endl;
+
 	//============================== Assignment 2, task 2, ================================================
+	string pause;
 	static vector<GameCard*> deck;
 	static vector<GameCard*> powerPlantMarket;
 
 	Market market = Market();
 
+	Game g1 = Game();
+
 	makingDeck(deck, powerPlantMarket);
-	//shuffle(deck);
-	//print(deck);
 	sortMarket(powerPlantMarket);
-	print(powerPlantMarket);
-
-	static vector<Player*> players;
-	
-	players.push_back(new Player("Nicole", "Red"));
-	players.push_back(new Player("Voldermort", "Green"));
-	players.push_back(new Player("Pikachu", "Blue"));
-	players.push_back(new Player("Smith", "Purple"));
-
-	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Berlin");
-	graph.add_CityToPlayer_and_PlayerToMap(players[0], "Frankfurt-O");
-	graph.add_CityToPlayer_and_PlayerToMap(players[1], "Kiel");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Frankfurt-M");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Hamburg");
-	graph.add_CityToPlayer_and_PlayerToMap(players[2], "Cuxhaven");
-
+	cout << "Enter anything to continue..." << endl;
+	cin >> pause;
 
 	//Game loop !!!!
-	bool gameIsNotFinished = false;
-	int round = 1;
-	string pause;
+	bool gameIsFinished = false;
+	int phase = 1;
+	static int step = 1; //should be step
+	
+	cout << "/////////////////////////////////////////////////////////////////////////" << endl;
+//START OF GAME LOOP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	cout << "GAME HAS STARTED" << endl;
+	while (gameIsFinished == false) {
 
-	while (gameIsNotFinished == false){
-		
-		while (round >= 1) {
+		while (phase >= 1) {
+
+			//step 1
+			DeterminePlayerOrder(players, phase);
+
+			cout << "Enter anything to continue..." << endl;
+			cin >> pause;
+
+			//step 2
+			EnterAuctioningPhase(powerPlantMarket, players);
+
+			cout << "Enter anything to continue..." << endl;
+			cin >> pause;
+
+			//step 3
 			
-			//task 2 - phase 1
-			DeterminePlayerOrder(players, round);
 
-			round += 1;
-			DeterminePlayerOrder(players, round);
 
-			cout << "Enter anything to continue..." << endl;
-			cin >> pause;
 
-			//task 2 - phase 2
-			EnterAuctioningPhase(powerPlantMarket, players); 
+			phase += 1;
 
-			cout << "Enter anything to continue..." << endl;
-			cin >> pause;
-
-			round = 0;
+			for (int i = 0; i < players.size(); i++) {
+				if (players[i]->getCitiesOwned().size() == 17)
+					phase = 0; // end of game
+				//GOTTA HANDLE WINNING CONDITIONS!
+			}
 		}
-		gameIsNotFinished = true;
-	}
+		gameIsFinished = true;
+	} //END OF GAME LOOP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 	deleteDeck(deck);
 
 
@@ -500,7 +840,7 @@ int main() {
 		delete players[i];
 		players[i] = NULL;
 	}
-	
+
 	return 0;
 }
 
