@@ -35,6 +35,8 @@ namespace HelperFunctions {
     
     int determineCostOfPurchasingCity(int amountOfPlayersAlreadyOccupyingCity); // assumes valid input
     
+    int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<const Player*> players);
+    
     template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
         std::vector<T> combination;
         for(int i = 0; i < v1.size(); i++) {

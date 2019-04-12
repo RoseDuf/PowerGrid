@@ -3,8 +3,22 @@
 #include "HelperFunctions.hpp"
 #include "Elektro.hpp"
 #include <vector>
+#include <climits>
 
 namespace HelperFunctions {
+    
+    int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<const Player*> players) {
+        
+        int leastAmountOfCitiesOwned = INT_MAX;
+        
+        for(int i = 0; i < players.size(); i++) {
+            if( players.at(i)->getNumCitiesOwned() < leastAmountOfCitiesOwned ) {
+                leastAmountOfCitiesOwned = players.at(i)->getNumCitiesOwned();
+            }
+        }
+        
+        return leastAmountOfCitiesOwned;
+    }
     
     int determineCostOfPurchasingCity(int amountOfPlayersAlreadyOccupyingCity) { // assumes valid input
         
