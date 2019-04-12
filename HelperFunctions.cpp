@@ -22,12 +22,12 @@ namespace HelperFunctions {
         return sumOfAllPlayersEarnings/players.size();
     }
     
-    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(std::vector<Player*> players) {
+    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(Player* thisPlayer, std::vector<Player*> players) {
         
         int leastAmountOfCitiesOwned = INT_MAX;
         
         for(int i = 0; i < players.size(); i++) {
-            if( players.at(i)->getNumCitiesOwned() < leastAmountOfCitiesOwned ) {
+            if(  areDifferentPlayers(thisPlayer, players.at(i)) && players.at(i)->getNumCitiesOwned() < leastAmountOfCitiesOwned ) {
                 leastAmountOfCitiesOwned = players.at(i)->getNumCitiesOwned();
             }
         }
