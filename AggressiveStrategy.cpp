@@ -96,10 +96,40 @@ ResourcePurchaseChoice AggressiveStrategy::getResourcePurchaseChoice(const Playe
     
     // resources in alphabetical order (coal, garbage, oil, uranium)
     
-    int coalsToPurchase = player->getTotalCoalStockable() - player->getTotalCoalStocked();
-    int garbagesToPurchase = player->getTotalGarbageStockable() - player->getTotalGarbageStocked();
-    int oilsToPurchase = player->getTotalOilStockable() - player->getTotalOilStocked();
-    int uraniumsToPurchase = player->getTotalUraniumStockable() - player->getTotalUraniumStocked();
+    Market market = std::get<0>(backgroundInformation);
+    
+    int idealAmountOfCoalsToPurchase = player->getTotalCoalStockable() - player->getTotalCoalStocked();
+    int idealAmountOfGarbagesToPurchase = player->getTotalGarbageStockable() - player->getTotalGarbageStocked();
+    int idealAmountOfOilsToPurchase = player->getTotalOilStockable() - player->getTotalOilStocked();
+    int idealAmountOfUraniumsToPurchase = player->getTotalUraniumStockable() - player->getTotalUraniumStocked();
+    
+    int coalsToPurchase = 0;
+    int garbagesToPurchase = 0;
+    int oilsToPurchase = 0;
+    int uraniumsToPurchase = 0;
+    
+    while( coalsToPurchase < idealAmountOfCoalsToPurchase && garbagesToPurchase < idealAmountOfGarbagesToPurchase && oilsToPurchase < idealAmountOfOilsToPurchase && uraniumsToPurchase < idealAmountOfUraniumsToPurchase ) {
+        if( "coal" == determineCheapestResource(market, "coal", "garbage", "oil", "uranium") && market.getPrice("coal") <= player->getTotalWallet() && coalsToPurchase < idealAmountOfCoalsToPurchase ) {
+            coalsToPurchase++;
+            market.rtPurchase("coal", 1);
+            market.updateSupply();
+        }
+        else if( "garbage" == determineCheapestResource(market, "coal", "garbage", "oil", "uranium") && market.getPrice("garbage") <= player->getTotalWallet() && garbagesToPurchase < idealAmountOfGarbagesToPurchase ) {
+            garbagesToPurchase++;
+            market.rtPurchase("garbage", 1);
+            market.updateSupply();
+        }
+        else if( "oil" == determineCheapestResource(market, "coal", "garbage", "oil", "uranium") && market.getPrice("oil") <= player->getTotalWallet() && oilsToPurchase < idealAmountOfOilsToPurchase ) {
+            oilsToPurchase++;
+            market.rtPurchase("oil", 1);
+            market.updateSupply();
+        }
+        else if( "uranium" == determineCheapestResource(market, "coal", "garbage", "oil", "uranium") && market.getPrice("uranium") <= player->getTotalWallet() && coalsToPurchase < idealAmountOfCoalsToPurchase ) {
+            uraniumsToPurchase++;
+            market.rtPurchase("uranium", 1);
+            market.updateSupply();
+        }
+    }
     
     return ResourcePurchaseChoice(coalsToPurchase,garbagesToPurchase,oilsToPurchase,uraniumsToPurchase);
 }
