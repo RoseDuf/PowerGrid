@@ -27,8 +27,21 @@ int main() {
 
 	GameplayDirector dir;
 	PowerGridBuilder game;
+	vector<Player*> players; //these will be created during game
+	players.push_back(new Player("Nicole", "Red"));
+	players.push_back(new Player("Voldermort", "Green"));
+	players.push_back(new Player("Pikachu", "Blue"));
+	players.push_back(new Player("Smith", "Purple"));
+	players.push_back(new Player("Roger", "Black"));
+	players.push_back(new Player("Dustyn", "Yellow"));
 
-	Gameplay *powergrid = dir.createGameplay(&game);
+
+
+	string map;				//these will be created during game
+	string phase;			//this will be created during game
+
+
+	Gameplay *powergrid = dir.createGameplay(players, map, phase);
 
 	powergrid->show();
 

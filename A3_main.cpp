@@ -1,4 +1,4 @@
-
+/*
 #include <vector>
 #include <string>
 #include <iostream>
@@ -25,8 +25,9 @@ int main()
 	delete the pointers
 	implement the destructor of game to delete the powerplant pointers, players...
 	
-	*/
+	
 
 	return 0;
 }
 
+*/

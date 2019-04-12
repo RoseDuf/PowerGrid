@@ -45,7 +45,7 @@ public:
 
 
 	//setters
-	void setPlayers(const vector<Player>& players) {}
+	void setPlayers(const vector<Player*>& players) {}
 	void setMap() {}	//void setupmap() in Game.h
 	void setPhase() {}
 
