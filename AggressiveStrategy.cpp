@@ -93,5 +93,6 @@ std::vector<City> AggressiveStrategy::getCityBuildingChoice(const Player* player
 }
 
 ResourcePurchaseChoice AggressiveStrategy::getResourcePurchaseChoice(const Player* player) {
+    
     return ResourcePurchaseChoice(0,0,0,0); // TODO
 }
