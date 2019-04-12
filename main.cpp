@@ -25,53 +25,16 @@ using namespace HelperFunctions;
 
 int main() {
 
-	GameplayDirector dir;
-	PowerGridBuilder game;
-	vector<Player*> players; //these will be created during game
-	players.push_back(new Player("Nicole", "Red"));
-	players.push_back(new Player("Voldermort", "Green"));
-	players.push_back(new Player("Pikachu", "Blue"));
-	players.push_back(new Player("Smith", "Purple"));
-	players.push_back(new Player("Roger", "Black"));
-	players.push_back(new Player("Dustyn", "Yellow"));
+	GameplayDirector director;
 
-
-
-	string map;				//these will be created during game
-	string phase;			//this will be created during game
-
-
-	Gameplay *powergrid = dir.createGameplay(players, map, phase);
-
-	powergrid->show();
-
-	delete powergrid;
-
-	return 0;
-
-
-
+	//save the game at the end of each phase (needs player vector, map, and phase)
+	director.createGameplay(players, map, phase);
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//main for task 3
 /*
+//main for task 3
+
 
 
 #include <vector>
@@ -299,6 +262,28 @@ static void Pass(Player * pl) {
 
 
 int main() {
+
+
+	GameplayDirector dir;
+	PowerGridBuilder game;
+	vector<Player> players; //these will be created during game
+
+
+
+
+	string map;				//these will be created during game
+	string phase;			//this will be created during game
+
+
+	Gameplay *powergrid = dir.createGameplay(players, map, phase);
+
+	powergrid->show();
+
+	delete powergrid;
+
+
+
+
 
 	//========================================TASK 1===================================================
 
@@ -1075,7 +1060,7 @@ int main() {
 }
 
 
-*/
+
 
 		//}	// phase 3 if conditional statement
 
