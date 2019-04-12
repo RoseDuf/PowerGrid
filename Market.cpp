@@ -59,10 +59,10 @@ void Market::updateSupply()
 	for (int i = 0; i < players.size(); i++)
 	{
 		//NEED A WAY TO GET PLAYERS NUMBER OF RESOURCE TOKEN
-		playersCoal += players[i]->getTotalCoal();
-		playersOil += players[i]->getTotalOil();
-		playersGarbage += players[i]->getTotalGarbage();
-		playersUranium += players[i]->getTotalUranium();
+		playersCoal += players[i]->getTotalCoalStocked();
+		playersOil += players[i]->getTotalOilStocked();
+		playersGarbage += players[i]->getTotalGarbageStocked();
+		playersUranium += players[i]->getTotalUraniumStocked();
 	}
 
 	// cout << "players coal: "<< playersCoal << endl;

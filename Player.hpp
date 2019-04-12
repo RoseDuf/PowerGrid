@@ -76,10 +76,10 @@ public:
 	//int getCitiesPowered() const; I think this method is both buggy and outdated.
 	//setting powered back to false as we are starting another round in the game
 	void setCitiesPowered();
-	int getTotalCoal() const;
-	int getTotalOil() const;
-	int getTotalGarbage() const;
-	int getTotalUranium() const;
+	int getTotalCoalStocked() const;
+	int getTotalOilStocked() const;
+	int getTotalGarbageStocked() const;
+	int getTotalUraniumStocked() const;
     int getCurrentTotalMaximumCityPoweringPotential() const;
     void removePowerPlant(PowerPlant* powerPlant);
     void removePowerPlant(int powerPlantCardNumber);
