@@ -35,11 +35,11 @@ namespace HelperFunctions {
     
     int determineCostOfPurchasingCity(int amountOfPlayersAlreadyOccupyingCity); // assumes valid input
     
-    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(Player* thisPlayer, std::vector<Player*> players);
+    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(const Player* thisPlayer, std::vector<Player*> players);
     
     int determineAverageElektroAmountOfPlayers(std::vector<Player*> players);
     
-    bool areDifferentPlayers(Player* player1, Player* player2);
+    bool areDifferentPlayers(const Player* player1, const Player* player2);
     
     template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
         std::vector<T> combination;

@@ -7,7 +7,7 @@
 
 namespace HelperFunctions {
     
-    bool areDifferentPlayers(Player* player1, Player* player2) {
+    bool areDifferentPlayers(const Player* player1, const Player* player2) {
         return player1->getColor() != player2->getColor();
     }
     
@@ -22,7 +22,7 @@ namespace HelperFunctions {
         return sumOfAllPlayersEarnings/players.size();
     }
     
-    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(Player* thisPlayer, std::vector<Player*> players) {
+    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(const Player* thisPlayer, std::vector<Player*> players) {
         
         int leastAmountOfCitiesOwned = INT_MAX;
         
