@@ -178,6 +178,39 @@ int  Player::getTotalUraniumStocked() const {
 	return temp;
 }
 
+int  Player::getTotalCoalStockable() const {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTNeeded("coal");
+	}
+	return temp;
+}
+int  Player::getTotalOilStockable() const {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTNeeded("oil");
+	}
+	return temp;
+}
+int  Player::getTotalGarbageStockable() const {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTNeeded("garbage");
+	}
+	return temp;
+}
+int  Player::getTotalUraniumStockable() const {
+	int temp = 0;
+	for (int i = 0; i < powerPlants.size(); i++)
+	{
+		temp += powerPlants[i]->getRTNeeded("uranium");
+	}
+	return temp;
+}
+
 void Player::toString() {
 	cout << "Player name: " << name << "\nPlayer color: " << color
 		<< "\nNumber of Power Plants owned: " << powerPlants.size() << endl;
