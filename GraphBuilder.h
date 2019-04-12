@@ -77,6 +77,8 @@ public:
 	void printAvailableCities();
 	bool findCityByNameBool(string name);
 	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
+	string getMapName();
+
 
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
 
