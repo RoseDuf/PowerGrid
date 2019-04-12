@@ -192,7 +192,7 @@ int  Player::getTotalCoalStockable() const {
 	{
 		temp += powerPlants[i]->getRTNeeded("coal");
 	}
-	return temp;
+	return 2*temp;
 }
 int  Player::getTotalOilStockable() const {
 	int temp = 0;
@@ -200,7 +200,7 @@ int  Player::getTotalOilStockable() const {
 	{
 		temp += powerPlants[i]->getRTNeeded("oil");
 	}
-	return temp;
+	return 2*temp;
 }
 int  Player::getTotalGarbageStockable() const {
 	int temp = 0;
@@ -208,7 +208,7 @@ int  Player::getTotalGarbageStockable() const {
 	{
 		temp += powerPlants[i]->getRTNeeded("garbage");
 	}
-	return temp;
+	return 2*temp;
 }
 int  Player::getTotalUraniumStockable() const {
 	int temp = 0;
@@ -216,7 +216,7 @@ int  Player::getTotalUraniumStockable() const {
 	{
 		temp += powerPlants[i]->getRTNeeded("uranium");
 	}
-	return temp;
+	return 2*temp;
 }
 
 void Player::toString() {

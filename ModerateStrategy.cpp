@@ -32,7 +32,7 @@ BiddingDetails ModerateStrategy::getBiddingDetails(const Player* player, int bid
     std::vector<Player*> players = std::get<1>(backgroundInformation);
     int averageElektroAmount = determineAverageElektroAmountOfPlayers(players);
     
-    if( player->getTotalCoalStockable() == player->getTotalCoalStocked() && player->getTotalGarbageStockable() == player->getTotalGarbageStocked() && player->getTotalOilStockable() == player->getTotalOilStocked() && player->getTotalUraniumStockable() == player->getTotalUraniumStocked() && player->getTotalWallet() < averageElektroAmount ) { // if this player has enough resources to fully power pps and has less than avg player's elektros, then gets aggressive for buying best pp possible
+    if( player->getTotalCoalStockable() == 2*player->getTotalCoalStocked() && player->getTotalGarbageStockable() == 2*player->getTotalGarbageStocked() && player->getTotalOilStockable() == 2*player->getTotalOilStocked() && player->getTotalUraniumStockable() == 2*player->getTotalUraniumStocked() && player->getTotalWallet() < averageElektroAmount ) { // if this player has enough resources to fully power pps and has less than avg player's elektros, then gets aggressive for buying best pp possible
         AggressiveStrategy aggressiveStrategy(backgroundInformation);
         aggressiveStrategy.getBiddingDetails(player, biddedPowerPlantIndex, highestBidSoFar);
     }
