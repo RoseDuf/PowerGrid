@@ -18,7 +18,7 @@ namespace HelperFunctions {
         return sumOfAllPlayersEarnings/players.size();
     }
     
-    int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<Player*> players) {
+    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(std::vector<Player*> players) {
         
         int leastAmountOfCitiesOwned = INT_MAX;
         

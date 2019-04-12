@@ -35,7 +35,7 @@ namespace HelperFunctions {
     
     int determineCostOfPurchasingCity(int amountOfPlayersAlreadyOccupyingCity); // assumes valid input
     
-    int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<Player*> players);
+    int determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(std::vector<Player*> players);
     
     int determineAverageElektroAmountOfPlayers(std::vector<Player*> players);
     
