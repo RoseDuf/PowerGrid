@@ -41,6 +41,8 @@ namespace HelperFunctions {
     
     bool areDifferentPlayers(const Player* player1, const Player* player2);
     
+    int determineAverageAmountOfCitiesOwnedByPlayers(std::vector<Player*> players);
+    
     template<typename T> std::vector<T> combineVectors(std::vector<T> v1, std::vector<T> v2) {
         std::vector<T> combination;
         for(int i = 0; i < v1.size(); i++) {
