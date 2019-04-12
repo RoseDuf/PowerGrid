@@ -1922,12 +1922,13 @@ void Game::play()
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
 		
-		cout << "\n***********************************************************" << endl;
+	/*	
+	cout << "\n***********************************************************" << endl;
 		cout << "\n***********************************************************" << endl;
 		cout << "PHASE 2 : AUCTION" << endl;
 		cout << "\n***********************************************************" << endl;
 		cout << "\n***********************************************************" << endl;
-
+		*/
 		Notify2();
 		
 		EnterAuctioningPhase(powerPlantMarket, players);

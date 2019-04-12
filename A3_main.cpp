@@ -10,7 +10,7 @@
 #include "GameplayDirector.h"
 #include "PowerGridBuilder.h"
 #include "Gameplay.h"
-
+#include "Info.h"
 using namespace std;
 using namespace HelperFunctions;
 
