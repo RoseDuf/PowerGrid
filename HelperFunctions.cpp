@@ -7,7 +7,7 @@
 
 namespace HelperFunctions {
     
-    int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<const Player*> players) {
+    int determineAmountOfCitiesOwnedByPlayerWithLeastAmountOfCities(std::vector<Player*> players) {
         
         int leastAmountOfCitiesOwned = INT_MAX;
         
