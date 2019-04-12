@@ -642,7 +642,7 @@ bool GraphBuilder::isValidGraph() {
     return !hasDuplicateEdge() && !hasMissingEdge() && eachRegionHasSevenCities();
 }
 
-std::vector<City> GraphBuilder::getStillOccupiableCities(int gameStep) {
+std::vector< std::pair<City,int> > GraphBuilder::getStillOccupiableCitiesAndOccupationAmounts(int gameStep) {
         
     /*OLD_CODE_jic:std::vector<City> availableCities;
     
@@ -664,16 +664,16 @@ std::vector<City> GraphBuilder::getStillOccupiableCities(int gameStep) {
     
     const int MAX_AMOUNT_OF_OCCUPATIONS_PER_CITY = gameStep;
     
-    std::vector<City> stillOccupiableCities;
+    std::vector< std::pair<City,int> > socsAndOccupationAmount;
     
     std::vector<CityList> cityList = graph->arr;    
     for(int i = 0; i < cityList.size(); i++) {
         if( cityList.at(i).city.isAvailable() && cityList.at(i).players.size() < MAX_AMOUNT_OF_OCCUPATIONS_PER_CITY ) { // if the city is occupiable
-            stillOccupiableCities.push_back( cityList.at(i).city );
+            socsAndOccupationAmount.push_back( std::make_pair(cityList.at(i).city,cityList.at(i).players.size()) );
         }
     }
     
-    return stillOccupiableCities;    
+    return socsAndOccupationAmount;    
 }
 
 bool GraphBuilder::findCityByNameBool(string name) {
