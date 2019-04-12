@@ -27,10 +27,11 @@ void Info::Update2()
 
 void Info::display()
 {
+	vector<Player*>  temp = *_subject->getPlayers();
 	cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< CURRENT INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
-	for (int i = 0; i < _subject->getPlayers().size(); i++) {
-		cout << "\t\t------------------------------ " << _subject->getPlayers()[i]->getName() << "'s current posessions ------------------------------" << endl;
-		_subject->getPlayers()[i]->toString();
+	for (int i = 0; i < temp.size(); i++) {
+		cout << "\t\t------------------------------ " << temp[i]->getName() << "'s current posessions ------------------------------" << endl;
+		temp[i]->toString();
 	}
 
 	cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
