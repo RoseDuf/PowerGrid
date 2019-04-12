@@ -8,7 +8,7 @@ class ModerateStrategy : public Strategy {
     public:
         ModerateStrategy(AIStrategyData backgroundInformation);
         virtual BiddingDetails getBiddingDetails(const Player* player, int biddedPowerPlantIndex, int highestBigSoFar);
-        virtual std::vector<City> getCityBuildingChoice(const Player* player, int gameStep) = 0;
+        virtual std::vector<City> getCityBuildingChoice(const Player* player, int gameStep);
 };
 
 #endif
