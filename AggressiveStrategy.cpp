@@ -94,5 +94,12 @@ std::vector<City> AggressiveStrategy::getCityBuildingChoice(const Player* player
 
 ResourcePurchaseChoice AggressiveStrategy::getResourcePurchaseChoice(const Player* player) {
     
-    return ResourcePurchaseChoice(0,0,0,0); // TODO
+    // resources in alphabetical order (coal, garbage, oil, uranium)
+    
+    int coalsToPurchase = player->getTotalCoalStockable() - player->getTotalCoalStocked();
+    int garbagesToPurchase = player->getTotalGarbageStockable() - player->getTotalGarbageStocked();
+    int oilsToPurchase = player->getTotalOilStockable() - player->getTotalOilStocked();
+    int uraniumsToPurchase = player->getTotalUraniumStockable() - player->getTotalUraniumStocked();
+    
+    return ResourcePurchaseChoice(coalsToPurchase,garbagesToPurchase,oilsToPurchase,uraniumsToPurchase);
 }
