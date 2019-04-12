@@ -7,6 +7,15 @@
 
 namespace HelperFunctions {
     
+    int min(int firstInteger, int secondInteger) {
+        if(firstInteger < secondInteger) {
+            return firstInteger;
+        }
+        else {
+            return secondInteger;
+        }
+    }
+    
     bool areDifferentPlayers(const Player* player1, const Player* player2) {
         return player1->getColor() != player2->getColor();
     }

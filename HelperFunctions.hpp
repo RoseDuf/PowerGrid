@@ -9,6 +9,8 @@
 
 namespace HelperFunctions {
     
+    int min(int firstInteger, int secondInteger);
+    
     int howManyCitiesCorrespondToStepTwoTriggering(int amountOfPlayers);
     
     Elektro integerToElektro(int elektroAmount);
