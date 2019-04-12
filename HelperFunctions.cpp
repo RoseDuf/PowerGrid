@@ -7,6 +7,10 @@
 
 namespace HelperFunctions {
     
+    bool areDifferentPlayers(Player* player1, Player* player2) {
+        return player1->getColor() != player2->getColor();
+    }
+    
     int determineAverageElektroAmountOfPlayers(std::vector<Player*> players) {
         
         int sumOfAllPlayersEarnings = 0;
