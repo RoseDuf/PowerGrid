@@ -101,6 +101,8 @@ public:
 	bool add_CityToPlayer_and_PlayerToMap(Player * pl, string name);
 	void AddPlayerToMap(Player * pl);
 	int HowManyPlayersAreInCity(string cityName);
+	vector<Player> PlayersInCIty(string cityName);
+	string PrintOwnedCities();
 	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(string city1, string city2);
 	void SearchCity(string cityName);

@@ -1906,44 +1906,28 @@ void Game::play()
 		cout << "\nEnter any character to continue to PHASE 1..." << endl;
 		cin >> pause;
 
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "PHASE 1 : DETERMINE PLAYER ORDER" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
+		Notify2();
 
 		phase1_determinePlayerOrder();
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
 
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "PHASE 2 : AUCTION" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
+		Notify2();
 		
 		EnterAuctioningPhase(powerPlantMarket, players);
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
 
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "PHASE 3 : BUYING RESOURCES" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
+		Notify2();
 		
 		phase3_buyingResources();
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 4..." << endl;
 		cin >> pause;
 
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "PHASE 4 : BUILDING" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
+		Notify2();
 
 		//method where we are checking for win conditions, set up according to number of players and looks if a player owns a specific number of cities
 		phase4_building();
@@ -1951,11 +1935,7 @@ void Game::play()
 		cout << "\nEnter any character to continue to PHASE 5..." << endl;
 		cin >> pause;
 
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "PHASE 5 : BUREAUCRACY" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
+		Notify2();
 
 		phase5_bureaucracy();
 		Notify();

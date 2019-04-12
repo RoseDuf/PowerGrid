@@ -9,7 +9,9 @@ public:
 	~Stats();
 
 	void Update();
+	void Update2() {}
 	void display();
+	void display2() {}
 private:
 	Game *_subject;
 };

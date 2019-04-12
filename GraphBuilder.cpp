@@ -292,6 +292,35 @@ int  GraphBuilder::HowManyPlayersAreInCity(string cityName) {
 	}
 }
 
+//returns the players in a city
+vector<Player>  GraphBuilder::PlayersInCIty(string cityName) {
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].city.getCityName() == cityName) {
+			return graph->arr[i].player;
+		}
+	}
+}
+
+//returns a string of players inside cities
+string  GraphBuilder::PrintOwnedCities() {
+	string stringc;
+	string stringp;
+	string result;
+	for (int i = 0; i < totalVertices; i++) {
+		if (graph->arr[i].player.size() == 0) {
+			//print nothing;
+		}
+		else {
+			stringc = graph->arr[i].city.getCityName() + ":";
+			for (int j = 0; j < graph->arr[i].player.size(); j++) {
+				stringp += " " + graph->arr[i].player[j].getName();
+			}
+			result = stringc + stringp;
+			return result;
+		}
+	}
+}
+
 //Function that returns a vector of "cities"(Nodes) that have a player
 vector<City> GraphBuilder::FindCitiesOwnedByPlayer(Player * pl) {
 

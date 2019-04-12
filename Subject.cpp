@@ -26,8 +26,20 @@ void Subject::Detach(Observer* o)
 void Subject::Notify()
 {
 	list<Observer*>::iterator i = _observers->begin();
+	cout << _observers->size() << endl;
 	for (; i != _observers->end(); i++)
 	{
 		(*i)->Update();
 	}
 }
+
+void Subject::Notify2() 
+{
+	list<Observer*>::iterator i = _observers->begin();
+	cout << _observers->size() << endl;
+	for (; i != _observers->end(); i++)
+	{
+		(*i)->Update2();
+	}
+}
+

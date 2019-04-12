@@ -49,6 +49,9 @@ public:
 	void phase5_bureaucracy();
 
 
+	vector<Player*> getPlayers() const {
+		return players;
+	}
 
 private:
 	bool win = false;
@@ -83,6 +86,7 @@ private:
 	*/
 	vector<Player*> players;
 	Market * market = new Market(players);
+
 
 	bool AI = false;
 	int amountOfPlayers = 0;
