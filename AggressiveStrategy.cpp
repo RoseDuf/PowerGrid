@@ -108,7 +108,7 @@ ResourcePurchaseChoice AggressiveStrategy::getResourcePurchaseChoice(const Playe
     int oilsToPurchase = 0;
     int uraniumsToPurchase = 0;
     
-    while( coalsToPurchase < idealAmountOfCoalsToPurchase && garbagesToPurchase < idealAmountOfGarbagesToPurchase && oilsToPurchase < idealAmountOfOilsToPurchase && uraniumsToPurchase < idealAmountOfUraniumsToPurchase ) {
+    while( coalsToPurchase < idealAmountOfCoalsToPurchase || garbagesToPurchase < idealAmountOfGarbagesToPurchase || oilsToPurchase < idealAmountOfOilsToPurchase || uraniumsToPurchase < idealAmountOfUraniumsToPurchase ) {
         if( "coal" == determineCheapestResource(market, "coal", "garbage", "oil", "uranium") && market.getPrice("coal") <= player->getTotalWallet() && coalsToPurchase < idealAmountOfCoalsToPurchase ) {
             coalsToPurchase++;
             market.rtPurchase("coal", 1);
