@@ -1,6 +1,7 @@
 #include "EnvironmentalistStrategy.hpp"
 #include "PowerPlant.hpp"
 #include "HelperFunctions.hpp"
+#include "ModerateStrategy.hpp"
 
 using namespace HelperFunctions;
 
@@ -131,5 +132,6 @@ std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* 
 }
 
 ResourcePurchaseChoice EnvironmentalistStrategy::getResourcePurchaseChoice(const Player* player) {
-    return ResourcePurchaseChoice(0,0,0,0); // TODO
+    ModerateStrategy moderateStrategy(backgroundInformation);
+    return moderateStrategy.getResourcePurchaseChoice(player);
 }
