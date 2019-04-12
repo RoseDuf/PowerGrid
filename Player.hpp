@@ -73,7 +73,7 @@ public:
 	void addPowerPlant(PowerPlant* p);
 
 	void powerCity(City city, PowerPlant* powerplant, string type);
-	int getCitiesPowered() const;
+	//int getCitiesPowered() const; I think this method is both buggy and outdated.
 	//setting powered back to false as we are starting another round in the game
 	void setCitiesPowered();
 	int getTotalCoal() const;

@@ -127,14 +127,16 @@ void Player::powerCity(City city, PowerPlant* powerplant, string type) {
 	powerplant->powerCity(type);
 }
 
-int Player::getCitiesPowered() const {
+/* I think this method is both buggy and outdated.
+    int Player::getCitiesPowered() const {
 	int temp = 0;
 	for (int i = 0; i < citiesOwned.size(); i++)
 	{
 		if (citiesOwned[i].getPoweredState()) temp++;
 	}
 	return temp;
-}
+}*/
+
 //setting powered back to false as we are starting another round in the game
 void Player::setCitiesPowered() {
 	for (int i = 0; i < citiesOwned.size(); i++)
