@@ -1,0 +1,41 @@
+<GameState>
+  <turnOfPlayer>1</turnOfPlayer>
+  <mapFilename>germany.map</mapFilename>
+  <Player>
+    <playerName>Hema-Germany</playerName>
+    <playerColor>RED</playerColor>
+    <Elektro>
+      <bill1Quantity>2</bill1Quantity>
+      <bill10Quantity>3</bill10Quantity>
+      <bill50Quantity>4</bill50Quantity>
+    </Elektro>
+    <City>
+      <verticeNumber>40</verticeNumber>
+      <cityName>Konstanz</cityName>
+      <cityColor>PURPLE</cityColor>
+    </City>
+    <City>
+      <verticeNumber>41</verticeNumber>
+      <cityName>Frankfurt-O</cityName>
+      <cityColor>ORANGE</cityColor>
+    </City>
+    <PowerPlant>
+      <cardNumber>3</cardNumber>
+      <numOfCitiesPowered>1</numOfCitiesPowered>
+	<coalNeeded>2</coalNeeded>
+	<oilNeeded>2</oilNeeded>
+	<garbageNeeded>2</garbageNeeded>
+	<uraniumNeeded>2</uraniumNeeded>
+    </PowerPlant>
+    <PowerPlant>
+      <cardNumber>5</cardNumber>
+      <numOfCitiesPowered>1</numOfCitiesPowered>
+	<coalNeeded>2</coalNeeded>
+	<oilNeeded>2</oilNeeded>
+	<garbageNeeded>2</garbageNeeded>
+	<uraniumNeeded>2</uraniumNeeded>
+    </PowerPlant>
+  </Player>
+</GameState>
+
+
