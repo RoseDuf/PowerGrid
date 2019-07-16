@@ -6,7 +6,7 @@ Advanced program design with C++ / COMP 345
 
 ## Contributors:
 * Rose Dufresne
-* Elsa
+* Elsa Donovan
 * Deniz Akcal
 * Isabelle Gourchette
 
