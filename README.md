@@ -12,4 +12,4 @@ Advanced program design with C++ / COMP 345
 
 ## Gameplay
 
-[PowerGrid Rule Book] (Game_5_gameRules.pdf)
+[PowerGrid Rule Book] (Game_5_gameRules.md)
