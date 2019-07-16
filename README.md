@@ -21,5 +21,5 @@ http://riograndegames.com/Game/1339-Power-Grid-recharged
 
 GraphBuilder is the base structure of the game. Without it, the game would have no game board, and hence no functional game (Imagine playing monopoly without the game board... What kind of game would that be). The GraphBuilder describes this map:
 
-![](map.png)
+![](map.jpg)
 
