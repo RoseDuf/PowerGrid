@@ -12,4 +12,6 @@ Advanced program design with C++ / COMP 345
 
 ## Gameplay
 
-[PowerGrid Rule Book] (Game_5_gameRules.md)
+### To find Rule Book, Download here:
+http://riograndegames.com/Game/1339-Power-Grid-recharged
+
