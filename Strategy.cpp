@@ -61,7 +61,6 @@ std::string Strategy::chooseOneRegion(std::vector<std::string> alreadyChosenRegi
     }
     
     while( !remainingRegionsToChooseFrom.empty() ) {
-        srand(time(0));
         int i = rand() % remainingRegionsToChooseFrom.size();
         
         std::vector<std::string> tempSingleElementVector;

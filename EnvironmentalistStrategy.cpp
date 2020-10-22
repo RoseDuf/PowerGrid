@@ -67,7 +67,6 @@ BiddingDetails EnvironmentalistStrategy::getBiddingDetails(const Player* player,
         }
         else { // if is not green
             if( PowerPlant::peekIthPowerPlantInPresentMarket(biddedPowerPlantIndex).getCardNumber() > smallestNumberedPowerPlantOwned ) {
-                srand(time(0));
                 int chance = rand() % 5;
             
                 if(chance == 0) { // ~1/5 = 20% chance

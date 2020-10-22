@@ -1,0 +1,53 @@
+----------------------------------------
+USEFUL STATS
+----------------------------------------
+
+
+-----------------
+NUMBER OF PLAYERS
+2
+
+-----------------
+PLAYER COLOR
+2 is Red
+e is Blue
+
+-----------------
+NUMBER OF CITIES
+2
+e
+
+-----------------
+LOCATION OF PLAYERS
+2 : 
+e : 
+
+-----------------
+NUMBER OF POWERPLANTS
+2
+e
+
+-----------------
+NUMBER OF RESOURCE TOKENS PER TYPE
+2
+COAL: 
+OIL: 
+GARBAGE: 
+URANIUM: 
+
+e
+COAL: 
+OIL: 
+GARBAGE: 
+URANIUM: 
+
+
+-----------------
+TOTAL WALLET
+2 : 50
+e : 50
+
+-----------------
+WINNER
+
+They are still playing, no one has won yet.

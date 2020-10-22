@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PowerGrid", "PowerGrid.vcxproj", "{595CB113-B784-48FB-936A-CF4159FE334A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Debug|x64.ActiveCfg = Debug|x64
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Debug|x64.Build.0 = Debug|x64
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Debug|x86.ActiveCfg = Debug|Win32
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Debug|x86.Build.0 = Debug|Win32
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Release|x64.ActiveCfg = Release|x64
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Release|x64.Build.0 = Release|x64
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Release|x86.ActiveCfg = Release|Win32
+		{595CB113-B784-48FB-936A-CF4159FE334A}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F7E8A96-0E4A-4B04-8F5C-6D21885FA082}
+	EndGlobalSection
+EndGlobal
