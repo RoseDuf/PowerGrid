@@ -14,32 +14,30 @@
 using namespace std;
 using namespace HelperFunctions;
 
-/*
-GraphBuilder::GraphBuilder(int tv) { // I DON'T THINK THAT THIS CONSTRUCTOR BEHAVES AS INTENDED!
-totalVertices = tv;
-graph = createGraph(totalVertices, std::get<0>(mapData));
-edges = std::get<1>(mapData);
-//totalVertices = tv;
-//graph = createGraph(totalVertices, gameState.getCities());
-//edges = gameState.getEdgeTriplets();
+GraphBuilder::GraphBuilder() {
+	totalVertices = 0;
+	graph = nullptr;
+	file = "";
+	mapData = MapData();
+	edges = {};
+	cities = {};
+	connected = {};
+	ALL_REGION_COLORS = {};
 }
-*/
 
 GraphBuilder::GraphBuilder(int tv, std::string mapFilename) {
 	totalVertices = tv;
 	mapData = PowerGridIO::getMapData(mapFilename);
 	graph = createGraph(totalVertices, std::get<0>(mapData)); // std::get<0>(mapData) is std::vector<City>
 	edges = std::get<1>(mapData); // std::get<1>(mapData) is std::vector<EdgeTriplet> //gameState.getEdgeTriplets();
-	/*totalVertices = tv;
-	gameState = PowerGridIO::loadGame(file);
-	graph = createGraph(totalVertices, gameState.getCities());
-	edges = gameState.getEdgeTriplets();*/
 	buildMap();
 }
 
 GraphBuilder::~GraphBuilder() {
 	delete graph;
 	graph = NULL;
+	delete nptr;
+	nptr = NULL;
 }
 
 int GraphBuilder::getTotalVertices() {
@@ -57,7 +55,7 @@ vector<vector<int>> GraphBuilder::getConnected() {
 //create a new node
 GraphBuilder::AdjListNode * GraphBuilder::newAdjListNode(int cityno, string cityname, string citycolor, int cost) {
 
-	AdjListNode * nptr = new AdjListNode;
+	nptr = new AdjListNode;
 
 	nptr->city = City(cityno, cityname, citycolor, true);
 	nptr->cost = cost;
@@ -72,6 +70,7 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> 
 
 	graph->v = totalVertices;
 
+	//build vector array of city list objects (array of lists)
 	for (int i = 0; i < totalVertices; i++) {
 		CityList cl = CityList();
 		//create an array of adjacency list. size of array - V
@@ -91,14 +90,17 @@ GraphBuilder::Graph * GraphBuilder::createGraph(int totalVertices, vector<City> 
 }
 
 void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
+	//At this point we already have a vector array of city lists with 1 city each ordered in the same way as the json files defined them
 
 	//Add an edge from src to dest. A new node added to the adjacency list of src
 	//node added at beginning
-	AdjListNode * nptr = newAdjListNode(std::get<1>(edges).getCityNumber(),
+	//add in SECOND city information from the EdgeTriplet information in the json files.
+	AdjListNode * nptr = newAdjListNode(std::get<1>(edges).getCityNumber(), 
 		std::get<1>(edges).getCityName(),
 		std::get<1>(edges).getCityColor(),
-		std::get<2>(edges));
+		std::get<2>(edges)); //edge cost
 
+	//std::get<0>(edges).getCityNumber() corresponds to the same index in the array for the appropriate city
 	nptr->next = graph->arr[std::get<0>(edges).getCityNumber()].head;
 	graph->arr[std::get<0>(edges).getCityNumber()].head = nptr;
 
@@ -502,18 +504,6 @@ void GraphBuilder::buildMap() {
 	}
 
 	addConnectedCitiestoVector();
-
-	/*
-	bool check1, check2;
-	check1 = test_Duplicate_Edges();
-	check2 = test_MissingEdges();
-	if (check1 == false || check2 == false) {
-	cout << "Invalid Map!" << endl;
-	delete graph;
-	graph = NULL;
-	}
-	*/
-	// careful not to add any dupilcate edges that we already defined
 }
 
 void GraphBuilder::populateAllRegionColors() {

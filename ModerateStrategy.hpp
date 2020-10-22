@@ -1,3 +1,4 @@
+//(Deniz)
 
 #ifndef MODERATESTRATEGY_HPP_
 #define MODERATESTRATEGY_HPP_

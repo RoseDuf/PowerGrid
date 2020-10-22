@@ -1,3 +1,5 @@
+//(Elsa or Isabelle)
+
 #pragma once
 #include "GameCard.h"
 class SummaryCard :

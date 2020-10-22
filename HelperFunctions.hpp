@@ -1,3 +1,4 @@
+//(Elsa and Isabelle)
 
 #ifndef HELPERFUNCTIONS_HPP_
 #define HELPERFUNCTIONS_HPP_

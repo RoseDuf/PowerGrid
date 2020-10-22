@@ -1,3 +1,5 @@
+//(Isabelle)
+
 #ifndef ELEKTRO_H_
 #define ELEKTRO_H_
 #include <vector>

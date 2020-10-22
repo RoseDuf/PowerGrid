@@ -21,10 +21,16 @@ using namespace std;
 
 Game::Game()
 {
-
 	cout << "Welcome to PowerGrid!" << endl;
 	cout << endl;
-	
+}
+
+Game::~Game()
+{
+	delete graph;
+	graph = NULL;
+	delete market;
+	market = NULL;
 }
 
 vector<Player*> * Game::getPlayers()
@@ -36,6 +42,8 @@ GraphBuilder* Game::getGraph()
 {
 	return graph;
 }
+
+//(Isabelle)
 //METHODS FOR DECK
 void Game::print(vector<GameCard*> &_deck) {
 	for (int i = 0; i < _deck.size(); i++)
@@ -177,17 +185,15 @@ GameCard* Game::drawCard(vector<GameCard*> &deck) {
 	return temp;
 }
 
-
+//(Isabelle)
 //METHODS FOR POWER PLANT MARKET
 void Game::sortMarket(vector<GameCard*> &_powerPlantMarket) {
 	sort(_powerPlantMarket.begin(), _powerPlantMarket.end());
 
 }
 
-
+//(Rose)
 //METHODS FOR PHASE 2 : AUCTION
-//
-//
 bool Game::isNumber(string s) {
 	for (int i = 0; i < s.length(); i++)
 		if (isdigit(s[i]) == false)
@@ -327,13 +333,328 @@ string Game::Auction(PowerPlant * &powerplant, vector<Player*> &players, Player 
 	}
 }
 
-vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector<Player*> &players) {
+//(Elsa)
+//METHODS FOR PHASE 4: BUREAUCRACY
+int Game::checkProfit(int _num)
+{
+	if (_num == 0) return 10;
+	else if (_num == 1) return 22;
+	else if (_num == 2) return 33;
+	else if (_num == 3) return 44;
+	else if (_num == 4) return 54;
+	else if (_num == 5) return 64;
+	else if (_num == 6) return 73;
+	else if (_num == 7) return 82;
+	else if (_num == 8) return 90;
+	else if (_num == 9) return 98;
+	else if (_num == 10) return 105;
+	else if (_num == 11) return 112;
+	else if (_num == 12) return 118;
+	else if (_num == 13) return 124;
+	else if (_num == 14) return 129;
+	else if (_num == 15) return 134;
+	else if (_num == 16) return 138;
+	else if (_num == 17) return 142;
+	else if (_num == 18) return 145;
+	else if (_num == 19) return 148;
+	else if (_num == 20) return 150;
+	return 0;
+}
+
+//(Rose)
+//WIN CONDITION
+void Game::setNumCitiesWIN(int numPlayers)
+{
+	if (numPlayers == 2)
+	{
+		numCitiesWIN = 21;
+	}
+	else if (numPlayers == 3)
+	{
+		numCitiesWIN = 17;
+	}
+	else if (numPlayers == 4)
+	{
+		numCitiesWIN = 17;
+	}
+	else if (numPlayers == 5)
+	{
+		numCitiesWIN = 15;
+	}
+	else if (numPlayers == 6)
+	{
+		numCitiesWIN = 14;
+	}
+}
+int Game::getNumCitiesWIN()
+{
+	return numCitiesWIN;
+}
+
+//STEP 2 CONDITION
+void Game::setNumCitiesSTEP2(int numPlayers)
+{
+	if (numPlayers == 2)
+	{
+		numCitiesSTEP2 = 10;
+	}
+	else if (numPlayers == 3)
+	{
+		numCitiesSTEP2 = 7;
+	}
+	else if (numPlayers == 4)
+	{
+		numCitiesSTEP2 = 7;
+	}
+	else if (numPlayers == 5)
+	{
+		numCitiesSTEP2 = 7;
+	}
+	else if (numPlayers == 6)
+	{
+		numCitiesSTEP2 = 6;
+	}
+}
+int Game::getNumCitiesSTEP2()
+{
+	return numCitiesSTEP2;
+}
+
+//*******************METHODS FOR MAIN GAME LOOPS OF THE GAME***********************
+
+//(Isabelle)
+//Function that creates a deck of various types of powerplants with different values and randomizes them 
+void Game::deckSetup()
+{
+	makingDeck(deck, powerPlantMarket);
+	sortMarket(powerPlantMarket);
+}
+
+//(Rose + Isabelle)
+//Function that initializes player object with appropriate variables for color AND game variables such as the amount of regions you can play with in the map.
+//(Please refer to page 7 of rule book to see appropriate setup depending on number of players)
+void Game::createPlayer(int amountOfPlayers, vector<string> colors)
+{
+	string playerName = "";
+	string color = "";
+	int colorsSize = colors.size();
+
+	//Initialize amountOfRegionsToChoose depending on the number of players (Rose)
+	switch (amountOfPlayers)
+	{
+	case 2:
+		amountOfRegionsToChoose = 3;
+		break;
+	case 3:
+		amountOfRegionsToChoose = 3;
+		break;
+	case 4:
+		amountOfRegionsToChoose = 4;
+		break;
+	case 5:
+		amountOfRegionsToChoose = 5;
+		break;
+	case 6:
+		amountOfRegionsToChoose = 5;
+		break;
+	default:
+		break;
+	}
+
+	//Update player array (Isabelle)
+	for (int i = 0; i < amountOfPlayers; i++) 
+	{
+		std::cout << "Enter your name: ";
+		std::cin >> playerName;
+		std::cout << "Enter your color choice (Red/Blue/Black/Purple/Green): ";
+		std::cin >> color;
+		for (int j = 0; j < colors.size(); j++) {
+			if (color == colors[j]) {
+				colors.erase(colors.begin() + j);
+			}
+		}
+		while (colorsSize == colors.size()) {
+			std::cout << "Enter another color choice: ";
+			std::cin >> color;
+			for (int j = 0; j < colors.size(); j++) {
+				if (color == colors[j]) {
+					colors.erase(colors.begin() + j);
+				}
+			}
+		}
+		players.push_back(new Player(playerName, color));
+		colorsSize = colors.size();
+	}
+}
+
+//(Rose)
+//Function that prompts the user to enter their name and choose their token color 
+void Game::setUpPlayers()
+{
+	// Select the number of players in the game
+	std::cout << "How many players? (2-6):";
+	
+	vector<string> colors;
+	colors.push_back("Red");
+	colors.push_back("Blue");
+	colors.push_back("Black");
+	colors.push_back("Purple");
+	colors.push_back("Green");
+
+	std::cin >> amountOfPlayers;
+
+	createPlayer(amountOfPlayers, colors);
+
+	std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
+
+	//setting win condition
+	setNumCitiesWIN(amountOfPlayers);
+}
+
+//(Rose + Deniz)
+//Function that both reads the appropriate .map file that the player chooses AND creates the graph datastructure for the map, all whilst also checking if it's a valid map.
+void Game::chooseMap() 
+{
+	// Select a map and associate input with list of .map files (Rose)
+	std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
+	std::cout << "1) Germany map" << std::endl;
+	std::cout << "2) USA map" << std::endl;
+	std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
+	std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
+
+	int mapChoice;
+	std::cin >> mapChoice;
+
+	std::string mapFilename;
+
+	switch (mapChoice)
+	{
+	case 1:
+		mapFilename = "germany.map";
+		break;
+	case 2:
+		mapFilename = "usa.map";
+		break;
+	case 3:
+		mapFilename = "duplicate_edge(s).map";
+		break;
+	case 4:
+		mapFilename = "missing_edge(s).map";
+		break;
+	default:
+		break;
+	}
+
+	//Read file (Deniz)
+	MapData mapData = PowerGridIO::getMapData(mapFilename);
+	std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
+	vector<string> chosenRegCols;
+
+	for (int i = 0; i < amountOfRegionsToChoose; i++) {
+
+		std::cout << "Choose region color " << (i + 1) << " (Green/Orange/Red/Yellow/Blue/Purple): ";
+		std::string currentRegionColorChoice = "";
+		std::cin >> currentRegionColorChoice;
+		chosenRegCols.push_back(currentRegionColorChoice);
+	}
+
+	//Create Graph/Map data structure (Rose)
+	int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
+	graph = new GraphBuilder(amountOfVertices, mapFilename);
+
+	//Check if the data in the .map files have any problems (Rose)
+	std::cout << "are chosen regions connected?: " << graph->areChosenRegionsConnected(chosenRegCols) << std::endl;
+	std::cout << std::endl;
+	std::cout << "do all regions have exactly 7 cities?: " << graph->eachRegionHasSevenCities() << std::endl;
+	std::cout << std::endl;
+	std::cout << "does map have duplicate edge(s)?: " << graph->hasDuplicateEdge() << std::endl;
+	std::cout << std::endl;
+	std::cout << "does map have missing edge(s)?: " << graph->hasMissingEdge() << std::endl;
+
+	std::cout << std::endl;
+}
+
+//(Rose)
+//Simple function that creates the map of the game and checks if it has any issues
+void Game::setUpMap()
+{
+	chooseMap();
+
+	while (graph->hasDuplicateEdge() || graph->hasMissingEdge()) {
+		std::cout << "ERROR: The map is invalid." << std::endl;
+		cout << endl;
+		chooseMap();
+	}
+
+	std::cout << "The map is valid." << std::endl;
+}
+
+//(Rose)
+//This function randomizes the player order at the start of the game, but also updates the order depending on the game state:
+//The first player is the player with the most cities in their network(the house on the highest numbered space of the scoring track for connected cities). 
+//If two or more players are tied for the most cities, the first player is the player among them with the biggest power plant.
+void Game::phase1_determinePlayerOrder()
+{
+	vector<int> playerOrder;
+
+	if (round == 1) 
+	{
+		for (int i = 0; i < players.size(); i++) 
+		{
+			playerOrder.push_back(i);
+		}
+
+		//give random turn to each player
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(playerOrder.begin(), playerOrder.end(), g);
+
+		cout << "Initial player order: " << endl;
+		cout << endl;
+
+		for (int i = 0; i < players.size(); i++) 
+		{
+			players.at(i)->setplayerOrder(playerOrder[i]);
+		}
+
+		//sort the order of the vertex
+		std::sort(players.begin(), players.end(), Player::compByOrder);
+		for (int i = 0; i < players.size(); i++) 
+		{
+			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+		}
+
+		cout << endl;
+	}
+	else
+	{
+		cout << "Current player order: " << endl;
+		cout << endl;
+
+		//sort players by the number of cities they have (for the rest of the game)
+		std::sort(players.begin(), players.end(), Player::compByCities);
+
+		for (int i = 0; i < players.size(); i++) 
+		{
+			players.at(i)->setplayerOrder(i);
+		}
+
+		for (int i = 0; i < players.size(); i++)
+		{
+			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
+		}
+		cout << endl;
+	}
+}
+
+//(Rose)
+//In this phase, each player may have an opportunity to offer a power plant for sale at auction.During the phase, each player can buy at most one power plant.A player should
+//try to have plants with enough capacity to power all the cities in his network, but this is not required.The first player startsand chooses between :
+void Game::phase2_auctionPowerPlants() {
 	vector<PowerPlant*> powerPlantMarket_; //copy 
-	
-	
-	
-	for (int i = 0; i < ppMarket.size(); i++) {
-		powerPlantMarket_.push_back(static_cast<PowerPlant*>(ppMarket[i]));
+
+	for (int i = 0; i < powerPlantMarket.size(); i++) {
+		powerPlantMarket_.push_back(static_cast<PowerPlant*>(powerPlantMarket[i]));
 	}
 
 	//task 2 - phase 2
@@ -342,10 +663,7 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 
 	for (int i = 0; i < players.size(); i++) {
 
-		//sorting market and placing it in copy :: THERE WILL BE A PROBLEM WHEN THE STEP3 CARD IS DRAWN FROM THE DECK ***
-		
-		
-
+		//sorting market and placing it in copy
 
 		for (int j = 0; j < powerPlantMarket_.size(); j++) {
 			powerPlantMarket_[j]->toString();
@@ -405,28 +723,22 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 					powerPlantMarket_.erase(powerPlantMarket_.begin() + m);
 				}
 			}
-			for (int m = 0; m < ppMarket.size(); m++) {
-				if (removePP == ppMarket[m]->getIdentifier()) {
-					ppMarket.erase(ppMarket.begin() + m);
+			for (int m = 0; m < powerPlantMarket.size(); m++) {
+				if (removePP == powerPlantMarket[m]->getIdentifier()) {
+					powerPlantMarket.erase(powerPlantMarket.begin() + m);
 				}
 			}
 
-			GameCard *temp = deck.at(0);
+			GameCard* temp = deck.at(0);
 			if (temp->getIdentifier() == "s3")
 			{
 				//ENTERING STEP 3
 				step = 3;
 			}
 
-			//THIS ISN'T ADDING A CART TO THE MARKET< PROBLEM TO BE FIXED.
 			powerPlantMarket.push_back(temp);
-			ppMarket.push_back(temp);
 			//supposed to place it somewhere on the market
 			deck.erase(deck.begin());
-		
-
-			
-
 		}
 	}
 
@@ -435,513 +747,16 @@ vector<GameCard*> Game::EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector
 		players[i]->toString();
 		cout << endl;
 	}
-
-	return ppMarket;
 }
 
-
-//METHODS FOR PHASE 4: BUREAUCRACY
-int Game::checkProfit(int _num)
-{
-	if (_num == 0) return 10;
-	else if (_num == 1) return 22;
-	else if (_num == 2) return 33;
-	else if (_num == 3) return 44;
-	else if (_num == 4) return 54;
-	else if (_num == 5) return 64;
-	else if (_num == 6) return 73;
-	else if (_num == 7) return 82;
-	else if (_num == 8) return 90;
-	else if (_num == 9) return 98;
-	else if (_num == 10) return 105;
-	else if (_num == 11) return 112;
-	else if (_num == 12) return 118;
-	else if (_num == 13) return 124;
-	else if (_num == 14) return 129;
-	else if (_num == 15) return 134;
-	else if (_num == 16) return 138;
-	else if (_num == 17) return 142;
-	else if (_num == 18) return 145;
-	else if (_num == 19) return 148;
-	else if (_num == 20) return 150;
-	return 0;
-}
-
-//WIN CONDITION
-void Game::setNumCitiesWIN(int numPlayers)
-{
-	if (numPlayers == 2)
-	{
-		numCitiesWIN = 21;
-	}
-	else if (numPlayers == 3)
-	{
-		numCitiesWIN = 17;
-	}
-	else if (numPlayers == 4)
-	{
-		numCitiesWIN = 17;
-	}
-	else if (numPlayers == 5)
-	{
-		numCitiesWIN = 15;
-	}
-	else if (numPlayers == 6)
-	{
-		numCitiesWIN = 14;
-	}
-}
-int Game::getNumCitiesWIN()
-{
-	return numCitiesWIN;
-}
-
-//STEP 2 CONDITION
-void Game::setNumCitiesSTEP2(int numPlayers)
-{
-	if (numPlayers == 2)
-	{
-		numCitiesSTEP2 = 10;
-	}
-	else if (numPlayers == 3)
-	{
-		numCitiesSTEP2 = 7;
-	}
-	else if (numPlayers == 4)
-	{
-		numCitiesSTEP2 = 7;
-	}
-	else if (numPlayers == 5)
-	{
-		numCitiesSTEP2 = 7;
-	}
-	else if (numPlayers == 6)
-	{
-		numCitiesSTEP2 = 6;
-	}
-}
-int Game::getNumCitiesSTEP2()
-{
-	return numCitiesSTEP2;
-}
-
-//METHODS FOR MAIN GAME LOOPS OF THE GAME
-//
-//
-//
-void Game::deckSetup()
-{
-	makingDeck(deck, powerPlantMarket);
-	sortMarket(powerPlantMarket);
-}
-
-void Game::setUpPlayers()
-{
-	//============================== Assignment 2, task 1, ================================================
-	// Select the number of players in the game
-	std::cout << "How many players? (2-6):";
-	
-	string playerName = "";
-	string color = "";
-	string aiorhuman = "";
-	
-
-	vector<string> colors;
-	colors.push_back("Red");
-	colors.push_back("Blue");
-	colors.push_back("Black");
-	colors.push_back("Purple");
-	colors.push_back("Green");
-	int colorsSize = colors.size();
-
-	//static vector<Player*> players;
-
-	std::cin >> amountOfPlayers;
-
-	cout << "Humans or AI? (type in either Humans or AI)" << endl;
-	cin >> aiorhuman;
-	while (aiorhuman != "AI" && aiorhuman != "Humans") {
-		cout << "We asked for Humans or AI... (type in either Humans or AI)" << endl;
-		cin >> aiorhuman;
-	}
-	if (aiorhuman == "AI") {
-		AI = true;
-	}
-	else if (aiorhuman == "Humans") {
-		AI = false;
-	}
-
-	if (amountOfPlayers == 2) {
-		amountOfRegionsToChoose = 3;
-		if (AI == true) {
-			players.push_back(new Player("Nicole", "Red"));
-			players.push_back(new Player("Voldermort", "Green"));
-		}
-		else {
-			for (int i = 0; i < 2; i++) {
-				cout << "Enter your name: ";
-				cin >> playerName;
-				cout << "Enter your color choice: ";
-				cin >> color;
-				for (int j = 0; j < colors.size(); j++) {
-					if (color == colors[j]) {
-						colors.erase(colors.begin() + j);
-					}
-				}
-				while (colorsSize == colors.size()) {
-					cout << "Enter another color choice: ";
-					cin >> color;
-					for (int j = 0; j < colors.size(); j++) {
-						if (color == colors[j]) {
-							colors.erase(colors.begin() + j);
-						}
-					}
-				}
-				players.push_back(new Player(playerName, color));
-				colorsSize = colors.size();
-			}
-		}
-	}
-	else if (amountOfPlayers == 3) {
-		amountOfRegionsToChoose = 3;
-		if (AI == true) {
-			players.push_back(new Player("Nicole", "Red"));
-			players.push_back(new Player("Voldermort", "Green"));
-			players.push_back(new Player("Pikachu", "Blue"));
-		}
-		else {
-			for (int i = 0; i < 3; i++) {
-				cout << "Enter your name: ";
-				cin >> playerName;
-				cout << "Enter your color choice: ";
-				cin >> color;
-				for (int j = 0; j < colors.size(); j++) {
-					if (color == colors[j]) {
-						colors.erase(colors.begin() + j);
-					}
-				}
-				while (colorsSize == colors.size()) {
-					cout << "Enter another color choice: ";
-					cin >> color;
-					for (int j = 0; j < colors.size(); j++) {
-						if (color == colors[j]) {
-							colors.erase(colors.begin() + j);
-						}
-					}
-				}
-				players.push_back(new Player(playerName, color));
-				colorsSize = colors.size();
-			}
-		}
-	}
-	else if (amountOfPlayers == 4) {
-		amountOfRegionsToChoose = 4;
-		if (AI == true) {
-			players.push_back(new Player("Nicole", "Red"));
-			players.push_back(new Player("Voldermort", "Green"));
-			players.push_back(new Player("Pikachu", "Blue"));
-			players.push_back(new Player("Smith", "Purple"));
-		}
-		else {
-			for (int i = 0; i < 4; i++) {
-				cout << "Enter your name: ";
-				cin >> playerName;
-				cout << "Enter your color choice: ";
-				cin >> color;
-				for (int j = 0; j < colors.size(); j++) {
-					if (color == colors[j]) {
-						colors.erase(colors.begin() + j);
-					}
-				}
-				while (colorsSize == colors.size()) {
-					cout << "Enter another color choice: ";
-					cin >> color;
-					for (int j = 0; j < colors.size(); j++) {
-						if (color == colors[j]) {
-							colors.erase(colors.begin() + j);
-						}
-					}
-				}
-				players.push_back(new Player(playerName, color));
-				colorsSize = colors.size();
-			}
-		}
-	}
-	else if (amountOfPlayers == 5) {
-		amountOfRegionsToChoose = 5;
-		if (AI == true) {
-			players.push_back(new Player("Nicole", "Red"));
-			players.push_back(new Player("Voldermort", "Green"));
-			players.push_back(new Player("Pikachu", "Blue"));
-			players.push_back(new Player("Smith", "Purple"));
-			players.push_back(new Player("Roger", "Black"));
-		}
-		else {
-			for (int i = 0; i < 5; i++) {
-				cout << "Enter your name: ";
-				cin >> playerName;
-				cout << "Enter your color choice: ";
-				cin >> color;
-				for (int j = 0; j < colors.size(); j++) {
-					if (color == colors[j]) {
-						colors.erase(colors.begin() + j);
-					}
-				}
-				while (colorsSize == colors.size()) {
-					cout << "Enter another color choice: ";
-					cin >> color;
-					for (int j = 0; j < colors.size(); j++) {
-						if (color == colors[j]) {
-							colors.erase(colors.begin() + j);
-						}
-					}
-				}
-				players.push_back(new Player(playerName, color));
-				colorsSize = colors.size();
-			}
-		}
-	}
-	else if (amountOfPlayers == 6) {
-		amountOfRegionsToChoose = 5;
-		if (AI == true) {
-			players.push_back(new Player("Nicole", "Red"));
-			players.push_back(new Player("Voldermort", "Green"));
-			players.push_back(new Player("Pikachu", "Blue"));
-			players.push_back(new Player("Smith", "Purple"));
-			players.push_back(new Player("Roger", "Black"));
-			players.push_back(new Player("Dustyn", "Yellow"));
-		}
-		else {
-			for (int i = 0; i < 6; i++) {
-				cout << "Enter your name: ";
-				cin >> playerName;
-				cout << "Enter your color choice: ";
-				cin >> color;
-				for (int j = 0; j < colors.size(); j++) {
-					if (color == colors[j]) {
-						colors.erase(colors.begin() + j);
-					}
-				}
-				while (colorsSize == colors.size()) {
-					cout << "Enter another color choice: ";
-					cin >> color;
-					for (int j = 0; j < colors.size(); j++) {
-						if (color == colors[j]) {
-							colors.erase(colors.begin() + j);
-						}
-					}
-				}
-				players.push_back(new Player(playerName, color));
-				colorsSize = colors.size();
-			}
-		}
-	}
-
-	std::cout << "true = " << true << std::endl; // just to emphasize that true = 1
-
-	//setting win condition
-	setNumCitiesWIN(amountOfPlayers);
-}
-
-void Game::setUpMap()
-{
-
-    std::cout << "Choose AI type." << std::endl;
-    std::cout << "1) Aggressive AI" << std::endl;
-    std::cout << "2) Moderate AI" << std::endl;
-    std::cout << "3) Environmentalist AI." << std::endl;
-    int aiType = 0;
-    std::cin >> aiType;
-    
-    //typedef std::tuple< Market,std::vector<Player*>, GraphBuilder* > AIStrategyData;
-    AIStrategyData aiData = AIStrategyData(*market, players, graph);
-    Strategy* strategyChoice;
-    
-    if( aiType == 1 ) {
-        strategyChoice = new AggressiveStrategy(aiData);
-    }
-    else if( aiType == 2 ) {
-        strategyChoice = new ModerateStrategy(aiData);
-    }
-    else if( aiType == 3 ) {
-        strategyChoice = new EnvironmentalistStrategy(aiData);
-    }
-    
-	// Select a map
-	std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
-	std::cout << "1) Germany map" << std::endl;
-	std::cout << "2) USA map" << std::endl;
-	std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
-	std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
-
-	int mapChoice;
-
-	std::cin >> mapChoice;
-
-	std::string mapFilename;
-	if (mapChoice == 1) {
-		mapFilename = "germany.map";
-	}
-	else if (mapChoice == 2) {
-		mapFilename = "usa.map"; // TODO
-	}
-	else if (mapChoice == 3) {
-		mapFilename = "duplicate_edge(s).map";
-	}
-	else if (mapChoice == 4) {
-		mapFilename = "missing_edge(s).map";
-	}
-
-
-	MapData mapData = PowerGridIO::getMapData(mapFilename);
-	std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
-	vector<string> chosenRegCols;
-
-	if (AI == true) {
-        PowerGridAI powerGridAI( strategyChoice );
-        std::vector<std::string> alreadyChosenColors;
-		chosenRegCols.push_back( powerGridAI.executeRegionChoosingStrategy(alreadyChosenColors) );
-	}
-	else {
-		for (int i = 0; i < amountOfRegionsToChoose; i++) {
-
-			std::cout << "Choose region color " << (i + 1) << ":";
-			std::string currentRegionColorChoice = "";
-			std::cin >> currentRegionColorChoice;
-			chosenRegCols.push_back(currentRegionColorChoice);
-		}
-	}
-	int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
-	//GraphBuilder graph = GraphBuilder(amountOfVertices, mapFilename);
-	graph = new GraphBuilder(amountOfVertices, mapFilename);
-
-	std::cout << "are chosen regions connected?: " << graph->areChosenRegionsConnected(chosenRegCols) << std::endl;
-	std::cout << std::endl;
-	std::cout << "do all regions have exactly 7 cities?:" << graph->eachRegionHasSevenCities() << std::endl;
-	std::cout << std::endl;
-	std::cout << "does map have duplicate edge(s)?:" << graph->hasDuplicateEdge() << std::endl;
-	std::cout << std::endl;
-	std::cout << "does map have missing edge(s)?:" << graph->hasMissingEdge() << std::endl;
-
-	std::cout << std::endl;
-
-	while (graph->hasDuplicateEdge() || graph->hasMissingEdge()) {
-		std::cout << "ERROR: The map is invalid." << std::endl;
-		cout << endl;
-		std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
-		std::cout << "1) Germany map" << std::endl;
-		std::cout << "2) USA map" << std::endl;
-		std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
-		std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
-
-		int mapChoice;
-
-		std::cin >> mapChoice;
-
-		std::string mapFilename;
-		if (mapChoice == 1) {
-			mapFilename = "germany.map";
-		}
-		else if (mapChoice == 2) {
-			mapFilename = "usa.map"; // TODO
-		}
-		else if (mapChoice == 3) {
-			mapFilename = "duplicate_edge(s).map";
-		}
-		else if (mapChoice == 4) {
-			mapFilename = "missing_edge(s).map";
-		}
-		//else {
-		// throw no map exception or something like that
-		//}
-
-		MapData mapData = PowerGridIO::getMapData(mapFilename);
-		std::vector<AdjacentRegionsTriplet> arts = std::get<2>(mapData);
-		vector<string> chosenRegCols;
-
-		for (int i = 0; i < amountOfRegionsToChoose; i++) {
-
-			std::cout << "Choose region color " << (i + 1) << ":";
-			std::string currentRegionColorChoice = "";
-			std::cin >> currentRegionColorChoice;
-			chosenRegCols.push_back(currentRegionColorChoice);
-		}
-
-		int amountOfVertices = std::get<0>(mapData).size(); // amountOfVertices = amount of cities
-		graph = new GraphBuilder(amountOfVertices, mapFilename);
-
-		std::cout << "are chosen regions connected?: " << graph->areChosenRegionsConnected(chosenRegCols) << std::endl;
-		std::cout << std::endl;
-		std::cout << "do all regions have exactly 7 cities?:" << graph->eachRegionHasSevenCities() << std::endl;
-		std::cout << std::endl;
-		std::cout << "does map have duplicate edge(s)?:" << graph->hasDuplicateEdge() << std::endl;
-		std::cout << std::endl;
-		std::cout << "does map have missing edge(s)?:" << graph->hasMissingEdge() << std::endl;
-
-		std::cout << std::endl;
-	}
-
-	std::cout << "The map is valid." << std::endl;
-}
-
-void Game::phase1_determinePlayerOrder()
-{
-	vector<int> playerOrder;
-
-	if (round == 1) 
-	{
-		for (int i = 0; i < players.size(); i++) 
-		{
-			playerOrder.push_back(i);
-		}
-
-		//give random turn to each player
-		std::random_device rd;
-		std::mt19937 g(rd());
-		std::shuffle(playerOrder.begin(), playerOrder.end(), g);
-
-		cout << "Initial player order: " << endl;
-		cout << endl;
-
-		for (int i = 0; i < players.size(); i++) 
-		{
-			players.at(i)->setplayerOrder(playerOrder[i]);
-		}
-
-		//sort the order of the vertex
-		std::sort(players.begin(), players.end(), Player::compByOrder);
-		for (int i = 0; i < players.size(); i++) 
-		{
-			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
-		}
-
-		cout << endl;
-	}
-	else
-	{
-		cout << "Current player order: " << endl;
-		cout << endl;
-
-		//sort players by the number of cities they have (for the rest of the game)
-		std::sort(players.begin(), players.end(), Player::compByCities);
-
-		for (int i = 0; i < players.size(); i++) 
-		{
-			players.at(i)->setplayerOrder(i);
-		}
-
-		for (int i = 0; i < players.size(); i++)
-		{
-			cout << "Player: " << players.at(i)->getName() << ", Turn: " << players.at(i)->getplayerOrder() << endl;
-		}
-		cout << endl;
-	}
-}
-
+//(Isabelle)
+//Phase 3 - Buying Resources
+//In this phase, the players can buy resources for their power plants from the resource market.A player can only buy resources for plants he owns.A plant cannot produce
+//electricity unless it has enough resources to be fully powered.This phase is played in reverse player order.The last player starts.
 void Game::phase3_buyingResources()
 {
 	phase1_determinePlayerOrder();
-	//-------------------TASK 3 --- BUYING RESOURCES -------------------------------------------- //
+	
 	int phase = 1;
 	string pause;
 	for (int i = 0; i < players.size(); i++) {
@@ -1250,6 +1065,11 @@ void Game::phase3_buyingResources()
 
 }
 
+//(Elsa)
+//Pase 4 - Building
+//This phase is played in reverse player order.The last player starts.In this phase, the players start or add cities to their networks on the map.Remember, to win the
+//game a player must be able to power more cities than any other player.Thus, building a network of cities is essential to winning the game.However, the winner is
+//not necessarily the player with the most cities - it is the player with the most powered cities.Players must balance their power plants with their resources and their networks to win the game.
 void Game::phase4_building()
 {
 	phase1_determinePlayerOrder();
@@ -1282,8 +1102,6 @@ void Game::phase4_building()
 			//display map with available cities
 			//*TO-DO
 
-
-
 			if (checkCity.size() == 0) {
 
 				cout << "\nEnter any character to show list of cities on your map..." << endl;
@@ -1296,7 +1114,6 @@ void Game::phase4_building()
 				cout << "\nChoose a city anywhere on the available map: " << endl;
 
 				cin >> chosenCity;
-
 
 				//TO-DO check is chosenCity is even a valid German city name
 
@@ -1320,26 +1137,18 @@ void Game::phase4_building()
 
 				}
 
-
 				cout << "\nYou found a city that is available!" << endl;
 				cout << "\nNow lets check some more conditions..." << endl;
 				cout << endl;
 
-
-
 				//check if the city is already filled with other players
 				bool emptyCity = false;
-
-
 				bool cityBought = false;
 				bool isAdjacent = false;
 				int price = 0;
 				string tempCity;
 
-
-
 				cityBought = false;
-
 
 				//check players wallet based on city prices, if they have less than city price
 				if (cityPrice >= players[i]->getTotalWallet()) {
@@ -1350,9 +1159,6 @@ void Game::phase4_building()
 				else {
 					cityBought = true;
 				}
-
-
-
 
 				//check for phase
 				switch (step) {			//step = 1 in demo round 
@@ -1366,8 +1172,6 @@ void Game::phase4_building()
 					cityPrice = 20;
 					break;
 				}
-
-
 
 				if (cityBought) {
 					graph->add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
@@ -1420,8 +1224,6 @@ void Game::phase4_building()
 					}
 				}
 
-
-
 				char yesno;
 				cout << "Would you like to buy another City? (Y/N)" << endl;
 				cin >> yesno;
@@ -1466,8 +1268,6 @@ void Game::phase4_building()
 
 				bool validCity = graph->findCityByNameBool(chosenCity);	//bool updates player and map and checks if city is available
 
-
-
 																		//check if in valid part of region
 				while (!validCity) {
 
@@ -1477,28 +1277,18 @@ void Game::phase4_building()
 
 					graph->searchCity(chosenCity);
 					//validCity = graph.add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//ITS ALREADY ADDED ITSELF TO THE CITY!!
-
-
 				}
-
 
 				cout << "\nYou found a city that is available!" << endl;
 				cout << "\nNow lets check some more conditions..." << endl;
 				cout << endl;
 
-
-
-
-
-
 				//check if the city is already filled with other players
 				bool emptyCity = false;
-
 				bool cityBought = false;
 				bool isAdjacent = false;
 				int price = 0;
 				string tempCity;
-
 
 				//checks if chosen city is adjacent to Player's cities
 				for (int m = 0; m < checkCity.size(); m++) {
@@ -1512,8 +1302,6 @@ void Game::phase4_building()
 						continue;
 					}
 				}
-
-
 
 				while (!isAdjacent) {		//*******This needs to loop back to incorporate earlier questions
 					cout << "\nThe city you have chosen is not adjacent to any of your other cities. Please choose another city: " << endl;
@@ -1560,12 +1348,6 @@ void Game::phase4_building()
 					cityBought = true;
 				}
 
-
-
-
-
-
-
 				if (cityBought) {
 					graph->add_CityToPlayer_and_PlayerToMap(players[i], chosenCity);		//Adding city and player to map
 					int total = 0;
@@ -1573,8 +1355,6 @@ void Game::phase4_building()
 					cout << endl;
 					cout << "You have " << players[i]->getTotalWallet() << " Elektros." << endl;
 					cout << "The total cost is " << (price + cityPrice) << "." << endl;
-
-
 					cout << "You will pay " << (price + cityPrice) << " Elektros for " << chosenCity << "." << endl;
 
 					//bill variables
@@ -1595,17 +1375,12 @@ void Game::phase4_building()
 					cout << "That will cost you " << bill50 << " x $50 Elektro bills, " << bill10 << " x $10 Elektro bills, and " << bill1 << " x $1 Elektro bills." << endl;
 					players[i]->spendElektros(bill1, bill10, bill50);
 
-
 					cout << "\nYou now have " << players[i]->getTotalWallet() << " Elektros." << endl;
 					cout << endl;
 
-
 					cout << "You have bought " << chosenCity << "." << endl;
 					cout << endl;
-
 				}
-
-
 
 				char yesno;
 				cout << "Would you like to buy another City? (Y/N)" << endl;
@@ -1633,23 +1408,20 @@ void Game::phase4_building()
 			cout << "\nEnter any character to see your dashboard..." << endl;
 			cin >> pause;
 			dashboard(players[i]);
-
-
 		} //stillBuilding while loop
-
-
 
 	endhere:continue;
 	}  //player loop
 }
 
+//(Isabelle)
+//Phase 5 - Bureaucracy
+//In this phase, the players earn cash, re-supply the resource market, and remove a power plant from the power plant market, replacing it with a new one from the stack
 void Game::phase5_bureaucracy()
 {
-	string pause;
-
-
 	phase1_determinePlayerOrder();
 
+	string pause;
 
 	//iterating through players
 	for (int i = 0; i < players.size(); i++) {
@@ -1665,7 +1437,6 @@ void Game::phase5_bureaucracy()
 			std::cout << "You own " << players[i]->getCitiesOwned().size() << (players[i]->getCitiesOwned().size() >= 2 ? " cities." : " city.") << endl;
 		}
 
-		
 		powerPlantsTEMP = players[i]->getPowerPlants();
 
 		if (players[i]->getPowerPlants().size() != 0)
@@ -1707,8 +1478,6 @@ void Game::phase5_bureaucracy()
 			//NEED TO CHECK INPUT
 				while (!inputValid)
 				{
-
-
 					if (choice == "yes")
 					{
 						std::cout << "With which resource?" << endl;
@@ -1738,9 +1507,6 @@ void Game::phase5_bureaucracy()
 									std::cout << "Please enter valid input." << endl;
 									valid = false;
 								}
-
-
-
 							}
 							else
 							{
@@ -1776,7 +1542,6 @@ void Game::phase5_bureaucracy()
 					
 				}
 			}
-
 		}
 		std::cout << "By powering " << numCitiesPowered << " cities, you earn: " << checkProfit(numCitiesPowered) << endl;
 
@@ -1821,10 +1586,10 @@ void Game::phase5_bureaucracy()
 
 	//restock market
 	market->restockMarket(step);
-
-
 }
 
+//(Elsa)
+//This function simply displays the status of the game. 
 void Game::dashboard(Player* p) {
 	//cout resources from powerplants, cities, etc
 
@@ -1888,11 +1653,10 @@ void Game::dashboard(Player* p) {
 	cout << "Amount of Garbage Owned: " << player_garbage << endl;
 	cout << "Amount of Uranium Owned: " << player_uranium << endl;
 	cout << "\n--------------------------" << endl;
-
-
-
 }
 
+//(Rose)
+//This function holds the main game loop
 void Game::play()
 {
 	GameplayDirector director;
@@ -1922,6 +1686,8 @@ void Game::play()
 
 	string pause;
 
+	//(Rose)
+	//main game loop
 	while (!win)
 	{
 		cout << "\nEnter any character to continue to ROUND " << roundNum << "..." << endl;
@@ -1936,77 +1702,45 @@ void Game::play()
 		cout << "\nEnter any character to continue to PHASE 1..." << endl;
 		cin >> pause;
 
-		Notify2();
+		//Notify methods use the Observer design patern
 
+		Notify2(); //display game phase
 		phase1_determinePlayerOrder();
-
 		//save gameplay at this point
 		string tempString = "Determine Player Order";
-		//Gameplay* g = director.createGameplay(players, tempString);
-		//g->printToFile();
-
-
-
-		Notify();
+		Notify(); //display game status
 		cout << "\nEnter any character to continue to PHASE 2..." << endl;
 		cin >> pause;
-		
-	/*	
-	cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "PHASE 2 : AUCTION" << endl;
-		cout << "\n***********************************************************" << endl;
-		cout << "\n***********************************************************" << endl;
-		*/
-		Notify2();
-		
-		EnterAuctioningPhase(powerPlantMarket, players);
-		//save gameplay at this point
-		 tempString = "Auctioning Phase";
-		// g = director.createGameplay(players, tempString);
-		//g->printToFile();
 
+		Notify2(); 
+		phase2_auctionPowerPlants();
+		//save gameplay at this point
+		tempString = "Auctioning Phase";
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 3..." << endl;
 		cin >> pause;
 
 		Notify2();
-		
 		phase3_buyingResources();
-
 		//save gameplay at this point
-		 tempString = "Buying Resources";
-		// g = director.createGameplay(players, tempString);
-		//g->printToFile();
-
-
+		tempString = "Buying Resources";
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 4..." << endl;
 		cin >> pause;
 
 		Notify2();
-
 		//method where we are checking for win conditions, set up according to number of players and looks if a player owns a specific number of cities
 		phase4_building();
-
 		//save gameplay at this point
-		 tempString = "Building";
-		// g = director.createGameplay(players, tempString);
-		//g->printToFile();
-
+		tempString = "Building";
 		Notify();
 		cout << "\nEnter any character to continue to PHASE 5..." << endl;
 		cin >> pause;
 
 		Notify2();
-
 		phase5_bureaucracy();
-
 		//save gameplay at this point
 		tempString = "Bureaucracy";
-		 //g = director.createGameplay(players, tempString);
-		//g->printToFile();
-
 		Notify();
 
 		//printing the winner

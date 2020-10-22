@@ -1,3 +1,4 @@
+//(Deniz)
 
 #ifndef XMLDOCUMENTNODE_HPP_
 #define XMLDOCUMENTNODE_HPP_

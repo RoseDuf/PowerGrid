@@ -25,7 +25,7 @@ Market::~Market()
 //called in PowerPlant class when the player powers a city and consume the resources stocked on power plant card
 void Market::addToSupply(string type, int number)
 {
-	cout << "adding to suplply " << type << number << endl;
+	cout << "adding to supply " << type << " " << number << endl;
 	if (type == "coal")
 	{
 		coal_supply += number;

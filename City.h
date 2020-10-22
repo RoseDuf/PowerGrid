@@ -1,3 +1,5 @@
+//(Rose)
+
 #ifndef CITY_HPP_
 #define CITY_HPP_
 

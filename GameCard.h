@@ -1,3 +1,4 @@
+//(Elsa or Isabelle)
 
 #ifndef GAMECARD_HPP_
 #define GAMECARD_HPP_

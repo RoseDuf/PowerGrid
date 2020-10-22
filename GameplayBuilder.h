@@ -1,7 +1,9 @@
+//(Elsa)
+
 #pragma once
 #include "Gameplay.h"
 
-/*BUILDER DESIGN PATTERN:
+/*BUILDER DESIGN PATTERN: 
 
 //We are using a GamePlayBuilder design pattern because we want to have a more
 simple way of creating a complex object (Game), which is made up of many complex objects.

@@ -1,6 +1,6 @@
-/*
-Graph implementation code using adjencyList
-*/
+//(Rose)
+//Graph implementation code using adjencyList
+
 
 #ifndef GRAPHBUILDER_HPP_
 #define GRAPHBUILDER_HPP_
@@ -13,6 +13,7 @@ Graph implementation code using adjencyList
 class GraphBuilder {
 	//nested classes needed to make the adjency list
 public:
+	//Each node is a city with a cost
 	struct AdjListNode {
 		City city;
 		int cost;
@@ -23,11 +24,11 @@ public:
 		}
 	};
 
+	//Each city is owned by a player, is powered by a powerplant and has a cost (elektros)
 	struct CityList {
 		City city;
 		vector<Player> players;
 		vector<PowerPlant> powerplants;
-		//vector<ResourceToken> resources;
 		vector<Elektro> elektros;
 		AdjListNode * head;
 		~CityList() {
@@ -37,38 +38,25 @@ public:
 	};
 
 	struct Graph {
-		int v;
+		int v; //total vertices
 		vector<CityList> arr;
 		~Graph() {}
 	};
 
-	/*
-	// Structure to represent a min heap node
-	struct MinHeapNode
-	{
-	int v;
-	int dist;
-	};
-	// Structure to represent a min heap
-	struct MinHeap
-	{
-	int size;      // Number of heap nodes present currently
-	int capacity;  // Capacity of min heap
-	int *pos;     // This is needed for decreaseKey()
-	MinHeapNode ** array;
-	};
-	*/
-
-	//classes to build the graph
 public:
-	//building class functions
-	//GraphBuilder(int totalVertices);
+	//classes to build the graph
+
+	//constructors
 	GraphBuilder(int totalVertices, std::string file);
 	GraphBuilder();
 	~GraphBuilder();
+
+	//accessors and mutators
 	int getTotalVertices();
 	void setTotalVertices(int totalVertices);
 	vector<vector<int>> getConnected();
+	string getMapName();
+
 	AdjListNode * newAdjListNode(int cityno, string cityname, string citycolor, int cost);
 	Graph * createGraph(int v, vector<City> cities);
 	void addEdge(Graph * graph, EdgeTriplet edges);
@@ -76,26 +64,8 @@ public:
 	void printGraph();
 	void printAvailableCities();
 	bool findCityByNameBool(string name);
-	void playerNameInCity(string city3);	//tentative add -- don't hate me Rose
-	string getMapName();
-
-
+	void playerNameInCity(string city3);
 	bool areChosenRegionsConnected(vector<string> chosenRegCols);
-
-	//searching algorithm funtions
-	/*
-	MinHeapNode * newMinHeapNode(int v, int dist);
-	MinHeap * createMinHeap(int capacity);
-	void swapMinHeapNode(struct MinHeapNode ** a, struct MinHeapNode ** b);
-	void minHeapify(struct MinHeap * minHeap, int idx);
-	int isEmpty(struct MinHeap * minHeap);
-	MinHeapNode * extractMin(struct MinHeap* minHeap);
-	void decreaseKey(struct MinHeap * minHeap, int v, int dist);
-	bool isInMinHeap(struct MinHeap * minHeap, int v);
-	void printArr(int dist[], int n);
-	int findVertex(int dist[], int n);
-	void dijkstra(Graph * graph, int vector);
-	*/
 
 	//additional functions
 	City findCityByName(string name);
@@ -108,9 +78,6 @@ public:
 	vector<City> FindCitiesOwnedByPlayer(Player * player);
 	bool IsCityAdjacentToOtherCity(string city1, string city2);
 	void searchCity(string cityName);
-	//void add_ElektrosToCity(Elektro el, string name);
-	//void add_ResourcesToCity(ResourceToken rt, string name);
-	//void add_PowerPlantToCity(PowerPlant pp, string city);
 	int CostFromOneCityToAnother(string city1, string city2);
 	bool test_SizeOfMap_and_FileMap();
 	bool hasDuplicateEdge();
@@ -121,8 +88,8 @@ public:
     std::vector< std::pair<City,int> > getStillOccupiableCitiesAndOccupationAmounts(int gameStep);
     std::vector<std::string> getAllRegionColors() const;
 
-	//variables needed for the graph building
 private:
+	//variables needed for the graph building
 	void buildMap();
 	int totalVertices;
 	Graph * graph;
@@ -131,6 +98,8 @@ private:
 	std::vector<EdgeTriplet> edges;
 	std::vector<City> cities;
 	vector<vector<int>> connected;
+	AdjListNode* nptr;
+
 	vector<AdjacentRegionsTriplet> getChosenAdjacentRegionsTriplets(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols);
 	bool hasPath(string begCol, string endCol, vector<AdjacentRegionsTriplet> arts, int pathSize, const int MAX_PATH_SIZE);
 	bool areChosenRegionsConnected(vector<AdjacentRegionsTriplet> arts, vector<string> chosenRegCols, const int MAX_PATH_SIZE);

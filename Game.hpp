@@ -1,3 +1,5 @@
+//(Rose, Isabelle and Elsa)
+
 #ifndef GAME_HPP_
 #define GAME_HPP_
 
@@ -32,30 +34,20 @@ public:
 
 
 	Game();
-	//Game(vector <Player*> players);
-
-	//Task 3
-	/*
-	void reversePlayerOrder(vector<Player*> players);
-	void buyingResources();
-	void buildingCities();
-	*/
+	~Game();
 
 	void play();
 	
 	void dashboard(Player* p);
 
-	//void phase1_determinePlayerOrder(vector<Player*> &players, int round);
-	//void phase2_auction(vector<GameCard*> &ppMarket, vector<Player*> &players);
 	void deckSetup();
 	void setUpPlayers();
 	void setUpMap();
 	void phase1_determinePlayerOrder();
-	void phase2_auction();
+	void phase2_auctionPowerPlants();
 	void phase3_buyingResources();
 	void phase4_building();
 	void phase5_bureaucracy();
-
 
 	vector<Player*> * getPlayers();
 
@@ -87,50 +79,36 @@ private:
 
 	//user input
 	string choice;
-	/*
-	bool step1 = true;
-	bool step2 = false;
-	bool step3 = false;
-	*/
 	vector<Player*> players;
 	Market * market = new Market(players);
-
+	void createPlayer(int amountOfPlayers, vector<string> colors);
+	void chooseMap();
 
 	bool AI = false;
 	int amountOfPlayers = 0;
 	int amountOfRegionsToChoose = 0;
+
 	//methods needed for phase 2: auction
 	string Auction(PowerPlant * &powerplant, vector<Player*> &players, Player * pl);
-	vector<GameCard*> EnterAuctioningPhase(vector<GameCard*> &ppMarket, vector<Player*> &players);
 	GameCard* drawCard(vector<GameCard*> &deck);
 	void Pass(Player * pl);
 	bool isNumber(string s);
 	int round=1;
 
-	//methods needd for phase 3: buying resources
+	//methods needed for phase 3: buying resources
+	//-none-
 
 	//methods needed for phase 4: bureaucracy
 	int checkProfit(int _num);
 
-
-
-	//TO SORT****
 	//game setup methods needed
 	void makingDeck(vector<GameCard*> &_deck, vector<GameCard*> &_powerPlantMarket);
 	void shuffle(vector<GameCard*> &_deck);
-//	GameCard* drawCard(vector<GameCard*> &deck);
 	void print(vector<GameCard*> &_deck);
 	void deleteDeck(vector<GameCard*> &_deck);
 	void sortMarket(vector<GameCard*> &_powerPlantMarket);
 	
 	void sortMarket_2(vector<PowerPlant*> &_powerPlantMarket);
-	
-
-
-
-
-
-
 };
 
 #endif

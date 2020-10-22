@@ -1,3 +1,5 @@
+//(Rose)
+
 #pragma once
 //code sourced from examples in lab classes
 class Observer
