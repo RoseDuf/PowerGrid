@@ -1,4 +1,4 @@
-//(Elsa and Isabelle)
+//(Rose, Elsa and Isabelle)
 
 #ifndef GAMESTATE_HPP_
 #define GAMESTATE_HPP_
