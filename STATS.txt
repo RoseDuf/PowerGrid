@@ -9,33 +9,33 @@ NUMBER OF PLAYERS
 
 -----------------
 PLAYER COLOR
-Dustyn is Blue
-Rose is Green
+r is Yellow
+f is Blue
 
 -----------------
 NUMBER OF CITIES
-Dustyn *  * 
-Rose * 
+r
+f
 
 -----------------
 LOCATION OF PLAYERS
-Dustyn : Passau Konstanz 
-Rose : Stuttgart 
+r : 
+f : 
 
 -----------------
 NUMBER OF POWERPLANTS
-Dustyn
-Rose * 
+r
+f
 
 -----------------
 NUMBER OF RESOURCE TOKENS PER TYPE
-Dustyn
+r
 COAL: 
 OIL: 
 GARBAGE: 
 URANIUM: 
 
-Rose
+f
 COAL: 
 OIL: 
 GARBAGE: 
@@ -44,8 +44,8 @@ URANIUM:
 
 -----------------
 TOTAL WALLET
-Dustyn : 30
-Rose : 56
+r : 50
+f : 50
 
 -----------------
 WINNER

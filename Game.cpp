@@ -563,6 +563,24 @@ void Game::chooseMap()
 		std::cout << "Choose region color " << (i + 1) << " (Green/Orange/Red/Yellow/Blue/Purple): ";
 		std::string currentRegionColorChoice = "";
 		std::cin >> currentRegionColorChoice;
+		bool correctColorChosen = false;
+
+		if (currentRegionColorChoice == "Green" || currentRegionColorChoice == "Orange" || currentRegionColorChoice == "Red" || currentRegionColorChoice == "Yellow"
+			|| currentRegionColorChoice == "Blue" || currentRegionColorChoice == "Purple")
+		{
+			correctColorChosen = true;
+		}
+
+		while (!correctColorChosen)
+		{
+			cout << "This is an invalid color. Please enter a color amongst the ones listed: ";
+			std::cin >> currentRegionColorChoice;
+			if (currentRegionColorChoice == "Green" || currentRegionColorChoice == "Orange" || currentRegionColorChoice == "Red" || currentRegionColorChoice == "Yellow"
+				|| currentRegionColorChoice == "Blue" || currentRegionColorChoice == "Purple")
+			{
+				correctColorChosen = true;
+			}
+		}
 		chosenRegCols.push_back(currentRegionColorChoice);
 	}
 

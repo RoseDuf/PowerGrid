@@ -101,6 +101,7 @@ void GraphBuilder::addEdge(Graph * graph, EdgeTriplet edges) {
 		std::get<2>(edges)); //edge cost
 
 	//std::get<0>(edges).getCityNumber() corresponds to the same index in the array for the appropriate city
+	//head points to null, so this will put the node nptr at the end of the list
 	nptr->next = graph->arr[std::get<0>(edges).getCityNumber()].head;
 	graph->arr[std::get<0>(edges).getCityNumber()].head = nptr;
 
