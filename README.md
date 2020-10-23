@@ -11,7 +11,7 @@ This will create a solution for the project which will not only oganize the head
 
 Once you have done this, please go on the project propreties and have this Linker option properly set:
 
-![](instruction.jpg)
+![](instruction.JPG)
 
 ## Contributors:
 * Rose Dufresne
@@ -34,7 +34,7 @@ GraphBuilder is the base structure of the game. Without it, the game would have 
 
 The Graph is built as an Adjacency List. This means that there is a vector of Cities (City Objects) where each city points towards a list of other cities that it is adjacent to, which, in a way, creates the edges between them. For example, from the Germany map displayed above, Flensburg would be the first city in the vector. Flensburg would point to the city Kiel and Kiel would also point towards the city Flensburg creating a two-way pointer that becomes an edge. 
 
-This data structure used pointers extensively and is in my opinion a good example that displays pointers potential and logic. You will see that I built my class by taking into consideration pointers and their many traps (dangling pointers or wild pointers). To do this I made sure to use destructors and I used pointers to create connections between each node/city in the map. 
+This data structure used pointers extensively and is in my opinion a good example that displays pointers potential and logic. You will see that I built my class by taking into consideration pointers and their many traps (dangling pointers or wild pointers). To do this I made sure to use destructors and I used pointers to create connections between each node/city in the map. You can also observe that the graph will correctly detect if you try to use invalid map structures (defined as xml files), which is further evidence of a well fabricated complex data structure that makes use of its pointer logic correctly. 
 
 ### City.h and City.cpp
 
