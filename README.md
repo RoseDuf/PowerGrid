@@ -4,6 +4,11 @@ Concordia University 2019
 ### 
 Advanced program design with C++ 
 
+## Instructions on how to run the game:
+Copy this repository on Visual Studio 2017 or 2019. When you open the project, make sure to first go on: File > New > Project From Existing Code... 
+This will create a solution for the project which will not only oganize the header and implementation files nicely for you, but will allow you to run the code directly on the IDE. Once you have done this, please go on the project propreties and have this Linker option properly set:
+![](instruction.jpg)
+
 ## Contributors:
 * Rose Dufresne
 * Elsa Donovan
