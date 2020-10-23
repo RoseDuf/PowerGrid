@@ -115,7 +115,7 @@ std::vector<City> EnvironmentalistStrategy::getCityBuildingChoice(const Player* 
         citiesBeingPurchasedSoFar++;
         
         if( player->getTotalWallet() >= costsAccumulatedSoFar && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar <= player->getCurrentTotalMaximumCityPoweringPotential() ) {
-            if( PowerPlant::peekIthPowerPlantInPresentMarket(3).isGreen() && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar >= determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(player, players) ) { // tries to ensure that this AI player will bid last in next power plant bidding session (as desired in assignment 3's instructions) (by having the least amount of cities owned, but only by 1 city ideally)
+            if( PowerPlant::peekIthPowerPlantInPresentMarket(3).isGreen() && player->getNumCitiesOwned()+citiesBeingPurchasedSoFar >= determineAmountOfCitiesOwnedByOtherPlayerWithLeastAmountOfCities(player, players) ) { 
                 break;
             }
             else {

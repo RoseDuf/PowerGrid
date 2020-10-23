@@ -100,7 +100,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="A3_main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="AggressiveStrategy.cpp" />
     <ClCompile Include="City.cpp" />
     <ClCompile Include="Elektro.cpp" />

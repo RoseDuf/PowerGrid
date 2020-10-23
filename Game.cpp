@@ -466,7 +466,7 @@ void Game::createPlayer(int amountOfPlayers, vector<string> colors)
 	{
 		std::cout << "Enter your name: ";
 		std::cin >> playerName;
-		std::cout << "Enter your color choice (Red/Blue/Black/Purple/Green): ";
+		std::cout << "Enter your color choice (Red/Blue/Black/Purple/Green/Yellow): ";
 		std::cin >> color;
 		for (int j = 0; j < colors.size(); j++) {
 			if (color == colors[j]) {
@@ -500,6 +500,7 @@ void Game::setUpPlayers()
 	colors.push_back("Black");
 	colors.push_back("Purple");
 	colors.push_back("Green");
+	colors.push_back("Yellow");
 
 	std::cin >> amountOfPlayers;
 
@@ -518,7 +519,7 @@ void Game::chooseMap()
 	// Select a map and associate input with list of .map files (Rose)
 	std::cout << "Choose one of the following maps (by entering the appropriate number).:" << std::endl;
 	std::cout << "1) Germany map" << std::endl;
-	std::cout << "2) USA map" << std::endl;
+	std::cout << "2) USA map (unavailable)" << std::endl;
 	std::cout << "3) An invalid map with (a) duplicate edge(s)" << std::endl;
 	std::cout << "4) An invalid map with (a) missing edge(s)" << std::endl;
 
@@ -527,22 +528,29 @@ void Game::chooseMap()
 
 	std::string mapFilename;
 
-	switch (mapChoice)
+	while (mapFilename == "")
 	{
-	case 1:
-		mapFilename = "germany.map";
-		break;
-	case 2:
-		mapFilename = "usa.map";
-		break;
-	case 3:
-		mapFilename = "duplicate_edge(s).map";
-		break;
-	case 4:
-		mapFilename = "missing_edge(s).map";
-		break;
-	default:
-		break;
+		switch (mapChoice)
+		{
+		case 1:
+			mapFilename = "germany.map";
+			break;
+		case 2:
+			//mapFilename = "usa.map";
+			cout << "USA map is unavailable. Please enter another option:" << endl;
+			std::cin >> mapChoice;
+			break;
+		case 3:
+			mapFilename = "duplicate_edge(s).map";
+			break;
+		case 4:
+			mapFilename = "missing_edge(s).map";
+			break;
+		default:
+			cout << "Invalid entry. Please enter from the available options: " << endl;
+			std::cin >> mapChoice;
+			break;
+		}
 	}
 
 	//Read file (Deniz)
