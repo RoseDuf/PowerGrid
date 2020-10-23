@@ -73,5 +73,5 @@ This is an observer that that will display the state of the game when notified. 
 #### Stats.h
 This is an observer that will visually represent the state of the game board (resources available, player city networks, powerplants available, etc).
 
-### Overall
+## Overall
 I think this project is a great display of my capabilities of handling C++, pointers, object oriented programming, data structures (especially), and design patterns. I hope you will see evidence of this yourself if you look at my code!
