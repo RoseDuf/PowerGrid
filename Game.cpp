@@ -657,7 +657,6 @@ void Game::phase2_auctionPowerPlants() {
 		powerPlantMarket_.push_back(static_cast<PowerPlant*>(powerPlantMarket[i]));
 	}
 
-	//task 2 - phase 2
 	string removePP;
 	string input;
 

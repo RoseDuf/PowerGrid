@@ -66,7 +66,6 @@ std::vector<City> ModerateStrategy::getCityBuildingChoice(const Player* player, 
     }
         
     if(gameStep == 1) {
-        // avoid triggering step 2 (as assignment 3 instructions state)
         int costsAccumulatedSoFar = 0;
         int citiesBeingPurchasedSoFar = 0;
         for(auto it = costsAndStillOccupiablePairsIndices.begin(); it != costsAndStillOccupiablePairsIndices.end(); it++) {

@@ -377,55 +377,9 @@ void GraphBuilder::searchCity(string cityName) {
 					cout << "Owned By: " << graph->arr[i].players[j].getName() << ", " << graph->arr[i].players[j].getColor() << endl;
 				}
 			}
-
-			//this is kinda useless, was only there for assignment 1
-			//cout << "---------------Contains---------------" << endl;
-			//for (int j = 0; j < graph->arr[i].powerplants.size(); j++) {
-			//	graph->arr[i].powerplants[j].toString();
-			//}
-			//for (int j = 0; j < graph->arr[i].resources.size(); j++) {
-			//	graph->arr[i].resources[j].toString();
-			//}
-
-			//cout << endl;
-
-			//for (int j = 0; j < graph->arr[i].elektros.size(); j++) {
-			//	graph->arr[i].elektros[j].toString();
-			//}
-
-			//cout << graph->arr[i].player.
 		}
 	}
 }
-
-//Adds Elektros to the City Node
-/*
-void GraphBuilder::add_ElektrosToCity(Elektro el, string name) {
-for (int i = 0; i < totalVertices; i++) {
-if (graph->arr[i].city.getCityName() == name) {
-graph->arr[i].elektros.push_back(el); //add PowerPlant to the physical map
-}
-}
-}*/
-
-//Adds Resources to the City Node
-//void GraphBuilder::add_ResourcesToCity(ResourceToken rt, string name) {
-//	for (int i = 0; i < totalVertices; i++) {
-//		if (graph->arr[i].city.getCityName() == name) {
-//			graph->arr[i].resources.push_back(rt); //add PowerPlant to the physical map
-//		}
-//	}
-//}
-
-//Adds PowerPlants to the City Node
-/*
-void GraphBuilder::add_PowerPlantToCity(PowerPlant pp, string name) {
-for (int i = 0; i < totalVertices; i++) {
-if (graph->arr[i].city.getCityName() == name) {
-graph->arr[i].powerplants.push_back(pp); //add PowerPlant to the physical map
-}
-}
-}*/
 
 //test case to test if the number of cities from the file matches the number of nodes in the map
 bool GraphBuilder::test_SizeOfMap_and_FileMap() {
