@@ -71,7 +71,7 @@ Interface that will be used by children of this class to update and display the 
 This is an observer that that will display the state of the game when notified. That is, Which game phase are we in and the status of each player (aka, how much resources, money and cities they have).
 
 #### Stats.h
-This is an observer that will visually represent the state of the game board (resources available, player city networks, powerplants available, etc).
+This is an observer that will visually represent the state of the game board (resources available, player city networks, powerplants available, etc). You can find the state of the board on the "STATS.txt" file that will be generated/output and updated as the game progresses.
 
 ## Overall
 I think this project is a great display of my capabilities of handling C++, pointers, object oriented programming, data structures (especially), and design patterns. I hope you will see evidence of this yourself if you look at my code!
